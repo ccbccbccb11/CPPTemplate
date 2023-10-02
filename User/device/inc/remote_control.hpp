@@ -351,7 +351,7 @@ public:
      // 鼠标信息计算
     void MouseInfoCalc(void);
 
-private:
+public:
     /* data */
     RCBaseInfo*  base_info_;
     MouseInfo*   mouse_info_;

@@ -712,29 +712,9 @@
           <GroupName>imu</GroupName>
           <Files>
             <File>
-              <FileName>soft_iic.c</FileName>
+              <FileName>bmi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\imu\src\soft_iic.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi270_context.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi270_context.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi270.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi270.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi2_ois.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi2_ois.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi2_common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi2_common.c</FilePath>
+              <FilePath>..\User\imu\src\bmi.c</FilePath>
             </File>
             <File>
               <FileName>bmi2.c</FileName>
@@ -742,9 +722,29 @@
               <FilePath>..\User\imu\src\bmi2.c</FilePath>
             </File>
             <File>
-              <FileName>bmi.c</FileName>
+              <FileName>bmi2_common.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi.c</FilePath>
+              <FilePath>..\User\imu\src\bmi2_common.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi2_ois.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\imu\src\bmi2_ois.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi270.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\imu\src\bmi270.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi270_context.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\imu\src\bmi270_context.c</FilePath>
+            </File>
+            <File>
+              <FileName>soft_iic.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\imu\src\soft_iic.c</FilePath>
             </File>
           </Files>
         </Group>

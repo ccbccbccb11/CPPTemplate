@@ -524,78 +524,44 @@ Section Cross References
     mytasks.o(.ARM.exidx.text.StartRealTimeTask) refers to mytasks.o(.text.StartRealTimeTask) for [Anonymous Symbol]
     mytasks.o(.text.StartHeartBeatTask) refers to cmsis_os.o(.text.osDelay) for osDelay
     mytasks.o(.ARM.exidx.text.StartHeartBeatTask) refers to mytasks.o(.text.StartHeartBeatTask) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Start) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Start) refers to soft_iic.o(.text.IIC_Start) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Stop) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Stop) refers to soft_iic.o(.text.IIC_Stop) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Wait_Ack) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Wait_Ack) refers to soft_iic.o(.text.IIC_Wait_Ack) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Ack) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Ack) refers to soft_iic.o(.text.IIC_Ack) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_NAck) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_NAck) refers to soft_iic.o(.text.IIC_NAck) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Send_Byte) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Send_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for [Anonymous Symbol]
-    soft_iic.o(.text.IIC_Read_Byte) refers to driver_haltick.o(.text.delay_us) for delay_us
-    soft_iic.o(.ARM.exidx.text.IIC_Read_Byte) refers to soft_iic.o(.text.IIC_Read_Byte) for [Anonymous Symbol]
-    bmi270.o(.text.bmi270_init) refers to bmi2.o(.text.bmi2_sec_init) for bmi2_sec_init
-    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_config_file) for bmi270_config_file
-    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_feat_in) for bmi270_feat_in
-    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_feat_out) for bmi270_feat_out
-    bmi270.o(.text.bmi270_init) refers to bmi2.o(.text.bmi2_get_gyro_cross_sense) for bmi2_get_gyro_cross_sense
-    bmi270.o(.ARM.exidx.text.bmi270_init) refers to bmi270.o(.text.bmi270_init) for [Anonymous Symbol]
-    bmi2_ois.o(.text.bmi2_ois_get_regs) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
-    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_regs) refers to bmi2_ois.o(.text.bmi2_ois_get_regs) for [Anonymous Symbol]
-    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_regs) refers to bmi2_ois.o(.text.bmi2_ois_set_regs) for [Anonymous Symbol]
-    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_config) refers to bmi2_ois.o(.text.bmi2_ois_set_config) for [Anonymous Symbol]
-    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_config) refers to bmi2_ois.o(.text.bmi2_ois_get_config) for [Anonymous Symbol]
-    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_read_data) refers to bmi2_ois.o(.text.bmi2_ois_read_data) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.bmi2_user_i2c_init) refers to bmi2_common.o(.text.bmi2_user_i2c_init) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.bmi2_user_spi_init) refers to bmi2_common.o(.text.bmi2_user_spi_init) for [Anonymous Symbol]
-    bmi2_common.o(.text.user_delay_us) refers to driver_haltick.o(.text.delay_us) for delay_us
-    bmi2_common.o(.ARM.exidx.text.user_delay_us) refers to bmi2_common.o(.text.user_delay_us) for [Anonymous Symbol]
-    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
-    bmi2_common.o(.text.MPU_Read_all) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
-    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
-    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
-    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
-    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
-    bmi2_common.o(.ARM.exidx.text.MPU_Read_all) refers to bmi2_common.o(.text.MPU_Read_all) for [Anonymous Symbol]
-    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
-    bmi2_common.o(.text.MPU_Read_Byte) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
-    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
-    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
-    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
-    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
-    bmi2_common.o(.ARM.exidx.text.MPU_Read_Byte) refers to bmi2_common.o(.text.MPU_Read_Byte) for [Anonymous Symbol]
-    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
-    bmi2_common.o(.text.MPU_Write_Byte) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
-    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
-    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
-    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
-    bmi2_common.o(.ARM.exidx.text.MPU_Write_Byte) refers to bmi2_common.o(.text.MPU_Write_Byte) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.user_delay_ms) refers to bmi2_common.o(.text.user_delay_ms) for [Anonymous Symbol]
-    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
-    bmi2_common.o(.text.user_i2c_reg_write) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
-    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
-    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
-    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
-    bmi2_common.o(.ARM.exidx.text.user_i2c_reg_write) refers to bmi2_common.o(.text.user_i2c_reg_write) for [Anonymous Symbol]
-    bmi2_common.o(.text.user_i2c_reg_read) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
-    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
-    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
-    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
-    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
-    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
-    bmi2_common.o(.ARM.exidx.text.user_i2c_reg_read) refers to bmi2_common.o(.text.user_i2c_reg_read) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.user_spi_reg_write) refers to bmi2_common.o(.text.user_spi_reg_write) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.user_spi_reg_read) refers to bmi2_common.o(.text.user_spi_reg_read) for [Anonymous Symbol]
-    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.bss.dev_addr) for dev_addr
-    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_delay_us) for user_delay_us
-    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_i2c_reg_read) for user_i2c_reg_read
-    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_i2c_reg_write) for user_i2c_reg_write
-    bmi2_common.o(.ARM.exidx.text.bmi2_interface_selection) refers to bmi2_common.o(.text.bmi2_interface_selection) for [Anonymous Symbol]
-    bmi2_common.o(.ARM.exidx.text.bmi2_error_codes_print_result) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for [Anonymous Symbol]
+    bmi.o(.ARM.exidx.text.inVSqrt) refers to bmi.o(.text.inVSqrt) for [Anonymous Symbol]
+    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
+    bmi.o(.text.Set_gyro) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
+    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
+    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
+    bmi.o(.ARM.exidx.text.Set_gyro) refers to bmi.o(.text.Set_gyro) for [Anonymous Symbol]
+    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
+    bmi.o(.text.Set_accel) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
+    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
+    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
+    bmi.o(.ARM.exidx.text.Set_accel) refers to bmi.o(.text.Set_accel) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Init) refers to bmi.o(.bss.bmi2_dev) for bmi2_dev
+    bmi.o(.text.BMI_Init) refers to bmi2_common.o(.text.bmi2_interface_selection) for bmi2_interface_selection
+    bmi.o(.text.BMI_Init) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
+    bmi.o(.text.BMI_Init) refers to bmi270.o(.text.bmi270_init) for bmi270_init
+    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_sensor_enable) for bmi2_sensor_enable
+    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
+    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
+    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
+    bmi.o(.ARM.exidx.text.BMI_Init) refers to bmi.o(.text.BMI_Init) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Get_RawData) refers to bmi2_common.o(.text.MPU_Read_all) for MPU_Read_all
+    bmi.o(.text.BMI_Get_RawData) refers to bmi.o(.bss.buff) for buff
+    bmi.o(.ARM.exidx.text.BMI_Get_RawData) refers to bmi.o(.text.BMI_Get_RawData) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Get_AUX) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
+    bmi.o(.ARM.exidx.text.BMI_Get_AUX) refers to bmi.o(.text.BMI_Get_AUX) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Get_GRO) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
+    bmi.o(.ARM.exidx.text.BMI_Get_GRO) refers to bmi.o(.text.BMI_Get_GRO) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Get_ACC) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
+    bmi.o(.ARM.exidx.text.BMI_Get_ACC) refers to bmi.o(.text.BMI_Get_ACC) for [Anonymous Symbol]
+    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.bss..L_MergedGlobals.1) for .L_MergedGlobals.1
+    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.bss.bmi2_dev) for bmi2_dev
+    bmi.o(.text.BMI_Get_EulerAngle) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
+    bmi.o(.text.BMI_Get_EulerAngle) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
+    bmi.o(.text.BMI_Get_EulerAngle) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
+    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.data..L_MergedGlobals) for .L_MergedGlobals
+    bmi.o(.text.BMI_Get_EulerAngle) refers to atan2.o(i.__hardfp_atan2) for __hardfp_atan2
+    bmi.o(.text.BMI_Get_EulerAngle) refers to asin.o(i.__hardfp_asin) for __hardfp_asin
+    bmi.o(.ARM.exidx.text.BMI_Get_EulerAngle) refers to bmi.o(.text.BMI_Get_EulerAngle) for [Anonymous Symbol]
     bmi2.o(.text.bmi2_sec_init) refers to bmi2.o(.text.bmi2_soft_reset) for bmi2_soft_reset
     bmi2.o(.text.bmi2_sec_init) refers to bmi2.o(.text.bmi2_get_regs) for bmi2_get_regs
     bmi2.o(.ARM.exidx.text.bmi2_sec_init) refers to bmi2.o(.text.bmi2_sec_init) for [Anonymous Symbol]
@@ -925,44 +891,78 @@ Section Cross References
     bmi2.o(.text.process_crt_download) refers to bmi2.o(.text.bmi2_get_regs) for bmi2_get_regs
     bmi2.o(.text.process_crt_download) refers to bmi2.o(.text.wait_rdy_for_dl_toggle) for wait_rdy_for_dl_toggle
     bmi2.o(.ARM.exidx.text.process_crt_download) refers to bmi2.o(.text.process_crt_download) for [Anonymous Symbol]
-    bmi.o(.ARM.exidx.text.inVSqrt) refers to bmi.o(.text.inVSqrt) for [Anonymous Symbol]
-    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
-    bmi.o(.text.Set_gyro) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
-    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
-    bmi.o(.text.Set_gyro) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
-    bmi.o(.ARM.exidx.text.Set_gyro) refers to bmi.o(.text.Set_gyro) for [Anonymous Symbol]
-    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
-    bmi.o(.text.Set_accel) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
-    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
-    bmi.o(.text.Set_accel) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
-    bmi.o(.ARM.exidx.text.Set_accel) refers to bmi.o(.text.Set_accel) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Init) refers to bmi.o(.bss.bmi2_dev) for bmi2_dev
-    bmi.o(.text.BMI_Init) refers to bmi2_common.o(.text.bmi2_interface_selection) for bmi2_interface_selection
-    bmi.o(.text.BMI_Init) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for bmi2_error_codes_print_result
-    bmi.o(.text.BMI_Init) refers to bmi270.o(.text.bmi270_init) for bmi270_init
-    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_sensor_enable) for bmi2_sensor_enable
-    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_get_sensor_config) for bmi2_get_sensor_config
-    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_map_data_int) for bmi2_map_data_int
-    bmi.o(.text.BMI_Init) refers to bmi2.o(.text.bmi2_set_sensor_config) for bmi2_set_sensor_config
-    bmi.o(.ARM.exidx.text.BMI_Init) refers to bmi.o(.text.BMI_Init) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Get_RawData) refers to bmi2_common.o(.text.MPU_Read_all) for MPU_Read_all
-    bmi.o(.text.BMI_Get_RawData) refers to bmi.o(.bss.buff) for buff
-    bmi.o(.ARM.exidx.text.BMI_Get_RawData) refers to bmi.o(.text.BMI_Get_RawData) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Get_AUX) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
-    bmi.o(.ARM.exidx.text.BMI_Get_AUX) refers to bmi.o(.text.BMI_Get_AUX) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Get_GRO) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
-    bmi.o(.ARM.exidx.text.BMI_Get_GRO) refers to bmi.o(.text.BMI_Get_GRO) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Get_ACC) refers to bmi2_common.o(.text.MPU_Read_Byte) for MPU_Read_Byte
-    bmi.o(.ARM.exidx.text.BMI_Get_ACC) refers to bmi.o(.text.BMI_Get_ACC) for [Anonymous Symbol]
-    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.bss..L_MergedGlobals.1) for .L_MergedGlobals.1
-    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.bss.bmi2_dev) for bmi2_dev
-    bmi.o(.text.BMI_Get_EulerAngle) refers to f2d.o(x$fpl$f2d) for __aeabi_f2d
-    bmi.o(.text.BMI_Get_EulerAngle) refers to dmul.o(x$fpl$dmul) for __aeabi_dmul
-    bmi.o(.text.BMI_Get_EulerAngle) refers to d2f.o(x$fpl$d2f) for __aeabi_d2f
-    bmi.o(.text.BMI_Get_EulerAngle) refers to bmi.o(.data..L_MergedGlobals) for .L_MergedGlobals
-    bmi.o(.text.BMI_Get_EulerAngle) refers to atan2.o(i.__hardfp_atan2) for __hardfp_atan2
-    bmi.o(.text.BMI_Get_EulerAngle) refers to asin.o(i.__hardfp_asin) for __hardfp_asin
-    bmi.o(.ARM.exidx.text.BMI_Get_EulerAngle) refers to bmi.o(.text.BMI_Get_EulerAngle) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.bmi2_user_i2c_init) refers to bmi2_common.o(.text.bmi2_user_i2c_init) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.bmi2_user_spi_init) refers to bmi2_common.o(.text.bmi2_user_spi_init) for [Anonymous Symbol]
+    bmi2_common.o(.text.user_delay_us) refers to driver_haltick.o(.text.delay_us) for delay_us
+    bmi2_common.o(.ARM.exidx.text.user_delay_us) refers to bmi2_common.o(.text.user_delay_us) for [Anonymous Symbol]
+    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
+    bmi2_common.o(.text.MPU_Read_all) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
+    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
+    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
+    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
+    bmi2_common.o(.text.MPU_Read_all) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
+    bmi2_common.o(.ARM.exidx.text.MPU_Read_all) refers to bmi2_common.o(.text.MPU_Read_all) for [Anonymous Symbol]
+    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
+    bmi2_common.o(.text.MPU_Read_Byte) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
+    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
+    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
+    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
+    bmi2_common.o(.text.MPU_Read_Byte) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
+    bmi2_common.o(.ARM.exidx.text.MPU_Read_Byte) refers to bmi2_common.o(.text.MPU_Read_Byte) for [Anonymous Symbol]
+    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
+    bmi2_common.o(.text.MPU_Write_Byte) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
+    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
+    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
+    bmi2_common.o(.text.MPU_Write_Byte) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
+    bmi2_common.o(.ARM.exidx.text.MPU_Write_Byte) refers to bmi2_common.o(.text.MPU_Write_Byte) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.user_delay_ms) refers to bmi2_common.o(.text.user_delay_ms) for [Anonymous Symbol]
+    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
+    bmi2_common.o(.text.user_i2c_reg_write) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
+    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
+    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
+    bmi2_common.o(.text.user_i2c_reg_write) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
+    bmi2_common.o(.ARM.exidx.text.user_i2c_reg_write) refers to bmi2_common.o(.text.user_i2c_reg_write) for [Anonymous Symbol]
+    bmi2_common.o(.text.user_i2c_reg_read) refers to bmi2_common.o(.data.MPU_ADDR) for MPU_ADDR
+    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Start) for IIC_Start
+    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Send_Byte) for IIC_Send_Byte
+    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Wait_Ack) for IIC_Wait_Ack
+    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Read_Byte) for IIC_Read_Byte
+    bmi2_common.o(.text.user_i2c_reg_read) refers to soft_iic.o(.text.IIC_Stop) for IIC_Stop
+    bmi2_common.o(.ARM.exidx.text.user_i2c_reg_read) refers to bmi2_common.o(.text.user_i2c_reg_read) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.user_spi_reg_write) refers to bmi2_common.o(.text.user_spi_reg_write) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.user_spi_reg_read) refers to bmi2_common.o(.text.user_spi_reg_read) for [Anonymous Symbol]
+    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.bss.dev_addr) for dev_addr
+    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_delay_us) for user_delay_us
+    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_i2c_reg_read) for user_i2c_reg_read
+    bmi2_common.o(.text.bmi2_interface_selection) refers to bmi2_common.o(.text.user_i2c_reg_write) for user_i2c_reg_write
+    bmi2_common.o(.ARM.exidx.text.bmi2_interface_selection) refers to bmi2_common.o(.text.bmi2_interface_selection) for [Anonymous Symbol]
+    bmi2_common.o(.ARM.exidx.text.bmi2_error_codes_print_result) refers to bmi2_common.o(.text.bmi2_error_codes_print_result) for [Anonymous Symbol]
+    bmi2_ois.o(.text.bmi2_ois_get_regs) refers to rt_memcpy_v6.o(.text) for __aeabi_memcpy
+    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_regs) refers to bmi2_ois.o(.text.bmi2_ois_get_regs) for [Anonymous Symbol]
+    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_regs) refers to bmi2_ois.o(.text.bmi2_ois_set_regs) for [Anonymous Symbol]
+    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_config) refers to bmi2_ois.o(.text.bmi2_ois_set_config) for [Anonymous Symbol]
+    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_config) refers to bmi2_ois.o(.text.bmi2_ois_get_config) for [Anonymous Symbol]
+    bmi2_ois.o(.ARM.exidx.text.bmi2_ois_read_data) refers to bmi2_ois.o(.text.bmi2_ois_read_data) for [Anonymous Symbol]
+    bmi270.o(.text.bmi270_init) refers to bmi2.o(.text.bmi2_sec_init) for bmi2_sec_init
+    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_config_file) for bmi270_config_file
+    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_feat_in) for bmi270_feat_in
+    bmi270.o(.text.bmi270_init) refers to bmi270.o(.rodata.bmi270_feat_out) for bmi270_feat_out
+    bmi270.o(.text.bmi270_init) refers to bmi2.o(.text.bmi2_get_gyro_cross_sense) for bmi2_get_gyro_cross_sense
+    bmi270.o(.ARM.exidx.text.bmi270_init) refers to bmi270.o(.text.bmi270_init) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Start) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Start) refers to soft_iic.o(.text.IIC_Start) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Stop) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Stop) refers to soft_iic.o(.text.IIC_Stop) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Wait_Ack) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Wait_Ack) refers to soft_iic.o(.text.IIC_Wait_Ack) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Ack) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Ack) refers to soft_iic.o(.text.IIC_Ack) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_NAck) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_NAck) refers to soft_iic.o(.text.IIC_NAck) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Send_Byte) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Send_Byte) refers to soft_iic.o(.text.IIC_Send_Byte) for [Anonymous Symbol]
+    soft_iic.o(.text.IIC_Read_Byte) refers to driver_haltick.o(.text.delay_us) for delay_us
+    soft_iic.o(.ARM.exidx.text.IIC_Read_Byte) refers to soft_iic.o(.text.IIC_Read_Byte) for [Anonymous Symbol]
     startup_stm32f407xx.o(STACK) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_stm32f407xx.o(HEAP) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
     startup_stm32f407xx.o(RESET) refers (Special) to heapauxi.o(.text) for __use_two_region_memory
@@ -13388,71 +13388,36 @@ Removing Unused input sections from the image.
     Removing mytasks.o(.ARM.exidx.text.StartControlTask), (8 bytes).
     Removing mytasks.o(.ARM.exidx.text.StartRealTimeTask), (8 bytes).
     Removing mytasks.o(.ARM.exidx.text.StartHeartBeatTask), (8 bytes).
-    Removing soft_iic.o(.text), (0 bytes).
-    Removing soft_iic.o(.text.IIC_Start), (60 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Start), (8 bytes).
-    Removing soft_iic.o(.text.IIC_Stop), (62 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Stop), (8 bytes).
-    Removing soft_iic.o(.text.IIC_Wait_Ack), (136 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Wait_Ack), (8 bytes).
-    Removing soft_iic.o(.text.IIC_Ack), (60 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Ack), (8 bytes).
-    Removing soft_iic.o(.text.IIC_NAck), (60 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_NAck), (8 bytes).
-    Removing soft_iic.o(.text.IIC_Send_Byte), (272 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Send_Byte), (8 bytes).
-    Removing soft_iic.o(.text.IIC_Read_Byte), (386 bytes).
-    Removing soft_iic.o(.ARM.exidx.text.IIC_Read_Byte), (8 bytes).
-    Removing bmi270_context.o(.text), (0 bytes).
-    Removing bmi270_context.o(.rodata.bmi270_context_config_file), (8192 bytes).
-    Removing bmi270_context.o(.rodata.bmi270_context_feat_in), (27 bytes).
-    Removing bmi270_context.o(.rodata.bmi270_context_feat_out), (15 bytes).
-    Removing bmi270.o(.text), (0 bytes).
-    Removing bmi270.o(.text.bmi270_init), (128 bytes).
-    Removing bmi270.o(.ARM.exidx.text.bmi270_init), (8 bytes).
-    Removing bmi270.o(.rodata.bmi270_config_file), (8192 bytes).
-    Removing bmi270.o(.rodata.bmi270_feat_in), (48 bytes).
-    Removing bmi270.o(.rodata.bmi270_feat_out), (21 bytes).
-    Removing bmi2_ois.o(.text), (0 bytes).
-    Removing bmi2_ois.o(.text.bmi2_ois_get_regs), (134 bytes).
-    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_regs), (8 bytes).
-    Removing bmi2_ois.o(.text.bmi2_ois_set_regs), (62 bytes).
-    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_regs), (8 bytes).
-    Removing bmi2_ois.o(.text.bmi2_ois_set_config), (176 bytes).
-    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_config), (8 bytes).
-    Removing bmi2_ois.o(.text.bmi2_ois_get_config), (122 bytes).
-    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_config), (8 bytes).
-    Removing bmi2_ois.o(.text.bmi2_ois_read_data), (266 bytes).
-    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_read_data), (8 bytes).
-    Removing bmi2_common.o(.text), (0 bytes).
-    Removing bmi2_common.o(.text.bmi2_user_i2c_init), (4 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.bmi2_user_i2c_init), (8 bytes).
-    Removing bmi2_common.o(.text.bmi2_user_spi_init), (4 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.bmi2_user_spi_init), (8 bytes).
-    Removing bmi2_common.o(.text.user_delay_us), (4 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_delay_us), (8 bytes).
-    Removing bmi2_common.o(.text.MPU_Read_all), (98 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.MPU_Read_all), (8 bytes).
-    Removing bmi2_common.o(.text.MPU_Read_Byte), (76 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.MPU_Read_Byte), (8 bytes).
-    Removing bmi2_common.o(.text.MPU_Write_Byte), (80 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.MPU_Write_Byte), (8 bytes).
-    Removing bmi2_common.o(.text.user_delay_ms), (2 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_delay_ms), (8 bytes).
-    Removing bmi2_common.o(.text.user_i2c_reg_write), (92 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_i2c_reg_write), (8 bytes).
-    Removing bmi2_common.o(.text.user_i2c_reg_read), (94 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_i2c_reg_read), (8 bytes).
-    Removing bmi2_common.o(.text.user_spi_reg_write), (4 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_spi_reg_write), (8 bytes).
-    Removing bmi2_common.o(.text.user_spi_reg_read), (4 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.user_spi_reg_read), (8 bytes).
-    Removing bmi2_common.o(.text.bmi2_interface_selection), (70 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.bmi2_interface_selection), (8 bytes).
-    Removing bmi2_common.o(.text.bmi2_error_codes_print_result), (2 bytes).
-    Removing bmi2_common.o(.ARM.exidx.text.bmi2_error_codes_print_result), (8 bytes).
-    Removing bmi2_common.o(.data.MPU_ADDR), (1 bytes).
-    Removing bmi2_common.o(.bss.dev_addr), (1 bytes).
+    Removing bmi.o(.text), (0 bytes).
+    Removing bmi.o(.text.inVSqrt), (50 bytes).
+    Removing bmi.o(.ARM.exidx.text.inVSqrt), (8 bytes).
+    Removing bmi.o(.text.Set_gyro), (90 bytes).
+    Removing bmi.o(.ARM.exidx.text.Set_gyro), (8 bytes).
+    Removing bmi.o(.text.Set_accel), (82 bytes).
+    Removing bmi.o(.ARM.exidx.text.Set_accel), (8 bytes).
+    Removing bmi.o(.text.BMI_Init), (276 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Init), (8 bytes).
+    Removing bmi.o(.text.BMI_Get_RawData), (88 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Get_RawData), (8 bytes).
+    Removing bmi.o(.text.BMI_Get_AUX), (108 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Get_AUX), (8 bytes).
+    Removing bmi.o(.text.BMI_Get_GRO), (82 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Get_GRO), (8 bytes).
+    Removing bmi.o(.text.BMI_Get_ACC), (82 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Get_ACC), (8 bytes).
+    Removing bmi.o(.text.BMI_Get_EulerAngle), (1228 bytes).
+    Removing bmi.o(.ARM.exidx.text.BMI_Get_EulerAngle), (8 bytes).
+    Removing bmi.o(.bss.sensor_data), (16 bytes).
+    Removing bmi.o(.bss.bmi2_dev), (104 bytes).
+    Removing bmi.o(.bss.buff), (12 bytes).
+    Removing bmi.o(.bss.q0_init), (4 bytes).
+    Removing bmi.o(.data.q1_init), (4 bytes).
+    Removing bmi.o(.bss.q2_init), (4 bytes).
+    Removing bmi.o(.bss.q3_init), (4 bytes).
+    Removing bmi.o(.bss.debug_bmi), (1 bytes).
+    Removing bmi.o(.bss.a_sum), (4 bytes).
+    Removing bmi.o(.data..L_MergedGlobals), (12 bytes).
+    Removing bmi.o(.bss..L_MergedGlobals.1), (80 bytes).
     Removing bmi2.o(.text), (0 bytes).
     Removing bmi2.o(.text.bmi2_sec_init), (118 bytes).
     Removing bmi2.o(.ARM.exidx.text.bmi2_sec_init), (8 bytes).
@@ -13665,36 +13630,71 @@ Removing Unused input sections from the image.
     Removing bmi2.o(.text.process_crt_download), (162 bytes).
     Removing bmi2.o(.ARM.exidx.text.process_crt_download), (8 bytes).
     Removing bmi2.o(.rodata..L__const.bmi2_sec_init.axes_remap), (6 bytes).
-    Removing bmi.o(.text), (0 bytes).
-    Removing bmi.o(.text.inVSqrt), (50 bytes).
-    Removing bmi.o(.ARM.exidx.text.inVSqrt), (8 bytes).
-    Removing bmi.o(.text.Set_gyro), (90 bytes).
-    Removing bmi.o(.ARM.exidx.text.Set_gyro), (8 bytes).
-    Removing bmi.o(.text.Set_accel), (82 bytes).
-    Removing bmi.o(.ARM.exidx.text.Set_accel), (8 bytes).
-    Removing bmi.o(.text.BMI_Init), (276 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Init), (8 bytes).
-    Removing bmi.o(.text.BMI_Get_RawData), (88 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Get_RawData), (8 bytes).
-    Removing bmi.o(.text.BMI_Get_AUX), (108 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Get_AUX), (8 bytes).
-    Removing bmi.o(.text.BMI_Get_GRO), (82 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Get_GRO), (8 bytes).
-    Removing bmi.o(.text.BMI_Get_ACC), (82 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Get_ACC), (8 bytes).
-    Removing bmi.o(.text.BMI_Get_EulerAngle), (1228 bytes).
-    Removing bmi.o(.ARM.exidx.text.BMI_Get_EulerAngle), (8 bytes).
-    Removing bmi.o(.bss.sensor_data), (16 bytes).
-    Removing bmi.o(.bss.bmi2_dev), (104 bytes).
-    Removing bmi.o(.bss.buff), (12 bytes).
-    Removing bmi.o(.bss.q0_init), (4 bytes).
-    Removing bmi.o(.data.q1_init), (4 bytes).
-    Removing bmi.o(.bss.q2_init), (4 bytes).
-    Removing bmi.o(.bss.q3_init), (4 bytes).
-    Removing bmi.o(.bss.debug_bmi), (1 bytes).
-    Removing bmi.o(.bss.a_sum), (4 bytes).
-    Removing bmi.o(.data..L_MergedGlobals), (12 bytes).
-    Removing bmi.o(.bss..L_MergedGlobals.1), (80 bytes).
+    Removing bmi2_common.o(.text), (0 bytes).
+    Removing bmi2_common.o(.text.bmi2_user_i2c_init), (4 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.bmi2_user_i2c_init), (8 bytes).
+    Removing bmi2_common.o(.text.bmi2_user_spi_init), (4 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.bmi2_user_spi_init), (8 bytes).
+    Removing bmi2_common.o(.text.user_delay_us), (4 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_delay_us), (8 bytes).
+    Removing bmi2_common.o(.text.MPU_Read_all), (98 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.MPU_Read_all), (8 bytes).
+    Removing bmi2_common.o(.text.MPU_Read_Byte), (76 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.MPU_Read_Byte), (8 bytes).
+    Removing bmi2_common.o(.text.MPU_Write_Byte), (80 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.MPU_Write_Byte), (8 bytes).
+    Removing bmi2_common.o(.text.user_delay_ms), (2 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_delay_ms), (8 bytes).
+    Removing bmi2_common.o(.text.user_i2c_reg_write), (92 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_i2c_reg_write), (8 bytes).
+    Removing bmi2_common.o(.text.user_i2c_reg_read), (94 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_i2c_reg_read), (8 bytes).
+    Removing bmi2_common.o(.text.user_spi_reg_write), (4 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_spi_reg_write), (8 bytes).
+    Removing bmi2_common.o(.text.user_spi_reg_read), (4 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.user_spi_reg_read), (8 bytes).
+    Removing bmi2_common.o(.text.bmi2_interface_selection), (70 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.bmi2_interface_selection), (8 bytes).
+    Removing bmi2_common.o(.text.bmi2_error_codes_print_result), (2 bytes).
+    Removing bmi2_common.o(.ARM.exidx.text.bmi2_error_codes_print_result), (8 bytes).
+    Removing bmi2_common.o(.data.MPU_ADDR), (1 bytes).
+    Removing bmi2_common.o(.bss.dev_addr), (1 bytes).
+    Removing bmi2_ois.o(.text), (0 bytes).
+    Removing bmi2_ois.o(.text.bmi2_ois_get_regs), (134 bytes).
+    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_regs), (8 bytes).
+    Removing bmi2_ois.o(.text.bmi2_ois_set_regs), (62 bytes).
+    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_regs), (8 bytes).
+    Removing bmi2_ois.o(.text.bmi2_ois_set_config), (176 bytes).
+    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_set_config), (8 bytes).
+    Removing bmi2_ois.o(.text.bmi2_ois_get_config), (122 bytes).
+    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_get_config), (8 bytes).
+    Removing bmi2_ois.o(.text.bmi2_ois_read_data), (266 bytes).
+    Removing bmi2_ois.o(.ARM.exidx.text.bmi2_ois_read_data), (8 bytes).
+    Removing bmi270.o(.text), (0 bytes).
+    Removing bmi270.o(.text.bmi270_init), (128 bytes).
+    Removing bmi270.o(.ARM.exidx.text.bmi270_init), (8 bytes).
+    Removing bmi270.o(.rodata.bmi270_config_file), (8192 bytes).
+    Removing bmi270.o(.rodata.bmi270_feat_in), (48 bytes).
+    Removing bmi270.o(.rodata.bmi270_feat_out), (21 bytes).
+    Removing bmi270_context.o(.text), (0 bytes).
+    Removing bmi270_context.o(.rodata.bmi270_context_config_file), (8192 bytes).
+    Removing bmi270_context.o(.rodata.bmi270_context_feat_in), (27 bytes).
+    Removing bmi270_context.o(.rodata.bmi270_context_feat_out), (15 bytes).
+    Removing soft_iic.o(.text), (0 bytes).
+    Removing soft_iic.o(.text.IIC_Start), (60 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Start), (8 bytes).
+    Removing soft_iic.o(.text.IIC_Stop), (62 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Stop), (8 bytes).
+    Removing soft_iic.o(.text.IIC_Wait_Ack), (136 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Wait_Ack), (8 bytes).
+    Removing soft_iic.o(.text.IIC_Ack), (60 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Ack), (8 bytes).
+    Removing soft_iic.o(.text.IIC_NAck), (60 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_NAck), (8 bytes).
+    Removing soft_iic.o(.text.IIC_Send_Byte), (272 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Send_Byte), (8 bytes).
+    Removing soft_iic.o(.text.IIC_Read_Byte), (386 bytes).
+    Removing soft_iic.o(.ARM.exidx.text.IIC_Read_Byte), (8 bytes).
     Removing stm32f4xx_hal_can.o(.text), (0 bytes).
     Removing stm32f4xx_hal_can.o(.ARM.exidx.text.HAL_CAN_Init), (8 bytes).
     Removing stm32f4xx_hal_can.o(.text.HAL_CAN_MspInit), (2 bytes).

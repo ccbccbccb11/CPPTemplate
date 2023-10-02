@@ -642,8 +642,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\soft_iic.c</PathWithFileName>
-      <FilenameWithoutPath>soft_iic.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\bmi.c</PathWithFileName>
+      <FilenameWithoutPath>bmi.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -654,8 +654,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\bmi270_context.c</PathWithFileName>
-      <FilenameWithoutPath>bmi270_context.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\bmi2.c</PathWithFileName>
+      <FilenameWithoutPath>bmi2.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -666,8 +666,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\bmi270.c</PathWithFileName>
-      <FilenameWithoutPath>bmi270.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\bmi2_common.c</PathWithFileName>
+      <FilenameWithoutPath>bmi2_common.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -690,8 +690,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\bmi2_common.c</PathWithFileName>
-      <FilenameWithoutPath>bmi2_common.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\bmi270.c</PathWithFileName>
+      <FilenameWithoutPath>bmi270.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -702,8 +702,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\bmi2.c</PathWithFileName>
-      <FilenameWithoutPath>bmi2.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\bmi270_context.c</PathWithFileName>
+      <FilenameWithoutPath>bmi270_context.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -714,8 +714,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\User\imu\src\bmi.c</PathWithFileName>
-      <FilenameWithoutPath>bmi.c</FilenameWithoutPath>
+      <PathWithFileName>..\User\imu\src\soft_iic.c</PathWithFileName>
+      <FilenameWithoutPath>soft_iic.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
