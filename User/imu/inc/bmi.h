@@ -48,10 +48,9 @@ void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,shor
 void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4);
 void BMI_Get_GRO(short *gx,short *gy,short *gz);
 void BMI_Get_ACC(short *ax,short *ay,short *az);
-
-uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,
-				float *ggx,float *ggy,float *ggz,
-				float *aax,float *aay,float *aaz);
+uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
+													 float *ggx,float *ggy,float *ggz,\
+													 float *aax,float *aay,float *aaz);
 //不带_的为涉及加速度计的，带_的为不涉及加速度计的，用于差分计算速度
 #ifdef  __cplusplus
 }  

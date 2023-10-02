@@ -33,8 +33,8 @@ class	Motor {
 			// ¹¹Ôìº¯Êý
 		Motor() { stateinfo_.init_flag_ = kMotorEmpty; }
 		Motor(MotorDriver drive_type,\
-					MotorType motor_type,\
-					uint32_t rx_id) {
+				MotorType motor_type,\
+				uint32_t rx_id) {
 			idinfo_.rx_id_ = rx_id;
 			idinfo_.drive_type_ = drive_type;
 			idinfo_.motor_type_ = motor_type;

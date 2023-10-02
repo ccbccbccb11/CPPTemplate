@@ -18,7 +18,8 @@
  * range 2G, 4G, 8G or 16G.
  */
 #define GRAVITY_EARTH  (9.80665f)
-static float lsb_to_mps2(int16_t val, float g_range, uint8_t bit_width) {
+static float lsb_to_mps2(int16_t val, float g_range, uint8_t bit_width)
+{
     float half_scale = ((float)(1 << bit_width) / 2.0f);
 
     return (GRAVITY_EARTH * val * g_range) / half_scale;
@@ -28,13 +29,15 @@ static float lsb_to_mps2(int16_t val, float g_range, uint8_t bit_width) {
  * @brief This function converts lsb to degree per second for 16 bit gyro at
  * range 125, 250, 500, 1000 or 2000dps.
  */
-static float lsb_to_dps(int16_t val, float dps, uint8_t bit_width) {
+static float lsb_to_dps(int16_t val, float dps, uint8_t bit_width)
+{
     float half_scale = ((float)(1 << bit_width) / 2.0f);
 
     return (dps / ((half_scale) + BMI2_GYR_RANGE_2000)) * (val);
 }
 
-float inVSqrt(float x) {
+float inVSqrt(float x)
+{
 	float halfx = 0.5f * x;
 	float y = x;
 	long i = *(long*)&y;
@@ -65,7 +68,9 @@ int8_t  Set_gyro(struct bmi2_dev *dev)
     rslt = bmi2_map_data_int(BMI2_DRDY_INT, BMI2_INT2, dev);
     bmi2_error_codes_print_result(rslt);
 
-    if (rslt == BMI2_OK) {
+    if (rslt == BMI2_OK)
+    {
+
         /* The user can change the following configuration parameters according to their requirement. */
         /* Output Data Rate. By default ODR is set as 200Hz for gyro. */
         config.cfg.gyr.odr = BMI2_GYR_ODR_1600HZ;
@@ -99,7 +104,8 @@ int8_t  Set_gyro(struct bmi2_dev *dev)
 
 }
 
-int8_t  Set_accel(struct bmi2_dev *bmi2_dev) {
+int8_t  Set_accel(struct bmi2_dev *bmi2_dev)
+{
  /* Status of api are returned to this variable. */
     int8_t rslt;
 
@@ -117,7 +123,8 @@ int8_t  Set_accel(struct bmi2_dev *bmi2_dev) {
     rslt = bmi2_map_data_int(BMI2_DRDY_INT, BMI2_INT1, bmi2_dev);
     bmi2_error_codes_print_result(rslt);
 
-    if (rslt == BMI2_OK) {
+    if (rslt == BMI2_OK)
+    {
         /* NOTE: The user can change the following configuration parameters according to their requirement. */
         /* Output Data Rate. By default ODR is set as 100Hz for accel. */
         config.cfg.acc.odr = BMI2_ACC_ODR_1600HZ;
@@ -153,7 +160,8 @@ int8_t  Set_accel(struct bmi2_dev *bmi2_dev) {
 struct bmi2_dev bmi2_dev;
 struct bmi2_sensor_data sensor_data = { 0 };
 int8_t debug_bmi;
-int8_t BMI_Init(void) {
+int8_t BMI_Init(void)
+{
   /* Status of api are returned to this variable. */
     int8_t rslt;
 
@@ -176,31 +184,34 @@ int8_t BMI_Init(void) {
     rslt = bmi270_init(&bmi2_dev);
     bmi2_error_codes_print_result(rslt);
 		
-    if (rslt == BMI2_OK) {
-			sens_listp = BMI2_GYRO;		
-					/* Enable the selected sensors. */
-					rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-					bmi2_error_codes_print_result(rslt);	
-			Set_gyro(&bmi2_dev);
-				
-			sens_listp = BMI2_ACCEL;
-			/* Enable the selected sensors. */
-					rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-					bmi2_error_codes_print_result(rslt);
-			Set_accel(&bmi2_dev);
-				
-			sens_listp = BMI2_AUX;
-					/* Enable the selected sensors. */
-					rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-					bmi2_error_codes_print_result(rslt);
+    if (rslt == BMI2_OK)
+    {
+		sens_listp = BMI2_GYRO;		
+        /* Enable the selected sensors. */
+        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
+        bmi2_error_codes_print_result(rslt);	
+		Set_gyro(&bmi2_dev);
+			
+		sens_listp = BMI2_ACCEL;
+		/* Enable the selected sensors. */
+        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
+        bmi2_error_codes_print_result(rslt);
+		Set_accel(&bmi2_dev);
+			
+		sens_listp = BMI2_AUX;
+        /* Enable the selected sensors. */
+        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
+        bmi2_error_codes_print_result(rslt);
     }
     
     return rslt;
 }
-
-int16_t buff[6];
-void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,short *aaz) {
+	int16_t buff[6];
+void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,short *aaz)
+{
 	uint8_t data[12];
+
+	
 	MPU_Read_all(ACCD_X_LSB,data,12);
 	
 	buff[0] = (int16_t)data[0] | ( (int16_t)data[1] << 8);
@@ -219,21 +230,25 @@ void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,shor
 	*ggz = buff[5];	
 }
 
-void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4) {
+void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4)
+{
 	int16_t x[3],y[3],z[3],r[3];
 	
 	x[0] = MPU_Read_Byte(0x04) ;
 	x[1] = MPU_Read_Byte(0x05)  ;
 	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
 	
+	
 	y[0] = MPU_Read_Byte(0x06); 
 	y[1] = MPU_Read_Byte(0x07)  ; 
 	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
 	
+	
 	z[0] = MPU_Read_Byte(0x08) ; 
 	z[1] = MPU_Read_Byte(0x09) ; 
 	z[2] = (int16_t)z[0] | ( (int16_t)z[1] << 8 );
-
+	
+		
 	r[0] = MPU_Read_Byte(0x0a) ; 
 	r[1] = MPU_Read_Byte(0x0b) ; 
 	r[2] = (int16_t)r[0] | ( (int16_t)r[1] << 8 );
@@ -244,16 +259,20 @@ void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4) {
 	*au4 = r[2];
 }
 
-void BMI_Get_GRO(short *ggx,short *ggy,short *ggz) {
+void BMI_Get_GRO(short *ggx,short *ggy,short *ggz)
+{
+
 	int16_t x[3],y[3],z[3];
 	
 	x[0] = MPU_Read_Byte(GYR_X_LSB) ;
 	x[1] = MPU_Read_Byte(GYR_X_MSB)  ;
 	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
 	
+	
 	y[0] = MPU_Read_Byte(GYR_Y_LSB); 
 	y[1] = MPU_Read_Byte(GYR_Y_MSB)  ; 
 	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
+	
 	
 	z[0] = MPU_Read_Byte(GYR_Z_LSB) ; 
 	z[1] = MPU_Read_Byte(GYR_Z_MSB) ; 
@@ -262,18 +281,22 @@ void BMI_Get_GRO(short *ggx,short *ggy,short *ggz) {
 	*ggx = x[2];
 	*ggy = y[2];
 	*ggz = z[2];
+
 }
 
-void BMI_Get_ACC(short *aax,short *aay,short *aaz) {
+void BMI_Get_ACC(short *aax,short *aay,short *aaz)
+{
 	int16_t x[3],y[3],z[3];
 	
 	x[0] = MPU_Read_Byte(ACCD_X_LSB) ;
 	x[1] = MPU_Read_Byte(ACCD_X_MSB)  ;
 	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
 	
+	
 	y[0] = MPU_Read_Byte(ACCD_Y_LSB); 
 	y[1] = MPU_Read_Byte(ACCD_Y_MSB)  ; 
 	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
+	
 	
 	z[0] = MPU_Read_Byte(ACCD_Z_LSB) ; 
 	z[1] = MPU_Read_Byte(ACCD_Z_MSB) ; 
@@ -308,8 +331,8 @@ float a_sum;
   * @param  
   * @retval 
   */
-uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,
-													 float *ggx,float *ggy,float *ggz,
+uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
+													 float *ggx,float *ggy,float *ggz,\
 													 float *aax,float *aay,float *aaz) {
 	/* 陀螺仪值赋值 */
 	gx = *ggx;
@@ -333,8 +356,7 @@ uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,
 	
 	/* 角度解算start */
 	/* 加速度计数据检查 */
-	if(ax * ay * az != 0)
-	{
+	if(ax * ay * az != 0) {
 		/* 加速度计数据单位转换（to米每二次方秒） */
 		ax = lsb_to_mps2(ax,2,bmi2_dev.resolution);
 		ay = lsb_to_mps2(ay,2,bmi2_dev.resolution);
@@ -378,6 +400,6 @@ uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,
 	*pitch = -asin( 2 * q1 * q3 -2 * q0* q2)*57.295773f;
 	*yaw =  -atan2(2*(q1*q2 + q0*q3),q0*q0 +q1*q1-q2*q2 -q3*q3)*57.295773f;  //装配校正
 	/* 角度解算end */
-
+	
 	return 0;
 }

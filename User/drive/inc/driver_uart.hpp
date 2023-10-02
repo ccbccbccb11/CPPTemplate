@@ -10,8 +10,8 @@
  ******************************************************************************
  */
 
-#ifndef DRIVER_UART_H
-#define DRIVER_UART_H
+#ifndef DRIVER_UART_HPP
+#define DRIVER_UART_HPP
 
 #include "stm32f4xx_hal.h"
 

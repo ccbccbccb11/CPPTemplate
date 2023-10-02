@@ -649,4 +649,5 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\streambuf \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h \
-  ..\Core\Inc\usart.h ..\Core\Inc\main.h
+  ..\User\device\inc\remote_control.hpp ..\User\device\inc\rc_config.h \
+  ..\User\Alog\inc\utils.h ..\Core\Inc\usart.h ..\Core\Inc\main.h

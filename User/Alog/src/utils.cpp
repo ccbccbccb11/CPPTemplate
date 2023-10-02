@@ -1,10 +1,10 @@
 /**
  ******************************************************************************
- * @file    utils.cpp/h
+ * @file    .cpp/h
  * @brief   General math utils. 常用数学工具函数
- * @author  Spoon Guan
+ * @author  
  ******************************************************************************
- * Copyright (c) 2023 Team JiaoLong-SJTU
+ * Copyright (c) 2024 Team RobotPilots-SZU
  * All rights reserved.
  ******************************************************************************
  */

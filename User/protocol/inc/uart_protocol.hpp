@@ -19,7 +19,7 @@
 #include <vector>
 
 #ifdef __cplusplus
-			/*C++ code*/
+			/* C++ code */
 namespace myuart {
 	// ³õÊ¼»¯×´Ì¬
 typedef enum {
