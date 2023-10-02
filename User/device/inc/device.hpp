@@ -14,19 +14,21 @@
  #define DEVICE_HPP
 
 #include "stm32f4xx_hal.h"
-#include "motor.hpp"
-#include "uart_protocol.hpp"
-#include <iostream>
-#include <vector>
 
 #ifdef __cplusplus
 			/*C++ code*/
+#include <iostream>
+#include <vector>
+#include "motor.hpp"
+#include "uart_protocol.hpp"
+
 class Device {
 	public:
+		static uint8_t motors_count_;
 		Device() {}
 			// 添加电机
-		void AddMotors(motor::Motor motors) {
-			motors_.push_back(&motors);
+		void AddMotors(motor::Motor* motors) {
+			motors_.push_back(motors);
 			motors_count_ ++;
 		}
 			// 获取电机数量
@@ -43,15 +45,14 @@ class Device {
 		}
 	private:
 		std::vector<motor::Motor*> motors_;
-		static uint8_t motors_count_;
 };
+extern Device devices;
 #endif /*__cplusplus*/
 
 #ifdef __cplusplus
 	extern "C" {
 #endif  /* __cplusplus */
 			/*C code*/
-extern Device devices;
 void Device_Init(void);
 void Device_HeartBeat(void);
 void Device_Work(void);

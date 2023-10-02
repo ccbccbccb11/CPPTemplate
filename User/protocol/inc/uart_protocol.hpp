@@ -15,11 +15,11 @@
 
 #include "stm32f4xx_hal.h"
 #include "crc.hpp"
-#include <iostream>
-#include <vector>
 
 #ifdef __cplusplus
 			/* C++ code */
+#include <iostream>
+#include <vector>
 namespace myuart {
 	// ³õÊ¼»¯×´Ì¬
 typedef enum {

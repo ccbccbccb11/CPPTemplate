@@ -37,9 +37,6 @@
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\User\motor\inc\motor.hpp ..\User\motor\inc\motor_def.hpp \
-  ..\User\Alog\inc\utils.h ..\User\protocol\inc\uart_protocol.hpp \
-  ..\User\protocol\inc\crc.hpp \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\iostream \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__assert \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__verbose_abort \
@@ -652,4 +649,6 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\streambuf \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h \
-  ..\User\controler\inc\pid.hpp
+  ..\User\motor\inc\motor.hpp ..\User\motor\inc\motor_def.hpp \
+  ..\User\Alog\inc\utils.h ..\User\protocol\inc\uart_protocol.hpp \
+  ..\User\protocol\inc\crc.hpp

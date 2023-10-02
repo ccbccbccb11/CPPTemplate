@@ -759,6 +759,9 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>debug</GroupName>
+        </Group>
+        <Group>
           <GroupName>Application/MDK-ARM</GroupName>
           <Files>
             <File>

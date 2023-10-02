@@ -205,14 +205,23 @@ class PIDUnit : public PIDInfo, public PIDConfid {
 class PIDControler {
 	public:
 		PIDControler() { init_flag_ = kPIDEmpty; }
+		PIDControler(float kp,
+						float	ki, float	kd,
+						float	blind_err,
+						float	integral_max,
+						float	iout_max,
+						float	out_max, 
+						PIDMode mode) {
+			InitMotorPIDParams(kp, ki, kd, blind_err, integral_max, iout_max, out_max, mode);
+		}
 			// 电机 pid 初始化 传数
 		void InitMotorPIDParams(float kp,
-							float	ki, float	kd,
-							float	blind_err,
-							float	integral_max,
-							float	iout_max,
-							float	out_max, 
-							PIDMode mode)  {
+						float	ki, float	kd,
+						float	blind_err,
+						float	integral_max,
+						float	iout_max,
+						float	out_max, 
+						PIDMode mode)  {
 			switch (mode) {
 				case kSpeed:
 					SpeedPID_ = PIDUnit(kp, ki, kd, blind_err, integral_max, iout_max, out_max);

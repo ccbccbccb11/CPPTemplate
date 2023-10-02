@@ -13,10 +13,11 @@
 #include "device.hpp"
 #include "test_motor.hpp"
 
+uint8_t Device::motors_count_ = 0;
 Device devices;
 
 void Device_Init(void) {
-	
+	devices.AddMotors(&test_motor);
 }
 
 void Device_HeartBeat(void) {
