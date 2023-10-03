@@ -3,7 +3,8 @@
   "type": "ARM",
   "dependenceList": [],
   "srcDirs": [
-    ".eide/deps"
+    ".eide/deps",
+    "User/Entity"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",

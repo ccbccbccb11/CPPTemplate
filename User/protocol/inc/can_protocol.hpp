@@ -19,7 +19,7 @@
 	extern "C" {
 #endif  /* __cplusplus */
 			/*C code*/
-
+uint8_t CAN_Send(void);
 /*CAN发送或是接收的ID*/
 typedef enum
 {

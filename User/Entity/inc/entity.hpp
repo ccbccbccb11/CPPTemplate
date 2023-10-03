@@ -33,15 +33,19 @@ typedef enum {
 template <uint8_t _n = 1>
 class Entity {
 	public:
-		Entity(Motor motors[_n]) {
+		Entity(Motor* motors[_n]) {
 			for (int i = 0; i < _n; i++) {
-				motors_[i] = &motors[i];
+				motors_[i] = motors[i];
 			}
+		}
+		Entity(Motor* motors) {
+			motors_[0] = motors;
 		}
 		virtual void PIDCalculating() = 0;
 		virtual void PIDOutput() = 0;
 		virtual void ControlTask() = 0;
 		virtual void InfoUpdate() = 0;
+		virtual void HeartBeat() = 0;
 
 	private:
 		Motor* motors_[_n];

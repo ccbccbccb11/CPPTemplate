@@ -19,7 +19,8 @@
 			/*C++ code*/
 #include <iostream>
 #include <vector>
-#include "motor.hpp"
+#include "pid.hpp"
+#include "test_motor.hpp"
 #include "uart_protocol.hpp"
 
 class Device {
@@ -32,8 +33,8 @@ class Device {
 			motors_count_ ++;
 		}
 			// 获取电机数量
-		size_t GetMotorsCount() const {
-			return motors_.size();
+		uint8_t GetMotorsCount() {
+			return motors_count_;
 		}
 			// 获取指定索引的电机
 		motor::Motor* GetMotors(size_t index) {

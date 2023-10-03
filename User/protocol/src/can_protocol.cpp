@@ -34,7 +34,8 @@ extern CAN_HandleTypeDef hcan2;
   * @param   
 **/
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
-	uint8_t DEVICE_CNT = devices.GetMotorsCount();
+	uint8_t DEVICE_CNT;
+	DEVICE_CNT = devices.GetMotorsCount();
   if (hcan == &hcan1) {
 		 HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcan1RxFrame.header, hcan1RxFrame.data);
 		for (uint16_t i=0; i<DEVICE_CNT; i++)
@@ -58,11 +59,12 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   * @param   
 **/
 uint8_t can_txbuff[8];
-const uint8_t RC_ONLINE=0;
+uint8_t DEVICE_CNT;
+//const uint8_t RC_ONLINE = 1;
+uint8_t RC_ONLINE = 0;
 uint8_t CAN_Send(void) {
 	memset(can_txbuff, 0, sizeof(can_txbuff));
-	uint8_t DEVICE_CNT = devices.GetMotorsCount();
-	
+	DEVICE_CNT = devices.GetMotorsCount();
 	/*****0x200°ü*****/
 	HAL_CAN_TxHeadeInit(kCANId_0x200);
 	/*CAN1*/
@@ -86,7 +88,7 @@ uint8_t CAN_Send(void) {
 			if (devices.GetMotors(i)->GetDriveType() == kMotorDriverCAN2)
 				if (devices.GetMotors(i)->GetRxId() >= 0x201 &&
 						 devices.GetMotors(i)->GetRxId() <= 0x204 &&
-						 devices.GetMotors(i)->GetState()==kMotorInit)
+						 devices.GetMotors(i)->GetState() == kMotorInit)
 							 devices.GetMotors(i)->AddCANTxMessage(can_txbuff);
 	}
 	if (HAL_CAN_AddTxMessage(&hcan2, &CAN_TxHeadeType, can_txbuff, 
@@ -103,7 +105,7 @@ uint8_t CAN_Send(void) {
 			if (devices.GetMotors(i)->GetDriveType() == kMotorDriverCAN1)
 				if (devices.GetMotors(i)->GetRxId() >= 0x205 &&
 						 devices.GetMotors(i)->GetRxId() <= 0x208 &&
-						 devices.GetMotors(i)->GetState()==kMotorInit)
+						 devices.GetMotors(i)->GetState() == kMotorInit)
 							 devices.GetMotors(i)->AddCANTxMessage(can_txbuff);
 	}
 	if (HAL_CAN_AddTxMessage(&hcan1, &CAN_TxHeadeType, can_txbuff, 

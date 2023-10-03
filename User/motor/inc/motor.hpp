@@ -154,8 +154,9 @@ class	Motor {
 				}
 			} else {
 				rxinfo_.angle_sum_ += err;
-			}	
+			}
 			rxinfo_.angle_prev_ = rxinfo_.angle_;		
+			stateinfo_.offline_cnt_ = 0;
 		}
 			// RM can 发送
 		void AddCANTxMessage(uint8_t *txbuff) {
@@ -182,11 +183,15 @@ class	Motor {
 		}
 		 // 设置 pid 角度目标值
 		void SetPIDAngleTarget(float tagert_angle) {
-			pidinfo_.tagert_speed_ = tagert_angle;
+			pidinfo_.tagert_angle_ = tagert_angle;
 		}
 		 // 设置 pid 位置目标值
 		void SetPIDPositTarget(float tagert_posit) {
-			pidinfo_.tagert_speed_ = tagert_posit;
+			pidinfo_.tagert_posit_ = tagert_posit;
+		}
+		 // 设置电机输出
+		void SetMotorOut(float motor_out) {
+			txinfo_.motor_out_ = motor_out;
 		}
 		 // 输出 rx id 
 		uint32_t GetRxId(void) {

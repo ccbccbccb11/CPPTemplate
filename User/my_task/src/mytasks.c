@@ -11,6 +11,8 @@
  */
  
 #include "stm32f4xx_hal.h"
+#include "can_protocol.hpp"
+#include "device.hpp"
 #include "cmsis_os.h"
 
 /**
@@ -22,7 +24,8 @@ void StartControlTask(void const * argument)
 {
   for(;;)
   {
-		static int aad = 0;
+    Device_Work();
+		CAN_Send();
 		osDelay(1);
   }
 }
@@ -49,6 +52,7 @@ void StartHeartBeatTask(void const * argument)
 {
   for(;;)
   {
+    Device_HeartBeat();
     osDelay(1);
   }
 }

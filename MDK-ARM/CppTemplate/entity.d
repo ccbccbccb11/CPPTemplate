@@ -648,6 +648,7 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\streambuf \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h \
-  ..\User\motor\inc\motor.hpp ..\User\motor\inc\motor_def.hpp \
-  ..\User\Alog\inc\utils.h ..\User\protocol\inc\uart_protocol.hpp \
-  ..\User\protocol\inc\crc.hpp
+  ..\User\controler\inc\pid.hpp ..\User\motor\inc\motor.hpp \
+  ..\User\motor\inc\motor_def.hpp ..\User\Alog\inc\utils.h \
+  ..\User\device\inc\test_motor.hpp \
+  ..\User\protocol\inc\uart_protocol.hpp ..\User\protocol\inc\crc.hpp

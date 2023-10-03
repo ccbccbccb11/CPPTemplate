@@ -27,6 +27,6 @@ void Test_PIDInit(void);
 #ifdef __cplusplus
 			/*C++ code*/
 extern motor::Motor test_motor;
-extern pid::PIDControler test_speed_pid;
+extern pid::PIDControler test_pid;
 #endif /*__cplusplus*/
 #endif /*TEST_MOTOR_HPP*/

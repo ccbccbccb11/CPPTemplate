@@ -16,4 +16,4 @@
  using namespace pid;
  
 Motor test_motor(kMotorDriverCAN1, kGM6020, 0x206);
-PIDControler test_speed_pid(0.1, 0.01, 0.05, 0.01, 1.0, 0.5, 10.0, kSpeed); 
+PIDControler test_pid(2,0,0,0,0,0,2000,kSpeed);

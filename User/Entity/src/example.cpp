@@ -8,3 +8,14 @@
 
 #include "example.hpp"
 
+Gimbal gimbal;
+
+float tar=0;
+void Gimbal_ControlTask(void) {
+    gimbal.SetTarget(tar);
+    gimbal.ControlTask();
+}
+
+void Gimbal_HeartBeat(void) {
+    gimbal.HeartBeat();
+}

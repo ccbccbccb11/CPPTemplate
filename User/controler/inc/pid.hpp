@@ -36,7 +36,7 @@ namespace pid {
  ******************************************************************************
  */
 // x > max || x < min --> x = max || min 
-template <typename T> T Constrain(T x, T max, T min) {
+template <typename T> T Constrain(T x, T min, T max) {
 	if (x > max) {
 		return max;
 	} else if (x < min) {
@@ -46,7 +46,7 @@ template <typename T> T Constrain(T x, T max, T min) {
 	}
 }
 // x > max || x < min --> x = max || min 
-template <typename T> bool Contain(T x, T max, T min) {
+template <typename T> bool Contain(T x, T min, T max) {
 	if (x < max && x > min) {
 		return true;
 	} else {
@@ -82,7 +82,6 @@ typedef enum {
 typedef enum {
 	kSpeed,
 	kAngle,
-	kPosit,
 	kPositIn,
 	kPositOut,
 } PIDMode;
@@ -403,42 +402,42 @@ class PIDControler {
 			PositOutPID_.ki_ = ki;
     }
 			// 单环计算 err 无预处理
-		float SingleLoop(PIDUnit& pid, float target, float measure) {
-			return pid.CalcPIDOut(target, measure);
+		float SingleLoop(PIDUnit* pid, float target, float measure) {
+			return pid->CalcPIDOut(target, measure);
 		}
 			// 单环计算 err 半圈检测预处理
-		float SingleLoop(PIDUnit& pid_, float target, float measure, float half_cycle) {
-			pid_.SetPIDErr(target,measure);
-			pid_.err_ = HalfCycle(pid_.err_, half_cycle);
-			return pid_.CalcPIDOut();
+		float SingleLoop(PIDUnit* pid_, float target, float measure, float half_cycle) {
+			pid_->SetPIDErr(target,measure);
+			pid_->err_ = HalfCycle(pid_->err_, half_cycle);
+			return pid_->CalcPIDOut();
 		}
 			// 双环串级计算
-		float DualLoopCascade(PIDUnit& pid_inloop, 
+		float DualLoopCascade(PIDUnit* pid_inloop, 
 						float measure_inloop, 
 						PIDUnit& pid_outloop, 
 						float target_outloop, 
 						float measure_outloop) {
 			float outer_output = pid_outloop.CalcPIDOut(target_outloop, measure_outloop);
-			return pid_inloop.CalcPIDOut(outer_output,measure_inloop);
+			return pid_inloop->CalcPIDOut(outer_output, measure_inloop);
 		}
 			// 电机速度环
-		float Speed(motor::Motor pid_motor) {
-			int16_t meusure_speed = pid_motor.GetSpeed();
-			float tagert_speed = pid_motor.GetPIDSpeedTarget();
-			return SingleLoop(SpeedPID_, tagert_speed, meusure_speed);
+		float Speed(motor::Motor* pid_motor) {
+			int16_t meusure_speed = pid_motor->GetSpeed();
+			float tagert_speed = pid_motor->GetPIDSpeedTarget();
+			return SingleLoop(&SpeedPID_, tagert_speed, meusure_speed);
 		}
 			// 电机角度环
-		float Angle(motor::Motor pid_motor, float half_cycle) {
-			int16_t meusure_angle = pid_motor.GetAngle();
-			float tagert_angle = pid_motor.GetPIDAngleTarget();
-			return SingleLoop(AnglePID_, tagert_angle, meusure_angle, half_cycle);
+		float Angle(motor::Motor* pid_motor, float half_cycle) {
+			int16_t meusure_angle = pid_motor->GetAngle();
+			float tagert_angle = pid_motor->GetPIDAngleTarget();
+			return SingleLoop(&AnglePID_, tagert_angle, meusure_angle, half_cycle);
 		}
 			// 电机位置环
-		float Posit(motor::Motor pid_motor) {
-			int16_t meusure_speed = pid_motor.GetSpeed();
-			int32_t angle_sum = pid_motor.GetAngleSum();
-			float tagert_posit = pid_motor.GetPIDPositTarget();
-			return DualLoopCascade(PositInPID_, meusure_speed,
+		float Posit(motor::Motor* pid_motor) {
+			int16_t meusure_speed = pid_motor->GetSpeed();
+			int32_t angle_sum = pid_motor->GetAngleSum();
+			float tagert_posit = pid_motor->GetPIDPositTarget();
+			return DualLoopCascade(&PositInPID_, meusure_speed,
 										PositOutPID_, tagert_posit, angle_sum);
 		}
 					
