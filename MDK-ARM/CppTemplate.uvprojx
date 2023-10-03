@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,__FPU_PRESENT=1,ARM_MATH_CM4</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;..\User\Alog\inc;..\User\cmsis;..\User\control\inc;..\User\config\inc;..\User\device\inc;..\User\drive\inc;..\User\Entity\inc;..\User\Matrix_Robotics\src;..\User\motor\inc;..\User\my_task\inc;..\User\protocol\inc;..\Drivers\CMSIS\DSP\Include;..\User\controler\inc;..\User\imu\inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../User/controler/inc;../User/imu/inc;../Drivers/CMSIS/DSP/Include/dsp</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -749,7 +749,7 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>cmsis</GroupName>
+          <GroupName>CMSIS/DSP</GroupName>
           <Files>
             <File>
               <FileName>arm_cortexM4lf_math.lib</FileName>

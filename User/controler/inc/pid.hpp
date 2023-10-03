@@ -406,9 +406,9 @@ class PIDControler {
 			return pid->CalcPIDOut(target, measure);
 		}
 			// 单环计算 err 半圈检测预处理
-		float SingleLoop(PIDUnit* pid_, float target, float measure, float half_cycle) {
-			pid_->SetPIDErr(target,measure);
-			pid_->err_ = HalfCycle(pid_->err_, half_cycle);
+		float SingleLoop(PIDUnit* pid_, float target, float measure, float cycle) {
+			pid_->SetPIDErr(target, measure);
+			pid_->err_ = HalfCycle(pid_->err_, cycle);
 			return pid_->CalcPIDOut();
 		}
 			// 双环串级计算
@@ -427,10 +427,10 @@ class PIDControler {
 			return SingleLoop(&SpeedPID_, tagert_speed, meusure_speed);
 		}
 			// 电机角度环
-		float Angle(motor::Motor* pid_motor, float half_cycle) {
+		float Angle(motor::Motor* pid_motor, float cycle) {
 			int16_t meusure_angle = pid_motor->GetAngle();
 			float tagert_angle = pid_motor->GetPIDAngleTarget();
-			return SingleLoop(&AnglePID_, tagert_angle, meusure_angle, half_cycle);
+			return SingleLoop(&AnglePID_, tagert_angle, meusure_angle, cycle);
 		}
 			// 电机位置环
 		float Posit(motor::Motor* pid_motor) {

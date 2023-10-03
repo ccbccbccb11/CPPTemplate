@@ -24,13 +24,18 @@ public:
 	Gimbal() : entity::Entity<1>(&test_motor) {}
 	// 重新声明实现基类的纯虚函数
 	void PIDCalculating(void) override {
-		// target_ = math::limit(target_, 0.f, 800.f);
-		// test_motor.SetPIDSpeedTarget(target_);
-		// output_ = test_pid.Speed(&test_motor);
-
-		target_ = math::limit(target_, 0.f, 8192.f);
-		test_motor.SetPIDPositTarget(target_);
-		output_ = test_pid.Posit(&test_motor);
+		/* 速度环 */
+		 target_ = math::limit(target_, 0.f, 2000.f);
+		 test_motor.SetPIDSpeedTarget(target_);
+		 output_ = test_pid.Speed(&test_motor);
+		/* 位置环 */
+//		target_ = math::limit(target_, 0.f, 81920.f);
+//		test_motor.SetPIDPositTarget(target_);
+//		output_ = test_pid.Posit(&test_motor);
+		/* 位置环 */
+//		target_ = math::limit(target_, 0.f, 8192.f);
+//		test_motor.SetPIDAngleTarget(target_);
+//		output_ = test_pid.Angle(&test_motor,8192.f);
 	}
 
 	void PIDOutput(void) override {

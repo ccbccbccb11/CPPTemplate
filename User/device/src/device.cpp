@@ -19,6 +19,7 @@ Device devices;
 void Device_Init(void) {
 	devices.AddMotors(&test_motor);
 	test_pid.InitMotorPIDParams(1,0,0,0,0,0,1000,pid::kPositOut); 
+	test_pid.InitMotorPIDParams(1,0,0,0,0,0,1000,pid::kAngle); 
 	test_pid.InitMotorPIDParams(2,0,0,0,0,0,2000,pid::kPositIn); 
 }
 

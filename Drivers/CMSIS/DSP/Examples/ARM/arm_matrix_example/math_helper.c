@@ -100,7 +100,7 @@ float arm_snr_f32(float *pRef, float *pTest, uint32_t buffSize)
     }
 
 
-  SNR = 10 * log10 (EnergySignal / EnergyError);
+  SNR = 10 * (float32_t)log10 ((double)EnergySignal / (double)EnergyError);
 
   return (SNR);
 
@@ -167,7 +167,7 @@ uint32_t arm_compare_fixed_q15(q15_t *pIn, q15_t *pOut, uint32_t numSamples)
 {
   uint32_t i;
   int32_t diff, diffCrnt = 0;
-  uint32_t maxDiff = 0;
+  int32_t maxDiff = 0;
 
   for (i = 0; i < numSamples; i++)
   {
@@ -195,7 +195,7 @@ uint32_t arm_compare_fixed_q31(q31_t *pIn, q31_t * pOut, uint32_t numSamples)
 {
   uint32_t i;
   int32_t diff, diffCrnt = 0;
-  uint32_t maxDiff = 0;
+  int32_t maxDiff = 0;
 
   for (i = 0; i < numSamples; i++)
   {
@@ -435,6 +435,13 @@ void arm_float_to_q28 (float *pIn, q31_t *pOut, uint32_t numSamples)
     }
 }
 
+/*
+
+Conflicting with the new clip functions in CMSIS-DSP and not used
+in the examples.
+
+*/
+#if 0
 /**
  * @brief  Clip the float values to +/- 1
  * @param[in,out]  pIn           input buffer
@@ -460,7 +467,7 @@ void arm_clip_f32 (float *pIn, uint32_t numSamples)
 
     }
 }
-
+#endif
 
 
 

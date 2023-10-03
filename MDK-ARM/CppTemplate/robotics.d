@@ -4,8 +4,7 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
   ..\User\Alog\inc\matrix.h ..\Drivers\CMSIS\DSP\Include\arm_math.h \
-  ..\Drivers\CMSIS\Include\core_cm4.h \
-  ..\Drivers\CMSIS\Include\cmsis_version.h \
+  ..\Drivers\CMSIS\DSP\Include\arm_math_types.h \
   ..\Drivers\CMSIS\Include\cmsis_compiler.h \
   ..\Drivers\CMSIS\Include\cmsis_armclang.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\arm_compat.h \
@@ -151,4 +150,27 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\cstdint \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__undef_macros \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdlib.h \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdlib.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\float.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\float.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\limits.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\limits.h \
+  ..\Drivers\CMSIS\DSP\Include\arm_math_memory.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\none.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\utils.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\basic_math_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\interpolation_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\bayes_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\statistics_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\fast_math_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\matrix_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\complex_math_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\controller_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\support_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\distance_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\svm_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\svm_defines.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\transform_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\filtering_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\quaternion_math_functions.h \
+  ..\Drivers\CMSIS\DSP\Include\dsp\window_functions.h
