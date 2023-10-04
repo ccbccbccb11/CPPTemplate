@@ -12,11 +12,13 @@
  
 #include "device.hpp"
 #include "example.hpp"
+#include "imu_sensor.h"
 
 uint8_t Device::motors_count_ = 0;
 Device devices;
 
 void Device_Init(void) {
+	imu_sensor.init(&imu_sensor);
 	devices.AddMotors(&test_motor);
 	test_pid.InitMotorPIDParams(1,0,0,0,0,0,1000,pid::kPositOut); 
 	test_pid.InitMotorPIDParams(1,0,0,0,0,0,1000,pid::kAngle); 
@@ -28,5 +30,6 @@ void Device_HeartBeat(void) {
 }
 
 void Device_Work(void) {
+	imu_sensor.update(&imu_sensor);
 	Gimbal_ControlTask();
 }

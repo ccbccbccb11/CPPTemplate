@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="953e34a4-d77e-4aa5-a528-3b58490fff94" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../../../.mxproject" beforeDir="false" afterPath="$PROJECT_DIR$/../../../.mxproject" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Core/Inc/main.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Core/Inc/main.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Core/Inc/stm32f4xx_hal_conf.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Core/Inc/stm32f4xx_hal_conf.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Core/Src/gpio.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Core/Src/gpio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../Core/Src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../../Core/Src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../CppTemplate.ioc" beforeDir="false" afterPath="$PROJECT_DIR$/../../../CppTemplate.ioc" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvguix.29425" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvguix.29425" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvoptx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvoptx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvprojx" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate.uvprojx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.axf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.build_log.htm" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.build_log.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.hex" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.hex" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.htm" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.htm" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.lnp" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.lnp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.map" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate.map" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate_CppTemplate.dep" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/CppTemplate_CppTemplate.dep" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/basicmathfunctions.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/basicmathfunctions.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi270.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi270.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi270.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi270.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2_common.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/bmi2_common.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can_protocol.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can_protocol.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can_protocol.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/can_protocol.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/cmsis_os.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/cmsis_os.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/common.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/common.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/common.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/common.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/crc.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/crc.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/crc.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/crc.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/device.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/device.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/device.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/device.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/dma.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/dma.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/dma.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/dma.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_can.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_can.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_can.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_can.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_haltick.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_haltick.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_haltick.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_haltick.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_spi.o" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_uart.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_uart.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_uart.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/driver_uart.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/entity.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/entity.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/entity.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/entity.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/event_groups.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/event_groups.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/example.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/example.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/example.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/example.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/fastmathfunctions.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/fastmathfunctions.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/freertos.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/freertos.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/freertos.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/freertos.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/gpio.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/gpio.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/gpio.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/gpio.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/heap_4.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/heap_4.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/list.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/list.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/main.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/main.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/main.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/main.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/matrix.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/matrix.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/matrixfunctions.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/matrixfunctions.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/motor.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/motor.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/mytasks.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/mytasks.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/mytasks.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/mytasks.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/pid.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/pid.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/pid.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/pid.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/port.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/port.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/queue.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/queue.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/remote.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/remote.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/remote.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/remote.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/robotics.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/robotics.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/soft_iic.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/soft_iic.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_can.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_can.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_can.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_can.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_cortex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_cortex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_cortex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_cortex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma_ex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_dma_ex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_exti.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_exti.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_exti.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_exti.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ramfunc.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_flash_ramfunc.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_gpio.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_gpio.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_gpio.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_gpio.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_msp.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_msp.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_msp.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_msp.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr_ex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_pwr_ex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc_ex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_rcc_ex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim_ex.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim_ex.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim_ex.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_tim_ex.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_timebase_tim.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_timebase_tim.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_timebase_tim.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_timebase_tim.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_uart.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_uart.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_uart.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_hal_uart.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_it.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_it.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_it.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stm32f4xx_it.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stream_buffer.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/stream_buffer.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/system_stm32f4xx.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/system_stm32f4xx.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/system_stm32f4xx.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/system_stm32f4xx.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tasks.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tasks.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/test_motor.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/test_motor.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/test_motor.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/test_motor.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tim.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tim.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tim.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/tim.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/uart_protocol.d" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/uart_protocol.d" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/uart_protocol.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/uart_protocol.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/usart.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/usart.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/usart.s" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/usart.s" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/utils.o" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/CppTemplate/utils.o" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../MDK-ARM/JLinkLog.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../../../MDK-ARM/JLinkLog.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../cmsis/arm_cortexM4lf_math.lib" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../debug.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../device/src/device.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../../device/src/device.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/inc/bmi.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi2.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/inc/bmi2.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi270.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/inc/bmi270.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi270_context.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi2_common.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi2_defs.h" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/inc/bmi2_defs.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/bmi2_ois.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/inc/soft_iic.h" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/src/bmi.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi2.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/src/bmi2.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi270.c" beforeDir="false" afterPath="$PROJECT_DIR$/../../imu/src/bmi270.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi270_context.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi2_common.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/bmi2_ois.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../imu/src/soft_iic.c" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="2.1" />
+  </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
+  <component name="ProjectId" id="2WHThdBJBlQL5fld2JZapEeTDnL" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "cf.advertisement.text.has.clang-format": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "master",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="953e34a4-d77e-4aa5-a528-3b58490fff94" name="Changes" comment="" />
+      <created>1696388626866</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1696388626866</updated>
+      <workItem from="1696388628342" duration="3000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

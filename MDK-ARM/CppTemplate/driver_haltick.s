@@ -264,7 +264,6 @@ delay_ms:
 	blo	.LBB2_4
 	b	.LBB2_2
 .Ltmp34:
-	.p2align	2
 .LBB2_5:
 	@DEBUG_VALUE: delay_ms:ms <- [DW_OP_constu 1, DW_OP_minus, DW_OP_stack_value] $r0
 	.loc	2 44 1                          @ ../User/drive/src/driver_haltick.cpp:44:1
@@ -1552,7 +1551,7 @@ haltick:
 	.asciz	"delay_ms"                      @ string offset=730
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

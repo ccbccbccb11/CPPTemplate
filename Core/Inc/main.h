@@ -57,10 +57,6 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define IIC_SCL_Pin GPIO_PIN_13
-#define IIC_SCL_GPIO_Port GPIOB
-#define IIC_SDA_Pin GPIO_PIN_15
-#define IIC_SDA_GPIO_Port GPIOB
 #define OLED_SDA_Pin GPIO_PIN_7
 #define OLED_SDA_GPIO_Port GPIOB
 #define OLED_SCL_Pin GPIO_PIN_8
@@ -68,6 +64,8 @@ void Error_Handler(void);
 
 /* USER CODE BEGIN Private defines */
 
+#define BMI_CS_Pin GPIO_PIN_12
+#define BMI_CS_GPIO_Port GPIOB
 /* USER CODE END Private defines */
 
 #ifdef __cplusplus

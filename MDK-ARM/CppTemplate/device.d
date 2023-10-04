@@ -33,6 +33,7 @@
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_flash_ramfunc.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_pwr_ex.h \
+  ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
@@ -652,4 +653,5 @@
   ..\User\motor\inc\motor_def.hpp ..\User\Alog\inc\utils.h \
   ..\User\device\inc\test_motor.hpp \
   ..\User\protocol\inc\uart_protocol.hpp ..\User\protocol\inc\crc.hpp \
-  ..\User\Entity\inc\example.hpp ..\User\Entity\inc\entity.hpp
+  ..\User\Entity\inc\example.hpp ..\User\Entity\inc\entity.hpp \
+  ..\User\device\inc\imu_sensor.h ..\User\Imu\inc\bmi_t.h

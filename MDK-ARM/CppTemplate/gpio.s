@@ -56,6 +56,8 @@ MX_GPIO_Init:
 .Ltmp0:
 	.loc	4 45 20 prologue_end            @ ../Core/Src/gpio.c:45:20
 	str	r6, [sp, #24]
+	strd	r6, r6, [sp, #16]
+	strd	r6, r6, [sp, #8]
 .Ltmp1:
 	.loc	4 48 3                          @ ../Core/Src/gpio.c:48:3
 	str	r6, [sp, #4]
@@ -75,13 +77,12 @@ MX_GPIO_Init:
 	ldr	r1, [r0]
 .Ltmp3:
 	.loc	4 55 3                          @ ../Core/Src/gpio.c:55:3
-	movs	r2, #1
+	movs	r2, #0
 .Ltmp4:
 	.loc	4 49 3                          @ ../Core/Src/gpio.c:49:3
 	orr	r1, r1, #1
 	str	r1, [r0]
 	ldr	r1, [r0]
-	movs	r7, #1
 	and	r1, r1, #1
 	str	r1, [sp, #4]
 	ldr	r1, [sp, #4]
@@ -114,7 +115,7 @@ MX_GPIO_Init:
 	ldr	r0, [r0]
 .Ltmp8:
 	.loc	4 55 3                          @ ../Core/Src/gpio.c:55:3
-	mov.w	r1, #40960
+	mov.w	r1, #4480
 .Ltmp9:
 	.loc	4 52 3                          @ ../Core/Src/gpio.c:52:3
 	and	r0, r0, #4
@@ -125,44 +126,53 @@ MX_GPIO_Init:
 	mov	r0, r4
 	bl	HAL_GPIO_WritePin
 .Ltmp11:
-	.loc	4 58 3                          @ ../Core/Src/gpio.c:58:3
-	mov	r0, r4
-	mov.w	r1, #384
-	movs	r2, #0
-	bl	HAL_GPIO_WritePin
-.Ltmp12:
 	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
-	mov.w	r0, #41216
-	.loc	4 61 23 is_stmt 1               @ ../Core/Src/gpio.c:61:23
-	strd	r0, r7, [sp, #8]
-	movs	r0, #3
+	mov.w	r0, #4096
 	add	r5, sp, #8
-	.loc	4 64 25                         @ ../Core/Src/gpio.c:64:25
-	str	r0, [sp, #20]
-	.loc	4 65 3                          @ ../Core/Src/gpio.c:65:3
+	.loc	4 58 23 is_stmt 1               @ ../Core/Src/gpio.c:58:23
+	str	r0, [sp, #8]
+	movs	r7, #1
+	.loc	4 62 3                          @ ../Core/Src/gpio.c:62:3
 	mov	r0, r4
 	mov	r1, r5
-	.loc	4 63 24                         @ ../Core/Src/gpio.c:63:24
+	.loc	4 59 24                         @ ../Core/Src/gpio.c:59:24
+	strd	r7, r6, [sp, #12]
+	.loc	4 61 25                         @ ../Core/Src/gpio.c:61:25
+	str	r6, [sp, #20]
+	.loc	4 62 3                          @ ../Core/Src/gpio.c:62:3
+	bl	HAL_GPIO_Init
+.Ltmp12:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #128
+	.loc	4 65 23 is_stmt 1               @ ../Core/Src/gpio.c:65:23
+	strd	r0, r7, [sp, #8]
+	movs	r0, #2
+	.loc	4 68 25                         @ ../Core/Src/gpio.c:68:25
+	str	r0, [sp, #20]
+	.loc	4 69 3                          @ ../Core/Src/gpio.c:69:3
+	mov	r0, r4
+	mov	r1, r5
+	.loc	4 67 24                         @ ../Core/Src/gpio.c:67:24
 	str	r6, [sp, #16]
-	.loc	4 65 3                          @ ../Core/Src/gpio.c:65:3
+	.loc	4 69 3                          @ ../Core/Src/gpio.c:69:3
 	bl	HAL_GPIO_Init
 .Ltmp13:
 	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
-	movs	r0, #128
-	.loc	4 68 23 is_stmt 1               @ ../Core/Src/gpio.c:68:23
+	mov.w	r0, #256
+	.loc	4 72 23 is_stmt 1               @ ../Core/Src/gpio.c:72:23
 	strd	r0, r7, [sp, #8]
-	movs	r0, #2
-	.loc	4 71 25                         @ ../Core/Src/gpio.c:71:25
+	movs	r0, #3
+	.loc	4 75 25                         @ ../Core/Src/gpio.c:75:25
 	str	r0, [sp, #20]
-	.loc	4 72 3                          @ ../Core/Src/gpio.c:72:3
+	.loc	4 76 3                          @ ../Core/Src/gpio.c:76:3
 	mov	r0, r4
 	mov	r1, r5
-	.loc	4 70 24                         @ ../Core/Src/gpio.c:70:24
+	.loc	4 74 24                         @ ../Core/Src/gpio.c:74:24
 	str	r6, [sp, #16]
-	.loc	4 72 3                          @ ../Core/Src/gpio.c:72:3
+	.loc	4 76 3                          @ ../Core/Src/gpio.c:76:3
 	bl	HAL_GPIO_Init
 .Ltmp14:
-	.loc	4 74 1                          @ ../Core/Src/gpio.c:74:1
+	.loc	4 78 1                          @ ../Core/Src/gpio.c:78:1
 	add	sp, #28
 	pop	{r4, r5, r6, r7, pc}
 .Ltmp15:
@@ -984,7 +994,7 @@ MX_GPIO_Init:
 	.asciz	"tmpreg"                        @ string offset=622
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

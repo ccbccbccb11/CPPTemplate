@@ -129,20 +129,9 @@ HAL_InitTick:
 .Ltmp13:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	.loc	6 88 7                          @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:88:7
-	cbz	r0, .LBB0_2
+	cbnz	r0, .LBB0_5
 .Ltmp14:
-.LBB0_1:
-	@DEBUG_VALUE: HAL_InitTick:status <- $r5
-	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
-	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
-	@DEBUG_VALUE: HAL_InitTick:status <- $r5
-	.loc	6 111 3                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:111:3
-	mov	r0, r5
-	add	sp, #24
-	pop	{r4, r5, r6, pc}
-.Ltmp15:
-	.p2align	2
-.LBB0_2:
+@ %bb.1:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
 	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
@@ -150,27 +139,26 @@ HAL_InitTick:
 	movw	r0, :lower16:htim2
 	movt	r0, :upper16:htim2
 	bl	HAL_TIM_Base_Start_IT
-.Ltmp16:
+.Ltmp15:
 	mov	r5, r0
-.Ltmp17:
+.Ltmp16:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	.loc	6 92 9                          @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:92:9
-	cmp	r0, #0
-	bne	.LBB0_1
-.Ltmp18:
-@ %bb.3:
+	cbnz	r0, .LBB0_5
+.Ltmp17:
+@ %bb.2:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
 	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
 	.loc	6 95 9                          @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:95:9
 	movs	r0, #28
 	bl	HAL_NVIC_EnableIRQ
-.Ltmp19:
+.Ltmp18:
 	.loc	6 97 11                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:97:11
 	cmp	r4, #15
-	bhi	.LBB0_5
-.Ltmp20:
-@ %bb.4:
+	bhi	.LBB0_4
+.Ltmp19:
+@ %bb.3:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
 	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
@@ -178,35 +166,30 @@ HAL_InitTick:
 	movs	r0, #28
 	mov	r1, r4
 	movs	r2, #0
-	movs	r5, #0
-.Ltmp21:
 	bl	HAL_NVIC_SetPriority
-.Ltmp22:
+.Ltmp20:
 	.loc	6 101 20                        @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:101:20
 	movw	r0, :lower16:uwTickPrio
 	movt	r0, :upper16:uwTickPrio
 	str	r4, [r0]
-.Ltmp23:
-	@DEBUG_VALUE: HAL_InitTick:status <- $r5
-	.loc	6 111 3                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:111:3
-	mov	r0, r5
-	add	sp, #24
-	pop	{r4, r5, r6, pc}
-.Ltmp24:
-	.p2align	2
-.LBB0_5:
+	b	.LBB0_5
+.Ltmp21:
+.LBB0_4:
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
 	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
 	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
-	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:0:3
+	.loc	6 0 20 is_stmt 0                @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:0:20
 	movs	r5, #1
-.Ltmp25:
+.Ltmp22:
+.LBB0_5:
+	@DEBUG_VALUE: HAL_InitTick:pFLatency <- [DW_OP_deref] $sp
+	@DEBUG_VALUE: HAL_InitTick:TickPriority <- $r4
 	@DEBUG_VALUE: HAL_InitTick:status <- $r5
-	.loc	6 111 3                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:111:3
+	.loc	6 111 3 is_stmt 1               @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:111:3
 	mov	r0, r5
 	add	sp, #24
 	pop	{r4, r5, r6, pc}
-.Ltmp26:
+.Ltmp23:
 .Lfunc_end0:
 	.size	HAL_InitTick, .Lfunc_end0-HAL_InitTick
 	.cfi_endproc
@@ -222,7 +205,7 @@ HAL_InitTick:
 	.thumb_func
 HAL_SuspendTick:
 .Lfunc_begin1:
-	.loc	6 121 0 is_stmt 1               @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:121:0
+	.loc	6 121 0                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:121:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
@@ -235,7 +218,7 @@ HAL_SuspendTick:
 	str	r1, [r0, #12]
 	.loc	6 124 1                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:124:1
 	bx	lr
-.Ltmp27:
+.Ltmp24:
 .Lfunc_end1:
 	.size	HAL_SuspendTick, .Lfunc_end1-HAL_SuspendTick
 	.cfi_endproc
@@ -264,7 +247,7 @@ HAL_ResumeTick:
 	str	r1, [r0, #12]
 	.loc	6 136 1                         @ ../Core/Src/stm32f4xx_hal_timebase_tim.c:136:1
 	bx	lr
-.Ltmp28:
+.Ltmp25:
 .Lfunc_end2:
 	.size	HAL_ResumeTick, .Lfunc_end2-HAL_ResumeTick
 	.cfi_endproc
@@ -290,7 +273,7 @@ htim2:
 	.short	1                               @ Loc expr size
 	.byte	80                              @ DW_OP_reg0
 	.long	.Ltmp1-.Lfunc_begin0
-	.long	.Ltmp26-.Lfunc_begin0
+	.long	.Ltmp23-.Lfunc_begin0
 	.short	1                               @ Loc expr size
 	.byte	84                              @ DW_OP_reg4
 	.long	0
@@ -346,11 +329,7 @@ htim2:
 	.long	-1
 	.long	.Lfunc_begin0                   @   base address
 	.long	.Ltmp13-.Lfunc_begin0
-	.long	.Ltmp21-.Lfunc_begin0
-	.short	1                               @ Loc expr size
-	.byte	85                              @ DW_OP_reg5
 	.long	.Ltmp23-.Lfunc_begin0
-	.long	.Ltmp26-.Lfunc_begin0
 	.short	1                               @ Loc expr size
 	.byte	85                              @ DW_OP_reg5
 	.long	0
@@ -2531,7 +2510,7 @@ htim2:
 	.asciz	"status"                        @ string offset=3363
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

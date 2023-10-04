@@ -1,30 +1,15 @@
 #ifndef __BMI_H
 #define __BMI_H
 
-
-#ifdef  __cplusplus
-    extern "C" {
-#endif
-			
-			
 /* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
+#include <stdio.h>
+#include "bmi_t.h"
+#include "bmi2.h"
+#include "bmi270.h"
+#include "common.h"
 #include "arm_math.h"
-#include "driver_io.hpp"
 
 /* Exported macro ------------------------------------------------------------*/
-#define CHIPID 0x00   //  芯片ID   0xd1
-#define PMU_STATUS 0x03  //显示传感器的电源模式
-#define ACC_CONF 0x40   //设置输出数据速率  加速度传感器读取模式     默认0x28
-#define ACC_RANGE 0x41   //设置加速度范围                             默认0x03    +- 2g
-#define GYR_CON 0x42     //设置输出数据速率  陀螺仪读取的模式     默认0x28
-#define GYR_RANGE 0x43     //设置角速度测量范围          默认0x00    +-2000 °/s
-#define INT_EN 0x50        //中断设置
-#define INT_OUT_CTRL 0x53   //输出使能控制
-#define INT_LATCH 0x54   //设置中断锁存
-#define CMD 0x7E    //命令寄存器触发操作
-#define CONTROL 0x7e //  0x11:set pmu mode of accelerometer to normal   0x15:set pmu mode of gyroscope to normal
-
 #define ACCD_X_LSB 0x0c
 #define ACCD_X_MSB 0x0d
 #define ACCD_Y_LSB 0x0e
@@ -37,22 +22,37 @@
 #define GYR_Y_MSB 0x15
 #define GYR_Z_LSB 0x16
 #define GYR_Z_MSB 0x17
+#define TEMPERATURE_0 0x22
+#define TEMPERATURE_1 0x23
+#define TEMP_RATIO (0.001953125f)
 
-#define BMI_CS PBout(12)
+#define BMI_CS_LOW()			(HAL_GPIO_WritePin(BMI_CS_GPIO_Port, BMI_CS_Pin, GPIO_PIN_RESET))
+#define BMI_CS_HIG()			(HAL_GPIO_WritePin(BMI_CS_GPIO_Port, BMI_CS_Pin, GPIO_PIN_SET))
+
 
 /* Exported types ------------------------------------------------------------*/
+extern SPI_HandleTypeDef hspi2;
+
 
 /* Exported functions --------------------------------------------------------*/
-int8_t BMI_Init(void);
-void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,short *aaz);
-void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4);
-void BMI_Get_GRO(short *gx,short *gy,short *gz);
-void BMI_Get_ACC(short *ax,short *ay,short *az);
+
+int8_t bmi_init(struct bmi2_dev *bmi2_dev, uint8_t intf, uint8_t aces);
+void BMI_Get_Temperature(float *temp);
+void BMI_Get_RawData(int16_t *ggx, int16_t *ggy, int16_t *ggz, int16_t *aax, int16_t *aay, int16_t *aaz);
+void Vector_Transform(int16_t gx, int16_t gy, int16_t gz,\
+	                    int16_t ax, int16_t ay, int16_t az,\
+	                    float *ggx, float *ggy, float *ggz,\
+											float *aax, float *aay, float *aaz);
 uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
+                           float *pitch_,float *roll_,float *yaw_,\
 													 float *ggx,float *ggy,float *ggz,\
 													 float *aax,float *aay,float *aaz);
-//不带_的为涉及加速度计的，带_的为不涉及加速度计的，用于差分计算速度
-#ifdef  __cplusplus
-}  
+													 
+void BMI_Get_Acceleration(float pitch, float roll, float yaw,\
+													float ax, float ay, float az,\
+													float *accx, float *accy, float *accz);
+
+
 #endif
-#endif
+
+

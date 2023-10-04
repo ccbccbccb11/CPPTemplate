@@ -39,7 +39,7 @@
 Driver_Init:
 .Lfunc_begin0:
 	.file	8 "E:\\RP\\CppTemplate\\MDK-ARM" "../User/drive/src/driver.cpp"
-	.loc	8 20 0                          @ ../User/drive/src/driver.cpp:20:0
+	.loc	8 21 0                          @ ../User/drive/src/driver.cpp:21:0
 	.fnstart
 	.cfi_sections .debug_frame
 	.cfi_startproc
@@ -53,27 +53,30 @@ Driver_Init:
 	sub	sp, #72
 	.cfi_def_cfa_offset 80
 .Ltmp0:
-	.loc	8 21 2 prologue_end             @ ../User/drive/src/driver.cpp:21:2
+	.loc	8 22 2 prologue_end             @ ../User/drive/src/driver.cpp:22:2
 	bl	CAN1_Init
 .Ltmp1:
-	.loc	8 22 2                          @ ../User/drive/src/driver.cpp:22:2
+	.loc	8 23 2                          @ ../User/drive/src/driver.cpp:23:2
 	bl	CAN2_Init
 .Ltmp2:
-	.loc	8 23 2                          @ ../User/drive/src/driver.cpp:23:2
-	bl	USART1_Init
-.Ltmp3:
 	.loc	8 24 2                          @ ../User/drive/src/driver.cpp:24:2
-	bl	USART2_Init
-.Ltmp4:
+	bl	_Z9SPI2_Initv
+.Ltmp3:
 	.loc	8 25 2                          @ ../User/drive/src/driver.cpp:25:2
-	bl	USART3_Init
-.Ltmp5:
+	bl	USART1_Init
+.Ltmp4:
 	.loc	8 26 2                          @ ../User/drive/src/driver.cpp:26:2
-	bl	USART4_Init
-.Ltmp6:
+	bl	USART2_Init
+.Ltmp5:
 	.loc	8 27 2                          @ ../User/drive/src/driver.cpp:27:2
-	bl	USART6_Init
+	bl	USART3_Init
+.Ltmp6:
+	.loc	8 28 2                          @ ../User/drive/src/driver.cpp:28:2
+	bl	USART4_Init
 .Ltmp7:
+	.loc	8 29 2                          @ ../User/drive/src/driver.cpp:29:2
+	bl	USART6_Init
+.Ltmp8:
 	.loc	6 0 0 is_stmt 0                 @ ../User/drive/inc\driver_tim.hpp:0:0
 	movw	r1, :lower16:htim11
 	mov	r4, sp
@@ -81,7 +84,7 @@ Driver_Init:
 	mov	r0, r4
 	movs	r2, #72
 	bl	__aeabi_memcpy4
-.Ltmp8:
+.Ltmp9:
 	@DEBUG_VALUE: Driver_Init:buzzer <- [DW_OP_LLVM_fragment 640 8] 1
 	@DEBUG_VALUE: Driver_Init:buzzer <- [DW_OP_LLVM_fragment 608 32] 0
 	@DEBUG_VALUE: Driver_Init:buzzer <- [DW_OP_LLVM_fragment 576 32] undef
@@ -91,11 +94,11 @@ Driver_Init:
 	mov	r0, r4
 	movs	r1, #0
 	bl	HAL_TIM_PWM_Start
-.Ltmp9:
-	.loc	8 29 1                          @ ../User/drive/src/driver.cpp:29:1
+.Ltmp10:
+	.loc	8 31 1 is_stmt 0                @ ../User/drive/src/driver.cpp:31:1
 	add	sp, #72
 	pop	{r4, pc}
-.Ltmp10:
+.Ltmp11:
 .Lfunc_end0:
 	.size	Driver_Init, .Lfunc_end0-Driver_Init
 	.cfi_endproc
@@ -104,7 +107,7 @@ Driver_Init:
                                         @ -- End function
 	.section	.debug_loc,"",%progbits
 .Ldebug_loc0:
-	.long	.Ltmp8-.Lfunc_begin0
+	.long	.Ltmp9-.Lfunc_begin0
 	.long	.Lfunc_end0-.Lfunc_begin0
 	.short	10                              @ Loc expr size
 	.byte	147                             @ DW_OP_piece
@@ -120,7 +123,7 @@ Driver_Init:
 	.long	0
 	.long	0
 .Ldebug_loc1:
-	.long	.Ltmp8-.Lfunc_begin0
+	.long	.Ltmp9-.Lfunc_begin0
 	.long	.Lfunc_end0-.Lfunc_begin0
 	.short	2                               @ Loc expr size
 	.byte	48                              @ DW_OP_lit0
@@ -1401,20 +1404,20 @@ Driver_Init:
                                         @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string128                @ DW_AT_name
 	.byte	8                               @ DW_AT_decl_file
-	.byte	20                              @ DW_AT_decl_line
+	.byte	21                              @ DW_AT_decl_line
                                         @ DW_AT_external
 	.byte	29                              @ Abbrev [29] 0x6e5:0xf DW_TAG_variable
 	.long	.Ldebug_loc0                    @ DW_AT_location
 	.long	.Linfo_string129                @ DW_AT_name
 	.byte	8                               @ DW_AT_decl_file
-	.byte	28                              @ DW_AT_decl_line
+	.byte	30                              @ DW_AT_decl_line
 	.long	235                             @ DW_AT_type
 	.byte	30                              @ Abbrev [30] 0x6f4:0x22 DW_TAG_inlined_subroutine
 	.long	1697                            @ DW_AT_abstract_origin
-	.long	.Ltmp7                          @ DW_AT_low_pc
-	.long	.Ltmp9-.Ltmp7                   @ DW_AT_high_pc
+	.long	.Ltmp8                          @ DW_AT_low_pc
+	.long	.Ltmp10-.Ltmp8                  @ DW_AT_high_pc
 	.byte	8                               @ DW_AT_call_file
-	.byte	28                              @ DW_AT_call_line
+	.byte	30                              @ DW_AT_call_line
 	.byte	14                              @ DW_AT_call_column
 	.byte	31                              @ Abbrev [31] 0x704:0x8 DW_TAG_formal_parameter
 	.byte	2                               @ DW_AT_location
@@ -1691,7 +1694,7 @@ Driver_Init:
 	.asciz	"buzzer"                        @ string offset=1738
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

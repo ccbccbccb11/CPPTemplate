@@ -251,7 +251,6 @@ HAL_CAN_MspInit:
 	add.w	r0, r0, #2048
 	b	.LBB2_8
 .Ltmp21:
-	.p2align	2
 .LBB2_5:
 	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
 	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
@@ -428,7 +427,6 @@ HAL_CAN_MspDeInit:
 .Ltmp43:
 	b	HAL_NVIC_DisableIRQ
 .Ltmp44:
-	.p2align	2
 .LBB3_5:
 	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
 	movw	r0, #14400
@@ -2638,7 +2636,7 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.asciz	"canHandle"                     @ string offset=2693
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

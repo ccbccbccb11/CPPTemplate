@@ -558,7 +558,6 @@ HAL_UART_MspInit:
 	movs	r5, #52
 	b	.LBB6_13
 .Ltmp59:
-	.p2align	2
 .LBB6_5:
 	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
 	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
@@ -705,7 +704,6 @@ HAL_UART_MspInit:
 	movs	r5, #71
 	b	.LBB6_13
 .Ltmp80:
-	.p2align	2
 .LBB6_9:
 	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
 	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
@@ -791,7 +789,6 @@ HAL_UART_MspInit:
 	movs	r5, #38
 	b	.LBB6_13
 .Ltmp91:
-	.p2align	2
 .LBB6_10:
 	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
 	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
@@ -911,7 +908,6 @@ HAL_UART_MspInit:
 	movs	r5, #39
 	b	.LBB6_13
 .Ltmp109:
-	.p2align	2
 .LBB6_11:
 	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
 	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
@@ -1055,7 +1051,6 @@ HAL_UART_MspInit:
 	movs	r5, #53
 	b	.LBB6_13
 .Ltmp129:
-	.p2align	2
 .LBB6_12:
 	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
 	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
@@ -1286,7 +1281,6 @@ HAL_UART_MspDeInit:
 	.loc	6 624 3                         @ ../Core/Src/usart.c:624:3
 	b	.LBB7_13
 .Ltmp161:
-	.p2align	2
 .LBB7_5:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
@@ -1342,7 +1336,6 @@ HAL_UART_MspDeInit:
 	movs	r4, #71
 	b	.LBB7_13
 .Ltmp168:
-	.p2align	2
 .LBB7_9:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	.loc	6 0 32 is_stmt 0                @ ../Core/Src/usart.c:0:32
@@ -1367,7 +1360,6 @@ HAL_UART_MspDeInit:
 	.loc	6 697 3                         @ ../Core/Src/usart.c:697:3
 	b	.LBB7_13
 .Ltmp172:
-	.p2align	2
 .LBB7_10:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
@@ -1403,7 +1395,6 @@ HAL_UART_MspDeInit:
 	.loc	6 650 3                         @ ../Core/Src/usart.c:650:3
 	b	.LBB7_13
 .Ltmp178:
-	.p2align	2
 .LBB7_11:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
@@ -1434,7 +1425,6 @@ HAL_UART_MspDeInit:
 	.loc	6 0 32 is_stmt 0                @ ../Core/Src/usart.c:0:32
 	b	.LBB7_13
 .Ltmp183:
-	.p2align	2
 .LBB7_12:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	movw	r0, #14400
@@ -1470,7 +1460,6 @@ HAL_UART_MspDeInit:
 .Ltmp189:
 	b	HAL_NVIC_DisableIRQ
 .Ltmp190:
-	.p2align	2
 .LBB7_14:
 	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
 	.loc	6 746 1 is_stmt 1               @ ../Core/Src/usart.c:746:1
@@ -4341,7 +4330,7 @@ hdma_usart6_tx:
 	.asciz	"uartHandle"                    @ string offset=3382
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>2</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,__FPU_PRESENT=1,ARM_MATH_CM4,ARM_MATH_LOOPUNROLL</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../User/controler/inc;../User/imu/inc;../Drivers/CMSIS/DSP/Include/dsp</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../Drivers/CMSIS/DSP/Include/dsp;../User/controler/inc;..\User\Imu\inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -480,6 +480,62 @@
               <FilePath>../Core/Src/dma.c</FilePath>
             </File>
             <File>
+              <FileName>spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Core/Src/spi.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
+            </File>
+            <File>
               <FileName>tim.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/tim.c</FilePath>
@@ -523,6 +579,11 @@
               <FileName>robotics.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\Alog\src\robotics.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ave_filter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\Alog\src\ave_filter.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -618,6 +679,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\drive\src\driver_haltick.cpp</FilePath>
             </File>
+            <File>
+              <FileName>driver_spi.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\drive\src\driver_spi.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -627,6 +693,36 @@
               <FileName>motor.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\motor\src\motor.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Device/imu</GroupName>
+          <Files>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Imu\src\common.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi270.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Imu\src\bmi270.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi2.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Imu\src\bmi2.c</FilePath>
+            </File>
+            <File>
+              <FileName>BMI.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Imu\src\BMI.c</FilePath>
+            </File>
+            <File>
+              <FileName>bmi2_defs.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\User\Imu\inc\bmi2_defs.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -648,6 +744,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\device\src\remote.cpp</FilePath>
             </File>
+            <File>
+              <FileName>imu_sensor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\device\src\imu_sensor.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -667,6 +768,11 @@
               <FileName>crc.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\protocol\src\crc.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>imu_protocol.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\protocol\src\imu_protocol.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -709,46 +815,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>imu</GroupName>
-          <Files>
-            <File>
-              <FileName>bmi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi2.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi2.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi2_common.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi2_common.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi2_ois.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi2_ois.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi270.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi270.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi270_context.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\bmi270_context.c</FilePath>
-            </File>
-            <File>
-              <FileName>soft_iic.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\imu\src\soft_iic.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>CMSIS/DSP</GroupName>
           <Files>
             <File>
@@ -772,9 +838,6 @@
               <FilePath>..\Drivers\CMSIS\DSP\Source\CommonTables\CommonTables.c</FilePath>
             </File>
           </Files>
-        </Group>
-        <Group>
-          <GroupName>debug</GroupName>
         </Group>
         <Group>
           <GroupName>Application/MDK-ARM</GroupName>
@@ -858,6 +921,62 @@
               <FileName>stm32f4xx_hal_exti.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f4xx_hal_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>../Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>stm32f4xx_hal_tim.c</FileName>

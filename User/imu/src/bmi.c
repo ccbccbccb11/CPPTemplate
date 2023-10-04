@@ -1,23 +1,197 @@
-/**
- * @file        bmi.c
- * @author      RobotPilots@2020
- * @Version     V1.0
- * @date        16-November-2020
- * @brief       BMI270.
- */
+#include "BMI.h"
+#include "ave_filter.h"
 
-/* Includes ------------------------------------------------------------------*/
-#include "bmi.h"
-#include "bmi2.h"
-#include "bmi2_defs.h"
-#include "bmi2_common.h"
-#include "bmi270.h"
-#include "bmi270_context.h"
+/**\
+ * Copyright (c) 2021 Bosch Sensortec GmbH. All rights reserved.
+ *
+ * SPDX-License-Identifier: BSD-3-Clause
+ **/
+
+/******************************************************************************/
+/*!                 Header Files                                              */
+
+
+/******************************************************************************/
+/*!                Macro definition                                           */
+
+/*! Earth's gravity in m/s^2 */
+#define GRAVITY_EARTH  (9.80665f)
+
+/*! Macros to select the sensors                   */
+#define ACCEL          UINT8_C(0x00)
+#define GYRO           UINT8_C(0x01)
+
+/******************************************************************************/
+/*!           Static Function Declaration                                     */
+
+/*!
+ *  @brief This internal API is used to set configurations for accel.
+ *
+ *  @param[in] dev       : Structure instance of bmi2_dev.
+ *
+ *  @return Status of execution.
+ */
+static int8_t set_accel_gyro_config(struct bmi2_dev *bmi2_dev);
+
+/*!
+ *  @brief This function converts lsb to meter per second squared for 16 bit accelerometer at
+ *  range 2G, 4G, 8G or 16G.
+ *
+ *  @param[in] val       : LSB from each axis.
+ *  @param[in] g_range   : Gravity range.
+ *  @param[in] bit_width : Resolution for accel.
+ *
+ *  @return Gravity.
+ */
+static float lsb_to_mps2(int16_t val, float g_range, uint8_t bit_width);
+
+/*!
+ *  @brief This function converts lsb to degree per second for 16 bit gyro at
+ *  range 125, 250, 500, 1000 or 2000dps.
+ *
+ *  @param[in] val       : LSB from each axis.
+ *  @param[in] dps       : Degree per second.
+ *  @param[in] bit_width : Resolution for gyro.
+ *
+ *  @return Degree per second.
+ */
+static float lsb_to_dps(int16_t val, float dps, uint8_t bit_width);
+
+/******************************************************************************/
+/*!            Functions                                        */
+
+/* This function starts the execution of program.
+
+	uint8_t	intf
+	 * For I2C : BMI2_I2C_INTF
+	 * For SPI : BMI2_SPI_INTF
+
+*/
+int8_t bmi_init(struct bmi2_dev *bmi2_dev,uint8_t intf, uint8_t aces)
+{
+    /* Status of api are returned to this variable. */
+    int8_t rslt;
+
+    /* Assign accel and gyro sensor to variable. */
+    uint8_t sensor_list[2] = { BMI2_ACCEL, BMI2_GYRO };
+
+    /* Interface reference is given as a parameter
+     * For I2C : BMI2_I2C_INTF
+     * For SPI : BMI2_SPI_INTF
+     */
+    rslt = bmi2_interface_init(bmi2_dev, intf, aces);
+
+    /* Initialize bmi270. */
+    rslt = bmi270_init(bmi2_dev);
+
+    if (rslt == BMI2_OK)
+    {
+        /* Accel and gyro configuration settings. */
+        rslt = set_accel_gyro_config(bmi2_dev);
+
+        if (rslt == BMI2_OK)
+        {
+            /* NOTE:
+             * Accel and Gyro enable must be done after setting configurations
+             */
+            rslt = bmi270_sensor_enable(sensor_list, 2, bmi2_dev);
+
+            /* Loop to print accel and gyro data when interrupt occurs. */
+
+        }
+    }
+
+
+    return rslt;
+}
+
+/*!
+ * @brief This internal API is used to set configurations for accel and gyro.
+ */
+static int8_t set_accel_gyro_config(struct bmi2_dev *bmi2_dev)
+{
+    /* Status of api are returned to this variable. */
+    int8_t rslt;
+
+    /* Structure to define accelerometer and gyro configuration. */
+    struct bmi2_sens_config config[2];
+
+    /* Configure the type of feature. */
+    config[ACCEL].type = BMI2_ACCEL;
+    config[GYRO].type = BMI2_GYRO;
+
+    /* Get default configurations for the type of feature selected. */
+    rslt = bmi270_get_sensor_config(config, 2, bmi2_dev);
+    bmi2_error_codes_print_result(rslt);
+
+    /* Map data ready interrupt to interrupt pin. */
+    rslt = bmi2_map_data_int(BMI2_DRDY_INT, BMI2_INT1, bmi2_dev);
+    bmi2_error_codes_print_result(rslt);
+
+    if (rslt == BMI2_OK)
+    {
+        /* NOTE: The user can change the following configuration parameters according to their requirement. */
+        /* Set Output Data Rate */
+        config[ACCEL].cfg.acc.odr = BMI2_ACC_ODR_1600HZ;
+
+        /* Gravity range of the sensor (+/- 2G, 4G, 8G, 16G). */
+        config[ACCEL].cfg.acc.range = BMI2_ACC_RANGE_2G;
+
+        /* The bandwidth parameter is used to configure the number of sensor samples that are averaged
+         * if it is set to 2, then 2^(bandwidth parameter) samples
+         * are averaged, resulting in 4 averaged samples.
+         * Note1 : For more information, refer the datasheet.
+         * Note2 : A higher number of averaged samples will result in a lower noise level of the signal, but
+         * this has an adverse effect on the power consumed.
+         */
+        config[ACCEL].cfg.acc.bwp = BMI2_ACC_NORMAL_AVG4;
+
+        /* Enable the filter performance mode where averaging of samples
+         * will be done based on above set bandwidth and ODR.
+         * There are two modes
+         *  0 -> Ultra low power mode
+         *  1 -> High performance mode(Default)
+         * For more info refer datasheet.
+         */
+        config[ACCEL].cfg.acc.filter_perf = BMI2_PERF_OPT_MODE;
+
+        /* The user can change the following configuration parameters according to their requirement. */
+        /* Set Output Data Rate */
+        config[GYRO].cfg.gyr.odr = BMI2_GYR_ODR_1600HZ;
+
+        /* Gyroscope Angular Rate Measurement Range.By default the range is 2000dps. */
+        config[GYRO].cfg.gyr.range = BMI2_GYR_RANGE_2000;
+
+        /* Gyroscope bandwidth parameters. By default the gyro bandwidth is in normal mode. */
+        config[GYRO].cfg.gyr.bwp = BMI2_GYR_NORMAL_MODE;
+
+        /* Enable/Disable the noise performance mode for precision yaw rate sensing
+         * There are two modes
+         *  0 -> Ultra low power mode(Default)
+         *  1 -> High performance mode
+         */
+        config[GYRO].cfg.gyr.noise_perf = BMI2_POWER_OPT_MODE;
+
+        /* Enable/Disable the filter performance mode where averaging of samples
+         * will be done based on above set bandwidth and ODR.
+         * There are two modes
+         *  0 -> Ultra low power mode
+         *  1 -> High performance mode(Default)
+         */
+        config[GYRO].cfg.gyr.filter_perf = BMI2_PERF_OPT_MODE;
+
+        /* Set the accel and gyro configurations. */
+        rslt = bmi270_set_sensor_config(config, 2, bmi2_dev);
+        bmi2_error_codes_print_result(rslt);
+    }
+
+    return rslt;
+}
+
 /*!
  * @brief This function converts lsb to meter per second squared for 16 bit accelerometer at
  * range 2G, 4G, 8G or 16G.
  */
-#define GRAVITY_EARTH  (9.80665f)
 static float lsb_to_mps2(int16_t val, float g_range, uint8_t bit_width)
 {
     float half_scale = ((float)(1 << bit_width) / 2.0f);
@@ -33,7 +207,7 @@ static float lsb_to_dps(int16_t val, float dps, uint8_t bit_width)
 {
     float half_scale = ((float)(1 << bit_width) / 2.0f);
 
-    return (dps / ((half_scale) + BMI2_GYR_RANGE_2000)) * (val);
+    return (dps / ((half_scale))) * (val);
 }
 
 float inVSqrt(float x)
@@ -47,181 +221,61 @@ float inVSqrt(float x)
 	return y;
 }
 
-/* Exported functions --------------------------------------------------------*/
-int8_t  Set_gyro(struct bmi2_dev *dev)
+void MPU_Read_Temperature(uint8_t reg,uint8_t *buff,uint8_t len)
 {
-
-    /* Status of api are returned to this variable. */
-    int8_t rslt;
-
-    /* Structure to define the type of sensor and its configurations. */
-    struct bmi2_sens_config config;
-
-    /* Configure the type of feature. */
-    config.type = BMI2_GYRO;
-
-    /* Get default configurations for the type of feature selected. */
-    rslt = bmi2_get_sensor_config(&config, 1, dev);
-    bmi2_error_codes_print_result(rslt);
-
-    /* Map data ready interrupt to interrupt pin. */
-    rslt = bmi2_map_data_int(BMI2_DRDY_INT, BMI2_INT2, dev);
-    bmi2_error_codes_print_result(rslt);
-
-    if (rslt == BMI2_OK)
-    {
-
-        /* The user can change the following configuration parameters according to their requirement. */
-        /* Output Data Rate. By default ODR is set as 200Hz for gyro. */
-        config.cfg.gyr.odr = BMI2_GYR_ODR_1600HZ;
-
-        /* Gyroscope Angular Rate Measurement Range.By default the range is 2000dps. */
-        config.cfg.gyr.range = BMI2_GYR_RANGE_2000;
-
-        /* Gyroscope bandwidth parameters. By default the gyro bandwidth is in normal mode. */
-        config.cfg.gyr.bwp = BMI2_GYR_NORMAL_MODE;
-
-        /* Enable/Disable the noise performance mode for precision yaw rate sensing
-         * There are two modes
-         *  0 -> Ultra low power mode(Default)
-         *  1 -> High performance mode
-         */
-        config.cfg.gyr.noise_perf = BMI2_PERF_OPT_MODE;
-
-        /* Enable/Disable the filter performance mode where averaging of samples
-         * will be done based on above set bandwidth and ODR.
-         * There are two modes
-         *  0 -> Ultra low power mode
-         *  1 -> High performance mode(Default)
-         */
-        config.cfg.gyr.filter_perf = BMI2_PERF_OPT_MODE;
-
-        /* Set the gyro configurations. */
-        rslt = bmi2_set_sensor_config(&config, 1, dev);
-    }
-
-    return rslt;	
-
+	BMI_CS_LOW();
+	reg |= 0x80;
+	HAL_SPI_Transmit(&hspi2, &reg,  1, 1000);
+	HAL_SPI_Receive(&hspi2, buff, len+1, 1000);
+	BMI_CS_HIG();
 }
 
-int8_t  Set_accel(struct bmi2_dev *bmi2_dev)
+void BMI_Get_Temperature(float *temp)
 {
- /* Status of api are returned to this variable. */
-    int8_t rslt;
-
-    /* Structure to define accelerometer configuration. */
-    struct bmi2_sens_config config;
-
-    /* Configure the type of feature. */
-    config.type = BMI2_ACCEL;
-
-    /* Get default configurations for the type of feature selected. */
-    rslt = bmi2_get_sensor_config(&config, 1, bmi2_dev);
-    bmi2_error_codes_print_result(rslt);
-
-    /* Map data ready interrupt to interrupt pin. */
-    rslt = bmi2_map_data_int(BMI2_DRDY_INT, BMI2_INT1, bmi2_dev);
-    bmi2_error_codes_print_result(rslt);
-
-    if (rslt == BMI2_OK)
-    {
-        /* NOTE: The user can change the following configuration parameters according to their requirement. */
-        /* Output Data Rate. By default ODR is set as 100Hz for accel. */
-        config.cfg.acc.odr = BMI2_ACC_ODR_1600HZ;
-
-        /* Gravity range of the sensor (+/- 2G, 4G, 8G, 16G). */
-        config.cfg.acc.range = BMI2_ACC_RANGE_2G;
-
-        /* The bandwidth parameter is used to configure the number of sensor samples that are averaged
-         * if it is set to 2, then 2^(bandwidth parameter) samples
-         * are averaged, resulting in 4 averaged samples.
-         * Note1 : For more information, refer the datasheet.
-         * Note2 : A higher number of averaged samples will result in a lower noise level of the signal, but
-         * this has an adverse effect on the power consumed.
-         */
-        config.cfg.acc.bwp = BMI2_ACC_NORMAL_AVG4;
-
-        /* Enable the filter performance mode where averaging of samples
-         * will be done based on above set bandwidth and ODR.
-         * There are two modes
-         *  0 -> Ultra low power mode
-         *  1 -> High performance mode(Default)
-         * For more info refer datasheet.
-         */
-        config.cfg.acc.filter_perf = BMI2_PERF_OPT_MODE;
-
-        /* Set the accel configurations. */
-        rslt = bmi2_set_sensor_config(&config, 1, bmi2_dev);
-    }
-
-    return rslt;	
+	uint8_t data[3];
+	int16_t buff;
+	int16_t tmp16;
+	MPU_Read_Temperature(TEMPERATURE_0, data, 2);
+	
+	buff = (int16_t)data[1] | ( (int16_t)data[2] << 8);
+	
+	if (data[2] & 0x80)
+	{
+		tmp16 = buff & 0x7FFF;
+		*temp = -41.f + (float)tmp16 * TEMP_RATIO;
+	}
+	else
+	{
+		tmp16 = ((~buff) & 0x7FFF) + 1;
+		*temp = 87.f - (float)tmp16 * TEMP_RATIO;
+	}
 }
 
-struct bmi2_dev bmi2_dev;
-struct bmi2_sensor_data sensor_data = { 0 };
-int8_t debug_bmi;
-int8_t BMI_Init(void)
+void MPU_Read_all(uint8_t reg,uint8_t *buff,uint8_t len)
 {
-  /* Status of api are returned to this variable. */
-    int8_t rslt;
-
-    /* Variable to define limit to print gyro data. */
-
-    /*! Sensor initialization configuration. */
-    
-    /* Create an instance of sensor data structure. */
-    
-    /* Assign gyro sensor to variable. */
-    uint8_t sens_listp;
-
-    /* Initialize the interrupt status of gyro. */
-
-    /* Initialize the dev structure */
-    rslt = bmi2_interface_selection(&bmi2_dev);
-    bmi2_error_codes_print_result(rslt);
-		
-    /* Initialize bmi270. */
-    rslt = bmi270_init(&bmi2_dev);
-    bmi2_error_codes_print_result(rslt);
-		
-    if (rslt == BMI2_OK)
-    {
-		sens_listp = BMI2_GYRO;		
-        /* Enable the selected sensors. */
-        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-        bmi2_error_codes_print_result(rslt);	
-		Set_gyro(&bmi2_dev);
-			
-		sens_listp = BMI2_ACCEL;
-		/* Enable the selected sensors. */
-        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-        bmi2_error_codes_print_result(rslt);
-		Set_accel(&bmi2_dev);
-			
-		sens_listp = BMI2_AUX;
-        /* Enable the selected sensors. */
-        rslt = bmi2_sensor_enable( &sens_listp, 1, &bmi2_dev);
-        bmi2_error_codes_print_result(rslt);
-    }
-    
-    return rslt;
+	BMI_CS_LOW();
+	bmi2_delay_us(1, NULL);
+	reg |= 0x80;
+	HAL_SPI_Transmit(&hspi2, &reg,  1, 1000);
+	HAL_SPI_Receive(&hspi2, buff, len+1, 1000);
+	bmi2_delay_us(1, NULL);
+	BMI_CS_HIG();
 }
+
+void BMI_Get_RawData(int16_t *ggx, int16_t *ggy, int16_t *ggz, int16_t *aax, int16_t *aay, int16_t *aaz)
+{
+	uint8_t data[13];
 	int16_t buff[6];
-void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,short *aaz)
-{
-	uint8_t data[12];
-
+	MPU_Read_all(ACCD_X_LSB, data, 13);
 	
-	MPU_Read_all(ACCD_X_LSB,data,12);
+	buff[0] = (int16_t)data[1] | ( (int16_t)data[2] << 8);
+	buff[1] = (int16_t)data[3] | ( (int16_t)data[4] << 8);
+	buff[2] = (int16_t)data[5] | ( (int16_t)data[6] << 8);
 	
-	buff[0] = (int16_t)data[0] | ( (int16_t)data[1] << 8);
-	buff[1] = (int16_t)data[2] | ( (int16_t)data[3] << 8);
-	buff[2] = (int16_t)data[4] | ( (int16_t)data[5] << 8);
+	buff[3] = (int16_t)data[7] | ( (int16_t)data[8] << 8);
+	buff[4] = (int16_t)data[9] | ( (int16_t)data[10] << 8);
+	buff[5] = (int16_t)data[11] | ( (int16_t)data[12] << 8);
 	
-	buff[3] = (int16_t)data[6] | ( (int16_t)data[7] << 8);
-	buff[4] = (int16_t)data[8] | ( (int16_t)data[9] << 8);
-	buff[5] = (int16_t)data[10] | ( (int16_t)data[11] << 8);
-
 	*aax = buff[0];
 	*aay = buff[1];
 	*aaz = buff[2];
@@ -230,82 +284,107 @@ void BMI_Get_RawData(short *ggx,short *ggy,short *ggz,short *aax,short *aay,shor
 	*ggz = buff[5];	
 }
 
-void BMI_Get_AUX(short *au1,short *au2,short *au3,short *au4)
-{
-	int16_t x[3],y[3],z[3],r[3];
-	
-	x[0] = MPU_Read_Byte(0x04) ;
-	x[1] = MPU_Read_Byte(0x05)  ;
-	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
-	
-	
-	y[0] = MPU_Read_Byte(0x06); 
-	y[1] = MPU_Read_Byte(0x07)  ; 
-	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
-	
-	
-	z[0] = MPU_Read_Byte(0x08) ; 
-	z[1] = MPU_Read_Byte(0x09) ; 
-	z[2] = (int16_t)z[0] | ( (int16_t)z[1] << 8 );
-	
-		
-	r[0] = MPU_Read_Byte(0x0a) ; 
-	r[1] = MPU_Read_Byte(0x0b) ; 
-	r[2] = (int16_t)r[0] | ( (int16_t)r[1] << 8 );
 
-	*au1 = x[2];
-	*au2 = y[2];
-	*au3 = z[2];
-	*au4 = r[2];
+
+/**
+    @brief  坐标变换采用Z-Y-X欧拉角描述，即从陀螺仪坐标系向云台坐标系变换中，坐标系按照绕陀螺仪Z轴、Y轴、X轴的顺序旋转
+						每一次旋转的参考坐标系为当前陀螺仪坐标系
+    @param
+    @arz
+        陀螺仪x轴与roll轴之间的夹角，单位为度
+    @ary
+        陀螺仪x轴与yaw轴之间的夹角，单位为度
+    @arx
+        陀螺仪y轴与yaw轴之间的夹角，单位为度
+*/
+//float q0_init = 0.0f, q1_init = 1.0f, q2_init = 0.0f, q3_init = 0.0f;
+//float arz_ = -90.0f;
+//float ary_ = 0.0f;
+//float arx_ = 180.0f;
+float arz_ = -90.0f;
+float ary_ = 0.0f;
+float arx_ = 0.0f;
+float arz, ary, arx;
+arm_matrix_instance_f32 Trans;
+arm_matrix_instance_f32 Src;
+arm_matrix_instance_f32 Dst;
+float trans[9];
+float gyro_in[3];
+float gyro_out[3];
+float acc_in[3];
+float acc_out[3];
+/**
+  * @brief  陀螺仪坐标变换初始化，若不需要变换可在imu_sensor.c中imu_init将其注释
+  * @param  
+  * @retval 
+  */
+void transform_init(void)
+{
+	/* 角度单位转换（to弧度） */
+	arz = arz_ * (double)0.017453;
+	ary = ary_ * (double)0.017453;
+	arx = arx_ * (double)0.017453;
+
+	/* 旋转矩阵赋值（三个旋转矩阵叠加） */
+	trans[0] = arm_cos_f32(arz)*arm_cos_f32(ary);
+	trans[1] = arm_cos_f32(arz)*arm_sin_f32(ary)*arm_sin_f32(arx) - arm_sin_f32(arz)*arm_cos_f32(arx);
+	trans[2] = arm_cos_f32(arz)*arm_sin_f32(ary)*arm_cos_f32(arx) + arm_sin_f32(arz)*arm_sin_f32(arx);
+	trans[3] = arm_sin_f32(arz)*arm_cos_f32(ary);
+	trans[4] = arm_sin_f32(arz)*arm_sin_f32(ary)*arm_sin_f32(arx) + arm_cos_f32(arz)*arm_cos_f32(arx);
+	trans[5] = arm_sin_f32(arz)*arm_sin_f32(ary)*arm_cos_f32(arx) - arm_cos_f32(arz)*arm_sin_f32(arx);
+	trans[6] = -arm_sin_f32(ary);
+	trans[7] = arm_cos_f32(ary)*arm_sin_f32(arx);
+	trans[8] = arm_cos_f32(ary)*arm_cos_f32(arx);
+	
+	/* 四元数旋转矩阵 */
+//	trans[0] = q0_init*q0_init + q1_init*q1_init - q2_init*q2_init - q3_init*q3_init;
+//	trans[1] = 2*(q1_init * q2_init - q0_init * q3_init);
+//	trans[2] = 2*(q0_init * q2_init + q1_init * q3_init);
+//	trans[3] = 2*(q0_init * q3_init + q1_init * q2_init);
+//	trans[4] = q0_init*q0_init - q1_init*q1_init + q2_init*q2_init - q3_init*q3_init;
+//	trans[5] = 2*(q2_init * q3_init - q0_init * q1_init);
+//	trans[6] = 2*(q1_init * q3_init - q0_init * q2_init);
+//	trans[7] = 2*(q0_init * q1_init + q2_init * q3_init);
+//	trans[8] = q0_init*q0_init - q1_init*q1_init - q2_init*q2_init + q3_init*q3_init;
+
+	arm_mat_init_f32(&Trans, 3, 3, (float *)trans); //3x3变换矩阵初始化
 }
 
-void BMI_Get_GRO(short *ggx,short *ggy,short *ggz)
+/**
+  * @brief  将陀螺仪坐标变换为云台坐标，若不需要变换可在imu_protocol.c中imu_update将其注释
+  * @brief  坐标变换采用Z-Y-X欧拉角描述，即从陀螺仪坐标系向云台坐标系变换中，坐标系按照绕陀螺仪Z轴、Y轴、X轴的顺序旋转
+	*					每一次旋转的参考坐标系为当前陀螺仪坐标系
+  * @param[in]  (int16_t) gx,  gy,  gz,  ax,  ay,  az
+  * @param[out] (float *) ggx, ggy, ggz, aax, aay, aaz
+	*/
+void Vector_Transform(int16_t gx, int16_t gy, int16_t gz,\
+	                    int16_t ax, int16_t ay, int16_t az,\
+	                    float *ggx, float *ggy, float *ggz,\
+											float *aax, float *aay, float *aaz)
 {
-
-	int16_t x[3],y[3],z[3];
+	/* 陀螺仪赋值 */
+	gyro_in[0] = (float)gx, gyro_in[1] = (float)gy, gyro_in[2] = (float)gz;
 	
-	x[0] = MPU_Read_Byte(GYR_X_LSB) ;
-	x[1] = MPU_Read_Byte(GYR_X_MSB)  ;
-	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
+	/* 加速度计赋值 */
+	acc_in[0] = (float)ax, acc_in[1] = (float)ay, acc_in[2] = (float)az;
 	
+	/* 陀螺仪坐标变换 */
+	arm_mat_init_f32(&Src, 1, 3, gyro_in);
+	arm_mat_init_f32(&Dst, 1, 3, gyro_out);
+	arm_mat_mult_f32(&Src, &Trans, &Dst);
+	*ggx = gyro_out[0], *ggy = gyro_out[1], *ggz = gyro_out[2];
 	
-	y[0] = MPU_Read_Byte(GYR_Y_LSB); 
-	y[1] = MPU_Read_Byte(GYR_Y_MSB)  ; 
-	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
+	/* 加速度计坐标变换 */
+	arm_mat_init_f32(&Src, 1, 3, acc_in);
+	arm_mat_init_f32(&Dst, 1, 3, acc_out);
+	arm_mat_mult_f32(&Src, &Trans, &Dst);
+	*aax = acc_out[0], *aay = acc_out[1], *aaz = acc_out[2];
 	
-	
-	z[0] = MPU_Read_Byte(GYR_Z_LSB) ; 
-	z[1] = MPU_Read_Byte(GYR_Z_MSB) ; 
-	z[2] = (int16_t)z[0] | ( (int16_t)z[1] << 8 );
-
-	*ggx = x[2];
-	*ggy = y[2];
-	*ggz = z[2];
-
 }
 
-void BMI_Get_ACC(short *aax,short *aay,short *aaz)
-{
-	int16_t x[3],y[3],z[3];
-	
-	x[0] = MPU_Read_Byte(ACCD_X_LSB) ;
-	x[1] = MPU_Read_Byte(ACCD_X_MSB)  ;
-	x[2] = (int16_t)x[0] | ( (int16_t)x[1] << 8);
-	
-	
-	y[0] = MPU_Read_Byte(ACCD_Y_LSB); 
-	y[1] = MPU_Read_Byte(ACCD_Y_MSB)  ; 
-	y[2] = (int16_t)y[0] | ( (int16_t)y[1] << 8 );
-	
-	
-	z[0] = MPU_Read_Byte(ACCD_Z_LSB) ; 
-	z[1] = MPU_Read_Byte(ACCD_Z_MSB) ; 
-	z[2] = (int16_t)z[0] | ( (int16_t)z[1] << 8 );
 
-	*aax = x[2];
-	*aay = y[2];
-	*aaz = z[2];
-}
+extern struct bmi2_dev bmi270;
+extern struct bmi2_dev ex_bmi270;
 
 /**
     @param
@@ -316,24 +395,26 @@ void BMI_Get_ACC(short *aax,short *aay,short *aaz)
     @halfT
         解算周期的一半，比如1ms解算1次则halfT为0.0005f
 */
-float Kp = 10;//4
+float Kp = 10.f;//4
 float norm;
-float halfT = 0.0005f;
+float halfT = 0.00025f;
+//float halfT = 0.0005f;
 float vx, vy, vz;
 float ex, ey, ez;
 float gx,gy,gz,ax,ay,az;
-float q0_init = 0, q1_init = 1, q2_init = 0, q3_init = 0;  //将云台摆到yaw、pitch都为零时即初始值
-float q0 = 0.0f, q1 = 1.0f, q2 = 0.0f, q3 = 0.0f;  //将云台摆到yaw、pitch都为零时即初始值
+float q0 = 1.0f, q1 = 0.0f, q2 = 0.0f, q3 = 0.0f;  //将云台摆到yaw、pitch都为零时即初始值
 float q0temp,q1temp,q2temp,q3temp;
-float a_sum;
+float sintemp, sintemp_, costemp, costemp_;
 /**
   * @brief  不带_的为涉及加速度计的，带_的为不涉及加速度计的，用于差分计算速度
   * @param  
   * @retval 
   */
 uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
+                           float *pitch_,float *roll_,float *yaw_,\
 													 float *ggx,float *ggy,float *ggz,\
-													 float *aax,float *aay,float *aaz) {
+													 float *aax,float *aay,float *aaz)
+{
 	/* 陀螺仪值赋值 */
 	gx = *ggx;
 	gy = *ggy;
@@ -345,9 +426,13 @@ uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
 	az = *aaz;
 	
 	/* 陀螺仪数据单位转换（to度每秒） */
-	gx = lsb_to_dps(gx,2000,bmi2_dev.resolution);
-	gy = lsb_to_dps(gy,2000,bmi2_dev.resolution);
-	gz = lsb_to_dps(gz,2000,bmi2_dev.resolution);
+	gx = lsb_to_dps(gx,2000,bmi270.resolution);
+	gy = lsb_to_dps(gy,2000,bmi270.resolution);
+	gz = lsb_to_dps(gz,2000,bmi270.resolution);
+	
+	*roll_  = gx;
+	*pitch_ = gy;
+	*yaw_   = gz;
 	
 	/* 陀螺仪数据单位转换（to弧度每秒） */
 	gx = gx * (double)0.017453;
@@ -356,24 +441,25 @@ uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
 	
 	/* 角度解算start */
 	/* 加速度计数据检查 */
-	if(ax * ay * az != 0) {
+	if(ax * ay * az != 0)
+	{
 		/* 加速度计数据单位转换（to米每二次方秒） */
-		ax = lsb_to_mps2(ax,2,bmi2_dev.resolution);
-		ay = lsb_to_mps2(ay,2,bmi2_dev.resolution);
-		az = lsb_to_mps2(az,2,bmi2_dev.resolution);
+		ax = lsb_to_mps2(ax,2,bmi270.resolution);
+		ay = lsb_to_mps2(ay,2,bmi270.resolution);
+		az = lsb_to_mps2(az,2,bmi270.resolution);
 
 		norm = inVSqrt(ax*ax + ay*ay + az*az);
 		ax = ax *norm;
 		ay = ay *norm;
 		az = az *norm;
 		
-		vx = 2*(q1*q3 - q0*q2);//-sin(Pitch) cos(K,i)
-		vy = 2*(q0*q1 + q2*q3);//sin(Roll)cos(Pitch) cos(K,j)
-		vz = q0*q0 - q1*q1 - q2*q2 + q3*q3;//cos(Roll)cos(Pitch) cos(K,k)
+		vx = -2*(q1*q3 - q0*q2);//-sin(Pitch) cos(K,i)
+		vy = -2*(q0*q1 + q2*q3);//sin(Roll)cos(Pitch) cos(K,j)
+		vz = -(q0*q0 - q1*q1 - q2*q2 + q3*q3);//cos(Roll)cos(Pitch) cos(K,k)
 		
-		ex = (ay*vz - az*vy) ;
-		ey = (az*vx - ax*vz) ;//切线方向加速度
-		ez = (ax*vy - ay*vx) ;
+		ex = (az*vy - ay*vz) ;
+		ey = (ax*vz - az*vx) ;//切线方向加速度
+		ez = (ay*vx - ax*vy) ;
 		
 		gx = gx + Kp*ex;
 		gy = gy + Kp*ey;
@@ -396,19 +482,53 @@ uint8_t BMI_Get_EulerAngle(float *pitch,float *roll,float *yaw,\
 	q2 = q2 * norm;
 	q3 = q3 * norm;
 	
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-//	*roll = atan2(2 * q2 * q3 + 2 * q0 * q1,q0*q0 - q1 * q1 -  q2 * q2 + q3 *q3)* 57.295773f;
-//	*pitch = -asin( 2 * q1 * q3 -2 * q0* q2)*57.295773f;
-//	*yaw =  -atan2(2*(q1*q2 + q0*q3),q0*q0 +q1*q1-q2*q2 -q3*q3)*57.295773f;  //装配校正
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
-	/* ToDoToDoToDoToDoToDoToDoToDoToDoToDoToDo */
+	//*roll = atan2(2 * q2 * q3 + 2 * q0 * q1,q0*q0 - q1 * q1 -  q2 * q2 + q3 *q3)* 57.295773f;
+	arm_atan2_f32(2 * q2 * q3 + 2 * q0 * q1, q0 * q0 - q1 * q1 -  q2 * q2 + q3 * q3, roll);
 	
+	//*pitch = -asin( 2 * q1 * q3 -2 * q0* q2)*57.295773f;
+  //asin(x) = atan(x/sqrt(1-x*x))
+	sintemp = 2 * q1 * q3 -2 * q0* q2;
+	arm_sqrt_f32(1 - sintemp * sintemp, &costemp);
+	arm_atan2_f32(sintemp, costemp, pitch);
+	
+	//*yaw =  atan2(2*(q1*q2 + q0*q3),q0*q0 +q1*q1-q2*q2 -q3*q3)*57.295773f;
+	arm_atan2_f32(2 * (q1*q2 + q0*q3), q0*q0 +q1*q1-q2*q2 -q3*q3, yaw);
+	
+	*roll  *=  57.295773f;
+	*pitch *= -57.295773f;
+	*yaw   *=  57.295773f;
 	/* 角度解算end */
 	
 	return 0;
+}
+
+void BMI_Get_Acceleration(float pitch, float roll, float yaw,\
+													float ax, float ay, float az,\
+													float *accx, float *accy, float *accz)
+{
+	float imu_accx, imu_accy, imu_accz;
+	
+	pitch *= (double)0.017453;
+	yaw *= (double)0.017453;
+	roll *= (double)0.017453;
+	
+	ax = lsb_to_mps2(ax,2,bmi270.resolution);
+	ay = lsb_to_mps2(ay,2,bmi270.resolution);
+	az = lsb_to_mps2(az,2,bmi270.resolution);
+	
+	imu_accx = ax + arm_sin_f32(pitch) * GRAVITY_EARTH;
+	imu_accy = ay - arm_sin_f32(roll) * arm_cos_f32(pitch) * GRAVITY_EARTH;
+	imu_accz = az - arm_cos_f32(roll) * arm_cos_f32(pitch) * GRAVITY_EARTH;
+	
+	*accx = imu_accx * arm_cos_f32(pitch) + imu_accz * arm_sin_f32(pitch);
+	*accy = imu_accy * arm_cos_f32(roll) - imu_accz * arm_sin_f32(roll);
+	*accz = imu_accz * arm_cos_f32(pitch) * arm_cos_f32(roll) - imu_accx * arm_sin_f32(pitch) * arm_cos_f32(roll) \
+					+ imu_accy * arm_sin_f32(roll) * arm_cos_f32(pitch);
+//	
+//	*accx = ax + arm_sin_f32(pitch) * GRAVITY_EARTH;
+//	*accy = ay - arm_sin_f32(roll) * arm_cos_f32(pitch) * GRAVITY_EARTH;
+//	*accz = az - arm_cos_f32(roll) * arm_cos_f32(pitch) * GRAVITY_EARTH;
+	
+	
+	
 }
