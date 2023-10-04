@@ -14,13 +14,18 @@
 #include <stdint.h>
 
 namespace math {
-
-template <typename T> T Abs(T x) {
-	if (x > 0) {
-		return x;
+template <typename T> T Abs(T val) {
+	if (val > 0) {
+		return val;
 	} else {
-		return (-x);
+		return (-val);
 	}
+}
+template <typename T> bool DistanceBool(T val, T end, T err) {
+	if (Abs(val - end) < err)
+		return true;
+	else
+		return false;
 }
 template <typename T> T Limit(T val, T min, T max) {
 	if (min > max)

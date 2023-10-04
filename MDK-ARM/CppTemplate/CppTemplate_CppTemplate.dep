@@ -391,7 +391,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
 F (..\User\Alog\src\utils.cpp)(0x651AAAE6)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/utils.o -MD)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x63884902)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63884908)
@@ -573,7 +573,7 @@ I (..\Drivers\CMSIS\DSP\Include\dsp\quaternion_math_functions.h)(0x64E30C72)
 I (..\Drivers\CMSIS\DSP\Include\dsp\window_functions.h)(0x64E30C72)
 F (..\User\Alog\src\robotics.cpp)(0x6501B098)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/robotics.o -MD)
 I (..\User\Alog\inc\robotics.h)(0x650EAD17)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdint.h)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__config)(0x63884902)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63884908)
@@ -992,7 +992,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 F (..\User\Imu\src\BMI.c)(0x651C127F)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/bmi.o -MD)
 I (..\User\Imu\inc\BMI.h)(0x651CC355)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdio.h)(0x63884908)
@@ -1772,7 +1772,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\controler\inc\pid.hpp)(0x651BC28B)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (..\User\device\inc\test_motor.hpp)(0x651BB74F)
 I (..\User\protocol\inc\uart_protocol.hpp)(0x651ACDBB)
 I (..\User\protocol\inc\crc.hpp)(0x6512D74E)
@@ -1780,7 +1780,7 @@ I (..\User\Entity\inc\example.hpp)(0x651BC348)
 I (..\User\Entity\inc\entity.hpp)(0x651B7997)
 I (..\User\device\inc\imu_sensor.h)(0x651D0D7D)
 I (..\User\Imu\inc\bmi_t.h)(0x64DF22B8)
-F (..\User\device\src\test_motor.cpp)(0x651BB74F)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/test_motor.o -MD)
+F (..\User\device\src\test_motor.cpp)(0x651D4718)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/test_motor.o -MD)
 I (..\User\device\inc\test_motor.hpp)(0x651BB74F)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h)(0x64FADCF8)
 I (..\Core\Inc\stm32f4xx_hal_conf.h)(0x651C0B7C)
@@ -1822,7 +1822,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
 I (..\User\controler\inc\pid.hpp)(0x651BC28B)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\iostream)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x63884902)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x63884906)
@@ -2475,7 +2475,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_spi.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\iostream)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x63884902)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x63884906)
@@ -3089,7 +3089,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\stdarg.h)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\streambuf)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\Alog\inc\ave_filter.h)(0x651A29E0)
-F (..\User\device\src\imu_sensor.c)(0x651D11D4)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/imu_sensor.o -MD)
+F (..\User\device\src\imu_sensor.c)(0x651D2106)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/imu_sensor.o -MD)
 I (..\User\device\inc\imu_sensor.h)(0x651D0D7D)
 I (..\User\Imu\inc\bmi_t.h)(0x64DF22B8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdint.h)(0x63884908)
@@ -3817,7 +3817,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\controler\inc\pid.hpp)(0x651BC28B)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (..\User\device\inc\test_motor.hpp)(0x651BB74F)
 I (..\User\protocol\inc\uart_protocol.hpp)(0x651ACDBB)
 I (..\User\protocol\inc\crc.hpp)(0x6512D74E)
@@ -4475,7 +4475,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\streambuf)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\device\inc\remote_control.hpp)(0x651AB1C0)
 I (..\User\device\inc\rc_config.h)(0x651A698B)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (..\Core\Inc\usart.h)(0x650FC818)
 I (..\Core\Inc\main.h)(0x651C0EFC)
 F (..\User\protocol\src\crc.cpp)(0x6512D74E)(-xc++ -std=c++11 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar -fno-exceptions-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/crc.o -MD)
@@ -4519,7 +4519,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\stdbool.h)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\stdbool.h)(0x63884908)
-F (..\User\protocol\src\imu_protocol.c)(0x651D0BEC)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/imu_protocol.o -MD)
+F (..\User\protocol\src\imu_protocol.c)(0x651D2731)(-xc -std=c99 --target=arm-arm-none-eabi -mcpu=cortex-m4 -mfpu=fpv4-sp-d16 -mfloat-abi=hard -c-fno-rtti -funsigned-char -fshort-enums -fshort-wchar-gdwarf-4 -O1 -ffunction-sections -Wno-packed -Wno-missing-variable-declarations -Wno-missing-prototypes -Wno-missing-noreturn -Wno-sign-conversion -Wno-nonportable-include-path -Wno-reserved-id-macro -Wno-unused-macros -Wno-documentation-unknown-command -Wno-documentation -Wno-license-management -Wno-parentheses-equality -Wno-reserved-identifier -I ../Core/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc -I ../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I ../Middlewares/Third_Party/FreeRTOS/Source/include -I ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS -I ../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F -I ../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I ../Drivers/CMSIS/Include -I ../User/Alog/inc -I ../User/cmsis -I ../User/control/inc -I ../User/config/inc -I ../User/device/inc -I ../User/drive/inc -I ../User/Entity/inc -I ../User/Matrix_Robotics/src -I ../User/motor/inc -I ../User/my_task/inc -I ../User/protocol/inc -I ../Drivers/CMSIS/DSP/Include -I ../Drivers/CMSIS/DSP/Include/dsp -I ../User/controler/inc -I ../User/Imu/inc-I./RTE/_CppTemplate-IC:/Users/29425/AppData/Local/Arm/Packs/ARM/CMSIS/5.9.0/CMSIS/Core/Include-IC:/Users/29425/AppData/Local/Arm/Packs/Keil/STM32F4xx_DFP/2.17.1/Drivers/CMSIS/Device/ST/STM32F4xx/Include-D__UVISION_VERSION="538" -D_RTE_ -DSTM32F407xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32F407xx -D__FPU_PRESENT="1" -DARM_MATH_CM4 -DARM_MATH_LOOPUNROLL-o ./cpptemplate/imu_protocol.o -MD)
 I (..\User\protocol\inc\imu_protocol.h)(0x651CC6DC)
 I (..\User\device\inc\imu_sensor.h)(0x651D0D7D)
 I (..\User\Imu\inc\bmi_t.h)(0x64DF22B8)
@@ -4633,7 +4633,7 @@ I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h)(0x64FADCF8)
 I (..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h)(0x64FADCF8)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\iostream)(0x63884908)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__assert)(0x63884902)
 I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__verbose_abort)(0x63884906)
@@ -5901,7 +5901,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\controler\inc\pid.hpp)(0x651BC28B)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (..\User\device\inc\test_motor.hpp)(0x651BB74F)
 I (..\User\protocol\inc\uart_protocol.hpp)(0x651ACDBB)
 I (..\User\protocol\inc\crc.hpp)(0x6512D74E)
@@ -6561,7 +6561,7 @@ I (C:\Keil_v5\ARM\ARMCLANG\include\libcxx\__bsd_locale_fallbacks.h)(0x63884902)
 I (..\User\controler\inc\pid.hpp)(0x651BC28B)
 I (..\User\motor\inc\motor.hpp)(0x651BCA3A)
 I (..\User\motor\inc\motor_def.hpp)(0x65166129)
-I (..\User\Alog\inc\utils.h)(0x651CC5C9)
+I (..\User\Alog\inc\utils.h)(0x651D2E4A)
 I (..\User\device\inc\test_motor.hpp)(0x651BB74F)
 I (..\User\protocol\inc\uart_protocol.hpp)(0x651ACDBB)
 I (..\User\protocol\inc\crc.hpp)(0x6512D74E)

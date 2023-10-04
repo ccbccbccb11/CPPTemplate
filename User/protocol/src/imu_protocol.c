@@ -41,7 +41,6 @@ void imu_update(imu_sensor_t *imu_sen) {
 	imu_info->raw_info.gyro_y = ggy;
 	imu_info->raw_info.gyro_z = ggz;
 	
-	/* ����ϵ�任 */
 	Vector_Transform(ggx, ggy, ggz, aax, aay, aaz,\
 	                 &gyrox, &gyroy, &gyroz, &accx, &accy, &accz);
 	

@@ -63,7 +63,8 @@ void imu_init(struct imu_struct *self) {
 		self->bmi->drive_type = BMI2_I2C_INTF;
 	}
 	
-	self->work_state.init_code = self->bmi->init(self->bmi->dev,self->bmi->drive_type,self->bmi->device_aces);
+	self->work_state.init_code = self->bmi->init(self->bmi->dev, 
+					self->bmi->drive_type, self->bmi->device_aces);
 
 	while(self->work_state.init_code) {
 		if (++self->work_state.err_cnt == init_cnt) {
