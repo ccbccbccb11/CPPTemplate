@@ -16,7 +16,7 @@ short aax, aay, aaz;
 
 float temp;
 
-//ÁÙÊ±±äÁ¿
+//ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½
 float pitch, roll, yaw;
 
 float gyrox, gyroy, gyroz;
@@ -41,11 +41,11 @@ void imu_update(imu_sensor_t *imu_sen) {
 	imu_info->raw_info.gyro_y = ggy;
 	imu_info->raw_info.gyro_z = ggz;
 	
-	/* ×ø±êÏµ±ä»» */
+	/* ï¿½ï¿½ï¿½ï¿½Ïµï¿½ä»» */
 	Vector_Transform(ggx, ggy, ggz, aax, aay, aaz,\
 	                 &gyrox, &gyroy, &gyroz, &accx, &accy, &accz);
 	
-	/* ÍÓÂÝÒÇÐ£Õý */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð£ï¿½ï¿½ */
 	if (imu_sen->work_state.err_code == IMU_DATA_CALI) {
 		if (i < 2000) {
 			imu_info->offset_info.gx_offset -= gyrox * 0.0005f;
@@ -70,7 +70,7 @@ void imu_update(imu_sensor_t *imu_sen) {
 		gyroz += imu_info->offset_info.gz_offset;
 	}
 	
-	/* Ô­Ê¼Êý¾ÝµÍÍ¨ÂË²¨ */
+	/* Ô­Ê¼ï¿½ï¿½ï¿½Ýµï¿½Í¨ï¿½Ë²ï¿½ */
 	gyrox_ = lowpass(gyrox_, gyrox, 1.f);
 	gyroy_ = lowpass(gyroy_, gyroy, 1.f);
 	gyroz_ = lowpass(gyroz_, gyroz, 1.f);
@@ -78,7 +78,7 @@ void imu_update(imu_sensor_t *imu_sen) {
 	accy_ = lowpass(accy_, accy, 0.2f);
 	accz_ = lowpass(accz_, accz, 0.2f);
 	
-	/* ½âËãÍÓÂÝÒÇÊý¾Ý */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
   BMI_Get_EulerAngle(&imu_info->base_info.pitch, &imu_info->base_info.roll, &imu_info->base_info.yaw,\
 										 &pitch_, &roll_, &yaw_, \
 										 &gyrox_, &gyroy_, &gyroz_, \
@@ -93,7 +93,7 @@ void imu_update(imu_sensor_t *imu_sen) {
 											 accx_, accy_, accz_,\
 											 &imu_info->base_info.accx, &imu_info->base_info.accy, &imu_info->base_info.accz);
 	
-	/* ¼ÆËãÍÓÂÝÒÇÊý¾Ý */
+	/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ */
 	//pitch
 	imu_info->base_info.rate_pitch = pitch_;
 	imu_info->base_info.ave_rate_pitch = ave_fil_update(&imu_pitch_dif_speed_ave_filter, imu_info->base_info.rate_pitch, 3);
@@ -108,11 +108,11 @@ void imu_update(imu_sensor_t *imu_sen) {
 	
 	imu_sen->work_state.offline_cnt = 0;
 	
-	/*  imu¶ÁÈ¡Êý¾ÝÅÐ¶Ï  */
+	/*  imuï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½  */
 	if ((aax == 0) && (aay == 0) && (aaz == 0) \
 			 && (ggx == 0) && (ggy == 0) && (ggz == 0)) {
 		if(++imu_sen->work_state.err_cnt >= 100) {
-			imu_sen->work_state.dev_state = DEV_OFFLINE;
+			imu_sen->work_state.dev_state = kImuOnline;
 			imu_sen->work_state.err_code = IMU_DATA_ERR;
 			imu_sen->work_state.offline_cnt = imu_sen->work_state.offline_max_cnt;
 			imu_sen->work_state.err_cnt = 100;

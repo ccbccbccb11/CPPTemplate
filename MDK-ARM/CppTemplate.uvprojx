@@ -700,14 +700,9 @@
           <GroupName>Device/imu</GroupName>
           <Files>
             <File>
-              <FileName>common.c</FileName>
+              <FileName>BMI.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Imu\src\common.c</FilePath>
-            </File>
-            <File>
-              <FileName>bmi270.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\Imu\src\bmi270.c</FilePath>
+              <FilePath>..\User\Imu\src\BMI.c</FilePath>
             </File>
             <File>
               <FileName>bmi2.c</FileName>
@@ -715,9 +710,14 @@
               <FilePath>..\User\Imu\src\bmi2.c</FilePath>
             </File>
             <File>
-              <FileName>BMI.c</FileName>
+              <FileName>bmi270.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\User\Imu\src\BMI.c</FilePath>
+              <FilePath>..\User\Imu\src\bmi270.c</FilePath>
+            </File>
+            <File>
+              <FileName>common.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\User\Imu\src\common.c</FilePath>
             </File>
             <File>
               <FileName>bmi2_defs.h</FileName>

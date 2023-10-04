@@ -3,7 +3,7 @@
 <title>Static Call Graph - [.\CppTemplate\CppTemplate.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image .\CppTemplate\CppTemplate.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Wed Oct  4 11:08:09 2023
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 6190004: Last Updated: Wed Oct  4 15:18:47 2023
 <BR><P>
 <H3>Maximum Stack Usage =       1112 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -615,7 +615,6 @@ Function Pointers
  <LI><a href="#[7c]">bmi2_spi_read</a> from common.o(.text.bmi2_spi_read) referenced 2 times from common.o(.text.bmi2_interface_init)
  <LI><a href="#[7d]">bmi2_spi_write</a> from common.o(.text.bmi2_spi_write) referenced 2 times from common.o(.text.bmi2_interface_init)
  <LI><a href="#[1d4]">bmi_init</a> from bmi.o(.text.bmi_init) referenced from imu_sensor.o(.data.bmi_client)
- <LI><a href="#[1d4]">bmi_init</a> from bmi.o(.text.bmi_init) referenced from imu_sensor.o(.data.ex_bmi_client)
  <LI><a href="#[72]">free</a> from h1_free.o(.text) referenced 2 times from locale.cpp.o(.text._ZNSt3__219__double_or_nothingIcEEvRNS_10unique_ptrIT_PFvPvEEERPS2_S9_)
  <LI><a href="#[72]">free</a> from h1_free.o(.text) referenced 2 times from locale.cpp.o(.text._ZNSt3__219__double_or_nothingIjEEvRNS_10unique_ptrIT_PFvPvEEERPS2_S9_)
  <LI><a href="#[72]">free</a> from h1_free.o(.text) referenced 2 times from locale.cpp.o(.text._ZNSt3__219__double_or_nothingIwEEvRNS_10unique_ptrIT_PFvPvEEERPS2_S9_)
@@ -1219,7 +1218,8 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[21f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_atexit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_entity.cpp
+<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_example.cpp
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_entity.cpp
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_pid.cpp
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_uart_protocol.cpp
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_can_protocol.cpp
@@ -1228,7 +1228,6 @@ Global Symbols
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_device.cpp
 <LI><a href="#[32f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::__2::ios_base::Init::Init()
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_driver_uart.cpp
-<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_example.cpp
 <LI><a href="#[346]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::__2::init_wam_pm()
 <LI><a href="#[342]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::__2::init_am_pm()
 <LI><a href="#[348]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::__2::init_wmonths()
@@ -2766,9 +2765,9 @@ Global Symbols
 <P><STRONG><a name="[2b9]"></a>BMI_Get_RawData</STRONG> (Thumb, 174 bytes, Stack size 56 bytes, bmi.o(.text.BMI_Get_RawData))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = BMI_Get_RawData &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<BR>[Calls]<UL><LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_delay_us
+<LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 <LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_delay_us
 <LI><a href="#[2ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;imu_update
@@ -3157,22 +3156,21 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[2ba]"></a>HAL_GPIO_WritePin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32f4xx_hal_gpio.o(.text.HAL_GPIO_WritePin))
-<BR><BR>[Called By]<UL><LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
-<LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_Temperature
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
+<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_read
+<LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
+<LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_Temperature
 <LI><a href="#[2cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI2_Init()
 <LI><a href="#[31a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 </UL>
 
 <P><STRONG><a name="[2e5]"></a>HAL_GetTick</STRONG> (Thumb, 12 bytes, Stack size 0 bytes, stm32f4xx_hal.o(.text.HAL_GetTick))
-<BR><BR>[Called By]<UL><LI><a href="#[1d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;imu_init
-<LI><a href="#[410]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_interface_init
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
-<LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
-<LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<BR><BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_read
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_delay_us
+<LI><a href="#[2bc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<LI><a href="#[2bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
+<LI><a href="#[410]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_interface_init
 <LI><a href="#[2ec]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_Delay
 <LI><a href="#[2c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_CAN_Start
 <LI><a href="#[2eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_DMA_Init
@@ -3304,9 +3302,9 @@ Global Symbols
 <LI><a href="#[2fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[2fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_EndRxTransaction
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
+<BR>[Called By]<UL><LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_read
+<LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
 <LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_Temperature
-<LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_read
 </UL>
 
 <P><STRONG><a name="[2bb]"></a>HAL_SPI_Transmit</STRONG> (Thumb, 450 bytes, Stack size 40 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_Transmit))
@@ -3315,10 +3313,10 @@ Global Symbols
 <BR>[Calls]<UL><LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 <LI><a href="#[2fd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SPI_WaitFlagStateUntilTimeout
 </UL>
-<BR>[Called By]<UL><LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
-<LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_Temperature
-<LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
+<BR>[Called By]<UL><LI><a href="#[7d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_write
 <LI><a href="#[7c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_spi_read
+<LI><a href="#[2b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_RawData
+<LI><a href="#[2bd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;BMI_Get_Temperature
 </UL>
 
 <P><STRONG><a name="[2fb]"></a>HAL_SPI_TransmitReceive</STRONG> (Thumb, 540 bytes, Stack size 40 bytes, stm32f4xx_hal_spi.o(.text.HAL_SPI_TransmitReceive))
@@ -7826,7 +7824,8 @@ Global Symbols
 <LI><a href="#[3f8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;std::__2::DoIOSInit::DoIOSInit__sub_object()
 <LI><a href="#[21e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__cxa_atexit
 </UL>
-<BR>[Called By]<UL><LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_entity.cpp
+<BR>[Called By]<UL><LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_example.cpp
+<LI><a href="#[1d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_entity.cpp
 <LI><a href="#[1d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_pid.cpp
 <LI><a href="#[1d0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_uart_protocol.cpp
 <LI><a href="#[1cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_can_protocol.cpp
@@ -7834,7 +7833,6 @@ Global Symbols
 <LI><a href="#[1cd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_test_motor.cpp
 <LI><a href="#[1cc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_device.cpp
 <LI><a href="#[1cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_driver_uart.cpp
-<LI><a href="#[1d3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_GLOBAL__sub_I_example.cpp
 </UL>
 
 <P><STRONG><a name="[4cf]"></a>std::__2::ios_base::Init::Init__sub_object()</STRONG> (Thumb, 92 bytes, Stack size 16 bytes, iostream.cpp.o(.text._ZNSt3__28ios_base4InitC2Ev), UNUSED)
@@ -7842,9 +7840,9 @@ Global Symbols
 <P><STRONG><a name="[6c]"></a>std::__2::ios_base::Init::~Init()</STRONG> (Thumb, 2 bytes, Stack size 0 bytes, iostream.cpp.o(.text._ZNSt3__28ios_base4InitD2Ev))
 <BR>[Address Reference Count : 9]<UL><LI> driver_uart.o(.text._GLOBAL__sub_I_driver_uart.cpp)
 <LI> test_motor.o(.text._GLOBAL__sub_I_test_motor.cpp)
+<LI> remote.o(.text._GLOBAL__sub_I_remote.cpp)
 <LI> can_protocol.o(.text._GLOBAL__sub_I_can_protocol.cpp)
 <LI> uart_protocol.o(.text._GLOBAL__sub_I_uart_protocol.cpp)
-<LI> remote.o(.text._GLOBAL__sub_I_remote.cpp)
 <LI> device.o(.text._GLOBAL__sub_I_device.cpp)
 <LI> pid.o(.text._GLOBAL__sub_I_pid.cpp)
 <LI> entity.o(.text._GLOBAL__sub_I_entity.cpp)
@@ -8574,16 +8572,16 @@ Global Symbols
 <P><STRONG><a name="[401]"></a>bmi270_get_sensor_config</STRONG> (Thumb, 1108 bytes, Stack size 88 bytes, bmi270.o(.text.bmi270_get_sensor_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 464<LI>Call Chain = bmi270_get_sensor_config &rArr; bmi2_get_sensor_config &rArr; bmi2_get_feat_config &rArr; bmi2_get_regs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[402]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_sensor_config
+<BR>[Calls]<UL><LI><a href="#[404]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_extract_input_feat_config
+<LI><a href="#[402]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_sensor_config
 <LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
-<LI><a href="#[404]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_extract_input_feat_config
 <LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi_init
 </UL>
 
 <P><STRONG><a name="[406]"></a>bmi270_init</STRONG> (Thumb, 140 bytes, Stack size 8 bytes, bmi270.o(.text.bmi270_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = bmi270_init &rArr; bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; set_config_load
+<BR><BR>[Stack]<UL><LI>Max Depth = 504<LI>Call Chain = bmi270_init &rArr; bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; bmi2_set_adv_power_save
 </UL>
 <BR>[Calls]<UL><LI><a href="#[408]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_gyro_cross_sense
 <LI><a href="#[407]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_sec_init
@@ -8594,12 +8592,12 @@ Global Symbols
 <P><STRONG><a name="[409]"></a>bmi270_sensor_enable</STRONG> (Thumb, 1240 bytes, Stack size 56 bytes, bmi270.o(.text.bmi270_sensor_enable))
 <BR><BR>[Stack]<UL><LI>Max Depth = 256<LI>Call Chain = bmi270_sensor_enable &rArr; bmi2_get_feat_config &rArr; bmi2_get_regs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
+<BR>[Calls]<UL><LI><a href="#[40a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select_sensor
 <LI><a href="#[404]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_extract_input_feat_config
+<LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
 <LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_regs
 <LI><a href="#[7f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_regs
-<LI><a href="#[40a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;select_sensor
 </UL>
 <BR>[Called By]<UL><LI><a href="#[1d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi_init
 </UL>
@@ -8607,9 +8605,9 @@ Global Symbols
 <P><STRONG><a name="[40b]"></a>bmi270_set_sensor_config</STRONG> (Thumb, 1384 bytes, Stack size 88 bytes, bmi270.o(.text.bmi270_set_sensor_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 464<LI>Call Chain = bmi270_set_sensor_config &rArr; bmi2_set_sensor_config &rArr; bmi2_get_feat_config &rArr; bmi2_get_regs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[40c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_sensor_config
+<BR>[Calls]<UL><LI><a href="#[404]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_extract_input_feat_config
+<LI><a href="#[40c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_sensor_config
 <LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
-<LI><a href="#[404]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_extract_input_feat_config
 <LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
 <LI><a href="#[80]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_regs
 </UL>
@@ -8632,9 +8630,9 @@ Global Symbols
 <P><STRONG><a name="[404]"></a>bmi2_extract_input_feat_config</STRONG> (Thumb, 58 bytes, Stack size 8 bytes, bmi2.o(.text.bmi2_extract_input_feat_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = bmi2_extract_input_feat_config
 </UL>
-<BR>[Called By]<UL><LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
+<BR>[Called By]<UL><LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
 <LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
-<LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
+<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 </UL>
 
 <P><STRONG><a name="[405]"></a>bmi2_get_feat_config</STRONG> (Thumb, 228 bytes, Stack size 40 bytes, bmi2.o(.text.bmi2_get_feat_config))
@@ -8644,10 +8642,10 @@ Global Symbols
 </UL>
 <BR>[Called By]<UL><LI><a href="#[40d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feature_data
 <LI><a href="#[402]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_sensor_config
-<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 <LI><a href="#[40c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_sensor_config
-<LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
 <LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
+<LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
+<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 </UL>
 
 <P><STRONG><a name="[40d]"></a>bmi2_get_feature_data</STRONG> (Thumb, 552 bytes, Stack size 184 bytes, bmi2.o(.text.bmi2_get_feature_data))
@@ -8684,10 +8682,10 @@ Global Symbols
 <P><STRONG><a name="[402]"></a>bmi2_get_sensor_config</STRONG> (Thumb, 1022 bytes, Stack size 176 bytes, bmi2.o(.text.bmi2_get_sensor_config))
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = bmi2_get_sensor_config &rArr; bmi2_get_feat_config &rArr; bmi2_get_regs
 </UL>
-<BR>[Calls]<UL><LI><a href="#[40f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_gyro_config
-<LI><a href="#[40e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_accel_config
-<LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
+<BR>[Calls]<UL><LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
 <LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
+<LI><a href="#[40f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_gyro_config
+<LI><a href="#[40e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;get_accel_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 </UL>
@@ -8713,7 +8711,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[407]"></a>bmi2_sec_init</STRONG> (Thumb, 290 bytes, Stack size 152 bytes, bmi2.o(.text.bmi2_sec_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; set_config_load
+<BR><BR>[Stack]<UL><LI>Max Depth = 496<LI>Call Chain = bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; bmi2_set_adv_power_save
 </UL>
 <BR>[Calls]<UL><LI><a href="#[411]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_soft_reset
 </UL>
@@ -8723,20 +8721,20 @@ Global Symbols
 <P><STRONG><a name="[403]"></a>bmi2_set_adv_power_save</STRONG> (Thumb, 294 bytes, Stack size 160 bytes, bmi2.o(.text.bmi2_set_adv_power_save))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = bmi2_set_adv_power_save
 </UL>
-<BR>[Called By]<UL><LI><a href="#[415]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_write_config_file
-<LI><a href="#[40d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feature_data
+<BR>[Called By]<UL><LI><a href="#[40d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feature_data
 <LI><a href="#[402]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_sensor_config
-<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 <LI><a href="#[40c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_sensor_config
-<LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
+<LI><a href="#[415]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_write_config_file
 <LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
+<LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
+<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
 </UL>
 
 <P><STRONG><a name="[80]"></a>bmi2_set_regs</STRONG> (Thumb, 130 bytes, Stack size 24 bytes, bmi2.o(.text.bmi2_set_regs))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = bmi2_set_regs
 </UL>
-<BR>[Called By]<UL><LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
-<LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
+<BR>[Called By]<UL><LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
+<LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> imu_sensor.o(.text.imu_init)
 </UL>
@@ -8744,16 +8742,16 @@ Global Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 376<LI>Call Chain = bmi2_set_sensor_config &rArr; bmi2_get_feat_config &rArr; bmi2_get_regs
 </UL>
 <BR>[Calls]<UL><LI><a href="#[414]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_status
-<LI><a href="#[413]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_gyro_config
-<LI><a href="#[412]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_accel_config
 <LI><a href="#[405]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_feat_config
 <LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
+<LI><a href="#[413]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_gyro_config
+<LI><a href="#[412]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_accel_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
 </UL>
 
 <P><STRONG><a name="[411]"></a>bmi2_soft_reset</STRONG> (Thumb, 258 bytes, Stack size 152 bytes, bmi2.o(.text.bmi2_soft_reset))
-<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; set_config_load
+<BR><BR>[Stack]<UL><LI>Max Depth = 344<LI>Call Chain = bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; bmi2_set_adv_power_save
 </UL>
 <BR>[Calls]<UL><LI><a href="#[415]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_write_config_file
 </UL>
@@ -8780,29 +8778,28 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> common.o(.text.bmi2_interface_init)
 </UL>
 <P><STRONG><a name="[415]"></a>bmi2_write_config_file</STRONG> (Thumb, 312 bytes, Stack size 32 bytes, bmi2.o(.text.bmi2_write_config_file))
-<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = bmi2_write_config_file &rArr; set_config_load
+<BR><BR>[Stack]<UL><LI>Max Depth = 192<LI>Call Chain = bmi2_write_config_file &rArr; bmi2_set_adv_power_save
 </UL>
 <BR>[Calls]<UL><LI><a href="#[418]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_internal_status
+<LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
 <LI><a href="#[417]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;upload_file
 <LI><a href="#[416]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;set_config_load
-<LI><a href="#[403]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_set_adv_power_save
 </UL>
 <BR>[Called By]<UL><LI><a href="#[411]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_soft_reset
 </UL>
 
 <P><STRONG><a name="[1d4]"></a>bmi_init</STRONG> (Thumb, 148 bytes, Stack size 128 bytes, bmi.o(.text.bmi_init))
-<BR><BR>[Stack]<UL><LI>Max Depth = 632<LI>Call Chain = bmi_init &rArr; bmi270_init &rArr; bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; set_config_load
+<BR><BR>[Stack]<UL><LI>Max Depth = 632<LI>Call Chain = bmi_init &rArr; bmi270_init &rArr; bmi2_sec_init &rArr; bmi2_soft_reset &rArr; bmi2_write_config_file &rArr; bmi2_set_adv_power_save
 </UL>
-<BR>[Calls]<UL><LI><a href="#[41a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_map_data_int
-<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
+<BR>[Calls]<UL><LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
 <LI><a href="#[40b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_set_sensor_config
-<LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
-<LI><a href="#[406]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_init
+<LI><a href="#[41a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_map_data_int
 <LI><a href="#[419]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_error_codes_print_result
+<LI><a href="#[401]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_get_sensor_config
+<LI><a href="#[406]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_init
 <LI><a href="#[410]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_interface_init
 </UL>
-<BR>[Address Reference Count : 2]<UL><LI> imu_sensor.o(.data.bmi_client)
-<LI> imu_sensor.o(.data.ex_bmi_client)
+<BR>[Address Reference Count : 1]<UL><LI> imu_sensor.o(.data.bmi_client)
 </UL>
 <P><STRONG><a name="[1d7]"></a>imu_heart_beat</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, imu_sensor.o(.text.imu_heart_beat))
 <BR>[Address Reference Count : 1]<UL><LI> imu_sensor.o(.data.imu_sensor)
@@ -8812,7 +8809,6 @@ Global Symbols
 </UL>
 <BR>[Calls]<UL><LI><a href="#[41c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__NVIC_SystemReset
 <LI><a href="#[41b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;transform_init
-<LI><a href="#[2e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> imu_sensor.o(.data.imu_sensor)
 </UL>
@@ -9537,12 +9533,6 @@ Local Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> driver_uart.o(.init_array)
 </UL>
-<P><STRONG><a name="[40a]"></a>select_sensor</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, bmi270.o(.text.select_sensor))
-<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = select_sensor
-</UL>
-<BR>[Called By]<UL><LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
-</UL>
-
 <P><STRONG><a name="[416]"></a>set_config_load</STRONG> (Thumb, 220 bytes, Stack size 160 bytes, bmi2.o(.text.set_config_load))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = set_config_load
 </UL>
@@ -9588,6 +9578,12 @@ Local Symbols
 <BR><BR>[Stack]<UL><LI>Max Depth = 152<LI>Call Chain = get_gyro_config
 </UL>
 <BR>[Called By]<UL><LI><a href="#[402]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi2_get_sensor_config
+</UL>
+
+<P><STRONG><a name="[40a]"></a>select_sensor</STRONG> (Thumb, 212 bytes, Stack size 16 bytes, bmi270.o(.text.select_sensor))
+<BR><BR>[Stack]<UL><LI>Max Depth = 16<LI>Call Chain = select_sensor
+</UL>
+<BR>[Called By]<UL><LI><a href="#[409]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;bmi270_sensor_enable
 </UL>
 
 <P><STRONG><a name="[1cc]"></a>_GLOBAL__sub_I_device.cpp</STRONG> (Thumb, 74 bytes, Stack size 16 bytes, device.o(.text._GLOBAL__sub_I_device.cpp))

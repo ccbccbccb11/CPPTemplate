@@ -4,7 +4,8 @@
   "dependenceList": [],
   "srcDirs": [
     ".eide/deps",
-    "User/Entity"
+    "User/Entity",
+    "User/Imu"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
@@ -19,13 +20,16 @@
         "name": "Alog",
         "files": [
           {
+            "path": "User/Alog/src/utils.cpp"
+          },
+          {
             "path": "User/Alog/src/matrix.cpp"
           },
           {
             "path": "User/Alog/src/robotics.cpp"
           },
           {
-            "path": "User/Alog/src/utils.cpp"
+            "path": "User/Alog/src/ave_filter.cpp"
           }
         ],
         "folders": []
@@ -34,15 +38,6 @@
         "name": "Application",
         "files": [],
         "folders": [
-          {
-            "name": "MDK-ARM",
-            "files": [
-              {
-                "path": "MDK-ARM/startup_stm32f407xx.s"
-              }
-            ],
-            "folders": []
-          },
           {
             "name": "User",
             "files": [],
@@ -66,6 +61,9 @@
                     "path": "Core/Src/dma.c"
                   },
                   {
+                    "path": "Core/Src/spi.c"
+                  },
+                  {
                     "path": "Core/Src/tim.c"
                   },
                   {
@@ -84,16 +82,45 @@
                 "folders": []
               }
             ]
+          },
+          {
+            "name": "MDK-ARM",
+            "files": [
+              {
+                "path": "MDK-ARM/startup_stm32f407xx.s"
+              }
+            ],
+            "folders": []
           }
         ]
       },
       {
-        "name": "cmsis",
-        "files": [
+        "name": "CMSIS",
+        "files": [],
+        "folders": [
           {
-            "path": "User/cmsis/arm_cortexM4lf_math.lib"
+            "name": "DSP",
+            "files": [
+              {
+                "path": "Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
+              },
+              {
+                "path": "Drivers/CMSIS/DSP/Source/FastMathFunctions/FastMathFunctions.c"
+              },
+              {
+                "path": "Drivers/CMSIS/DSP/Source/MatrixFunctions/MatrixFunctions.c"
+              },
+              {
+                "path": "Drivers/CMSIS/DSP/Source/CommonTables/CommonTables.c"
+              }
+            ],
+            "folders": []
           }
-        ],
+        ]
+      },
+      {
+        "name": "control",
+        "files": [],
         "folders": []
       },
       {
@@ -112,40 +139,59 @@
             "path": "User/device/src/device.cpp"
           },
           {
+            "path": "User/device/src/test_motor.cpp"
+          },
+          {
             "path": "User/device/src/remote.cpp"
           },
           {
-            "path": "User/device/src/test_motor.cpp"
+            "path": "User/device/src/imu_sensor.c"
           }
         ],
-        "folders": []
+        "folders": [
+          {
+            "name": "imu",
+            "files": [
+              {
+                "path": "User/Imu/src/common.c"
+              },
+              {
+                "path": "User/Imu/src/bmi270.c"
+              },
+              {
+                "path": "User/Imu/src/bmi2.c"
+              },
+              {
+                "path": "User/Imu/src/BMI.c"
+              },
+              {
+                "path": "User/Imu/inc/bmi2_defs.h"
+              }
+            ],
+            "folders": []
+          }
+        ]
       },
       {
         "name": "Drivers",
         "files": [
           {
-            "path": "User/drive/src/driver_can.cpp"
+            "path": "User/drive/src/driver.cpp"
           },
           {
-            "path": "User/drive/src/driver_haltick.cpp"
+            "path": "User/drive/src/driver_can.cpp"
           },
           {
             "path": "User/drive/src/driver_uart.cpp"
           },
           {
-            "path": "User/drive/src/driver.cpp"
+            "path": "User/drive/src/driver_haltick.cpp"
+          },
+          {
+            "path": "User/drive/src/driver_spi.cpp"
           }
         ],
         "folders": [
-          {
-            "name": "CMSIS",
-            "files": [
-              {
-                "path": "Core/Src/system_stm32f4xx.c"
-              }
-            ],
-            "folders": []
-          },
           {
             "name": "STM32F4xx_HAL_Driver",
             "files": [
@@ -192,6 +238,9 @@
                 "path": "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_exti.c"
               },
               {
+                "path": "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_spi.c"
+              },
+              {
                 "path": "Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_tim.c"
               },
               {
@@ -202,8 +251,29 @@
               }
             ],
             "folders": []
+          },
+          {
+            "name": "CMSIS",
+            "files": [
+              {
+                "path": "Core/Src/system_stm32f4xx.c"
+              }
+            ],
+            "folders": []
           }
         ]
+      },
+      {
+        "name": "entity",
+        "files": [
+          {
+            "path": "User/Entity/src/entity.cpp"
+          },
+          {
+            "path": "User/Entity/src/example.cpp"
+          }
+        ],
+        "folders": []
       },
       {
         "name": "Middlewares",
@@ -257,6 +327,15 @@
         "folders": []
       },
       {
+        "name": "mytask",
+        "files": [
+          {
+            "path": "User/my_task/src/mytasks.c"
+          }
+        ],
+        "folders": []
+      },
+      {
         "name": "protocol",
         "files": [
           {
@@ -267,6 +346,9 @@
           },
           {
             "path": "User/protocol/src/crc.cpp"
+          },
+          {
+            "path": "User/protocol/src/imu_protocol.c"
           }
         ],
         "folders": []
@@ -431,11 +513,11 @@
           "User/motor/inc",
           "User/my_task/inc",
           "User/protocol/inc",
+          "Drivers/CMSIS/DSP/Include",
+          "Drivers/CMSIS/DSP/Include/dsp",
           "User/controler/inc",
-          ".cmsis/include",
-          "MDK-ARM/RTE/_CppTemplate",
-          ".eide/deps",
-          "Drivers/CMSIS/DSP/Include"
+          "User/Imu/inc",
+          "MDK-ARM/RTE/_CppTemplate"
         ],
         "libList": [],
         "sourceDirList": [],
@@ -443,7 +525,8 @@
           "USE_HAL_DRIVER",
           "STM32F407xx",
           "__FPU_PRESENT=1",
-          "ARM_MATH_CM4"
+          "ARM_MATH_CM4",
+          "ARM_MATH_LOOPUNROLL"
         ]
       }
     }
