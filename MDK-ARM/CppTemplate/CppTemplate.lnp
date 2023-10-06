@@ -1,5 +1,6 @@
 --cpu=Cortex-M4.fp.sp
 "./cpptemplate/main.o"
+"./cpptemplate/main_1.o"
 "./cpptemplate/gpio.o"
 "./cpptemplate/freertos.o"
 "./cpptemplate/can.o"
@@ -35,7 +36,7 @@
 ".\cpptemplate\pid.o"
 ".\cpptemplate\entity.o"
 ".\cpptemplate\example.o"
-".\cpptemplate\mytasks.o"
+".\cpptemplate\robot_task.o"
 ".\cpptemplate\basicmathfunctions.o"
 ".\cpptemplate\fastmathfunctions.o"
 ".\cpptemplate\matrixfunctions.o"

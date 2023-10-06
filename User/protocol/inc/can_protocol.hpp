@@ -15,9 +15,6 @@
 
 #include "stm32f4xx_hal.h"
  
-#ifdef __cplusplus
-	extern "C" {
-#endif  /* __cplusplus */
 			/*C code*/
 uint8_t CAN_Send(void);
 /*CAN发送或是接收的ID*/
@@ -27,10 +24,6 @@ typedef enum
 	kCANId_0x1ff = 0x1FF,	
 	kCANId_0x280 = 0x280,
 } CANId;
-#ifdef __cplusplus
-	}
-#endif  /* __cplusplus */
-#ifdef __cplusplus
-			/*C++ code*/
-#endif /*__cplusplus*/
+
+
 #endif /*CAN_PROTOCOL_HPP*/

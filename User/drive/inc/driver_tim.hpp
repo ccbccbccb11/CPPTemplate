@@ -17,8 +17,6 @@
 #include "stm32f4xx_hal_tim.h"
 #include "tim.h"
 
-#ifdef __cplusplus
-			/*user code*/
 class PwmInstance {
 	public:
 		PwmInstance() : pwm_init_(0) {};
@@ -57,5 +55,4 @@ class PwmInstance {
 		uint32_t TIM_CHANNEL_x_;
 		bool pwm_init_;
 };
-#endif  /* __cplusplus */
 #endif

@@ -15,17 +15,7 @@
 
 #include "main.h"
 
-#ifdef __cplusplus
-			/*C++ code*/
 void SPI2_Init(void);
-#endif
 
-#ifdef __cplusplus
-	extern "C" {
-#endif  /* __cplusplus */
-			/*C code*/
 
-#ifdef __cplusplus
-	}
-#endif  /* __cplusplus */
 #endif

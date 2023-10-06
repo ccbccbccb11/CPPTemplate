@@ -10,74 +10,124 @@
  ******************************************************************************
  */
  
- #include "driver_can.hpp"
- 
-CAN_FilterTypeDef 	CAN_FillterType;
-CAN_TxHeaderTypeDef CAN_TxHeadeType;
-CAN_RxHeaderTypeDef CAN_RxHeadeType;
+#include "driver_can.hpp"
 
+ typedef struct {
+	CAN_RxHeaderTypeDef header;
+	uint8_t				data[8];
+} CAN_RxFrameTypeDef;
+CAN_RxFrameTypeDef hcanRxFrame;
+
+CAN_TxHeaderTypeDef CAN_TxHeadeType;
+
+uint8_t CANInstance::can_ins_cnt_ = 0;
+const uint8_t CANInstance::can_ins_cnt_max_ = 200;
+const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
+static CANInstance *can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
+CANInstance::CANInstance(CAN_HandleTypeDef *can_handle, 
+							uint32_t tx_id, uint32_t rx_id, 
+							void (*can_module_callback)(void)) : 
+							can_handle_(can_handle), 
+							tx_id_(tx_id), rx_id_(rx_id),
+							CANInstanceRxCallback(can_module_callback) {
+	if (!CANInstance::can_ins_cnt_) {
+		CAN1_Init();
+		CAN2_Init();
+	}
+	if (CANInstance::can_ins_cnt_ > CANInstance::can_ins_cnt_max_) {
+		while (1)
+			continue;
+	}
+	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
+		if (can_instance[i]->rx_id_ == rx_id && 
+			can_instance[i]->can_handle_ == can_handle) {
+			while (1)
+				continue;
+		}
+	}
+	tx_config_.StdId = tx_id_;
+	tx_config_.ExtId = 0x0000;
+	tx_config_.DLC = 0x08;
+	tx_config_.IDE = CAN_ID_STD;
+	tx_config_.RTR = CAN_RTR_DATA;
+	can_instance[CANInstance::can_ins_cnt_++] = this;
+}
 /*
-	can1 can2实例
+	can1 can2???
 */
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 
 /**
-  * @brief  CAN1初始化
+  * @brief  CAN1?????
   * @param  
   */
 void CAN1_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
-	// 配置CAN标识符滤波器
+	// ????CAN??????????
 	CAN_FilterParamsInit(&sFilterConfig);
 	HAL_CAN_ConfigFilter(&hcan1, &sFilterConfig);
-	// 使能接收中断
+	// ???????ж?
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-	// 开启CAN1
+	// ????CAN1
 	HAL_CAN_Start(&hcan1);
 }
 
 /**
-  * @brief  CAN2初始化
+  * @brief  CAN2?????
   * @param  
   */
 void CAN2_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
-	// 配置CAN标识符滤波器
+	// ????CAN??????????
 	CAN_FilterParamsInit(&sFilterConfig);
 	HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig);
-	// 使能接收中断
+	// ???????ж?
 	HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
-	// 开启CAN2
+	// ????CAN2
 	HAL_CAN_Start(&hcan2);
 }
 
 /**
-  * @brief  配置CAN标识符滤波器
+  * @brief  ????CAN??????????
   * @param  
   */
 void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 	sFilterConfig->FilterIdHigh = 0;						
 	sFilterConfig->FilterIdLow = 0;							
-	sFilterConfig->FilterMaskIdHigh = 0;											// 不过滤
-	sFilterConfig->FilterMaskIdLow = 0;												// 不过滤
-	sFilterConfig->FilterFIFOAssignment = CAN_FILTER_FIFO0;		// 过滤器关联到FIFO0
-	sFilterConfig->FilterBank = 0;														// 设置过滤器0
-	sFilterConfig->FilterMode = CAN_FILTERMODE_IDMASK;				// 标识符屏蔽模式
-	sFilterConfig->FilterScale = CAN_FILTERSCALE_32BIT;				// 32位宽
-	sFilterConfig->FilterActivation = ENABLE;									// 激活滤波器
+	sFilterConfig->FilterMaskIdHigh = 0;											// ??????
+	sFilterConfig->FilterMaskIdLow = 0;												// ??????
+	sFilterConfig->FilterFIFOAssignment = CAN_FILTER_FIFO0;		// ????????????FIFO0
+	sFilterConfig->FilterBank = 0;														// ???ù?????0
+	sFilterConfig->FilterMode = CAN_FILTERMODE_IDMASK;				// ???????????
+	sFilterConfig->FilterScale = CAN_FILTERSCALE_32BIT;				// 32λ??
+	sFilterConfig->FilterActivation = ENABLE;									// ?????????
 	sFilterConfig->SlaveStartFilterBank = 0;
 }
 
 /**
-  * @brief  配置CAN发送帧头
-	* @param  ID : Specifies the standard identifier
-  */
-void HAL_CAN_TxHeadeInit(uint16_t ID) {
-	CAN_TxHeadeType.StdId = ID;						//设置标识符
-	CAN_TxHeadeType.ExtId = 0x0000;				//不拓展
-	CAN_TxHeadeType.DLC = 8;							//帧长8字节
-	CAN_TxHeadeType.IDE = CAN_ID_STD;			//标准帧
-	CAN_TxHeadeType.RTR = CAN_RTR_DATA;		//数据帧
+  * @Name    HAL_CAN_RxFifo0MsgPendingCallback
+  * @brief   can接受中断，在stm32f4xx_hal_can.c内弱定义
+  * @param   
+**/
+void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
+	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcanRxFrame.header, hcanRxFrame.data);
+	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
+		if (can_instance[i]->GetCANHandle() == hcan && 
+			can_instance[i]->GetRxId() == hcanRxFrame.header.StdId) {
+			if (can_instance[i]->CANInstanceRxCallback != NULL) {
+				can_instance[i]->SetRxDataLength(hcanRxFrame.header.DLC);
+				can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
+				can_instance[i]->CANInstanceRxCallback();
+			}
+			return;
+		}
+	}
 }
+
+/**
+  * @Name    CAN
+  * @brief   can 
+  * @param   
+**/
 

@@ -15,10 +15,6 @@
 #include "stm32f4xx_hal.h"
 #include "main.h"
 
-#ifdef __cplusplus
-	extern "C" {
-#endif  /* __cplusplus */
-			/* c code */
 //IO口操作宏定义
 #define BITBAND(addr, bitnum) ((addr & 0xF0000000)+0x2000000+((addr &0xFFFFF)<<5)+(bitnum<<2)) 
 #define MEM_ADDR(addr)  *((volatile unsigned long  *)(addr)) 
@@ -98,7 +94,4 @@
 #define LASER_OFF()			(HAL_GPIO_WritePin(LASER_GPIO_Port, LASER_Pin, GPIO_PIN_RESET))
 #define LASER_TOGGLE()		(HAL_GPIO_TogglePin(LASER_GPIO_Port, LASER_Pin))
  
-#ifdef __cplusplus
-	}
-#endif  /* __cplusplus */
 #endif
