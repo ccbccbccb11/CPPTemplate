@@ -340,16 +340,13 @@
         "name": "protocol",
         "files": [
           {
-            "path": "User/protocol/src/can_protocol.cpp"
-          },
-          {
-            "path": "User/protocol/src/uart_protocol.cpp"
-          },
-          {
             "path": "User/protocol/src/crc.cpp"
           },
           {
             "path": "User/protocol/src/imu_protocol.c"
+          },
+          {
+            "path": "User/protocol/src/uart_protocol.cpp"
           }
         ],
         "folders": []
