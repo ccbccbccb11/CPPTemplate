@@ -20,32 +20,31 @@
 #include <iostream>
 #include <vector>
 #include "pid.hpp"
-#include "test_motor.hpp"
 #include "uart_protocol.hpp"
 
 class Device {
 	public:
 		static uint8_t motors_count_;
 		Device() {}
-			// Ìí¼Óµç»ú
-		void AddMotors(motor::Motor* motors) {
-			motors_.push_back(motors);
-			motors_count_ ++;
-		}
-			// »ñÈ¡µç»úÊýÁ¿
-		uint8_t GetMotorsCount() {
-			return motors_count_;
-		}
-			// »ñÈ¡Ö¸¶¨Ë÷ÒýµÄµç»ú
-		motor::Motor* GetMotors(size_t index) {
-			if (index < motors_.size()) {
-				return motors_[index];
-			} else {
-				return nullptr;
-			}
-		}
+		// 	// ï¿½ï¿½ï¿½Óµï¿½ï¿½
+		// void AddMotors(motor::Motor* motors) {
+		// 	motors_.push_back(motors);
+		// 	motors_count_ ++;
+		// }
+		// 	// ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// uint8_t GetMotorsCount() {
+		// 	return motors_count_;
+		// }
+		// 	// ï¿½ï¿½È¡Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½
+		// motor::Motor* GetMotors(size_t index) {
+		// 	if (index < motors_.size()) {
+		// 		return motors_[index];
+		// 	} else {
+		// 		return nullptr;
+		// 	}
+		// }
 	private:
-		std::vector<motor::Motor*> motors_;
+		// std::vector<motor::Motor*> motors_;
 };
 extern Device devices;
 #endif /*__cplusplus*/

@@ -14,7 +14,6 @@
 #define PID_HPP
 
 #include "stm32f4xx_hal.h"
-#include "motor.hpp"
 #include "utils.h"
 #include <iostream>
 #include <vector>
@@ -421,22 +420,15 @@ class PIDControler {
 			return pid_inloop->CalcPIDOut(outer_output, measure_inloop);
 		}
 			// 电机速度环
-		float Speed(motor::Motor* pid_motor) {
-			int16_t meusure_speed = pid_motor->GetSpeed();
-			float tagert_speed = pid_motor->GetPIDSpeedTarget();
+		float Speed(int16_t meusure_speed, float tagert_speed) {
 			return SingleLoop(&SpeedPID_, tagert_speed, meusure_speed);
 		}
 			// 电机角度环
-		float Angle(motor::Motor* pid_motor, float cycle) {
-			int16_t meusure_angle = pid_motor->GetAngle();
-			float tagert_angle = pid_motor->GetPIDAngleTarget();
+		float Angle(int16_t meusure_angle, float tagert_angle, float cycle) {
 			return SingleLoop(&AnglePID_, tagert_angle, meusure_angle, cycle);
 		}
 			// 电机位置环
-		float Posit(motor::Motor* pid_motor) {
-			int16_t meusure_speed = pid_motor->GetSpeed();
-			int32_t angle_sum = pid_motor->GetAngleSum();
-			float tagert_posit = pid_motor->GetPIDPositTarget();
+		float Posit(int16_t meusure_speed, int32_t angle_sum, float tagert_posit) {
 			return DualLoopCascade(&PositInPID_, meusure_speed,
 										PositOutPID_, tagert_posit, angle_sum);
 		}

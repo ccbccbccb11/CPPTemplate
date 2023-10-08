@@ -140,13 +140,10 @@
             "path": "User/device/src/device.cpp"
           },
           {
-            "path": "User/device/src/test_motor.cpp"
+            "path": "User/device/src/imu_sensor.c"
           },
           {
             "path": "User/device/src/remote.cpp"
-          },
-          {
-            "path": "User/device/src/imu_sensor.c"
           }
         ],
         "folders": [

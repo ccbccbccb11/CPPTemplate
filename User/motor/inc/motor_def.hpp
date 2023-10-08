@@ -14,19 +14,9 @@
 #define MOTOR_DEF_HPP
 
 #include "stm32f4xx_hal.h"
+#include "pid.hpp"
 
-#ifdef __cplusplus
-	extern "C" {
-#endif  /* __cplusplus */
-			/*C code*/
-#ifdef __cplusplus
-	}
-#endif  /* __cplusplus */
-	
-
-#ifdef __cplusplus
-			/*C++ code*/
-namespace motor {
+namespace motordef {
 /**
  ******************************************************************************
  * @note    
@@ -38,6 +28,12 @@ namespace motor {
 							 GMotorB_ID 0x2FF
  ******************************************************************************
  */
+//初始化枚举
+typedef enum {
+	kMotorEmpty = 0,
+	kMotorInit,
+} MotorInit;
+//电机状态，失联为最高优先级
 typedef enum {
 	kMotorOffline = 0,	
 	kMotorOnline,
@@ -45,60 +41,19 @@ typedef enum {
 	kMotorIDErr,
 	kMotorInitErr,	
 	kMotorDataErr,
-} MotorState;//电机状态，失联为最高优先级
-
-typedef enum {
-	kMotorEmpty = 0,
-	kMotorInit,
-} MotorInit;//初始化枚举
-
+} MotorState;
+//电机驱动通信方式
 typedef enum {
 	kMotorDriverCAN1,
 	kMotorDriverCAN2,
-} MotorDriver;//电机驱动通信方式
-
+} MotorDriver;
+//电机类型
 typedef enum {
 	kGM6020 = 1,
 	kRM3508,
 	kRM2006,
-} MotorType;//电机类型
-
-class RxInfo {
-	public:
-			/*报文读取*/
-		uint16_t	angle_;					//0~8191 	//转子编码
-		int16_t 	speed_;					//RPM    	//转子转速
-		int16_t 	current_;				//mA			//电机电流
-		uint8_t		temperature_;		//°C    	//电机温度
-		int16_t 	torque_;					//N·m			//转轴转矩
-			/*用户计算*/
-		uint16_t	angle_prev_;	
-		int16_t		angle_offset_;		//偏执
-		int32_t		angle_sum_;			//+-(2^31-1) 上电开始到现在的角度和
-};
-
-class TxInfo {
-	public:
-		int16_t		motor_out_;
-};
-
-class PIDInfo {
-	public:
-		float		tagert_speed_;
-		float		tagert_angle_;
-		float		tagert_posit_;
-};
-
-class IDInfo {
-	public:
-		uint32_t 		tx_id_;   //发送id
-		uint32_t 		rx_id_;   //接收id
-		uint32_t 		buff_p_;  //发送/接收 数组位置
-		
-		MotorDriver drive_type_; //	驱动类型
-		MotorType  	motor_type_; //	电机类型
-};
-
+} MotorType;
+//状态信息
 class StateInfo {
 	public:
 		MotorInit  		init_flag_;	
@@ -106,6 +61,19 @@ class StateInfo {
 		uint8_t       offline_cnt_;
 		MotorState 		work_state_;	
 };
+//控制器
+class Control {
+	public:
+    pid::PIDControler speed_PID_;
+    pid::PIDControler angle_PID_;
+    pid::PIDControler posit_PID_;
+    float motor_out;
+};
+typedef struct MotorCANConfig_t {
+  /* data */
+  MotorType motor_type;
+  CANInstanceConfig can_config;
+} MotorCANConfig;
+
 }
-#endif  /* __cplusplus */
 #endif	/*MOTOR_DEF_HPP*/
