@@ -9,7 +9,9 @@
  * All rights reserved.
  ******************************************************************************
  */
- 
+ /**
+  * @todo 前馈接口
+ */
 #ifndef DJI_MOTOR_HPP
 #define DJI_MOTOR_HPP
 /* Includes -----------------------------------------------------------------*/
@@ -68,6 +70,7 @@ private:
   MotorType motor_type_;
   CANInstance can_instance_;
   HeartBeat heartbeat_;
+  ExternalControl external_control_;
 public:
 	static uint8_t djimtr_ins_cnt_;			// 大疆电机实体计数
 	static const uint8_t djimtr_ins_cnt_max_;			// 大疆电机实体计数
@@ -204,33 +207,77 @@ public:
     if (controler_.speed_.GetInitFlag() == kPIDEmpty)
       return 0.f;
     float tar = controler_.tar_;
-    int16_t speed = GetSpeed();
-    return controler_.speed_.SingleLoop(tar, speed);
+    float speed;
+    float output;
+    if (external_control_.speed_measure_flag == kMotorInit)
+      speed = *external_control_.speed_measure_;
+    else
+      speed = GetSpeed();
+    output = controler_.speed_.SingleLoop(tar, speed);
+    if (external_control_.speed_feedforward_flag_ == kMotorInit)
+      output += *external_control_.speed_feedforward_;
+    return output;
   }
   float AngleLoop(void) {
     if (controler_.angleout_.GetInitFlag() == kPIDEmpty || controler_.anglein_.GetInitFlag() == kPIDEmpty)
       return 0.f;
     float tar = controler_.tar_;
-    int16_t angle = GetAngle();
-    int16_t speed = GetSpeed();
-    float out = controler_.angleout_.SingleLoop(tar, angle, 8192);
-    return controler_.anglein_.SingleLoop(out, speed);
+    float angle;
+    float speed;
+    float output;
+    if (external_control_.angle_outer_measure_flag == kMotorInit)
+      angle = *external_control_.angle_outer_measure_;
+    else
+      angle = GetAngle();
+    if (external_control_.angle_inner_measure_flag == kMotorInit)
+      speed = *external_control_.speed_measure_;
+    else
+      speed = GetSpeed();
+    output = controler_.angleout_.SingleLoop(tar, angle, 8192);
+    if (external_control_.angle_outer_feedforward_flag_ == kMotorInit)
+      output += *external_control_.angle_outer_feedforward_;
+    output = controler_.anglein_.SingleLoop(output, speed);
+    if (external_control_.angle_inner_feedforward_flag_ == kMotorInit)
+      output += *external_control_.angle_inner_feedforward_;
+    return output;
   }
   float PositLoop(void) {
     if (controler_.positout_.GetInitFlag() == kPIDEmpty || controler_.positin_.GetInitFlag() == kPIDEmpty)
       return 0.f;
     float tar = controler_.tar_;
-    int16_t posit = GetPosit();
-    int16_t speed = GetSpeed();
-    float out = controler_.positout_.SingleLoop(tar, posit);
-    return controler_.positin_.SingleLoop(out, speed);
+    float posit;
+    float speed;
+    float output;
+    if (external_control_.posit_outer_measure_flag == kMotorInit)
+      posit = *external_control_.posit_outer_measure_;
+    else
+      posit = GetPosit();
+    if (external_control_.posit_inner_measure_flag == kMotorInit)
+      speed = *external_control_.posit_inner_measure_;
+    else
+      speed = GetSpeed();
+    output = controler_.positout_.SingleLoop(tar, posit);
+    if (external_control_.posit_outer_feedforward_flag_ == kMotorInit)
+      output += *external_control_.posit_outer_feedforward_;
+    output = controler_.positin_.SingleLoop(output, speed);
+    if (external_control_.posit_inner_feedforward_flag_ == kMotorInit)
+      output += *external_control_.posit_inner_feedforward_;
+    return output;
   }
   float CurrentLoop(void) {
     if (controler_.current_.GetInitFlag() == kPIDEmpty)
       return 0.f;
     float tar = controler_.tar_;
-    int16_t current = GetCurrent();
-    return controler_.current_.SingleLoop(tar, current);
+    float current;
+    float output;
+    if (external_control_.current_measure_flag == kMotorInit)
+      current = *external_control_.current_measure_;
+    else
+      current = GetCurrent();
+    output = controler_.current_.SingleLoop(tar, current);
+    if (external_control_.current_feedforward_flag_ == kMotorInit)
+      output += *external_control_.current_feedforward_;
+    return output;
   }
 	// 输出角度
   uint16_t GetAngle(void) {

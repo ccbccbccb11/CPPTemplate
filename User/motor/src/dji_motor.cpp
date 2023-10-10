@@ -35,9 +35,10 @@ DjiMotor::DjiMotor(MotorInitConfig* config) :
       continue;
   }
   motor_type_ = config->motor_type; // 电机类型
-    // 绑定 can 实例的接收中断回调函数与电机的接受协议函数
-  can_instance_.SetCANInstanceRxCallback(std::bind(&DjiMotor::GetCANRxMessage, this)); // 绑定can实例的接收中断回调函数与电机的接受协议函数
+  // 绑定 can 实例的接收中断回调函数与电机的接受协议函数
+  can_instance_.SetCANInstanceRxCallback(std::bind(&DjiMotor::GetCANRxMessage, this)); 
   DivideintoGroup(config);  // 分组
+  memcpy(&external_control_, config->external_control_config, sizeof(ExternalControl)); //外部控制器配置
   // @todo 电机 pid 参数初始化未完成
   memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
   controler_.loop_ = config->loop;
@@ -82,11 +83,7 @@ MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
 
 /**
  * @brief 遍历所有已注册的大疆电机，为其执行控制代码
- * kPIDClose,
-  kCurrentLoop,
-  kSpeedLoop,
-  kAngleLoop,
-  kPositLoop,
+ * 
  */
 static uint8_t djimtr_txbuff[8];
 void DjiMotor::ControlTask(void) {
