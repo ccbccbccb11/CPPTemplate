@@ -41,7 +41,7 @@ public:
         state_ = kOnline;
     }
   }
-  static void TickTask(void) {};
+  static void TickTask(void);
 };
 }
 

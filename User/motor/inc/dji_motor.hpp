@@ -10,13 +10,11 @@
  ******************************************************************************
  */
  
-#ifndef DJI_MOTOR_H
-#define DJI_MOTOR_H
+#ifndef DJI_MOTOR_HPP
+#define DJI_MOTOR_HPP
 /* Includes -----------------------------------------------------------------*/
 #include "utils.h"
 #include "motor_def.hpp"
-#include "driver_can.hpp"
-#include "heart_beat.hpp"
 
 using namespace motordef;
 using namespace heartbeat;
@@ -74,17 +72,16 @@ public:
 	static uint8_t djimtr_ins_cnt_;			// 大疆电机实体计数
 	static const uint8_t djimtr_ins_cnt_max_;			// 大疆电机实体计数
 	static const uint8_t djimtr_offline_cnt_max_;			// 大疆电机实体计数
-  static MotorGroupInit group_flag_[kGroupSum]; //分组使能标志
+  static MotorGroupInit group_enable_flag_[kGroupSum]; //分组使能标志
   /**
    * @brief *************** 构造函数 ******************************
    */
   DjiMotor() { stateinfo_.init_flag_ = kMotorEmpty; }
-  DjiMotor(MotorCANConfig* config);
-  
+  DjiMotor(MotorInitConfig* config);
   /**
    * @brief *************** 分组函数 ******************************
    */
-  void DivideintoGroup(MotorCANConfig* config) {
+  void DivideintoGroup(MotorInitConfig* config) { 
     id_info_.rx_id_ = config->can_config.rx_id;
     switch (config->motor_type) {
       case kRM2006:
@@ -117,7 +114,7 @@ public:
         while (1)
           continue;
     }
-    group_flag_[id_info_.group_] = kGroupOK;
+    group_enable_flag_[id_info_.group_] = kGroupOK;
   }
   /**
    * @brief *************** 报文读取 ******************************
@@ -182,9 +179,101 @@ public:
     stateinfo_.offline_cnt_ = 0;
   }
   /**
-   * @brief *************** 控制任务******************************
+   * @brief *************** 控制任务 ******************************
    */
   static void ControlTask(void);
+  void SetPIDLoop(PIDLoop loop) {
+    controler_.loop_ = loop;
+  }
+  PIDLoop GetPIDLoop(void) {
+    return controler_.loop_;
+  }
+  void SetPIDTarget(float tar) {
+    controler_.tar_ = tar;
+  }
+  float GetPIDTarget(void) {
+    return controler_.tar_;
+  }
+  MotorGroup GetGroupIndex(void) {
+    return id_info_.group_;
+  }
+  uint8_t GetTxBuffIndex(void) {
+    return id_info_.txbuff_index_;
+  }
+  float SpeedLoop(void) {
+    if (controler_.speed_.GetInitFlag() == kPIDEmpty)
+      return 0.f;
+    float tar = controler_.tar_;
+    int16_t speed = GetSpeed();
+    return controler_.speed_.SingleLoop(tar, speed);
+  }
+  float AngleLoop(void) {
+    if (controler_.angleout_.GetInitFlag() == kPIDEmpty || controler_.anglein_.GetInitFlag() == kPIDEmpty)
+      return 0.f;
+    float tar = controler_.tar_;
+    int16_t angle = GetAngle();
+    int16_t speed = GetSpeed();
+    float out = controler_.angleout_.SingleLoop(tar, angle, 8192);
+    return controler_.anglein_.SingleLoop(out, speed);
+  }
+  float PositLoop(void) {
+    if (controler_.positout_.GetInitFlag() == kPIDEmpty || controler_.positin_.GetInitFlag() == kPIDEmpty)
+      return 0.f;
+    float tar = controler_.tar_;
+    int16_t posit = GetPosit();
+    int16_t speed = GetSpeed();
+    float out = controler_.positout_.SingleLoop(tar, posit);
+    return controler_.positin_.SingleLoop(out, speed);
+  }
+  float CurrentLoop(void) {
+    if (controler_.current_.GetInitFlag() == kPIDEmpty)
+      return 0.f;
+    float tar = controler_.tar_;
+    int16_t current = GetCurrent();
+    return controler_.current_.SingleLoop(tar, current);
+  }
+	// 输出角度
+  uint16_t GetAngle(void) {
+    return rxinfo_.angle_;
+  }
+	// 输出角度
+  int GetPosit(void) {
+    return rxinfo_.angle_sum_;
+  }
+  // 输出速度
+  int16_t GetSpeed(void) {
+    return rxinfo_.speed_;
+  }
+  // 输出电流
+  int16_t GetCurrent(void) {
+    return rxinfo_.current_;
+  }
+  // 输出转矩
+  int16_t GetTorque(void) {
+    return rxinfo_.torque_;
+  }
+  // 输出温度
+  uint8_t GetTempera(void) {
+    return rxinfo_.temperature_;
+  }
+  PidInit GetSpeedPIDInit(void) {
+    return controler_.speed_.GetInitFlag();
+  }
+  PidInit GetAnglePIDInit(void) {
+    if(controler_.anglein_.GetInitFlag() == kPIDInit && controler_.angleout_.GetInitFlag() == kPIDInit)
+      return kPIDInit;
+    else 
+      return kPIDEmpty;
+  }
+  PidInit GetPositPIDInit(void) {
+    if(controler_.positin_.GetInitFlag() == kPIDInit && controler_.positout_.GetInitFlag() == kPIDInit)
+      return kPIDInit;
+    else 
+      return kPIDEmpty;
+  }
+  PidInit GetCurrentPIDInit(void) {
+    return controler_.current_.GetInitFlag();
+  }
 };
 };
-#endif // DJI_MOTOR_H
+#endif // DJI_MOTOR_HPP

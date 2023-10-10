@@ -44,159 +44,158 @@ MX_DMA_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.pad	#64
-	sub	sp, #64
-	.cfi_def_cfa_offset 72
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
+	movs	r0, #0
+	movw	r1, #14384
 .Ltmp0:
 	.loc	3 43 3 prologue_end             @ ../Core/Src/dma.c:43:3
-	b	.LBB0_1
-.LBB0_1:
-	.loc	3 0 3 is_stmt 0                 @ ../Core/Src/dma.c:0:3
-	movs	r0, #0
+	str	r0, [sp, #4]
+	movt	r1, #16386
+	ldr	r2, [r1]
+	orr	r2, r2, #2097152
+	str	r2, [r1]
+	ldr	r2, [r1]
+	and	r2, r2, #2097152
+	str	r2, [sp, #4]
+	ldr	r2, [sp, #4]
 .Ltmp1:
-	.loc	3 43 3                          @ ../Core/Src/dma.c:43:3
-	str	r0, [sp, #60]
-	movw	r0, #14384
-	movt	r0, #16386
-	ldr	r1, [r0]
-	orr	r1, r1, #2097152
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #2097152
-	str	r0, [sp, #60]
-	ldr	r0, [sp, #60]
-	b	.LBB0_2
+	.loc	3 44 3                          @ ../Core/Src/dma.c:44:3
+	str	r0, [sp]
+	ldr	r0, [r1]
 .Ltmp2:
-.LBB0_2:
-	.loc	3 44 3 is_stmt 1                @ ../Core/Src/dma.c:44:3
-	b	.LBB0_3
-.LBB0_3:
-	.loc	3 0 3 is_stmt 0                 @ ../Core/Src/dma.c:0:3
-	movs	r0, #0
+	.loc	3 48 3                          @ ../Core/Src/dma.c:48:3
+	movs	r2, #0
 .Ltmp3:
 	.loc	3 44 3                          @ ../Core/Src/dma.c:44:3
-	str	r0, [sp, #56]
-	movw	r0, #14384
-	movt	r0, #16386
-	ldr	r1, [r0]
-	orr	r1, r1, #4194304
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #4194304
-	str	r0, [sp, #56]
-	ldr	r0, [sp, #56]
-	b	.LBB0_4
+	orr	r0, r0, #4194304
+	str	r0, [r1]
+	ldr	r0, [r1]
 .Ltmp4:
-.LBB0_4:
-	.loc	3 0 3                           @ ../Core/Src/dma.c:0:3
-	movs	r0, #11
-	str	r0, [sp, #4]                    @ 4-byte Spill
+	.loc	3 48 3                          @ ../Core/Src/dma.c:48:3
 	movs	r1, #5
-	str	r1, [sp, #44]                   @ 4-byte Spill
-	movs	r2, #0
-	.loc	3 48 3 is_stmt 1                @ ../Core/Src/dma.c:48:3
-	str	r2, [sp, #48]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #4]                    @ 4-byte Reload
-	.loc	3 49 3                          @ ../Core/Src/dma.c:49:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #12
-	.loc	3 51 3                          @ ../Core/Src/dma.c:51:3
-	str	r0, [sp, #8]                    @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #8]                    @ 4-byte Reload
-	.loc	3 52 3                          @ ../Core/Src/dma.c:52:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #13
-	.loc	3 54 3                          @ ../Core/Src/dma.c:54:3
-	str	r0, [sp, #12]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #12]                   @ 4-byte Reload
-	.loc	3 55 3                          @ ../Core/Src/dma.c:55:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #14
-	.loc	3 57 3                          @ ../Core/Src/dma.c:57:3
-	str	r0, [sp, #16]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #16]                   @ 4-byte Reload
-	.loc	3 58 3                          @ ../Core/Src/dma.c:58:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #15
-	.loc	3 60 3                          @ ../Core/Src/dma.c:60:3
-	str	r0, [sp, #20]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #20]                   @ 4-byte Reload
-	.loc	3 61 3                          @ ../Core/Src/dma.c:61:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #16
-	.loc	3 63 3                          @ ../Core/Src/dma.c:63:3
-	str	r0, [sp, #24]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #24]                   @ 4-byte Reload
-	.loc	3 64 3                          @ ../Core/Src/dma.c:64:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #47
-	.loc	3 66 3                          @ ../Core/Src/dma.c:66:3
-	str	r0, [sp, #28]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #28]                   @ 4-byte Reload
-	.loc	3 67 3                          @ ../Core/Src/dma.c:67:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #57
-	.loc	3 69 3                          @ ../Core/Src/dma.c:69:3
-	str	r0, [sp, #32]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #32]                   @ 4-byte Reload
-	.loc	3 70 3                          @ ../Core/Src/dma.c:70:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #58
-	.loc	3 72 3                          @ ../Core/Src/dma.c:72:3
-	str	r0, [sp, #36]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #36]                   @ 4-byte Reload
-	.loc	3 73 3                          @ ../Core/Src/dma.c:73:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #69
-	.loc	3 75 3                          @ ../Core/Src/dma.c:75:3
-	str	r0, [sp, #40]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #40]                   @ 4-byte Reload
-	.loc	3 76 3                          @ ../Core/Src/dma.c:76:3
-	bl	HAL_NVIC_EnableIRQ
-	ldr	r1, [sp, #44]                   @ 4-byte Reload
-	ldr	r2, [sp, #48]                   @ 4-byte Reload
-	movs	r0, #70
-	.loc	3 78 3                          @ ../Core/Src/dma.c:78:3
-	str	r0, [sp, #52]                   @ 4-byte Spill
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #52]                   @ 4-byte Reload
-	.loc	3 79 3                          @ ../Core/Src/dma.c:79:3
-	bl	HAL_NVIC_EnableIRQ
-	.loc	3 81 1                          @ ../Core/Src/dma.c:81:1
-	add	sp, #64
-	pop	{r7, pc}
 .Ltmp5:
+	.loc	3 44 3                          @ ../Core/Src/dma.c:44:3
+	and	r0, r0, #4194304
+	str	r0, [sp]
+	ldr	r0, [sp]
+.Ltmp6:
+	.loc	3 48 3                          @ ../Core/Src/dma.c:48:3
+	movs	r0, #11
+	bl	HAL_NVIC_SetPriority
+.Ltmp7:
+	.loc	3 49 3                          @ ../Core/Src/dma.c:49:3
+	movs	r0, #11
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp8:
+	.loc	3 51 3                          @ ../Core/Src/dma.c:51:3
+	movs	r0, #12
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp9:
+	.loc	3 52 3                          @ ../Core/Src/dma.c:52:3
+	movs	r0, #12
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp10:
+	.loc	3 54 3                          @ ../Core/Src/dma.c:54:3
+	movs	r0, #13
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp11:
+	.loc	3 55 3                          @ ../Core/Src/dma.c:55:3
+	movs	r0, #13
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp12:
+	.loc	3 57 3                          @ ../Core/Src/dma.c:57:3
+	movs	r0, #14
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp13:
+	.loc	3 58 3                          @ ../Core/Src/dma.c:58:3
+	movs	r0, #14
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp14:
+	.loc	3 60 3                          @ ../Core/Src/dma.c:60:3
+	movs	r0, #15
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp15:
+	.loc	3 61 3                          @ ../Core/Src/dma.c:61:3
+	movs	r0, #15
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp16:
+	.loc	3 63 3                          @ ../Core/Src/dma.c:63:3
+	movs	r0, #16
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp17:
+	.loc	3 64 3                          @ ../Core/Src/dma.c:64:3
+	movs	r0, #16
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp18:
+	.loc	3 66 3                          @ ../Core/Src/dma.c:66:3
+	movs	r0, #47
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp19:
+	.loc	3 67 3                          @ ../Core/Src/dma.c:67:3
+	movs	r0, #47
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp20:
+	.loc	3 69 3                          @ ../Core/Src/dma.c:69:3
+	movs	r0, #57
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp21:
+	.loc	3 70 3                          @ ../Core/Src/dma.c:70:3
+	movs	r0, #57
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp22:
+	.loc	3 72 3                          @ ../Core/Src/dma.c:72:3
+	movs	r0, #58
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp23:
+	.loc	3 73 3                          @ ../Core/Src/dma.c:73:3
+	movs	r0, #58
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp24:
+	.loc	3 75 3                          @ ../Core/Src/dma.c:75:3
+	movs	r0, #69
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp25:
+	.loc	3 76 3                          @ ../Core/Src/dma.c:76:3
+	movs	r0, #69
+	bl	HAL_NVIC_EnableIRQ
+.Ltmp26:
+	.loc	3 78 3                          @ ../Core/Src/dma.c:78:3
+	movs	r0, #70
+	movs	r1, #5
+	movs	r2, #0
+	bl	HAL_NVIC_SetPriority
+.Ltmp27:
+	.loc	3 79 3                          @ ../Core/Src/dma.c:79:3
+	movs	r0, #70
+	add	sp, #8
+	pop.w	{r7, lr}
+.Ltmp28:
+	b	HAL_NVIC_EnableIRQ
+.Ltmp29:
 .Lfunc_end0:
 	.size	MX_DMA_Init, .Lfunc_end0-MX_DMA_Init
 	.cfi_endproc
+	.file	4 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_cortex.h"
 	.cantunwind
 	.fnend
                                         @ -- End function
@@ -355,6 +354,8 @@ MX_DMA_Init:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -391,6 +392,48 @@ MX_DMA_Init:
 	.byte	19                              @ DW_FORM_ref4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
+	.byte	17                              @ Abbreviation Code
+	.byte	11                              @ DW_TAG_lexical_block
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	85                              @ DW_AT_ranges
+	.byte	23                              @ DW_FORM_sec_offset
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	18                              @ Abbreviation Code
+	.ascii	"\211\202\001"                  @ DW_TAG_GNU_call_site
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.ascii	"\225B"                         @ DW_AT_GNU_tail_call
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	17                              @ DW_AT_low_pc
+	.byte	1                               @ DW_FORM_addr
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	19                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	60                              @ DW_AT_declaration
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	20                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
 	.byte	0                               @ EOM(3)
 	.section	.debug_info,"",%progbits
 .Lcu_begin0:
@@ -399,7 +442,7 @@ MX_DMA_Init:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x45c DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0x47a DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -897,43 +940,72 @@ MX_DMA_Init:
 	.long	.Linfo_string106                @ DW_AT_name
 	.byte	8                               @ DW_AT_byte_size
 	.byte	7                               @ DW_AT_encoding
-	.byte	14                              @ Abbrev [14] 0x424:0x42 DW_TAG_subprogram
+	.byte	14                              @ Abbrev [14] 0x424:0x47 DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-	.long	.Linfo_string127                @ DW_AT_name
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string129                @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
 	.byte	39                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
 	.byte	15                              @ Abbrev [15] 0x435:0x18 DW_TAG_lexical_block
-	.long	.Ltmp1                          @ DW_AT_low_pc
-	.long	.Ltmp2-.Ltmp1                   @ DW_AT_high_pc
+	.long	.Ltmp0                          @ DW_AT_low_pc
+	.long	.Ltmp1-.Ltmp0                   @ DW_AT_high_pc
 	.byte	16                              @ Abbrev [16] 0x43e:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	60
-	.long	.Linfo_string128                @ DW_AT_name
+	.byte	4
+	.long	.Linfo_string130                @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
 	.byte	43                              @ DW_AT_decl_line
 	.long	1018                            @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	15                              @ Abbrev [15] 0x44d:0x18 DW_TAG_lexical_block
-	.long	.Ltmp3                          @ DW_AT_low_pc
-	.long	.Ltmp4-.Ltmp3                   @ DW_AT_high_pc
-	.byte	16                              @ Abbrev [16] 0x456:0xe DW_TAG_variable
+	.byte	17                              @ Abbrev [17] 0x44d:0x14 DW_TAG_lexical_block
+	.long	.Ldebug_ranges0                 @ DW_AT_ranges
+	.byte	16                              @ Abbrev [16] 0x452:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	56
-	.long	.Linfo_string128                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string130                @ DW_AT_name
 	.byte	3                               @ DW_AT_decl_file
 	.byte	44                              @ DW_AT_decl_line
 	.long	1018                            @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
+	.byte	18                              @ Abbrev [18] 0x461:0x9 DW_TAG_GNU_call_site
+	.long	1131                            @ DW_AT_abstract_origin
+                                        @ DW_AT_GNU_tail_call
+	.long	.Ltmp29                         @ DW_AT_low_pc
 	.byte	0                               @ End Of Children Mark
+	.byte	19                              @ Abbrev [19] 0x46b:0xe DW_TAG_subprogram
+	.long	.Linfo_string127                @ DW_AT_name
+	.byte	4                               @ DW_AT_decl_file
+	.short	262                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_declaration
+                                        @ DW_AT_external
+	.byte	20                              @ Abbrev [20] 0x473:0x5 DW_TAG_formal_parameter
+	.long	1145                            @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	10                              @ Abbrev [10] 0x479:0xb DW_TAG_typedef
+	.long	38                              @ DW_AT_type
+	.long	.Linfo_string128                @ DW_AT_name
+	.byte	1                               @ DW_AT_decl_file
+	.byte	158                             @ DW_AT_decl_line
 	.byte	0                               @ End Of Children Mark
 .Ldebug_info_end0:
+	.section	.debug_ranges,"",%progbits
+.Ldebug_ranges0:
+	.long	.Ltmp1-.Lfunc_begin0
+	.long	.Ltmp2-.Lfunc_begin0
+	.long	.Ltmp3-.Lfunc_begin0
+	.long	.Ltmp4-.Lfunc_begin0
+	.long	.Ltmp5-.Lfunc_begin0
+	.long	.Ltmp6-.Lfunc_begin0
+	.long	0
+	.long	0
 	.section	.debug_str,"MS",%progbits,1
 .Linfo_string0:
 	.asciz	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]" @ string offset=0
@@ -1190,12 +1262,16 @@ MX_DMA_Init:
 .Linfo_string126:
 	.asciz	"RCC_TypeDef"                   @ string offset=1679
 .Linfo_string127:
-	.asciz	"MX_DMA_Init"                   @ string offset=1691
+	.asciz	"HAL_NVIC_EnableIRQ"            @ string offset=1691
 .Linfo_string128:
-	.asciz	"tmpreg"                        @ string offset=1703
+	.asciz	"IRQn_Type"                     @ string offset=1710
+.Linfo_string129:
+	.asciz	"MX_DMA_Init"                   @ string offset=1720
+.Linfo_string130:
+	.asciz	"tmpreg"                        @ string offset=1732
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

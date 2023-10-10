@@ -42,71 +42,52 @@ MX_CAN1_Init:
 	.cfi_sections .debug_frame
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
+	.save	{r4, lr}
+	push	{r4, lr}
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#8
-	sub	sp, #8
-	.cfi_def_cfa_offset 16
+	.cfi_offset r4, -8
 .Ltmp0:
 	.loc	5 41 18 prologue_end            @ ../Core/Src/can.c:41:18
 	movw	r0, :lower16:hcan1
-	movt	r0, :upper16:hcan1
-	str	r0, [sp, #4]                    @ 4-byte Spill
 	movw	r1, #25600
+	movt	r0, :upper16:hcan1
 	movt	r1, #16384
-	str	r1, [r0]
-	movs	r1, #3
-	.loc	5 42 24                         @ ../Core/Src/can.c:42:24
-	str	r1, [r0, #4]
-	movs	r2, #0
-	.loc	5 43 19                         @ ../Core/Src/can.c:43:19
-	str	r2, [r0, #8]
+	movs	r2, #3
+	movs	r3, #0
+	movw	r4, #256
+	stm.w	r0, {r1, r2, r3}
 	.loc	5 44 28                         @ ../Core/Src/can.c:44:28
-	str	r2, [r0, #12]
-	mov.w	r1, #524288
-	.loc	5 45 23                         @ ../Core/Src/can.c:45:23
-	str	r1, [r0, #16]
-	mov.w	r1, #3145728
-	.loc	5 46 23                         @ ../Core/Src/can.c:46:23
-	str	r1, [r0, #20]
+	add.w	r1, r0, #12
+	mov.w	r12, #524288
+	mov.w	lr, #3145728
+	movt	r4, #1
+	stm.w	r1, {r3, r12, lr}
+	mov.w	r1, #256
 	.loc	5 47 32                         @ ../Core/Src/can.c:47:32
-	strb	r2, [r0, #24]
-	movs	r1, #1
-	.loc	5 48 25                         @ ../Core/Src/can.c:48:25
-	strb	r1, [r0, #25]
-	.loc	5 49 25                         @ ../Core/Src/can.c:49:25
-	strb	r1, [r0, #26]
-	.loc	5 50 33                         @ ../Core/Src/can.c:50:33
-	strb	r2, [r0, #27]
+	str	r4, [r0, #24]
 	.loc	5 51 32                         @ ../Core/Src/can.c:51:32
-	strb	r2, [r0, #28]
-	.loc	5 52 35                         @ ../Core/Src/can.c:52:35
-	strb	r1, [r0, #29]
+	strh	r1, [r0, #28]
 .Ltmp1:
 	.loc	5 53 7                          @ ../Core/Src/can.c:53:7
 	bl	HAL_CAN_Init
 .Ltmp2:
 	.loc	5 53 7 is_stmt 0                @ ../Core/Src/can.c:53:7
-	cbz	r0, .LBB0_2
-	b	.LBB0_1
+	cmp	r0, #0
+	.loc	5 61 1 is_stmt 1                @ ../Core/Src/can.c:61:1
+	it	eq
+	popeq	{r4, pc}
 .LBB0_1:
 .Ltmp3:
-	.loc	5 55 5 is_stmt 1                @ ../Core/Src/can.c:55:5
-	bl	Error_Handler
-	.loc	5 56 3                          @ ../Core/Src/can.c:56:3
-	b	.LBB0_2
+	.loc	5 55 5                          @ ../Core/Src/can.c:55:5
+	pop.w	{r4, lr}
 .Ltmp4:
-.LBB0_2:
-	.loc	5 61 1                          @ ../Core/Src/can.c:61:1
-	add	sp, #8
-	pop	{r7, pc}
+	b	Error_Handler
 .Ltmp5:
 .Lfunc_end0:
 	.size	MX_CAN1_Init, .Lfunc_end0-MX_CAN1_Init
 	.cfi_endproc
+	.file	7 "E:\\RP\\CppTemplate\\MDK-ARM" "../Core/Inc/main.h"
 	.cantunwind
 	.fnend
                                         @ -- End function
@@ -123,67 +104,47 @@ MX_CAN2_Init:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
+	.save	{r4, lr}
+	push	{r4, lr}
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#8
-	sub	sp, #8
-	.cfi_def_cfa_offset 16
+	.cfi_offset r4, -8
 .Ltmp6:
 	.loc	5 73 18 prologue_end            @ ../Core/Src/can.c:73:18
 	movw	r0, :lower16:hcan2
-	movt	r0, :upper16:hcan2
-	str	r0, [sp, #4]                    @ 4-byte Spill
 	movw	r1, #26624
+	movt	r0, :upper16:hcan2
 	movt	r1, #16384
-	str	r1, [r0]
-	movs	r1, #3
-	.loc	5 74 24                         @ ../Core/Src/can.c:74:24
-	str	r1, [r0, #4]
-	movs	r2, #0
-	.loc	5 75 19                         @ ../Core/Src/can.c:75:19
-	str	r2, [r0, #8]
+	movs	r2, #3
+	movs	r3, #0
+	movw	r4, #256
+	stm.w	r0, {r1, r2, r3}
 	.loc	5 76 28                         @ ../Core/Src/can.c:76:28
-	str	r2, [r0, #12]
-	mov.w	r1, #524288
-	.loc	5 77 23                         @ ../Core/Src/can.c:77:23
-	str	r1, [r0, #16]
-	mov.w	r1, #3145728
-	.loc	5 78 23                         @ ../Core/Src/can.c:78:23
-	str	r1, [r0, #20]
+	add.w	r1, r0, #12
+	mov.w	r12, #524288
+	mov.w	lr, #3145728
+	movt	r4, #1
+	stm.w	r1, {r3, r12, lr}
+	mov.w	r1, #256
 	.loc	5 79 32                         @ ../Core/Src/can.c:79:32
-	strb	r2, [r0, #24]
-	movs	r1, #1
-	.loc	5 80 25                         @ ../Core/Src/can.c:80:25
-	strb	r1, [r0, #25]
-	.loc	5 81 25                         @ ../Core/Src/can.c:81:25
-	strb	r1, [r0, #26]
-	.loc	5 82 33                         @ ../Core/Src/can.c:82:33
-	strb	r2, [r0, #27]
+	str	r4, [r0, #24]
 	.loc	5 83 32                         @ ../Core/Src/can.c:83:32
-	strb	r2, [r0, #28]
-	.loc	5 84 35                         @ ../Core/Src/can.c:84:35
-	strb	r1, [r0, #29]
+	strh	r1, [r0, #28]
 .Ltmp7:
 	.loc	5 85 7                          @ ../Core/Src/can.c:85:7
 	bl	HAL_CAN_Init
 .Ltmp8:
 	.loc	5 85 7 is_stmt 0                @ ../Core/Src/can.c:85:7
-	cbz	r0, .LBB1_2
-	b	.LBB1_1
+	cmp	r0, #0
+	.loc	5 93 1 is_stmt 1                @ ../Core/Src/can.c:93:1
+	it	eq
+	popeq	{r4, pc}
 .LBB1_1:
 .Ltmp9:
-	.loc	5 87 5 is_stmt 1                @ ../Core/Src/can.c:87:5
-	bl	Error_Handler
-	.loc	5 88 3                          @ ../Core/Src/can.c:88:3
-	b	.LBB1_2
+	.loc	5 87 5                          @ ../Core/Src/can.c:87:5
+	pop.w	{r4, lr}
 .Ltmp10:
-.LBB1_2:
-	.loc	5 93 1                          @ ../Core/Src/can.c:93:1
-	add	sp, #8
-	pop	{r7, pc}
+	b	Error_Handler
 .Ltmp11:
 .Lfunc_end1:
 	.size	MX_CAN2_Init, .Lfunc_end1-MX_CAN2_Init
@@ -204,266 +165,181 @@ HAL_CAN_MspInit:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	.save	{r7, lr}
-	push	{r7, lr}
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- $r0
+	.save	{r4, lr}
+	push	{r4, lr}
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
-	.cfi_offset r7, -8
-	.pad	#64
-	sub	sp, #64
-	.cfi_def_cfa_offset 72
-	str	r0, [sp, #60]
-	movs	r0, #0
+	.cfi_offset r4, -8
+	.pad	#24
+	sub	sp, #24
+	.cfi_def_cfa_offset 32
 .Ltmp12:
-	.loc	5 100 20 prologue_end           @ ../Core/Src/can.c:100:20
-	str	r0, [sp, #56]
-	str	r0, [sp, #52]
-	str	r0, [sp, #48]
-	str	r0, [sp, #44]
-	str	r0, [sp, #40]
-.Ltmp13:
-	.loc	5 101 6                         @ ../Core/Src/can.c:101:6
-	ldr	r0, [sp, #60]
-	.loc	5 101 17 is_stmt 0              @ ../Core/Src/can.c:101:17
+	.loc	5 101 17 prologue_end           @ ../Core/Src/can.c:101:17
 	ldr	r0, [r0]
-	movw	r1, #25600
-	movt	r1, #16384
+.Ltmp13:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 17 is_stmt 0                @ ../Core/Src/can.c:0:17
+	movw	r2, #26624
+	movt	r2, #16384
+	movs	r1, #0
 .Ltmp14:
 	.loc	5 101 6                         @ ../Core/Src/can.c:101:6
-	cmp	r0, r1
-	bne	.LBB2_8
-	b	.LBB2_1
-.LBB2_1:
+	cmp	r0, r2
+	.loc	5 100 20 is_stmt 1              @ ../Core/Src/can.c:100:20
+	strd	r1, r1, [sp, #16]
+	strd	r1, r1, [sp, #8]
+	str	r1, [sp, #4]
+	.loc	5 101 6                         @ ../Core/Src/can.c:101:6
+	beq	.LBB2_5
 .Ltmp15:
-	.loc	5 107 29 is_stmt 1              @ ../Core/Src/can.c:107:29
-	movw	r0, :lower16:HAL_RCC_CAN1_CLK_ENABLED
-	movt	r0, :upper16:HAL_RCC_CAN1_CLK_ENABLED
-	ldr	r1, [r0]
-	adds	r1, #1
-	str	r1, [r0]
+@ %bb.1:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 6 is_stmt 0                 @ ../Core/Src/can.c:0:6
+	movw	r1, #25600
+	movt	r1, #16384
+	.loc	5 101 6                         @ ../Core/Src/can.c:101:6
+	cmp	r0, r1
+	bne	.LBB2_9
 .Ltmp16:
-	.loc	5 108 8                         @ ../Core/Src/can.c:108:8
-	ldr	r0, [r0]
-.Ltmp17:
-	.loc	5 108 8 is_stmt 0               @ ../Core/Src/can.c:108:8
-	cmp	r0, #1
-	bne	.LBB2_5
-	b	.LBB2_2
-.LBB2_2:
-.Ltmp18:
-	.loc	5 109 7 is_stmt 1               @ ../Core/Src/can.c:109:7
-	b	.LBB2_3
-.LBB2_3:
-	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
-	movs	r0, #0
-.Ltmp19:
-	.loc	5 109 7                         @ ../Core/Src/can.c:109:7
-	str	r0, [sp, #36]
+@ %bb.2:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 107 29 is_stmt 1              @ ../Core/Src/can.c:107:29
+	movw	r1, :lower16:HAL_RCC_CAN1_CLK_ENABLED
+	movt	r1, :upper16:HAL_RCC_CAN1_CLK_ENABLED
+	ldr	r2, [r1]
 	movw	r0, #14400
 	movt	r0, #16386
+	adds	r3, r2, #1
+	str	r3, [r1]
+	.loc	5 108 8                         @ ../Core/Src/can.c:108:8
+	cbnz	r2, .LBB2_4
+.Ltmp17:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 8 is_stmt 0                 @ ../Core/Src/can.c:0:8
+	movs	r1, #0
+.Ltmp18:
+	.loc	5 109 7 is_stmt 1               @ ../Core/Src/can.c:109:7
+	str	r1, [sp]
 	ldr	r1, [r0]
 	orr	r1, r1, #33554432
 	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #33554432
-	str	r0, [sp, #36]
-	ldr	r0, [sp, #36]
-	b	.LBB2_4
-.Ltmp20:
-.LBB2_4:
-	.loc	5 110 5 is_stmt 1               @ ../Core/Src/can.c:110:5
-	b	.LBB2_5
-.Ltmp21:
-.LBB2_5:
-	.loc	5 112 5                         @ ../Core/Src/can.c:112:5
-	b	.LBB2_6
-.LBB2_6:
-	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
-	movs	r0, #0
-.Ltmp22:
-	.loc	5 112 5                         @ ../Core/Src/can.c:112:5
-	str	r0, [sp, #32]
-	movw	r0, #14384
-	movt	r0, #16386
 	ldr	r1, [r0]
-	orr	r1, r1, #8
-	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #8
-	str	r0, [sp, #32]
-	ldr	r0, [sp, #32]
-	b	.LBB2_7
-.Ltmp23:
-.LBB2_7:
-	.loc	5 0 5                           @ ../Core/Src/can.c:0:5
-	movs	r0, #3
-	.loc	5 117 25 is_stmt 1              @ ../Core/Src/can.c:117:25
-	str	r0, [sp, #40]
-	movs	r1, #2
-	.loc	5 118 26                        @ ../Core/Src/can.c:118:26
-	str	r1, [sp, #44]
+	and	r1, r1, #33554432
+	str	r1, [sp]
+	ldr	r1, [sp]
+.Ltmp19:
+.LBB2_4:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
 	movs	r1, #0
-	.loc	5 119 26                        @ ../Core/Src/can.c:119:26
-	str	r1, [sp, #12]                   @ 4-byte Spill
-	str	r1, [sp, #48]
-	.loc	5 120 27                        @ ../Core/Src/can.c:120:27
-	str	r0, [sp, #52]
-	movs	r0, #9
-	.loc	5 121 31                        @ ../Core/Src/can.c:121:31
-	str	r0, [sp, #56]
-	movw	r0, #3072
+.Ltmp20:
+	.loc	5 112 5 is_stmt 1               @ ../Core/Src/can.c:112:5
+	str	r1, [sp]
+	ldr	r1, [r0, #-16]
+	movs	r4, #20
+	orr	r1, r1, #8
+	str	r1, [r0, #-16]
+	ldr	r0, [r0, #-16]
+	movs	r1, #3
+	and	r0, r0, #8
+	str	r0, [sp]
+	ldr	r0, [sp]
+	movw	r0, #1024
 	movt	r0, #16386
-	add	r1, sp, #40
-	.loc	5 122 5                         @ ../Core/Src/can.c:122:5
-	bl	HAL_GPIO_Init
-	ldr	r2, [sp, #12]                   @ 4-byte Reload
-	movs	r0, #20
-	str	r0, [sp, #16]                   @ 4-byte Spill
-	movs	r1, #5
-	.loc	5 125 5                         @ ../Core/Src/can.c:125:5
-	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #16]                   @ 4-byte Reload
-	.loc	5 126 5                         @ ../Core/Src/can.c:126:5
-	bl	HAL_NVIC_EnableIRQ
-	.loc	5 130 3                         @ ../Core/Src/can.c:130:3
-	b	.LBB2_19
-.Ltmp24:
-.LBB2_8:
-	.loc	5 131 11                        @ ../Core/Src/can.c:131:11
-	ldr	r0, [sp, #60]
-	.loc	5 131 22 is_stmt 0              @ ../Core/Src/can.c:131:22
-	ldr	r0, [r0]
-	movw	r1, #26624
-	movt	r1, #16384
-.Ltmp25:
-	.loc	5 131 11                        @ ../Core/Src/can.c:131:11
-	cmp	r0, r1
-	bne	.LBB2_18
-	b	.LBB2_9
-.LBB2_9:
-.Ltmp26:
-	.loc	5 137 5 is_stmt 1               @ ../Core/Src/can.c:137:5
-	b	.LBB2_10
-.LBB2_10:
+	add.w	r0, r0, #2048
+	b	.LBB2_8
+.Ltmp21:
+	.p2align	2
+.LBB2_5:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
 	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
-	movs	r0, #0
-.Ltmp27:
-	.loc	5 137 5                         @ ../Core/Src/can.c:137:5
-	str	r0, [sp, #28]
 	movw	r0, #14400
 	movt	r0, #16386
+.Ltmp22:
+	.loc	5 137 5 is_stmt 1               @ ../Core/Src/can.c:137:5
+	str	r1, [sp]
 	ldr	r1, [r0]
 	orr	r1, r1, #67108864
 	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #67108864
-	str	r0, [sp, #28]
-	ldr	r0, [sp, #28]
-	b	.LBB2_11
-.Ltmp28:
-.LBB2_11:
-	.loc	5 138 29 is_stmt 1              @ ../Core/Src/can.c:138:29
-	movw	r0, :lower16:HAL_RCC_CAN1_CLK_ENABLED
-	movt	r0, :upper16:HAL_RCC_CAN1_CLK_ENABLED
 	ldr	r1, [r0]
-	adds	r1, #1
-	str	r1, [r0]
-.Ltmp29:
+	and	r1, r1, #67108864
+	str	r1, [sp]
+	ldr	r1, [sp]
+.Ltmp23:
+	.loc	5 138 29                        @ ../Core/Src/can.c:138:29
+	movw	r1, :lower16:HAL_RCC_CAN1_CLK_ENABLED
+	movt	r1, :upper16:HAL_RCC_CAN1_CLK_ENABLED
+	ldr	r2, [r1]
+	adds	r3, r2, #1
+	str	r3, [r1]
 	.loc	5 139 8                         @ ../Core/Src/can.c:139:8
-	ldr	r0, [r0]
-.Ltmp30:
-	.loc	5 139 8 is_stmt 0               @ ../Core/Src/can.c:139:8
-	cmp	r0, #1
-	bne	.LBB2_15
-	b	.LBB2_12
-.LBB2_12:
-.Ltmp31:
+	cbnz	r2, .LBB2_7
+.Ltmp24:
+@ %bb.6:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 8 is_stmt 0                 @ ../Core/Src/can.c:0:8
+	movs	r1, #0
+.Ltmp25:
 	.loc	5 140 7 is_stmt 1               @ ../Core/Src/can.c:140:7
-	b	.LBB2_13
-.LBB2_13:
-	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
-	movs	r0, #0
-.Ltmp32:
-	.loc	5 140 7                         @ ../Core/Src/can.c:140:7
-	str	r0, [sp, #24]
-	movw	r0, #14400
-	movt	r0, #16386
+	str	r1, [sp]
 	ldr	r1, [r0]
 	orr	r1, r1, #33554432
 	str	r1, [r0]
-	ldr	r0, [r0]
-	and	r0, r0, #33554432
-	str	r0, [sp, #24]
-	ldr	r0, [sp, #24]
-	b	.LBB2_14
-.Ltmp33:
-.LBB2_14:
-	.loc	5 141 5 is_stmt 1               @ ../Core/Src/can.c:141:5
-	b	.LBB2_15
-.Ltmp34:
-.LBB2_15:
-	.loc	5 143 5                         @ ../Core/Src/can.c:143:5
-	b	.LBB2_16
-.LBB2_16:
-	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
-	movs	r0, #0
-.Ltmp35:
-	.loc	5 143 5                         @ ../Core/Src/can.c:143:5
-	str	r0, [sp, #20]
-	movw	r0, #14384
-	movt	r0, #16386
 	ldr	r1, [r0]
+	and	r1, r1, #33554432
+	str	r1, [sp]
+	ldr	r1, [sp]
+.Ltmp26:
+.LBB2_7:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
+	movs	r1, #0
+.Ltmp27:
+	.loc	5 143 5 is_stmt 1               @ ../Core/Src/can.c:143:5
+	str	r1, [sp]
+	ldr	r1, [r0, #-16]
+	movs	r4, #64
 	orr	r1, r1, #2
-	str	r1, [r0]
-	ldr	r0, [r0]
+	str	r1, [r0, #-16]
+	ldr	r0, [r0, #-16]
+	movs	r1, #96
 	and	r0, r0, #2
-	str	r0, [sp, #20]
-	ldr	r0, [sp, #20]
-	b	.LBB2_17
-.Ltmp36:
-.LBB2_17:
-	.loc	5 0 5                           @ ../Core/Src/can.c:0:5
-	movs	r0, #96
-	.loc	5 148 25 is_stmt 1              @ ../Core/Src/can.c:148:25
-	str	r0, [sp, #40]
-	movs	r0, #2
-	.loc	5 149 26                        @ ../Core/Src/can.c:149:26
-	str	r0, [sp, #44]
-	movs	r0, #0
-	.loc	5 150 26                        @ ../Core/Src/can.c:150:26
-	str	r0, [sp, #4]                    @ 4-byte Spill
-	str	r0, [sp, #48]
-	movs	r0, #3
-	.loc	5 151 27                        @ ../Core/Src/can.c:151:27
-	str	r0, [sp, #52]
-	movs	r0, #9
-	.loc	5 152 31                        @ ../Core/Src/can.c:152:31
-	str	r0, [sp, #56]
+	str	r0, [sp]
+	ldr	r0, [sp]
 	movw	r0, #1024
 	movt	r0, #16386
-	add	r1, sp, #40
-	.loc	5 153 5                         @ ../Core/Src/can.c:153:5
+.Ltmp28:
+.LBB2_8:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 0 is_stmt 0                 @ ../Core/Src/can.c:0:0
+	str	r1, [sp, #4]
+	movs	r1, #2
+	str	r1, [sp, #8]
+	movs	r1, #0
+	str	r1, [sp, #12]
+	movs	r1, #3
+	str	r1, [sp, #16]
+	movs	r1, #9
+	str	r1, [sp, #20]
+	add	r1, sp, #4
 	bl	HAL_GPIO_Init
-	ldr	r2, [sp, #4]                    @ 4-byte Reload
-	movs	r0, #64
-	str	r0, [sp, #8]                    @ 4-byte Spill
+.Ltmp29:
+	mov	r0, r4
 	movs	r1, #5
-	.loc	5 156 5                         @ ../Core/Src/can.c:156:5
+	movs	r2, #0
 	bl	HAL_NVIC_SetPriority
-	ldr	r0, [sp, #8]                    @ 4-byte Reload
-	.loc	5 157 5                         @ ../Core/Src/can.c:157:5
+.Ltmp30:
+	mov	r0, r4
 	bl	HAL_NVIC_EnableIRQ
-	.loc	5 161 3                         @ ../Core/Src/can.c:161:3
-	b	.LBB2_18
-.Ltmp37:
-.LBB2_18:
-	.loc	5 0 3 is_stmt 0                 @ ../Core/Src/can.c:0:3
-	b	.LBB2_19
-.LBB2_19:
+.Ltmp31:
+.LBB2_9:
+	@DEBUG_VALUE: HAL_CAN_MspInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
 	.loc	5 162 1 is_stmt 1               @ ../Core/Src/can.c:162:1
-	add	sp, #64
-	pop	{r7, pc}
-.Ltmp38:
+	add	sp, #24
+	pop	{r4, pc}
+.Ltmp32:
 .Lfunc_end2:
 	.size	HAL_CAN_MspInit, .Lfunc_end2-HAL_CAN_MspInit
 	.cfi_endproc
@@ -483,137 +359,121 @@ HAL_CAN_MspDeInit:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- $r0
 	.save	{r7, lr}
 	push	{r7, lr}
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.pad	#8
-	sub	sp, #8
-	.cfi_def_cfa_offset 16
-	str	r0, [sp, #4]
-.Ltmp39:
-	.loc	5 167 6 prologue_end            @ ../Core/Src/can.c:167:6
-	ldr	r0, [sp, #4]
-	.loc	5 167 17 is_stmt 0              @ ../Core/Src/can.c:167:17
+.Ltmp33:
+	.loc	5 167 17 prologue_end           @ ../Core/Src/can.c:167:17
 	ldr	r0, [r0]
-	movw	r1, #25600
-	movt	r1, #16384
-.Ltmp40:
-	.loc	5 167 6                         @ ../Core/Src/can.c:167:6
-	cmp	r0, r1
-	bne	.LBB3_4
-	b	.LBB3_1
-.LBB3_1:
-.Ltmp41:
-	.loc	5 173 29 is_stmt 1              @ ../Core/Src/can.c:173:29
-	movw	r0, :lower16:HAL_RCC_CAN1_CLK_ENABLED
-	movt	r0, :upper16:HAL_RCC_CAN1_CLK_ENABLED
-	ldr	r1, [r0]
-	subs	r1, #1
-	str	r1, [r0]
-.Ltmp42:
-	.loc	5 174 8                         @ ../Core/Src/can.c:174:8
-	ldr	r0, [r0]
-.Ltmp43:
-	.loc	5 174 8 is_stmt 0               @ ../Core/Src/can.c:174:8
-	cbnz	r0, .LBB3_3
-	b	.LBB3_2
-.LBB3_2:
-	.loc	5 0 8                           @ ../Core/Src/can.c:0:8
-	movw	r1, #14400
-	movt	r1, #16386
-.Ltmp44:
-	.loc	5 175 7 is_stmt 1               @ ../Core/Src/can.c:175:7
-	ldr	r0, [r1]
-	bic	r0, r0, #33554432
-	str	r0, [r1]
-	.loc	5 176 5                         @ ../Core/Src/can.c:176:5
-	b	.LBB3_3
-.Ltmp45:
-.LBB3_3:
-	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
-	movw	r0, #3072
-	movt	r0, #16386
-	movs	r1, #3
-	.loc	5 182 5 is_stmt 1               @ ../Core/Src/can.c:182:5
-	bl	HAL_GPIO_DeInit
-	movs	r0, #20
-	.loc	5 185 5                         @ ../Core/Src/can.c:185:5
-	bl	HAL_NVIC_DisableIRQ
-	.loc	5 189 3                         @ ../Core/Src/can.c:189:3
-	b	.LBB3_9
-.Ltmp46:
-.LBB3_4:
-	.loc	5 190 11                        @ ../Core/Src/can.c:190:11
-	ldr	r0, [sp, #4]
-	.loc	5 190 22 is_stmt 0              @ ../Core/Src/can.c:190:22
-	ldr	r0, [r0]
+.Ltmp34:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 17 is_stmt 0                @ ../Core/Src/can.c:0:17
 	movw	r1, #26624
 	movt	r1, #16384
-.Ltmp47:
-	.loc	5 190 11                        @ ../Core/Src/can.c:190:11
+.Ltmp35:
+	.loc	5 167 6                         @ ../Core/Src/can.c:167:6
 	cmp	r0, r1
-	bne	.LBB3_8
-	b	.LBB3_5
-.LBB3_5:
-	.loc	5 0 11                          @ ../Core/Src/can.c:0:11
-	movw	r1, #14400
-	movt	r1, #16386
-.Ltmp48:
-	.loc	5 196 5 is_stmt 1               @ ../Core/Src/can.c:196:5
-	ldr	r0, [r1]
-	bic	r0, r0, #67108864
-	str	r0, [r1]
-	.loc	5 197 29                        @ ../Core/Src/can.c:197:29
+	beq	.LBB3_5
+.Ltmp36:
+@ %bb.1:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 6                           @ ../Core/Src/can.c:0:6
+	movw	r1, #25600
+	movt	r1, #16384
+	.loc	5 167 6                         @ ../Core/Src/can.c:167:6
+	cmp	r0, r1
+	.loc	5 214 1 is_stmt 1               @ ../Core/Src/can.c:214:1
+	it	ne
+	popne	{r7, pc}
+.Ltmp37:
+.LBB3_2:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 173 29                        @ ../Core/Src/can.c:173:29
 	movw	r0, :lower16:HAL_RCC_CAN1_CLK_ENABLED
 	movt	r0, :upper16:HAL_RCC_CAN1_CLK_ENABLED
 	ldr	r1, [r0]
 	subs	r1, #1
 	str	r1, [r0]
-.Ltmp49:
-	.loc	5 198 8                         @ ../Core/Src/can.c:198:8
-	ldr	r0, [r0]
-.Ltmp50:
-	.loc	5 198 8 is_stmt 0               @ ../Core/Src/can.c:198:8
-	cbnz	r0, .LBB3_7
-	b	.LBB3_6
-.LBB3_6:
-	.loc	5 0 8                           @ ../Core/Src/can.c:0:8
-	movw	r1, #14400
-	movt	r1, #16386
-.Ltmp51:
-	.loc	5 199 7 is_stmt 1               @ ../Core/Src/can.c:199:7
-	ldr	r0, [r1]
-	bic	r0, r0, #33554432
-	str	r0, [r1]
-	.loc	5 200 5                         @ ../Core/Src/can.c:200:5
-	b	.LBB3_7
-.Ltmp52:
-.LBB3_7:
-	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
+	.loc	5 174 8                         @ ../Core/Src/can.c:174:8
+	bne	.LBB3_4
+.Ltmp38:
+@ %bb.3:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 8 is_stmt 0                 @ ../Core/Src/can.c:0:8
+	movw	r0, #14400
+	movt	r0, #16386
+.Ltmp39:
+	.loc	5 175 7 is_stmt 1               @ ../Core/Src/can.c:175:7
+	ldr	r1, [r0]
+	bic	r1, r1, #33554432
+	str	r1, [r0]
+.Ltmp40:
+.LBB3_4:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
 	movw	r0, #1024
 	movt	r0, #16386
-	movs	r1, #96
-	.loc	5 206 5 is_stmt 1               @ ../Core/Src/can.c:206:5
+	.loc	5 182 5 is_stmt 1               @ ../Core/Src/can.c:182:5
+	add.w	r0, r0, #2048
+	movs	r1, #3
 	bl	HAL_GPIO_DeInit
+.Ltmp41:
+	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
+	movs	r0, #20
+.Ltmp42:
+	pop.w	{r7, lr}
+.Ltmp43:
+	b	HAL_NVIC_DisableIRQ
+.Ltmp44:
+	.p2align	2
+.LBB3_5:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	movw	r0, #14400
+	movt	r0, #16386
+.Ltmp45:
+	.loc	5 196 5 is_stmt 1               @ ../Core/Src/can.c:196:5
+	ldr	r1, [r0]
+	bic	r1, r1, #67108864
+	str	r1, [r0]
+	.loc	5 197 29                        @ ../Core/Src/can.c:197:29
+	movw	r1, :lower16:HAL_RCC_CAN1_CLK_ENABLED
+	movt	r1, :upper16:HAL_RCC_CAN1_CLK_ENABLED
+	ldr	r2, [r1]
+	subs	r2, #1
+	str	r2, [r1]
+	.loc	5 198 8                         @ ../Core/Src/can.c:198:8
+	bne	.LBB3_7
+.Ltmp46:
+@ %bb.6:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 199 7                         @ ../Core/Src/can.c:199:7
+	ldr	r1, [r0]
+	bic	r1, r1, #33554432
+	str	r1, [r0]
+.Ltmp47:
+.LBB3_7:
+	@DEBUG_VALUE: HAL_CAN_MspDeInit:canHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	5 0 7 is_stmt 0                 @ ../Core/Src/can.c:0:7
+	movw	r0, #1024
+	movt	r0, #16386
+	.loc	5 206 5 is_stmt 1               @ ../Core/Src/can.c:206:5
+	movs	r1, #96
+	bl	HAL_GPIO_DeInit
+.Ltmp48:
+	.loc	5 0 5 is_stmt 0                 @ ../Core/Src/can.c:0:5
 	movs	r0, #64
-	.loc	5 209 5                         @ ../Core/Src/can.c:209:5
-	bl	HAL_NVIC_DisableIRQ
-	.loc	5 213 3                         @ ../Core/Src/can.c:213:3
-	b	.LBB3_8
-.Ltmp53:
-.LBB3_8:
-	.loc	5 0 3 is_stmt 0                 @ ../Core/Src/can.c:0:3
-	b	.LBB3_9
-.LBB3_9:
-	.loc	5 214 1 is_stmt 1               @ ../Core/Src/can.c:214:1
-	add	sp, #8
-	pop	{r7, pc}
-.Ltmp54:
+.Ltmp49:
+	pop.w	{r7, lr}
+.Ltmp50:
+	b	HAL_NVIC_DisableIRQ
+.Ltmp51:
 .Lfunc_end3:
 	.size	HAL_CAN_MspDeInit, .Lfunc_end3-HAL_CAN_MspDeInit
 	.cfi_endproc
+	.file	8 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_cortex.h"
 	.cantunwind
 	.fnend
                                         @ -- End function
@@ -642,7 +502,40 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.long	0                               @ 0x0
 	.size	HAL_RCC_CAN1_CLK_ENABLED, 4
 
-	.file	7 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_gpio.h"
+	.file	9 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_gpio.h"
+	.section	.debug_loc,"",%progbits
+.Ldebug_loc0:
+	.long	-1
+	.long	.Lfunc_begin2                   @   base address
+	.long	.Lfunc_begin2-.Lfunc_begin2
+	.long	.Ltmp13-.Lfunc_begin2
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp13-.Lfunc_begin2
+	.long	.Lfunc_end2-.Lfunc_begin2
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
+.Ldebug_loc1:
+	.long	-1
+	.long	.Lfunc_begin3                   @   base address
+	.long	.Lfunc_begin3-.Lfunc_begin3
+	.long	.Ltmp34-.Lfunc_begin3
+	.short	1                               @ Loc expr size
+	.byte	80                              @ DW_OP_reg0
+	.long	.Ltmp34-.Lfunc_begin3
+	.long	.Lfunc_end3-.Lfunc_begin3
+	.short	4                               @ Loc expr size
+	.byte	243                             @ DW_OP_GNU_entry_value
+	.byte	1                               @ 1
+	.byte	80                              @ DW_OP_reg0
+	.byte	159                             @ DW_OP_stack_value
+	.long	0
+	.long	0
 	.section	.debug_abbrev,"",%progbits
 	.byte	1                               @ Abbreviation Code
 	.byte	17                              @ DW_TAG_compile_unit
@@ -897,13 +790,15 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.byte	0                               @ EOM(2)
 	.byte	22                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
-	.byte	0                               @ DW_CHILDREN_no
+	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
 	.byte	1                               @ DW_FORM_addr
 	.byte	18                              @ DW_AT_high_pc
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
+	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -917,14 +812,19 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	23                              @ Abbreviation Code
-	.byte	46                              @ DW_TAG_subprogram
-	.byte	1                               @ DW_CHILDREN_yes
+	.ascii	"\211\202\001"                  @ DW_TAG_GNU_call_site
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	49                              @ DW_AT_abstract_origin
+	.byte	19                              @ DW_FORM_ref4
+	.ascii	"\225B"                         @ DW_AT_GNU_tail_call
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	17                              @ DW_AT_low_pc
 	.byte	1                               @ DW_FORM_addr
-	.byte	18                              @ DW_AT_high_pc
-	.byte	6                               @ DW_FORM_data4
-	.byte	64                              @ DW_AT_frame_base
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	24                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	0                               @ DW_CHILDREN_no
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -933,15 +833,17 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.byte	11                              @ DW_FORM_data1
 	.byte	39                              @ DW_AT_prototyped
 	.byte	25                              @ DW_FORM_flag_present
+	.byte	60                              @ DW_AT_declaration
+	.byte	25                              @ DW_FORM_flag_present
 	.byte	63                              @ DW_AT_external
 	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	24                              @ Abbreviation Code
+	.byte	25                              @ Abbreviation Code
 	.byte	5                               @ DW_TAG_formal_parameter
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
+	.byte	23                              @ DW_FORM_sec_offset
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -952,7 +854,7 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.byte	19                              @ DW_FORM_ref4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	25                              @ Abbreviation Code
+	.byte	26                              @ Abbreviation Code
 	.byte	52                              @ DW_TAG_variable
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
@@ -967,13 +869,37 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.byte	19                              @ DW_FORM_ref4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	26                              @ Abbreviation Code
+	.byte	27                              @ Abbreviation Code
 	.byte	11                              @ DW_TAG_lexical_block
 	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
 	.byte	1                               @ DW_FORM_addr
 	.byte	18                              @ DW_AT_high_pc
 	.byte	6                               @ DW_FORM_data4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	28                              @ Abbreviation Code
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	5                               @ DW_FORM_data2
+	.byte	39                              @ DW_AT_prototyped
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	60                              @ DW_AT_declaration
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	63                              @ DW_AT_external
+	.byte	25                              @ DW_FORM_flag_present
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	29                              @ Abbreviation Code
+	.byte	5                               @ DW_TAG_formal_parameter
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	0                               @ EOM(3)
@@ -984,7 +910,7 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x9c5 DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0xa0d DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -2045,174 +1971,214 @@ HAL_RCC_CAN1_CLK_ENABLED:
 	.long	475                             @ DW_AT_type
 	.byte	2                               @ DW_AT_count
 	.byte	0                               @ End Of Children Mark
-	.byte	22                              @ Abbrev [22] 0x896:0x11 DW_TAG_subprogram
+	.byte	22                              @ Abbrev [22] 0x896:0x1b DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-	.long	.Linfo_string206                @ DW_AT_name
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string209                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	31                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	22                              @ Abbrev [22] 0x8a7:0x11 DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0x8a7:0x9 DW_TAG_GNU_call_site
+	.long	2225                            @ DW_AT_abstract_origin
+                                        @ DW_AT_GNU_tail_call
+	.long	.Ltmp5                          @ DW_AT_low_pc
+	.byte	0                               @ End Of Children Mark
+	.byte	24                              @ Abbrev [24] 0x8b1:0x7 DW_TAG_subprogram
+	.long	.Linfo_string206                @ DW_AT_name
+	.byte	7                               @ DW_AT_decl_file
+	.byte	53                              @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_declaration
+                                        @ DW_AT_external
+	.byte	22                              @ Abbrev [22] 0x8b8:0x1b DW_TAG_subprogram
 	.long	.Lfunc_begin1                   @ DW_AT_low_pc
 	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-	.long	.Linfo_string207                @ DW_AT_name
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string210                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	63                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	23                              @ Abbrev [23] 0x8b8:0xa6 DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0x8c9:0x9 DW_TAG_GNU_call_site
+	.long	2225                            @ DW_AT_abstract_origin
+                                        @ DW_AT_GNU_tail_call
+	.long	.Ltmp11                         @ DW_AT_low_pc
+	.byte	0                               @ End Of Children Mark
+	.byte	22                              @ Abbrev [22] 0x8d3:0xa7 DW_TAG_subprogram
 	.long	.Lfunc_begin2                   @ DW_AT_low_pc
 	.long	.Lfunc_end2-.Lfunc_begin2       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-	.long	.Linfo_string208                @ DW_AT_name
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string211                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	97                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0x8c9:0xe DW_TAG_formal_parameter
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	60
-	.long	.Linfo_string210                @ DW_AT_name
+	.byte	25                              @ Abbrev [25] 0x8e4:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc0                    @ DW_AT_location
+	.long	.Linfo_string220                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	97                              @ DW_AT_decl_line
-	.long	2430                            @ DW_AT_type
-	.byte	25                              @ Abbrev [25] 0x8d7:0xe DW_TAG_variable
+	.long	2578                            @ DW_AT_type
+	.byte	26                              @ Abbrev [26] 0x8f3:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	40
-	.long	.Linfo_string211                @ DW_AT_name
+	.byte	4
+	.long	.Linfo_string213                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	100                             @ DW_AT_decl_line
-	.long	2435                            @ DW_AT_type
-	.byte	26                              @ Abbrev [26] 0x8e5:0x18 DW_TAG_lexical_block
-	.long	.Ltmp19                         @ DW_AT_low_pc
-	.long	.Ltmp20-.Ltmp19                 @ DW_AT_high_pc
-	.byte	25                              @ Abbrev [25] 0x8ee:0xe DW_TAG_variable
+	.long	2502                            @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0x901:0x18 DW_TAG_lexical_block
+	.long	.Ltmp18                         @ DW_AT_low_pc
+	.long	.Ltmp19-.Ltmp18                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0x90a:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	36
-	.long	.Linfo_string217                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string219                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	109                             @ DW_AT_decl_line
 	.long	440                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	26                              @ Abbrev [26] 0x8fd:0x18 DW_TAG_lexical_block
-	.long	.Ltmp22                         @ DW_AT_low_pc
-	.long	.Ltmp23-.Ltmp22                 @ DW_AT_high_pc
-	.byte	25                              @ Abbrev [25] 0x906:0xe DW_TAG_variable
+	.byte	27                              @ Abbrev [27] 0x919:0x18 DW_TAG_lexical_block
+	.long	.Ltmp20                         @ DW_AT_low_pc
+	.long	.Ltmp21-.Ltmp20                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0x922:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	32
-	.long	.Linfo_string217                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string219                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	112                             @ DW_AT_decl_line
 	.long	440                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	26                              @ Abbrev [26] 0x915:0x18 DW_TAG_lexical_block
-	.long	.Ltmp27                         @ DW_AT_low_pc
-	.long	.Ltmp28-.Ltmp27                 @ DW_AT_high_pc
-	.byte	25                              @ Abbrev [25] 0x91e:0xe DW_TAG_variable
+	.byte	27                              @ Abbrev [27] 0x931:0x18 DW_TAG_lexical_block
+	.long	.Ltmp22                         @ DW_AT_low_pc
+	.long	.Ltmp23-.Ltmp22                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0x93a:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	28
-	.long	.Linfo_string217                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string219                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	137                             @ DW_AT_decl_line
 	.long	440                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	26                              @ Abbrev [26] 0x92d:0x18 DW_TAG_lexical_block
-	.long	.Ltmp32                         @ DW_AT_low_pc
-	.long	.Ltmp33-.Ltmp32                 @ DW_AT_high_pc
-	.byte	25                              @ Abbrev [25] 0x936:0xe DW_TAG_variable
+	.byte	27                              @ Abbrev [27] 0x949:0x18 DW_TAG_lexical_block
+	.long	.Ltmp25                         @ DW_AT_low_pc
+	.long	.Ltmp26-.Ltmp25                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0x952:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	24
-	.long	.Linfo_string217                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string219                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	140                             @ DW_AT_decl_line
 	.long	440                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	26                              @ Abbrev [26] 0x945:0x18 DW_TAG_lexical_block
-	.long	.Ltmp35                         @ DW_AT_low_pc
-	.long	.Ltmp36-.Ltmp35                 @ DW_AT_high_pc
-	.byte	25                              @ Abbrev [25] 0x94e:0xe DW_TAG_variable
+	.byte	27                              @ Abbrev [27] 0x961:0x18 DW_TAG_lexical_block
+	.long	.Ltmp27                         @ DW_AT_low_pc
+	.long	.Ltmp28-.Ltmp27                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0x96a:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	20
-	.long	.Linfo_string217                @ DW_AT_name
+	.byte	0
+	.long	.Linfo_string219                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	143                             @ DW_AT_decl_line
 	.long	440                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0x95e:0x20 DW_TAG_subprogram
+	.byte	22                              @ Abbrev [22] 0x97a:0x33 DW_TAG_subprogram
 	.long	.Lfunc_begin3                   @ DW_AT_low_pc
 	.long	.Lfunc_end3-.Lfunc_begin3       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-	.long	.Linfo_string209                @ DW_AT_name
+                                        @ DW_AT_GNU_all_call_sites
+	.long	.Linfo_string212                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	164                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0x96f:0xe DW_TAG_formal_parameter
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string210                @ DW_AT_name
+	.byte	25                              @ Abbrev [25] 0x98b:0xf DW_TAG_formal_parameter
+	.long	.Ldebug_loc1                    @ DW_AT_location
+	.long	.Linfo_string220                @ DW_AT_name
 	.byte	5                               @ DW_AT_decl_file
 	.byte	164                             @ DW_AT_decl_line
-	.long	2430                            @ DW_AT_type
+	.long	2578                            @ DW_AT_type
+	.byte	23                              @ Abbrev [23] 0x99a:0x9 DW_TAG_GNU_call_site
+	.long	2477                            @ DW_AT_abstract_origin
+                                        @ DW_AT_GNU_tail_call
+	.long	.Ltmp44                         @ DW_AT_low_pc
+	.byte	23                              @ Abbrev [23] 0x9a3:0x9 DW_TAG_GNU_call_site
+	.long	2477                            @ DW_AT_abstract_origin
+                                        @ DW_AT_GNU_tail_call
+	.long	.Ltmp51                         @ DW_AT_low_pc
 	.byte	0                               @ End Of Children Mark
-	.byte	6                               @ Abbrev [6] 0x97e:0x5 DW_TAG_pointer_type
-	.long	55                              @ DW_AT_type
-	.byte	3                               @ Abbrev [3] 0x983:0xb DW_TAG_typedef
-	.long	2446                            @ DW_AT_type
-	.long	.Linfo_string216                @ DW_AT_name
-	.byte	7                               @ DW_AT_decl_file
+	.byte	28                              @ Abbrev [28] 0x9ad:0xe DW_TAG_subprogram
+	.long	.Linfo_string207                @ DW_AT_name
+	.byte	8                               @ DW_AT_decl_file
+	.short	263                             @ DW_AT_decl_line
+                                        @ DW_AT_prototyped
+                                        @ DW_AT_declaration
+                                        @ DW_AT_external
+	.byte	29                              @ Abbrev [29] 0x9b5:0x5 DW_TAG_formal_parameter
+	.long	2491                            @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	3                               @ Abbrev [3] 0x9bb:0xb DW_TAG_typedef
+	.long	1025                            @ DW_AT_type
+	.long	.Linfo_string208                @ DW_AT_name
+	.byte	2                               @ DW_AT_decl_file
+	.byte	158                             @ DW_AT_decl_line
+	.byte	3                               @ Abbrev [3] 0x9c6:0xb DW_TAG_typedef
+	.long	2513                            @ DW_AT_type
+	.long	.Linfo_string218                @ DW_AT_name
+	.byte	9                               @ DW_AT_decl_file
 	.byte	62                              @ DW_AT_decl_line
-	.byte	16                              @ Abbrev [16] 0x98e:0x41 DW_TAG_structure_type
+	.byte	16                              @ Abbrev [16] 0x9d1:0x41 DW_TAG_structure_type
 	.byte	20                              @ DW_AT_byte_size
-	.byte	7                               @ DW_AT_decl_file
+	.byte	9                               @ DW_AT_decl_file
 	.byte	46                              @ DW_AT_decl_line
-	.byte	5                               @ Abbrev [5] 0x992:0xc DW_TAG_member
-	.long	.Linfo_string212                @ DW_AT_name
-	.long	445                             @ DW_AT_type
-	.byte	7                               @ DW_AT_decl_file
-	.byte	48                              @ DW_AT_decl_line
-	.byte	0                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0x99e:0xc DW_TAG_member
-	.long	.Linfo_string46                 @ DW_AT_name
-	.long	445                             @ DW_AT_type
-	.byte	7                               @ DW_AT_decl_file
-	.byte	51                              @ DW_AT_decl_line
-	.byte	4                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0x9aa:0xc DW_TAG_member
-	.long	.Linfo_string213                @ DW_AT_name
-	.long	445                             @ DW_AT_type
-	.byte	7                               @ DW_AT_decl_file
-	.byte	54                              @ DW_AT_decl_line
-	.byte	8                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0x9b6:0xc DW_TAG_member
+	.byte	5                               @ Abbrev [5] 0x9d5:0xc DW_TAG_member
 	.long	.Linfo_string214                @ DW_AT_name
 	.long	445                             @ DW_AT_type
-	.byte	7                               @ DW_AT_decl_file
-	.byte	57                              @ DW_AT_decl_line
-	.byte	12                              @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0x9c2:0xc DW_TAG_member
+	.byte	9                               @ DW_AT_decl_file
+	.byte	48                              @ DW_AT_decl_line
+	.byte	0                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x9e1:0xc DW_TAG_member
+	.long	.Linfo_string46                 @ DW_AT_name
+	.long	445                             @ DW_AT_type
+	.byte	9                               @ DW_AT_decl_file
+	.byte	51                              @ DW_AT_decl_line
+	.byte	4                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x9ed:0xc DW_TAG_member
 	.long	.Linfo_string215                @ DW_AT_name
 	.long	445                             @ DW_AT_type
-	.byte	7                               @ DW_AT_decl_file
+	.byte	9                               @ DW_AT_decl_file
+	.byte	54                              @ DW_AT_decl_line
+	.byte	8                               @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0x9f9:0xc DW_TAG_member
+	.long	.Linfo_string216                @ DW_AT_name
+	.long	445                             @ DW_AT_type
+	.byte	9                               @ DW_AT_decl_file
+	.byte	57                              @ DW_AT_decl_line
+	.byte	12                              @ DW_AT_data_member_location
+	.byte	5                               @ Abbrev [5] 0xa05:0xc DW_TAG_member
+	.long	.Linfo_string217                @ DW_AT_name
+	.long	445                             @ DW_AT_type
+	.byte	9                               @ DW_AT_decl_file
 	.byte	60                              @ DW_AT_decl_line
 	.byte	16                              @ DW_AT_data_member_location
 	.byte	0                               @ End Of Children Mark
+	.byte	6                               @ Abbrev [6] 0xa12:0x5 DW_TAG_pointer_type
+	.long	55                              @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 .Ldebug_info_end0:
 	.section	.debug_ranges,"",%progbits
@@ -2641,32 +2607,38 @@ HAL_RCC_CAN1_CLK_ENABLED:
 .Linfo_string205:
 	.asciz	"GPIO_TypeDef"                  @ string offset=2511
 .Linfo_string206:
-	.asciz	"MX_CAN1_Init"                  @ string offset=2524
+	.asciz	"Error_Handler"                 @ string offset=2524
 .Linfo_string207:
-	.asciz	"MX_CAN2_Init"                  @ string offset=2537
+	.asciz	"HAL_NVIC_DisableIRQ"           @ string offset=2538
 .Linfo_string208:
-	.asciz	"HAL_CAN_MspInit"               @ string offset=2550
+	.asciz	"IRQn_Type"                     @ string offset=2558
 .Linfo_string209:
-	.asciz	"HAL_CAN_MspDeInit"             @ string offset=2566
+	.asciz	"MX_CAN1_Init"                  @ string offset=2568
 .Linfo_string210:
-	.asciz	"canHandle"                     @ string offset=2584
+	.asciz	"MX_CAN2_Init"                  @ string offset=2581
 .Linfo_string211:
-	.asciz	"GPIO_InitStruct"               @ string offset=2594
+	.asciz	"HAL_CAN_MspInit"               @ string offset=2594
 .Linfo_string212:
-	.asciz	"Pin"                           @ string offset=2610
+	.asciz	"HAL_CAN_MspDeInit"             @ string offset=2610
 .Linfo_string213:
-	.asciz	"Pull"                          @ string offset=2614
+	.asciz	"GPIO_InitStruct"               @ string offset=2628
 .Linfo_string214:
-	.asciz	"Speed"                         @ string offset=2619
+	.asciz	"Pin"                           @ string offset=2644
 .Linfo_string215:
-	.asciz	"Alternate"                     @ string offset=2625
+	.asciz	"Pull"                          @ string offset=2648
 .Linfo_string216:
-	.asciz	"GPIO_InitTypeDef"              @ string offset=2635
+	.asciz	"Speed"                         @ string offset=2653
 .Linfo_string217:
-	.asciz	"tmpreg"                        @ string offset=2652
+	.asciz	"Alternate"                     @ string offset=2659
+.Linfo_string218:
+	.asciz	"GPIO_InitTypeDef"              @ string offset=2669
+.Linfo_string219:
+	.asciz	"tmpreg"                        @ string offset=2686
+.Linfo_string220:
+	.asciz	"canHandle"                     @ string offset=2693
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

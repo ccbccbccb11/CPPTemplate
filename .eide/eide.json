@@ -21,7 +21,10 @@
         "name": "Alog",
         "files": [
           {
-            "path": "User/Alog/src/utils.cpp"
+            "path": "User/Alog/src/ave_filter.cpp"
+          },
+          {
+            "path": "User/Alog/src/heart_beat.cpp"
           },
           {
             "path": "User/Alog/src/matrix.cpp"
@@ -30,7 +33,7 @@
             "path": "User/Alog/src/robotics.cpp"
           },
           {
-            "path": "User/Alog/src/ave_filter.cpp"
+            "path": "User/Alog/src/utils.cpp"
           }
         ],
         "folders": []
@@ -40,51 +43,6 @@
         "files": [],
         "folders": [
           {
-            "name": "User",
-            "files": [],
-            "folders": [
-              {
-                "name": "Core",
-                "files": [
-                  {
-                    "path": "Core/Src/main.c"
-                  },
-                  {
-                    "path": "Core/Src/gpio.c"
-                  },
-                  {
-                    "path": "Core/Src/freertos.c"
-                  },
-                  {
-                    "path": "Core/Src/can.c"
-                  },
-                  {
-                    "path": "Core/Src/dma.c"
-                  },
-                  {
-                    "path": "Core/Src/spi.c"
-                  },
-                  {
-                    "path": "Core/Src/tim.c"
-                  },
-                  {
-                    "path": "Core/Src/usart.c"
-                  },
-                  {
-                    "path": "Core/Src/stm32f4xx_it.c"
-                  },
-                  {
-                    "path": "Core/Src/stm32f4xx_hal_msp.c"
-                  },
-                  {
-                    "path": "Core/Src/stm32f4xx_hal_timebase_tim.c"
-                  }
-                ],
-                "folders": []
-              }
-            ]
-          },
-          {
             "name": "MDK-ARM",
             "files": [
               {
@@ -92,6 +50,51 @@
               }
             ],
             "folders": []
+          },
+          {
+            "name": "User",
+            "files": [],
+            "folders": [
+              {
+                "name": "Core",
+                "files": [
+                  {
+                    "path": "Core/Src/can.c"
+                  },
+                  {
+                    "path": "Core/Src/dma.c"
+                  },
+                  {
+                    "path": "Core/Src/freertos.c"
+                  },
+                  {
+                    "path": "Core/Src/gpio.c"
+                  },
+                  {
+                    "path": "Core/Src/main.c"
+                  },
+                  {
+                    "path": "Core/Src/spi.c"
+                  },
+                  {
+                    "path": "Core/Src/stm32f4xx_hal_msp.c"
+                  },
+                  {
+                    "path": "Core/Src/stm32f4xx_hal_timebase_tim.c"
+                  },
+                  {
+                    "path": "Core/Src/stm32f4xx_it.c"
+                  },
+                  {
+                    "path": "Core/Src/tim.c"
+                  },
+                  {
+                    "path": "Core/Src/usart.c"
+                  }
+                ],
+                "folders": []
+              }
+            ]
           }
         ]
       },
@@ -106,13 +109,13 @@
                 "path": "Drivers/CMSIS/DSP/Source/BasicMathFunctions/BasicMathFunctions.c"
               },
               {
+                "path": "Drivers/CMSIS/DSP/Source/CommonTables/CommonTables.c"
+              },
+              {
                 "path": "Drivers/CMSIS/DSP/Source/FastMathFunctions/FastMathFunctions.c"
               },
               {
                 "path": "Drivers/CMSIS/DSP/Source/MatrixFunctions/MatrixFunctions.c"
-              },
-              {
-                "path": "Drivers/CMSIS/DSP/Source/CommonTables/CommonTables.c"
               }
             ],
             "folders": []
@@ -174,22 +177,31 @@
         "name": "Drivers",
         "files": [
           {
-            "path": "User/drive/src/driver.cpp"
-          },
-          {
             "path": "User/drive/src/driver_can.cpp"
-          },
-          {
-            "path": "User/drive/src/driver_uart.cpp"
           },
           {
             "path": "User/drive/src/driver_haltick.cpp"
           },
           {
             "path": "User/drive/src/driver_spi.cpp"
+          },
+          {
+            "path": "User/drive/src/driver_uart.cpp"
+          },
+          {
+            "path": "User/drive/src/driver.cpp"
           }
         ],
         "folders": [
+          {
+            "name": "CMSIS",
+            "files": [
+              {
+                "path": "Core/Src/system_stm32f4xx.c"
+              }
+            ],
+            "folders": []
+          },
           {
             "name": "STM32F4xx_HAL_Driver",
             "files": [
@@ -249,15 +261,6 @@
               }
             ],
             "folders": []
-          },
-          {
-            "name": "CMSIS",
-            "files": [
-              {
-                "path": "Core/Src/system_stm32f4xx.c"
-              }
-            ],
-            "folders": []
           }
         ]
       },
@@ -281,6 +284,9 @@
             "name": "FreeRTOS",
             "files": [
               {
+                "path": "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c"
+              },
+              {
                 "path": "Middlewares/Third_Party/FreeRTOS/Source/croutine.c"
               },
               {
@@ -288,6 +294,12 @@
               },
               {
                 "path": "Middlewares/Third_Party/FreeRTOS/Source/list.c"
+              },
+              {
+                "path": "Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c"
+              },
+              {
+                "path": "Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c"
               },
               {
                 "path": "Middlewares/Third_Party/FreeRTOS/Source/queue.c"
@@ -300,15 +312,6 @@
               },
               {
                 "path": "Middlewares/Third_Party/FreeRTOS/Source/timers.c"
-              },
-              {
-                "path": "Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c"
-              },
-              {
-                "path": "Middlewares/Third_Party/FreeRTOS/Source/portable/MemMang/heap_4.c"
-              },
-              {
-                "path": "Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F/port.c"
               }
             ],
             "folders": []
@@ -319,6 +322,9 @@
         "name": "Motor",
         "files": [
           {
+            "path": "User/motor/src/dji_motor.cpp"
+          },
+          {
             "path": "User/motor/src/motor.cpp"
           }
         ],
@@ -328,7 +334,7 @@
         "name": "mytask",
         "files": [
           {
-            "path": "User/my_task/src/mytasks.c"
+            "path": "User/my_task/src/robot_task.cpp"
           }
         ],
         "folders": []
@@ -478,14 +484,37 @@
         "bin": "",
         "baseAddr": "",
         "cpuInfo": {
-          "vendor": "null",
-          "cpuName": "null"
+          "vendor": "ST",
+          "cpuName": "STM32F407VE"
         },
         "proType": 1,
         "speed": 8000,
         "otherCmds": ""
       },
-      "uploadConfigMap": {},
+      "uploadConfigMap": {
+        "JLink": {
+          "bin": "",
+          "baseAddr": "",
+          "cpuInfo": {
+            "vendor": "ST",
+            "cpuName": "STM32F407VE"
+          },
+          "proType": 1,
+          "speed": 8000,
+          "otherCmds": ""
+        },
+        "STLink": {
+          "bin": "",
+          "proType": "SWD",
+          "resetMode": "default",
+          "runAfterProgram": true,
+          "speed": 4000,
+          "address": "0x8000000",
+          "elFile": "None",
+          "optionBytes": ".eide/cpptemplate.st.option.bytes.ini",
+          "otherCmds": ""
+        }
+      },
       "custom_dep": {
         "name": "default",
         "incList": [

@@ -106,6 +106,14 @@ public:
 	uint8_t* GetTxBuff(void) {
 		return tx_buff_;
 	}
+  // 设置发送数组整体
+  void SetTxbuff(uint8_t* tx_buff) {
+		memcpy(tx_buff_, tx_buff, sizeof(tx_buff_));
+  }
+  // 设置发送数组按字节
+  void SetTxbuff(uint8_t index, uint8_t val){
+    tx_buff_[index] = val;
+  }
 	// 实例发送数组指针
 	uint8_t* GetRxBuff(void) {
 		return rx_buff_;
@@ -148,6 +156,7 @@ public:
 		} else {
 			return;
 		}
+    memset(instance->tx_buff_, 0, sizeof(instance->tx_buff_));
 	}
 };
 

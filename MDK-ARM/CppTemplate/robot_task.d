@@ -36,7 +36,7 @@
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_tim_ex.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_uart.h \
-  ..\User\protocol\inc\can_protocol.hpp ..\User\device\inc\device.hpp \
+  ..\User\device\inc\device.hpp \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\iostream \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__assert \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__verbose_abort \
@@ -649,9 +649,7 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\streambuf \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h \
-  ..\User\controler\inc\pid.hpp ..\User\motor\inc\motor.hpp \
-  ..\User\motor\inc\motor_def.hpp ..\User\Alog\inc\utils.h \
-  ..\User\device\inc\test_motor.hpp \
+  ..\User\controler\inc\pid.hpp ..\User\Alog\inc\utils.h \
   ..\User\protocol\inc\uart_protocol.hpp ..\User\protocol\inc\crc.hpp \
   ..\Middlewares\Third_Party\FreeRTOS\Source\CMSIS_RTOS\cmsis_os.h \
   ..\Middlewares\Third_Party\FreeRTOS\Source\include\FreeRTOS.h \

@@ -14,12 +14,50 @@
 #include <stdint.h>
 
 namespace math {
+// x > max || x < min --> x = max || min 
+template <typename T> T Constrain(T x, T min, T max) {
+	if (x > max) {
+		return max;
+	} else if (x < min) {
+		return min;
+	} else {
+		return x;
+	}
+}
+// x > max || x < min --> x = max || min 
+template <typename T> bool Contain(T x, T min, T max) {
+	if (x < max && x > min) {
+		return true;
+	} else {
+		return false;
+	}
+}
+// Periodic processing
+template <typename T> T OneCycle(T tar, T cycle) {
+	if (tar < 0) {
+		tar += cycle;
+	} else {
+		tar -= cycle;
+	}
+	return tar;
+}
 template <typename T> T Abs(T val) {
 	if (val > 0) {
 		return val;
 	} else {
 		return (-val);
 	}
+}
+// Half circle processing
+template <typename T> T HalfCycle(T angle, T max) {
+	if (Abs(angle) > max/2) {
+		if (angle >= 0) {
+			angle -= max;
+		} else {
+			angle += max;
+		}
+	}
+	return angle;
 }
 template <typename T> bool DistanceBool(T val, T end, T err) {
 	if (Abs(val - end) < err)

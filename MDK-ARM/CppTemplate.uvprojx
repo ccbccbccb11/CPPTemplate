@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>1</Optim>
+            <Optim>4</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -791,11 +791,6 @@
               <FilePath>..\User\device\src\device.cpp</FilePath>
             </File>
             <File>
-              <FileName>test_motor.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\device\src\test_motor.cpp</FilePath>
-            </File>
-            <File>
               <FileName>remote.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\device\src\remote.cpp</FilePath>
@@ -810,11 +805,6 @@
         <Group>
           <GroupName>protocol</GroupName>
           <Files>
-            <File>
-              <FileName>can_protocol.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\protocol\src\can_protocol.cpp</FilePath>
-            </File>
             <File>
               <FileName>uart_protocol.cpp</FileName>
               <FileType>8</FileType>
