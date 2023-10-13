@@ -9,7 +9,6 @@
  * All rights reserved.
  ******************************************************************************
  */
- 
 #include "driver_can.hpp"
 
 typedef struct {
@@ -17,11 +16,10 @@ typedef struct {
 	uint8_t				data[8];
 } CAN_RxFrameTypeDef;
 CAN_RxFrameTypeDef hcanRxFrame;
-
 CAN_TxHeaderTypeDef CAN_TxHeadeType;
 
 uint8_t CANInstance::can_ins_cnt_ = 0;
-const uint8_t CANInstance::can_ins_cnt_max_ = 200;
+const uint8_t CANInstance::can_ins_cnt_max_ = 12;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
 static CANInstance* can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
 //仅发送
@@ -34,15 +32,13 @@ CANInstance::CANInstance(CANInstanceTxConfig* config) {
 	tx_config_.IDE = CAN_ID_STD;
 	tx_config_.RTR = CAN_RTR_DATA;
 }
-//未初始化接受回调，需后面调用SetCANInstanceRxCallback()
-CANInstance::CANInstance(CANInstanceConfig* config) {
+//构造函数，以结构体传参方式
+CANInstance::CANInstance(CANInstanceConfig* config) { 
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
   rx_id_ = config->rx_id;
-	if (!CANInstance::can_ins_cnt_) {
-		CAN1_Init();
-		CAN2_Init();
-	}
+  CANInstanceRxCallback_ = config->CANInstanceRxCallback;
+	parent_pointer_ = config->parent_pointer;
 	if (CANInstance::can_ins_cnt_ > CANInstance::can_ins_cnt_max_) {
 		while (1)
 			continue;
@@ -50,35 +46,6 @@ CANInstance::CANInstance(CANInstanceConfig* config) {
 	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
 		if (can_instance[i]->rx_id_ == config->rx_id && 
 			can_instance[i]->can_handle_ == config->can_handle) {
-			while (1)
-				continue;
-		}
-	}
-	tx_config_.StdId = tx_id_;
-	tx_config_.ExtId = 0x0000;
-	tx_config_.DLC = 0x08;
-	tx_config_.IDE = CAN_ID_STD;
-	tx_config_.RTR = CAN_RTR_DATA;
-	can_instance[CANInstance::can_ins_cnt_++] = this;
-}
-//构造时完全初始化
-CANInstance::CANInstance(CAN_HandleTypeDef *can_handle, 
-							uint32_t tx_id, uint32_t rx_id, 
-							std::function<void()> callback) : 
-							can_handle_(can_handle), 
-							tx_id_(tx_id), rx_id_(rx_id),
-							CANInstanceRxCallback_(callback) {
-	if (!CANInstance::can_ins_cnt_) {
-		CAN1_Init();
-		CAN2_Init();
-	}
-	if (CANInstance::can_ins_cnt_ > CANInstance::can_ins_cnt_max_) {
-		while (1)
-			continue;
-	}
-	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
-		if (can_instance[i]->rx_id_ == rx_id && 
-			can_instance[i]->can_handle_ == can_handle) {
 			while (1)
 				continue;
 		}
@@ -156,16 +123,10 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 			if (can_instance[i]->CANInstanceRxCallback_ != NULL) {
 				can_instance[i]->SetRxDataLength(hcanRxFrame.header.DLC);
 				can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
-				can_instance[i]->CANInstanceRxCallback_();
+				can_instance[i]->CANInstanceRxCallback_(can_instance[i]);
 			}
 			return;
 		}
 	}
 }
-
-/**
-  * @Name    CAN
-  * @brief   can 
-  * @param   
-**/
 

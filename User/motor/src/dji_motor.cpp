@@ -15,37 +15,49 @@
 using namespace djimtr;
 
 uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体技术
-const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //两路 can 允许最大点击总数
+const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //两路 can 允许最大电机总数
 const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //电机失联计数最大值
-static DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
+DjiMotor* ppt = NULL;
+DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
 /**
    * @brief DjiMotor类构造函数，Dji电机初始化时调用
    * 
    */
-DjiMotor::DjiMotor(MotorInitConfig* config) : 
-    // can 实例调用构造函数初始化
-    can_instance_(&config->can_config), 
-    // 心跳包实例调用构造函数初始化
-    heartbeat_(djimtr_offline_cnt_max_) {
-  /**
-   *  注册电机数量大于允许的最大值会在此处跑死
-   */
+DjiMotor::DjiMotor(MotorInitConfig* config) {
+ /**
+  *  注册电机数量大于允许的最大值会在此处跑死
+  */
   if (djimtr_ins_cnt_ >= djimtr_ins_cnt_max_) {
     while (1)
       continue;
   }
   motor_type_ = config->motor_type; // 电机类型
-  // 绑定 can 实例的接收中断回调函数与电机的接受协议函数
-  can_instance_.SetCANInstanceRxCallback(std::bind(&DjiMotor::GetCANRxMessage, this)); 
   DivideintoGroup(config);  // 分组
-  memcpy(&external_control_, config->external_control_config, sizeof(ExternalControl)); //外部控制器配置
-  // @todo 电机 pid 参数初始化未完成
+// can 实例调用构造函数初始化
+  config->can_config.tx_id = this->id_info_.tx_id_;
+  config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
+	config->can_config.parent_pointer = this;
+  can_instance_ = CANInstance(&config->can_config);
+// 心跳包实例调用构造函数初始化
+	heartbeat_ = HeartBeat(djimtr_offline_cnt_max_);
+	
+//外部控制器配置
+  memcpy(&external_control_, config->external_control_config, sizeof(ExternalControl)); 
+	
+// 电机 pid 参数初始化
   memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
   controler_.loop_ = config->loop;
-  
+//  controler_.anglein_ = PIDControler(&config->PID_angle_inner_config);
+//  controler_.angleout_ = PIDControler(&config->PID_angle_outer_config);
+//  controler_.speed_ = PIDControler(&config->PID_speed_config);
+//  controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
+//  controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
+//  controler_.current_ = PIDControler(&config->PID_current_config);
 
-  stateinfo_.init_flag_ = kMotorInit; // 初始化成功标志位
-  djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this; // 初始成功的电机加入 djimtr_instance 保存副本
+ stateinfo_.init_flag_ = kMotorInit; // 初始化成功标志位
+ // 初始成功的电机加入 djimtr_instance 保存副本
+// ppt = this;
+// djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this;
 }
 /**
  * @brief 为大疆电机注册六组偷渡的未记录在案的 can 实例仅用于 can 发送
@@ -127,5 +139,38 @@ void DjiMotor::ControlTask(void) {
       djimtr_CAN_txgroup[group_index].CANSend(&djimtr_CAN_txgroup[group_index]);
     }
   }
-  
 }
+
+/**
+ * @brief 接收
+ * 
+ */
+void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
+    DjiMotor* djimtr_ = (DjiMotor*)can_ins->GetParentPoint();
+    int16_t err;
+    if (djimtr_->can_instance_.GetRxBuff() == nullptr)
+      return;
+    if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)
+      return;
+    djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_.GetRxBuff());
+    djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_.GetRxBuff());
+    djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_.GetRxBuff());
+    djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_.GetRxBuff());
+    djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_.GetRxBuff());
+    if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
+      err = 0;
+    } else {
+      err = djimtr_->rxinfo_.angle_ - djimtr_->rxinfo_.angle_prev_;
+    }
+    if (math::Abs(err) > 4095) {
+      if (err >= 0) {
+        djimtr_->rxinfo_.angle_sum_ += -8191 + err;
+      } else {
+        djimtr_->rxinfo_.angle_sum_ += 8191 + err;
+      }
+    } else {
+      djimtr_->rxinfo_.angle_sum_ += err;
+    }
+    djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;		
+    djimtr_->stateinfo_.offline_cnt_ = 0;
+  }

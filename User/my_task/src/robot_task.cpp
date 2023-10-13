@@ -21,7 +21,7 @@
 **/
 extern "C" void StartControlTask(void const * argument) {
   for(;;) {
-    Device_Work();
+//    Device_Work();
 		osDelay(1);
   }
 }
@@ -44,7 +44,7 @@ extern "C" void StartRealTimeTask(void const * argument) {
 **/
 extern "C" void StartHeartBeatTask(void const * argument) {
   for(;;) {
-    Device_HeartBeat();
+//    Device_HeartBeat();
     osDelay(1);
   }
 }

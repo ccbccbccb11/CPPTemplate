@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>4</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -641,6 +641,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\Alog\src\ave_filter.cpp</FilePath>
             </File>
+            <File>
+              <FileName>heart_beat.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\Alog\src\heart_beat.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -746,9 +751,9 @@
           <GroupName>Motor</GroupName>
           <Files>
             <File>
-              <FileName>motor.cpp</FileName>
+              <FileName>dji_motor.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\User\motor\src\motor.cpp</FilePath>
+              <FilePath>..\User\motor\src\dji_motor.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -153,34 +153,7 @@ public:
     return temperature;
   }
   //读取 RM 电机 can 报文
-  void GetCANRxMessage(void) {
-    int16_t err;
-    if (can_instance_.GetRxBuff() == nullptr)
-      return;
-    if (stateinfo_.init_flag_ == kMotorEmpty)
-      return;
-    rxinfo_.angle_ = CANGetAngle(can_instance_.GetRxBuff());
-    rxinfo_.speed_ = CANGetSpeed(can_instance_.GetRxBuff());
-    rxinfo_.current_ = CANGetCurrent(can_instance_.GetRxBuff());
-    rxinfo_.torque_ = CANGetTorque(can_instance_.GetRxBuff());
-    rxinfo_.temperature_ = CANGetTemperature(can_instance_.GetRxBuff());
-    if (!rxinfo_.angle_prev_ && !rxinfo_.angle_sum_) {
-      err = 0;
-    } else {
-      err = rxinfo_.angle_ - rxinfo_.angle_prev_;
-    }
-    if (math::Abs(err) > 4095) {
-      if (err >= 0) {
-        rxinfo_.angle_sum_ += -8191 + err;
-      } else {
-        rxinfo_.angle_sum_ += 8191 + err;
-      }
-    } else {
-      rxinfo_.angle_sum_ += err;
-    }
-    rxinfo_.angle_prev_ = rxinfo_.angle_;		
-    stateinfo_.offline_cnt_ = 0;
-  }
+  static void GetCANRxMessage(CANInstance* can_ins);
   /**
    * @brief *************** 控制任务 ******************************
    */
@@ -323,4 +296,6 @@ public:
   }
 };
 };
+
+extern djimtr::DjiMotor* djimtr_instance[12];
 #endif // DJI_MOTOR_HPP

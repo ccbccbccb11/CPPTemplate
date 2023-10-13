@@ -40,140 +40,184 @@ MX_GPIO_Init:
 	.cfi_sections .debug_frame
 	.cfi_startproc
 @ %bb.0:
-	.save	{r4, r5, r6, r7, lr}
-	push	{r4, r5, r6, r7, lr}
-	.cfi_def_cfa_offset 20
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.cfi_offset r6, -12
-	.cfi_offset r5, -16
-	.cfi_offset r4, -20
-	.pad	#28
-	sub	sp, #28
-	.cfi_def_cfa_offset 48
-	movs	r6, #0
-	movw	r0, #14384
+	.pad	#56
+	sub	sp, #56
+	.cfi_def_cfa_offset 64
+	movs	r0, #0
 .Ltmp0:
 	.loc	4 45 20 prologue_end            @ ../Core/Src/gpio.c:45:20
-	str	r6, [sp, #24]
+	str	r0, [sp, #52]
+	str	r0, [sp, #48]
+	str	r0, [sp, #44]
+	str	r0, [sp, #40]
+	str	r0, [sp, #36]
+	.loc	4 48 3                          @ ../Core/Src/gpio.c:48:3
+	b	.LBB0_1
+.LBB0_1:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #0
 .Ltmp1:
 	.loc	4 48 3                          @ ../Core/Src/gpio.c:48:3
-	str	r6, [sp, #4]
+	str	r0, [sp, #32]
+	movw	r0, #14384
 	movt	r0, #16386
 	ldr	r1, [r0]
-	movw	r4, #1024
 	orr	r1, r1, #128
 	str	r1, [r0]
-	ldr	r1, [r0]
-	movt	r4, #16386
-	and	r1, r1, #128
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
+	ldr	r0, [r0]
+	and	r0, r0, #128
+	str	r0, [sp, #32]
+	ldr	r0, [sp, #32]
+	b	.LBB0_2
 .Ltmp2:
-	.loc	4 49 3                          @ ../Core/Src/gpio.c:49:3
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
+.LBB0_2:
+	.loc	4 49 3 is_stmt 1                @ ../Core/Src/gpio.c:49:3
+	b	.LBB0_3
+.LBB0_3:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #0
 .Ltmp3:
-	.loc	4 55 3                          @ ../Core/Src/gpio.c:55:3
-	movs	r2, #0
-.Ltmp4:
 	.loc	4 49 3                          @ ../Core/Src/gpio.c:49:3
+	str	r0, [sp, #28]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
 	orr	r1, r1, #1
 	str	r1, [r0]
-	ldr	r1, [r0]
-	and	r1, r1, #1
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
+	ldr	r0, [r0]
+	and	r0, r0, #1
+	str	r0, [sp, #28]
+	ldr	r0, [sp, #28]
+	b	.LBB0_4
+.Ltmp4:
+.LBB0_4:
+	.loc	4 50 3 is_stmt 1                @ ../Core/Src/gpio.c:50:3
+	b	.LBB0_5
+.LBB0_5:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #0
 .Ltmp5:
 	.loc	4 50 3                          @ ../Core/Src/gpio.c:50:3
-	str	r6, [sp, #4]
+	str	r0, [sp, #24]
+	movw	r0, #14384
+	movt	r0, #16386
 	ldr	r1, [r0]
 	orr	r1, r1, #2
 	str	r1, [r0]
-	ldr	r1, [r0]
-	and	r1, r1, #2
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
+	ldr	r0, [r0]
+	and	r0, r0, #2
+	str	r0, [sp, #24]
+	ldr	r0, [sp, #24]
+	b	.LBB0_6
 .Ltmp6:
+.LBB0_6:
+	.loc	4 51 3 is_stmt 1                @ ../Core/Src/gpio.c:51:3
+	b	.LBB0_7
+.LBB0_7:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #0
+.Ltmp7:
 	.loc	4 51 3                          @ ../Core/Src/gpio.c:51:3
-	str	r6, [sp, #4]
+	str	r0, [sp, #20]
+	movw	r0, #14384
+	movt	r0, #16386
 	ldr	r1, [r0]
 	orr	r1, r1, #8
 	str	r1, [r0]
-	ldr	r1, [r0]
-	and	r1, r1, #8
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp7:
+	ldr	r0, [r0]
+	and	r0, r0, #8
+	str	r0, [sp, #20]
+	ldr	r0, [sp, #20]
+	b	.LBB0_8
+.Ltmp8:
+.LBB0_8:
+	.loc	4 52 3 is_stmt 1                @ ../Core/Src/gpio.c:52:3
+	b	.LBB0_9
+.LBB0_9:
+	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
+	movs	r0, #0
+.Ltmp9:
 	.loc	4 52 3                          @ ../Core/Src/gpio.c:52:3
-	str	r6, [sp, #4]
+	str	r0, [sp, #16]
+	movw	r0, #14384
+	movt	r0, #16386
 	ldr	r1, [r0]
 	orr	r1, r1, #4
 	str	r1, [r0]
 	ldr	r0, [r0]
-.Ltmp8:
-	.loc	4 55 3                          @ ../Core/Src/gpio.c:55:3
-	mov.w	r1, #4480
-.Ltmp9:
-	.loc	4 52 3                          @ ../Core/Src/gpio.c:52:3
 	and	r0, r0, #4
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
+	str	r0, [sp, #16]
+	ldr	r0, [sp, #16]
+	b	.LBB0_10
 .Ltmp10:
-	.loc	4 55 3                          @ ../Core/Src/gpio.c:55:3
-	mov	r0, r4
+.LBB0_10:
+	.loc	4 0 3                           @ ../Core/Src/gpio.c:0:3
+	movw	r0, #1024
+	movt	r0, #16386
+	str	r0, [sp, #8]                    @ 4-byte Spill
+	mov.w	r1, #4480
+	movs	r2, #0
+	.loc	4 55 3 is_stmt 1                @ ../Core/Src/gpio.c:55:3
+	str	r2, [sp, #4]                    @ 4-byte Spill
 	bl	HAL_GPIO_WritePin
-.Ltmp11:
-	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
-	mov.w	r0, #4096
-	add	r5, sp, #8
-	.loc	4 58 23 is_stmt 1               @ ../Core/Src/gpio.c:58:23
-	str	r0, [sp, #8]
-	movs	r7, #1
-	.loc	4 62 3                          @ ../Core/Src/gpio.c:62:3
-	mov	r0, r4
-	mov	r1, r5
+	ldr	r1, [sp, #4]                    @ 4-byte Reload
+	ldr	r0, [sp, #8]                    @ 4-byte Reload
+	mov.w	r2, #4096
+	.loc	4 58 23                         @ ../Core/Src/gpio.c:58:23
+	str	r2, [sp, #36]
+	movs	r2, #1
 	.loc	4 59 24                         @ ../Core/Src/gpio.c:59:24
-	strd	r7, r6, [sp, #12]
+	str	r2, [sp]                        @ 4-byte Spill
+	str	r2, [sp, #40]
+	.loc	4 60 24                         @ ../Core/Src/gpio.c:60:24
+	str	r1, [sp, #44]
 	.loc	4 61 25                         @ ../Core/Src/gpio.c:61:25
-	str	r6, [sp, #20]
+	str	r1, [sp, #48]
+	add	r1, sp, #36
 	.loc	4 62 3                          @ ../Core/Src/gpio.c:62:3
+	str	r1, [sp, #12]                   @ 4-byte Spill
 	bl	HAL_GPIO_Init
-.Ltmp12:
-	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
-	movs	r0, #128
-	.loc	4 65 23 is_stmt 1               @ ../Core/Src/gpio.c:65:23
-	strd	r0, r7, [sp, #8]
-	movs	r0, #2
-	.loc	4 68 25                         @ ../Core/Src/gpio.c:68:25
-	str	r0, [sp, #20]
-	.loc	4 69 3                          @ ../Core/Src/gpio.c:69:3
-	mov	r0, r4
-	mov	r1, r5
+	ldr	r3, [sp]                        @ 4-byte Reload
+	ldr	r2, [sp, #4]                    @ 4-byte Reload
+	ldr	r0, [sp, #8]                    @ 4-byte Reload
+	ldr	r1, [sp, #12]                   @ 4-byte Reload
+	mov.w	r12, #128
+	.loc	4 65 23                         @ ../Core/Src/gpio.c:65:23
+	str.w	r12, [sp, #36]
+	.loc	4 66 24                         @ ../Core/Src/gpio.c:66:24
+	str	r3, [sp, #40]
 	.loc	4 67 24                         @ ../Core/Src/gpio.c:67:24
-	str	r6, [sp, #16]
+	str	r2, [sp, #44]
+	movs	r2, #2
+	.loc	4 68 25                         @ ../Core/Src/gpio.c:68:25
+	str	r2, [sp, #48]
 	.loc	4 69 3                          @ ../Core/Src/gpio.c:69:3
 	bl	HAL_GPIO_Init
-.Ltmp13:
-	.loc	4 0 3 is_stmt 0                 @ ../Core/Src/gpio.c:0:3
-	mov.w	r0, #256
-	.loc	4 72 23 is_stmt 1               @ ../Core/Src/gpio.c:72:23
-	strd	r0, r7, [sp, #8]
-	movs	r0, #3
-	.loc	4 75 25                         @ ../Core/Src/gpio.c:75:25
-	str	r0, [sp, #20]
-	.loc	4 76 3                          @ ../Core/Src/gpio.c:76:3
-	mov	r0, r4
-	mov	r1, r5
+	ldr	r3, [sp]                        @ 4-byte Reload
+	ldr	r2, [sp, #4]                    @ 4-byte Reload
+	ldr	r0, [sp, #8]                    @ 4-byte Reload
+	ldr	r1, [sp, #12]                   @ 4-byte Reload
+	mov.w	r12, #256
+	.loc	4 72 23                         @ ../Core/Src/gpio.c:72:23
+	str.w	r12, [sp, #36]
+	.loc	4 73 24                         @ ../Core/Src/gpio.c:73:24
+	str	r3, [sp, #40]
 	.loc	4 74 24                         @ ../Core/Src/gpio.c:74:24
-	str	r6, [sp, #16]
+	str	r2, [sp, #44]
+	movs	r2, #3
+	.loc	4 75 25                         @ ../Core/Src/gpio.c:75:25
+	str	r2, [sp, #48]
 	.loc	4 76 3                          @ ../Core/Src/gpio.c:76:3
 	bl	HAL_GPIO_Init
-.Ltmp14:
 	.loc	4 78 1                          @ ../Core/Src/gpio.c:78:1
-	add	sp, #28
-	pop	{r4, r5, r6, r7, pc}
-.Ltmp15:
+	add	sp, #56
+	pop	{r7, pc}
+.Ltmp11:
 .Lfunc_end0:
 	.size	MX_GPIO_Init, .Lfunc_end0-MX_GPIO_Init
 	.cfi_endproc
@@ -335,8 +379,6 @@ MX_GPIO_Init:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
-	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
-	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -374,13 +416,6 @@ MX_GPIO_Init:
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	17                              @ Abbreviation Code
-	.byte	11                              @ DW_TAG_lexical_block
-	.byte	1                               @ DW_CHILDREN_yes
-	.byte	85                              @ DW_AT_ranges
-	.byte	23                              @ DW_FORM_sec_offset
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	18                              @ Abbreviation Code
 	.byte	19                              @ DW_TAG_structure_type
 	.byte	1                               @ DW_CHILDREN_yes
 	.byte	11                              @ DW_AT_byte_size
@@ -391,7 +426,7 @@ MX_GPIO_Init:
 	.byte	11                              @ DW_FORM_data1
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	19                              @ Abbreviation Code
+	.byte	18                              @ Abbreviation Code
 	.byte	13                              @ DW_TAG_member
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	3                               @ DW_AT_name
@@ -414,7 +449,7 @@ MX_GPIO_Init:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0x385 DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0x38d DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -732,12 +767,11 @@ MX_GPIO_Init:
 	.long	.Linfo_string50                 @ DW_AT_name
 	.byte	7                               @ DW_AT_encoding
 	.byte	2                               @ DW_AT_byte_size
-	.byte	14                              @ Abbrev [14] 0x2b3:0x90 DW_TAG_subprogram
+	.byte	14                              @ Abbrev [14] 0x2b3:0x98 DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
 	.long	.Linfo_string52                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	42                              @ DW_AT_decl_line
@@ -746,104 +780,106 @@ MX_GPIO_Init:
 	.byte	15                              @ Abbrev [15] 0x2c4:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	8
+	.byte	36
 	.long	.Linfo_string53                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	45                              @ DW_AT_decl_line
-	.long	835                             @ DW_AT_type
+	.long	843                             @ DW_AT_type
 	.byte	16                              @ Abbrev [16] 0x2d2:0x18 DW_TAG_lexical_block
 	.long	.Ltmp1                          @ DW_AT_low_pc
 	.long	.Ltmp2-.Ltmp1                   @ DW_AT_high_pc
 	.byte	15                              @ Abbrev [15] 0x2db:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
+	.byte	32
 	.long	.Linfo_string60                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	48                              @ DW_AT_decl_line
 	.long	479                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	17                              @ Abbrev [17] 0x2ea:0x14 DW_TAG_lexical_block
-	.long	.Ldebug_ranges0                 @ DW_AT_ranges
-	.byte	15                              @ Abbrev [15] 0x2ef:0xe DW_TAG_variable
+	.byte	16                              @ Abbrev [16] 0x2ea:0x18 DW_TAG_lexical_block
+	.long	.Ltmp3                          @ DW_AT_low_pc
+	.long	.Ltmp4-.Ltmp3                   @ DW_AT_high_pc
+	.byte	15                              @ Abbrev [15] 0x2f3:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
+	.byte	28
 	.long	.Linfo_string60                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	49                              @ DW_AT_decl_line
 	.long	479                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	16                              @ Abbrev [16] 0x2fe:0x18 DW_TAG_lexical_block
+	.byte	16                              @ Abbrev [16] 0x302:0x18 DW_TAG_lexical_block
 	.long	.Ltmp5                          @ DW_AT_low_pc
 	.long	.Ltmp6-.Ltmp5                   @ DW_AT_high_pc
-	.byte	15                              @ Abbrev [15] 0x307:0xe DW_TAG_variable
+	.byte	15                              @ Abbrev [15] 0x30b:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
+	.byte	24
 	.long	.Linfo_string60                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	50                              @ DW_AT_decl_line
 	.long	479                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	16                              @ Abbrev [16] 0x316:0x18 DW_TAG_lexical_block
-	.long	.Ltmp6                          @ DW_AT_low_pc
-	.long	.Ltmp7-.Ltmp6                   @ DW_AT_high_pc
-	.byte	15                              @ Abbrev [15] 0x31f:0xe DW_TAG_variable
+	.byte	16                              @ Abbrev [16] 0x31a:0x18 DW_TAG_lexical_block
+	.long	.Ltmp7                          @ DW_AT_low_pc
+	.long	.Ltmp8-.Ltmp7                   @ DW_AT_high_pc
+	.byte	15                              @ Abbrev [15] 0x323:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
+	.byte	20
 	.long	.Linfo_string60                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	51                              @ DW_AT_decl_line
 	.long	479                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	17                              @ Abbrev [17] 0x32e:0x14 DW_TAG_lexical_block
-	.long	.Ldebug_ranges1                 @ DW_AT_ranges
-	.byte	15                              @ Abbrev [15] 0x333:0xe DW_TAG_variable
+	.byte	16                              @ Abbrev [16] 0x332:0x18 DW_TAG_lexical_block
+	.long	.Ltmp9                          @ DW_AT_low_pc
+	.long	.Ltmp10-.Ltmp9                  @ DW_AT_high_pc
+	.byte	15                              @ Abbrev [15] 0x33b:0xe DW_TAG_variable
 	.byte	2                               @ DW_AT_location
 	.byte	145
-	.byte	4
+	.byte	16
 	.long	.Linfo_string60                 @ DW_AT_name
 	.byte	4                               @ DW_AT_decl_file
 	.byte	52                              @ DW_AT_decl_line
 	.long	479                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
-	.byte	10                              @ Abbrev [10] 0x343:0xb DW_TAG_typedef
-	.long	846                             @ DW_AT_type
+	.byte	10                              @ Abbrev [10] 0x34b:0xb DW_TAG_typedef
+	.long	854                             @ DW_AT_type
 	.long	.Linfo_string59                 @ DW_AT_name
 	.byte	1                               @ DW_AT_decl_file
 	.byte	62                              @ DW_AT_decl_line
-	.byte	18                              @ Abbrev [18] 0x34e:0x41 DW_TAG_structure_type
+	.byte	17                              @ Abbrev [17] 0x356:0x41 DW_TAG_structure_type
 	.byte	20                              @ DW_AT_byte_size
 	.byte	1                               @ DW_AT_decl_file
 	.byte	46                              @ DW_AT_decl_line
-	.byte	19                              @ Abbrev [19] 0x352:0xc DW_TAG_member
+	.byte	18                              @ Abbrev [18] 0x35a:0xc DW_TAG_member
 	.long	.Linfo_string54                 @ DW_AT_name
 	.long	484                             @ DW_AT_type
 	.byte	1                               @ DW_AT_decl_file
 	.byte	48                              @ DW_AT_decl_line
 	.byte	0                               @ DW_AT_data_member_location
-	.byte	19                              @ Abbrev [19] 0x35e:0xc DW_TAG_member
+	.byte	18                              @ Abbrev [18] 0x366:0xc DW_TAG_member
 	.long	.Linfo_string55                 @ DW_AT_name
 	.long	484                             @ DW_AT_type
 	.byte	1                               @ DW_AT_decl_file
 	.byte	51                              @ DW_AT_decl_line
 	.byte	4                               @ DW_AT_data_member_location
-	.byte	19                              @ Abbrev [19] 0x36a:0xc DW_TAG_member
+	.byte	18                              @ Abbrev [18] 0x372:0xc DW_TAG_member
 	.long	.Linfo_string56                 @ DW_AT_name
 	.long	484                             @ DW_AT_type
 	.byte	1                               @ DW_AT_decl_file
 	.byte	54                              @ DW_AT_decl_line
 	.byte	8                               @ DW_AT_data_member_location
-	.byte	19                              @ Abbrev [19] 0x376:0xc DW_TAG_member
+	.byte	18                              @ Abbrev [18] 0x37e:0xc DW_TAG_member
 	.long	.Linfo_string57                 @ DW_AT_name
 	.long	484                             @ DW_AT_type
 	.byte	1                               @ DW_AT_decl_file
 	.byte	57                              @ DW_AT_decl_line
 	.byte	12                              @ DW_AT_data_member_location
-	.byte	19                              @ Abbrev [19] 0x382:0xc DW_TAG_member
+	.byte	18                              @ Abbrev [18] 0x38a:0xc DW_TAG_member
 	.long	.Linfo_string58                 @ DW_AT_name
 	.long	484                             @ DW_AT_type
 	.byte	1                               @ DW_AT_decl_file
@@ -852,21 +888,6 @@ MX_GPIO_Init:
 	.byte	0                               @ End Of Children Mark
 	.byte	0                               @ End Of Children Mark
 .Ldebug_info_end0:
-	.section	.debug_ranges,"",%progbits
-.Ldebug_ranges0:
-	.long	.Ltmp2-.Lfunc_begin0
-	.long	.Ltmp3-.Lfunc_begin0
-	.long	.Ltmp4-.Lfunc_begin0
-	.long	.Ltmp5-.Lfunc_begin0
-	.long	0
-	.long	0
-.Ldebug_ranges1:
-	.long	.Ltmp7-.Lfunc_begin0
-	.long	.Ltmp8-.Lfunc_begin0
-	.long	.Ltmp9-.Lfunc_begin0
-	.long	.Ltmp10-.Lfunc_begin0
-	.long	0
-	.long	0
 	.section	.debug_str,"MS",%progbits,1
 .Linfo_string0:
 	.asciz	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]" @ string offset=0
@@ -992,7 +1013,7 @@ MX_GPIO_Init:
 	.asciz	"tmpreg"                        @ string offset=622
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 2	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:

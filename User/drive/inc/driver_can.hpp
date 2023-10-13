@@ -21,6 +21,7 @@ extern CAN_TxHeaderTypeDef CAN_TxHeadeType;
 extern CAN_RxHeaderTypeDef CAN_RxHeadeType;
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
+class CANInstance;
 
 void CAN1_Init(void); //CAN1初始化
 void CAN2_Init(void); //CAN2初始化
@@ -38,6 +39,8 @@ typedef struct CANInstanceConfig_t
   CAN_HandleTypeDef* can_handle;  // can句柄
   uint32_t tx_id;                 // 发送id
   uint32_t rx_id;                 // 接收id
+  void (*CANInstanceRxCallback)(CANInstance* ins);
+  void* parent_pointer;
 } CANInstanceConfig;
 /* can 实例*/
 class CANInstance {
@@ -50,10 +53,12 @@ private:
   uint32_t rx_id_;                 // 接收id
   uint8_t  rx_len_;                // 接收长度,可能为0-8
   uint8_t  rx_buff_[8];            // 接收缓存,最大消息长度为8
+  void* parent_pointer_;            // 父指针，保存包含can实例的父类的地址
 public:
 	static uint8_t can_ins_cnt_;			// 实体计数
 	static const uint32_t can_tx_timecnt_max_;			// 实体计数
 	static const uint8_t can_ins_cnt_max_;	// 允许最大实体数
+  void (*CANInstanceRxCallback_)(CANInstance* ins);
 	/**
 	 * @brief 默认构造函数
 	 * 
@@ -61,12 +66,13 @@ public:
 	CANInstance() {}
 	/**
 	 * @brief 默认构造函数
+   *        但未初始化接受回调函数指针，需手动初始化 
 	 * 
 	 */
 	CANInstance(CANInstanceConfig* config);
 	/**
-	 * @brief 构造函数，以结构体为入口参数，
-	 *        但未初始化接受回调函数指针，需手动初始化
+	 * @brief 构造函数，仅发送
+	 *        
 	 */
 	CANInstance(CANInstanceTxConfig* config);
 	/**
@@ -75,13 +81,6 @@ public:
 	 */
 	CANInstance(CAN_HandleTypeDef* can_handle, 
 					uint32_t tx_id, uint32_t rx_id);
-	/**
-	 * @brief 构造函数，以成员为入口参数，
-	 *        初始化接受回调函数指针
-	 */
-	CANInstance(CAN_HandleTypeDef* can_handle, 
-					uint32_t tx_id, uint32_t rx_id, 
-					std::function<void()> callback);
 	// 设置发送数据包的长度
 	void SetTxConfigDLC(uint8_t length) {
 		if (length < 8 && length > 0) {
@@ -129,11 +128,15 @@ public:
   /**
    * @brief 接收回调指针，链接父子
    * 
+   *        32会在bind中跑死未解决
    */
-  std::function<void()> CANInstanceRxCallback_; 
-  // 设置回调函数
-  void SetCANInstanceRxCallback(std::function<void()> callback) {
-      CANInstanceRxCallback_ = callback;
+  // std::function<void()> CANInstanceRxCallback_; 
+  // // 设置回调函数
+  // void SetCANInstanceRxCallback(std::function<void()> callback) {
+  //     CANInstanceRxCallback_ = callback;
+  // }
+  void* GetParentPoint(void) {
+    return parent_pointer_;
   }
   /**
    * @brief 发送

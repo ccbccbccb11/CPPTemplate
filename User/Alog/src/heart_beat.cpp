@@ -22,7 +22,15 @@ static std::vector<HeartBeat*> heartbeat_ins;
 HeartBeat::HeartBeat(uint8_t offline_cnt_max) : offline_cnt_max_(offline_cnt_max) {
   offline_cnt_ = offline_cnt_max;
   state_ = kOffline;
+  /**
+   * @todo 以下会进硬件中断
+   * 
+   */
   heartbeat_ins.push_back(this);
+  /**
+   * @todo 以上会进硬件中断
+   * 
+   */
 }
 
 void HeartBeat::TickTask(void) {
