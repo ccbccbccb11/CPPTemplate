@@ -68,8 +68,8 @@ private:
   StateInfo stateinfo_;
   Control   controler_;
   MotorType motor_type_;
-  CANInstance can_instance_;
-  HeartBeat heartbeat_;
+  CANInstance* can_instance_;
+  HeartBeat* heartbeat_;
   ExternalControl external_control_;
 public:
 	static uint8_t djimtr_ins_cnt_;			// 大疆电机实体计数
@@ -79,7 +79,7 @@ public:
   /**
    * @brief *************** 构造函数 ******************************
    */
-  DjiMotor() { stateinfo_.init_flag_ = kMotorEmpty; }
+//  DjiMotor() { stateinfo_.init_flag_ = kMotorEmpty; }
   DjiMotor(MotorInitConfig* config);
   /**
    * @brief *************** 分组函数 ******************************
@@ -101,7 +101,7 @@ public:
         id_info_.txbuff_index_ = (id_info_.rx_id_ - 0x201U) % 4;
         break;
       case kGM6020:
-				if ((id_info_.rx_id_ - 0x201U) < 4) { 
+				if ((id_info_.rx_id_ - 0x205U) < 4) { 
 					id_info_.tx_id_ = 0x1FF; 
           if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x1FF;
           else id_info_.group_ = kCAN2_0x1FF;
@@ -296,6 +296,4 @@ public:
   }
 };
 };
-
-extern djimtr::DjiMotor* djimtr_instance[12];
 #endif // DJI_MOTOR_HPP

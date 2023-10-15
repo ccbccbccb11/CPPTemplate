@@ -70,8 +70,6 @@ typedef enum {
 class StateInfo {
 public:
   MotorInit  		init_flag_;	
-  uint8_t       offline_cnt_max_;
-  uint8_t       offline_cnt_;
   MotorState 		work_state_;	
 };
 //¿ØÖÆÆ÷

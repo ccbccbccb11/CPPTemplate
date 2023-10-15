@@ -51,7 +51,7 @@ private:
   uint32_t tx_mailbox_;            // CAN消息填入的邮箱号
   uint8_t  tx_buff_[8];            // 发送缓存
   uint32_t rx_id_;                 // 接收id
-  uint8_t  rx_len_;                // 接收长度,可能为0-8
+  size_t  rx_len_;                // 接收长度,可能为0-8
   uint8_t  rx_buff_[8];            // 接收缓存,最大消息长度为8
   void* parent_pointer_;            // 父指针，保存包含can实例的父类的地址
 public:
@@ -88,8 +88,8 @@ public:
 		}
 	}
 	// 设置接受长度
-	void SetRxDataLength(uint8_t length) {
-		if (length < 8 && length > 0) {
+	void SetRxDataLength(uint32_t length) {
+		if (length <= 8 && length > 0) {
 			rx_len_ = length;
 		}
 	}
@@ -143,6 +143,8 @@ public:
    * 
    */
 	static void CANSend(CANInstance* instance) {
+    /* Status of api are returned to this variable. */
+    int8_t rslt;
 		static uint32_t starting_time;
 		while (HAL_CAN_GetTxMailboxesFreeLevel(instance->GetCANHandle()) == 0) {
 			starting_time++;
@@ -153,13 +155,13 @@ public:
 		}
 		starting_time = 0;
 		if (instance->GetCANHandle() == &hcan1) {
-			HAL_CAN_AddTxMessage(&hcan1, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX0);
+			rslt = HAL_CAN_AddTxMessage(&hcan1, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX0);
 		} else if (instance->GetCANHandle() == &hcan2) {
-			HAL_CAN_AddTxMessage(&hcan2, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX1);
+			rslt = HAL_CAN_AddTxMessage(&hcan2, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX1);
 		} else {
 			return;
 		}
-    memset(instance->tx_buff_, 0, sizeof(instance->tx_buff_));
+//    memset(instance->tx_buff_, 0, sizeof(instance->tx_buff_));
 	}
 };
 

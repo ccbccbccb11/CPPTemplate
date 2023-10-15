@@ -16,25 +16,17 @@
 using namespace heartbeat;
 
 uint8_t HeartBeat::heartbeat_ins_cnt_ = 0;
-const uint8_t HeartBeat::default_offline_cntmax_ = 50;
-static std::vector<HeartBeat*> heartbeat_ins;
-
+const uint8_t HeartBeat::default_offline_cntmax_ = 25;
+HeartBeat* heartbeat_ins[HeartBeat::default_offline_cntmax_];
+uint8_t aaa=0;
 HeartBeat::HeartBeat(uint8_t offline_cnt_max) : offline_cnt_max_(offline_cnt_max) {
   offline_cnt_ = offline_cnt_max;
   state_ = kOffline;
-  /**
-   * @todo 以下会进硬件中断
-   * 
-   */
-  heartbeat_ins.push_back(this);
-  /**
-   * @todo 以上会进硬件中断
-   * 
-   */
+	heartbeat_ins[HeartBeat::heartbeat_ins_cnt_++] = this;
 }
 
 void HeartBeat::TickTask(void) {
-  for (size_t i = 0; i < heartbeat_ins.size(); i++) {
+  for (size_t i = 0; i < HeartBeat::heartbeat_ins_cnt_; i++) {
     heartbeat_ins[i]->tick();
   }
 }

@@ -17,7 +17,6 @@ using namespace djimtr;
 uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体技术
 const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //两路 can 允许最大电机总数
 const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //电机失联计数最大值
-DjiMotor* ppt = NULL;
 DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
 /**
    * @brief DjiMotor类构造函数，Dji电机初始化时调用
@@ -33,31 +32,32 @@ DjiMotor::DjiMotor(MotorInitConfig* config) {
   }
   motor_type_ = config->motor_type; // 电机类型
   DivideintoGroup(config);  // 分组
-// can 实例调用构造函数初始化
+	// can 实例调用构造函数初始化
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
 	config->can_config.parent_pointer = this;
-  can_instance_ = CANInstance(&config->can_config);
-// 心跳包实例调用构造函数初始化
-	heartbeat_ = HeartBeat(djimtr_offline_cnt_max_);
-	
-//外部控制器配置
+  can_instance_ = new CANInstance(&config->can_config);
+  /**
+   * @todo 只要接上以下这句话前面的 can 实例里的东西直接错乱
+   *        heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
+   */
+	// 心跳包实例调用构造函数初始化
+	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
+	//外部控制器配置
   memcpy(&external_control_, config->external_control_config, sizeof(ExternalControl)); 
-	
-// 电机 pid 参数初始化
+	// 电机 pid 参数初始化
   memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
   controler_.loop_ = config->loop;
-//  controler_.anglein_ = PIDControler(&config->PID_angle_inner_config);
-//  controler_.angleout_ = PIDControler(&config->PID_angle_outer_config);
-//  controler_.speed_ = PIDControler(&config->PID_speed_config);
-//  controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
-//  controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
-//  controler_.current_ = PIDControler(&config->PID_current_config);
-
- stateinfo_.init_flag_ = kMotorInit; // 初始化成功标志位
- // 初始成功的电机加入 djimtr_instance 保存副本
-// ppt = this;
-// djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this;
+  controler_.anglein_ = PIDControler(&config->PID_angle_inner_config);
+  controler_.angleout_ = PIDControler(&config->PID_angle_outer_config);
+  controler_.speed_ = PIDControler(&config->PID_speed_config);
+  controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
+  controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
+  controler_.current_ = PIDControler(&config->PID_current_config);
+	// 初始化成功标志位
+	stateinfo_.init_flag_ = kMotorInit; 
+	// 初始成功的电机加入 djimtr_instance 保存副本
+	djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this;
 }
 /**
  * @brief 为大疆电机注册六组偷渡的未记录在案的 can 实例仅用于 can 发送
@@ -100,7 +100,7 @@ MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
 static uint8_t djimtr_txbuff[8];
 void DjiMotor::ControlTask(void) {
   float tar;
-  int16_t output;
+  float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
@@ -148,15 +148,15 @@ void DjiMotor::ControlTask(void) {
 void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     DjiMotor* djimtr_ = (DjiMotor*)can_ins->GetParentPoint();
     int16_t err;
-    if (djimtr_->can_instance_.GetRxBuff() == nullptr)
+    if (djimtr_->can_instance_->GetRxBuff() == nullptr)
       return;
     if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)
       return;
-    djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_.GetRxBuff());
-    djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_.GetRxBuff());
-    djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_.GetRxBuff());
-    djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_.GetRxBuff());
-    djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_.GetRxBuff());
+    djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
+    djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
+    djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_->GetRxBuff());
+    djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_->GetRxBuff());
+    djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_->GetRxBuff());
     if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
       err = 0;
     } else {
@@ -172,5 +172,5 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
       djimtr_->rxinfo_.angle_sum_ += err;
     }
     djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;		
-    djimtr_->stateinfo_.offline_cnt_ = 0;
+    djimtr_->heartbeat_->ResetOfflineCnt();
   }

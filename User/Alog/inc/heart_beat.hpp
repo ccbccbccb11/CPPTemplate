@@ -32,6 +32,9 @@ public:
   static uint8_t heartbeat_ins_cnt_;
   static const uint8_t default_offline_cntmax_;
   HeartBeat(uint8_t offline_cnt_max=default_offline_cntmax_);
+	void ResetOfflineCnt(void) {
+		offline_cnt_ = 0;
+	}
   void tick(void) {
     offline_cnt_ ++;
     if (offline_cnt_ > offline_cnt_max_)  {

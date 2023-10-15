@@ -21,7 +21,7 @@ CAN_TxHeaderTypeDef CAN_TxHeadeType;
 uint8_t CANInstance::can_ins_cnt_ = 0;
 const uint8_t CANInstance::can_ins_cnt_max_ = 12;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
-static CANInstance* can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
+CANInstance* can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
 //½ö·¢ËÍ
 CANInstance::CANInstance(CANInstanceTxConfig* config) {
   can_handle_ = config->can_handle;
@@ -118,8 +118,9 @@ void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcanRxFrame.header, hcanRxFrame.data);
 	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
+		can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
 		if (can_instance[i]->GetCANHandle() == hcan && 
-			can_instance[i]->GetRxId() == hcanRxFrame.header.StdId) {
+			  can_instance[i]->GetRxId() == hcanRxFrame.header.StdId) {
 			if (can_instance[i]->CANInstanceRxCallback_ != NULL) {
 				can_instance[i]->SetRxDataLength(hcanRxFrame.header.DLC);
 				can_instance[i]->RxBuffUpdate(hcanRxFrame.data);

@@ -109,7 +109,7 @@ __cxx_global_var_init:
 main:
 .Lfunc_begin1:
 	.file	35 "E:\\RP\\CppTemplate\\MDK-ARM" "../User/mian/main.cpp"
-	.loc	35 75 0 is_stmt 1               @ ../User/mian/main.cpp:75:0
+	.loc	35 47 0 is_stmt 1               @ ../User/mian/main.cpp:47:0
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
@@ -124,43 +124,43 @@ main:
 	movs	r0, #0
 	str	r0, [sp, #4]
 .Ltmp2:
-	.loc	35 83 3 prologue_end            @ ../User/mian/main.cpp:83:3
+	.loc	35 51 3 prologue_end            @ ../User/mian/main.cpp:51:3
 	bl	HAL_Init
-	.loc	35 90 3                         @ ../User/mian/main.cpp:90:3
+	.loc	35 54 3                         @ ../User/mian/main.cpp:54:3
 	bl	SystemClock_Config
-	.loc	35 97 3                         @ ../User/mian/main.cpp:97:3
+	.loc	35 57 3                         @ ../User/mian/main.cpp:57:3
 	bl	MX_GPIO_Init
-	.loc	35 98 3                         @ ../User/mian/main.cpp:98:3
+	.loc	35 58 3                         @ ../User/mian/main.cpp:58:3
 	bl	MX_DMA_Init
-	.loc	35 99 3                         @ ../User/mian/main.cpp:99:3
+	.loc	35 59 3                         @ ../User/mian/main.cpp:59:3
 	bl	MX_CAN1_Init
-	.loc	35 100 3                        @ ../User/mian/main.cpp:100:3
+	.loc	35 60 3                         @ ../User/mian/main.cpp:60:3
 	bl	MX_CAN2_Init
-	.loc	35 101 3                        @ ../User/mian/main.cpp:101:3
+	.loc	35 61 3                         @ ../User/mian/main.cpp:61:3
 	bl	MX_UART4_Init
-	.loc	35 102 3                        @ ../User/mian/main.cpp:102:3
+	.loc	35 62 3                         @ ../User/mian/main.cpp:62:3
 	bl	MX_UART5_Init
-	.loc	35 103 3                        @ ../User/mian/main.cpp:103:3
+	.loc	35 63 3                         @ ../User/mian/main.cpp:63:3
 	bl	MX_USART1_UART_Init
-	.loc	35 104 3                        @ ../User/mian/main.cpp:104:3
+	.loc	35 64 3                         @ ../User/mian/main.cpp:64:3
 	bl	MX_USART2_UART_Init
-	.loc	35 105 3                        @ ../User/mian/main.cpp:105:3
+	.loc	35 65 3                         @ ../User/mian/main.cpp:65:3
 	bl	MX_USART3_UART_Init
-	.loc	35 106 3                        @ ../User/mian/main.cpp:106:3
+	.loc	35 66 3                         @ ../User/mian/main.cpp:66:3
 	bl	MX_USART6_UART_Init
-	.loc	35 107 3                        @ ../User/mian/main.cpp:107:3
+	.loc	35 67 3                         @ ../User/mian/main.cpp:67:3
 	bl	MX_TIM11_Init
-	.loc	35 108 3                        @ ../User/mian/main.cpp:108:3
+	.loc	35 68 3                         @ ../User/mian/main.cpp:68:3
 	bl	MX_SPI2_Init
-	.loc	35 110 2                        @ ../User/mian/main.cpp:110:2
+	.loc	35 70 2                         @ ../User/mian/main.cpp:70:2
 	bl	_Z11Device_Initv
-	.loc	35 111 2                        @ ../User/mian/main.cpp:111:2
+	.loc	35 71 2                         @ ../User/mian/main.cpp:71:2
 	bl	_Z11Driver_Initv
-	.loc	35 115 3                        @ ../User/mian/main.cpp:115:3
+	.loc	35 75 3                         @ ../User/mian/main.cpp:75:3
 	bl	MX_FREERTOS_Init
-	.loc	35 118 3                        @ ../User/mian/main.cpp:118:3
+	.loc	35 78 3                         @ ../User/mian/main.cpp:78:3
 	bl	osKernelStart
-	.loc	35 123 3                        @ ../User/mian/main.cpp:123:3
+	.loc	35 82 3                         @ ../User/mian/main.cpp:82:3
 	b	.LBB1_1
 .LBB1_1:                                @ =>This Inner Loop Header: Depth=1
 	b	.LBB1_1
@@ -10625,7 +10625,7 @@ __ARM_use_no_argv:
 	.byte	93
 	.long	.Linfo_string604                @ DW_AT_name
 	.byte	35                              @ DW_AT_decl_file
-	.byte	74                              @ DW_AT_decl_line
+	.byte	46                              @ DW_AT_decl_line
 	.long	2954                            @ DW_AT_type
                                         @ DW_AT_external
 	.byte	47                              @ Abbrev [47] 0x4910:0xf DW_TAG_subprogram

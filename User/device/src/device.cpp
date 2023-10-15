@@ -15,34 +15,41 @@
 #include "dji_motor.hpp"
 
 using namespace djimtr;
-Device devices;
-DjiMotor M6020_test;
-DjiMotor* M6020_test_;
+/**
+ * @note 不能创建全局对象时先调用默认构造函数，然后再在函数内
+ *       调用重载构造函数并把this指针传出！！！！！！
+ *       因为此时传出的this指针只是在堆上分配的临时变量，
+ *       构造完后单纯把值拷贝给全局变量，函数执行完便销毁了。
+ *       所以用了这种方法的话全局对象名与函数内临时的this不是一个东西
+ *       
+ */
+MotorInitConfig GM6020_test_config = {
+  .motor_type = kGM6020,
+	.can_config = {
+		.can_handle = &hcan1,
+		.rx_id = 0x206,
+	},
+	.PID_speed_config = {
+    .kp = 0,
+    .ki = 10,
+    .kd = 0,
+    .blind_err = 0 ,
+    .integral_max = 2000,
+    .iout_max = 20000,
+    .out_max = 20000,
+	},
+  .loop = kSpeedLoop,
+};
+DjiMotor M6020_test = DjiMotor(&GM6020_test_config);
 void Device_Init(void) {
 //	imu_sensor.init(&imu_sensor);
-  MotorInitConfig GM6020_test_config;
-	GM6020_test_config.can_config.can_handle = &hcan1;
-	GM6020_test_config.can_config.rx_id = 0x206;
-  GM6020_test_config.loop = kSpeedLoop;
-  GM6020_test_config.motor_type = kGM6020;
-  GM6020_test_config.PID_speed_config.kp = 1;
-  GM6020_test_config.PID_speed_config.ki = 1;
-  GM6020_test_config.PID_speed_config.kd = 1;
-  GM6020_test_config.PID_speed_config.integral_max = 1;
-  GM6020_test_config.PID_speed_config.iout_max = 1;
-  GM6020_test_config.PID_speed_config.blind_err = 1;
-  GM6020_test_config.PID_speed_config.out_max = 1;
-  M6020_test = DjiMotor(&GM6020_test_config);
-//	djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = &M6020_test;
-//	M6020_test_ = &M6020_test;
-
 }
 
 void Device_HeartBeat(void) {
-	// Gimbal_HeartBeat();
+	HeartBeat::TickTask();
 }
 
 void Device_Work(void) {
+	DjiMotor::ControlTask();
 //	imu_sensor.update(&imu_sensor);
-	// Gimbal_ControlTask();
 }

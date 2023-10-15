@@ -56,9 +56,6 @@ public:
   float 	integral_max;	
   float   iout_max;
   float 	out_max;
-  PIDInitConfig() {
-    memset(this, 0, sizeof(PIDInitConfig));
-  }
 };
 
 // pid ÏµÊýÀà
