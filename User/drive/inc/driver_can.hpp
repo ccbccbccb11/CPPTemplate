@@ -23,115 +23,110 @@ extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 class CANInstance;
 
-void CAN1_Init(void); //CAN1³õÊ¼»¯
-void CAN2_Init(void); //CAN2³õÊ¼»¯
-void HAL_CAN_TxHeadeInit(uint16_t ID);//ÅäÖÃCAN·¢ËÍÖ¡Í·
-void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig); //ÅäÖÃCAN±êÊ¶·ûÂË²¨Æ÷
-/* CANInstance Ö»·¢ËÍ³õÊ¼»¯ÓÃ*/
+void CAN1_Init(void); //CAN1åˆå§‹åŒ–
+void CAN2_Init(void); //CAN2åˆå§‹åŒ–
+void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig); //é…ç½®CANæ ‡è¯†ç¬¦æ»¤æ³¢å™¨
+
+typedef struct {
+	CAN_RxHeaderTypeDef header;
+	uint8_t				data[8];
+} CAN_RxFrameTypeDef;
+/* CANInstance åªå‘é€åˆå§‹åŒ–ç”¨*/
 typedef struct CANInstanceTxConfig_t
 {
-  CAN_HandleTypeDef* can_handle;  // can¾ä±ú
-  uint32_t tx_id;                 // ·¢ËÍid
+  CAN_HandleTypeDef* can_handle;  // canå¥æŸ„
+  uint32_t tx_id;                 // å‘é€id
 } CANInstanceTxConfig;
-/* CANInstance ³õÊ¼»¯ÓÃ*/
+/* CANInstance åˆå§‹åŒ–ç”¨*/
 typedef struct CANInstanceConfig_t
 {
-  CAN_HandleTypeDef* can_handle;  // can¾ä±ú
-  uint32_t tx_id;                 // ·¢ËÍid
-  uint32_t rx_id;                 // ½ÓÊÕid
+  CAN_HandleTypeDef* can_handle;  // canå¥æŸ„
+  uint32_t tx_id;                 // å‘é€id
+  uint32_t rx_id;                 // æ¥æ”¶id
   void (*CANInstanceRxCallback)(CANInstance* ins);
   void* parent_pointer;
 } CANInstanceConfig;
-/* can ÊµÀı*/
+/* can å®ä¾‹*/
 class CANInstance {
 private:
-  CAN_HandleTypeDef* can_handle_;  // can¾ä±ú
-  CAN_TxHeaderTypeDef tx_config_;      // CAN±¨ÎÄ·¢ËÍÅäÖÃ
-  uint32_t tx_id_;                 // ·¢ËÍid
-  uint32_t tx_mailbox_;            // CANÏûÏ¢ÌîÈëµÄÓÊÏäºÅ
-  uint8_t  tx_buff_[8];            // ·¢ËÍ»º´æ
-  uint32_t rx_id_;                 // ½ÓÊÕid
-  size_t  rx_len_;                // ½ÓÊÕ³¤¶È,¿ÉÄÜÎª0-8
-  uint8_t  rx_buff_[8];            // ½ÓÊÕ»º´æ,×î´óÏûÏ¢³¤¶ÈÎª8
-  void* parent_pointer_;            // ¸¸Ö¸Õë£¬±£´æ°üº¬canÊµÀıµÄ¸¸ÀàµÄµØÖ·
+  CAN_HandleTypeDef* can_handle_;  // canå¥æŸ„
+  CAN_TxHeaderTypeDef tx_config_;      // CANæŠ¥æ–‡å‘é€é…ç½®
+  uint32_t tx_id_;                 // å‘é€id
+  uint32_t tx_mailbox_;            // CANæ¶ˆæ¯å¡«å…¥çš„é‚®ç®±å·
+  uint8_t  tx_buff_[8];            // å‘é€ç¼“å­˜
+  uint32_t rx_id_;                 // æ¥æ”¶id
+  size_t  rx_len_;                // æ¥æ”¶é•¿åº¦,å¯èƒ½ä¸º0-8
+  uint8_t  rx_buff_[8];            // æ¥æ”¶ç¼“å­˜,æœ€å¤§æ¶ˆæ¯é•¿åº¦ä¸º8
+  void* parent_pointer_;            // çˆ¶æŒ‡é’ˆï¼Œä¿å­˜åŒ…å«canå®ä¾‹çš„çˆ¶ç±»çš„åœ°å€
 public:
-	static uint8_t can_ins_cnt_;			// ÊµÌå¼ÆÊı
-	static const uint32_t can_tx_timecnt_max_;			// ÊµÌå¼ÆÊı
-	static const uint8_t can_ins_cnt_max_;	// ÔÊĞí×î´óÊµÌåÊı
+	static uint8_t can_ins_cnt_;			// å®ä½“è®¡æ•°
+	static const uint32_t can_tx_timecnt_max_;			// å®ä½“è®¡æ•°
+	static const uint8_t can_ins_cnt_max_;	// å…è®¸æœ€å¤§å®ä½“æ•°
   void (*CANInstanceRxCallback_)(CANInstance* ins);
 	/**
-	 * @brief Ä¬ÈÏ¹¹Ôìº¯Êı
+	 * @brief é»˜è®¤æ„é€ å‡½æ•°
 	 * 
 	 */
 	CANInstance() {}
 	/**
-	 * @brief Ä¬ÈÏ¹¹Ôìº¯Êı
-   *        µ«Î´³õÊ¼»¯½ÓÊÜ»Øµ÷º¯ÊıÖ¸Õë£¬ĞèÊÖ¶¯³õÊ¼»¯ 
-	 * 
+	 * @brief æ„é€ å‡½æ•°ï¼Œä»¥ç»“æ„ä½“ä¼ å‚æ–¹å¼
 	 */
 	CANInstance(CANInstanceConfig* config);
 	/**
-	 * @brief ¹¹Ôìº¯Êı£¬½ö·¢ËÍ
-	 *        
+	 * @brief æ„é€ å‡½æ•°ï¼Œä»…å‘é€
 	 */
 	CANInstance(CANInstanceTxConfig* config);
-	/**
-	 * @brief ¹¹Ôìº¯Êı£¬ÒÔ³ÉÔ±ÎªÈë¿Ú²ÎÊı£¬
-	 *        µ«Î´³õÊ¼»¯½ÓÊÜ»Øµ÷º¯ÊıÖ¸Õë£¬ĞèÊÖ¶¯³õÊ¼»¯
-	 */
-	CANInstance(CAN_HandleTypeDef* can_handle, 
-					uint32_t tx_id, uint32_t rx_id);
-	// ÉèÖÃ·¢ËÍÊı¾İ°üµÄ³¤¶È
+	// è®¾ç½®å‘é€æ•°æ®åŒ…çš„é•¿åº¦
 	void SetTxConfigDLC(uint8_t length) {
 		if (length < 8 && length > 0) {
 			tx_config_.DLC = length;
 		}
 	}
-	// ÉèÖÃ½ÓÊÜ³¤¶È
+	// è®¾ç½®æ¥å—é•¿åº¦
 	void SetRxDataLength(uint32_t length) {
 		if (length <= 8 && length > 0) {
 			rx_len_ = length;
 		}
 	}
-	// ·µ»Ø can ¾ä±ú
+	// è¿”å› can å¥æŸ„
 	CAN_HandleTypeDef* GetCANHandle(void) {
 		return can_handle_;
 	}
-	// ÊµÀı CAN Tx message header ÅäÖÃµØÖ·
+	// å®ä¾‹ CAN Tx message header é…ç½®åœ°å€
 	CAN_TxHeaderTypeDef* GetTxConfig(void) {
 		return &tx_config_;
 	}
-	// ÊµÀı·¢ËÍÊı×éÖ¸Õë
+	// å®ä¾‹å‘é€æ•°ç»„æŒ‡é’ˆ
 	uint8_t* GetTxBuff(void) {
 		return tx_buff_;
 	}
-  // ÉèÖÃ·¢ËÍÊı×éÕûÌå
+  // è®¾ç½®å‘é€æ•°ç»„æ•´ä½“
   void SetTxbuff(uint8_t* tx_buff) {
 		memcpy(tx_buff_, tx_buff, sizeof(tx_buff_));
   }
-  // ÉèÖÃ·¢ËÍÊı×é°´×Ö½Ú
+  // è®¾ç½®å‘é€æ•°ç»„æŒ‰å­—èŠ‚
   void SetTxbuff(uint8_t index, uint8_t val){
     tx_buff_[index] = val;
   }
-	// ÊµÀı·¢ËÍÊı×éÖ¸Õë
+	// å®ä¾‹å‘é€æ•°ç»„æŒ‡é’ˆ
 	uint8_t* GetRxBuff(void) {
 		return rx_buff_;
 	}
-	// ÊµÀı½ÓÊÕ id
+	// å®ä¾‹æ¥æ”¶ id
 	uint32_t GetRxId(void) {
 		return rx_id_;
 	}
-	// ¸üĞÂ can ½ÓÊÕÊı×é
+	// æ›´æ–° can æ¥æ”¶æ•°ç»„
 	void RxBuffUpdate(uint8_t* rx_buff) {
 		memcpy(rx_buff_, rx_buff, rx_len_);
 	}
   /**
-   * @brief ½ÓÊÕ»Øµ÷Ö¸Õë£¬Á´½Ó¸¸×Ó
+   * @brief æ¥æ”¶å›è°ƒæŒ‡é’ˆï¼Œé“¾æ¥çˆ¶å­
    * 
-   *        32»áÔÚbindÖĞÅÜËÀÎ´½â¾ö
+   *        32ä¼šåœ¨bindä¸­è·‘æ­»æœªè§£å†³
    */
   // std::function<void()> CANInstanceRxCallback_; 
-  // // ÉèÖÃ»Øµ÷º¯Êı
+  // // è®¾ç½®å›è°ƒå‡½æ•°
   // void SetCANInstanceRxCallback(std::function<void()> callback) {
   //     CANInstanceRxCallback_ = callback;
   // }
@@ -139,7 +134,7 @@ public:
     return parent_pointer_;
   }
   /**
-   * @brief ·¢ËÍ
+   * @brief å‘é€
    * 
    */
 	static void CANSend(CANInstance* instance) {

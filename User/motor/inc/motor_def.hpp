@@ -32,12 +32,12 @@ namespace motordef {
 							 GMotorB_ID 0x2FF
  ******************************************************************************
  */
-//³õÊ¼»¯Ã¶¾Ù
+// ç”µæœºåˆå§‹åŒ–æšä¸¾
 typedef enum {
 	kMotorEmpty = 0,
 	kMotorInit,
 } MotorInit;
-// pid ¿ØÖÆ»·Â·Ñ¡È¡
+// pid ç¯è·¯æšä¸¾ 
 typedef enum {
   kPIDClose,
   kCurrentLoop,
@@ -46,7 +46,7 @@ typedef enum {
   kPositLoop,
   kOtherLoop,
 } PIDLoop;
-//µç»ú×´Ì¬£¬Ê§ÁªÎª×î¸ßÓÅÏÈ¼¶
+// ç”µæœºçŠ¶æ€æšä¸¾
 typedef enum {
 	kMotorOffline = 0,	
 	kMotorOnline,
@@ -54,25 +54,27 @@ typedef enum {
 	kMotorIDErr,
 	kMotorInitErr,	
 	kMotorDataErr,
+  kMotorStall,
+  kMotorStop,
 } MotorState;
-//µç»úÇı¶¯Í¨ĞÅ·½Ê½
+// ç”µæœºé©±åŠ¨æ–¹å¼æšä¸¾
 typedef enum {
 	kMotorDriverCAN1,
 	kMotorDriverCAN2,
 } MotorDriver;
-//µç»úÀàĞÍ
+// ç”µæœºç±»å‹æšä¸¾
 typedef enum {
 	kGM6020 = 1,
 	kRM3508,
 	kRM2006,
 } MotorType;
-//×´Ì¬ĞÅÏ¢
+// ç”µæœºçŠ¶æ€ä¿¡æ¯ç±»
 class StateInfo {
 public:
   MotorInit  		init_flag_;	
   MotorState 		work_state_;	
 };
-//¿ØÖÆÆ÷
+// ç”µæœºæ§åˆ¶å™¨ç±»
 class Control {
 public:
   PIDControler current_;
@@ -85,31 +87,31 @@ public:
   float tar_;
   float out_;
 };
-//Ç°À¡Í¨µÀÒÔ¼°Íâ²¿²âÁ¿Öµ´«ÈëºÍËûÃÇµÄ¶ÔÓ¦±êÖ¾Î»
+// ç”µæœºå¤–éƒ¨æ•°æ®ç±»
 class ExternalControl {
 public:
-  /* Ç°À¡Í¨µÀ */
+  /* å‰é¦ˆæ•°æ®æŒ‡é’ˆ */
   float* current_feedforward_;
   float* speed_feedforward_;
   float* angle_inner_feedforward_;
   float* angle_outer_feedforward_;
   float* posit_inner_feedforward_;
   float* posit_outer_feedforward_;
-  /* ¸Ä±ä²âÁ¿ÖµÍ¨µÀ */
+  /* å¤–éƒ¨æµ‹é‡å€¼ */
   float* current_measure_;
   float* speed_measure_;
   float* angle_inner_measure_;
   float* angle_outer_measure_;
   float* posit_inner_measure_;
   float* posit_outer_measure_;
-  /* Ç°À¡Í¨µÀÊ¹ÄÜ±êÖ¾Î» */
+  /* å‰é¦ˆæ•°æ®ä½¿èƒ½æ ‡å¿—ä½ */
   MotorInit current_feedforward_flag_;
   MotorInit speed_feedforward_flag_;
   MotorInit angle_inner_feedforward_flag_;
   MotorInit angle_outer_feedforward_flag_;
   MotorInit posit_inner_feedforward_flag_;
   MotorInit posit_outer_feedforward_flag_;
-  /* ¸Ä±ä²âÁ¿ÖµÍ¨µÀÊ¹ÄÜ±êÖ¾Î» */
+  /* å¤–éƒ¨æµ‹é‡å€¼ä½¿èƒ½æ ‡å¿—ä½ */
   MotorInit current_measure_flag;
   MotorInit speed_measure_flag;
   MotorInit angle_inner_measure_flag;
@@ -117,6 +119,7 @@ public:
   MotorInit posit_inner_measure_flag;
   MotorInit posit_outer_measure_flag;
 };
+// ç”µæœºåˆå§‹åŒ–é…ç½®å…¥å£å‚æ•°ç»“æ„ä½“
 typedef struct MotorInitConfig_t {
   /* data */
   MotorType motor_type;

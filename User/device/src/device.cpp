@@ -16,11 +16,11 @@
 
 using namespace djimtr;
 /**
- * @note ²»ÄÜ´´½¨È«¾Ö¶ÔÏóÊ±ÏÈµ÷ÓÃÄ¬ÈÏ¹¹Ôìº¯Êý£¬È»ºóÔÙÔÚº¯ÊýÄÚ
- *       µ÷ÓÃÖØÔØ¹¹Ôìº¯Êý²¢°ÑthisÖ¸Õë´«³ö£¡£¡£¡£¡£¡£¡
- *       ÒòÎª´ËÊ±´«³öµÄthisÖ¸ÕëÖ»ÊÇÔÚ¶ÑÉÏ·ÖÅäµÄÁÙÊ±±äÁ¿£¬
- *       ¹¹ÔìÍêºóµ¥´¿°ÑÖµ¿½±´¸øÈ«¾Ö±äÁ¿£¬º¯ÊýÖ´ÐÐÍê±ãÏú»ÙÁË¡£
- *       ËùÒÔÓÃÁËÕâÖÖ·½·¨µÄ»°È«¾Ö¶ÔÏóÃûÓëº¯ÊýÄÚÁÙÊ±µÄthis²»ÊÇÒ»¸ö¶«Î÷
+ * @note ä¸èƒ½åˆ›å»ºå…¨å±€å¯¹è±¡æ—¶å…ˆè°ƒç”¨é»˜è®¤æž„é€ å‡½æ•°ï¼Œç„¶åŽå†åœ¨å‡½æ•°å†…
+ *       è°ƒç”¨é‡è½½æž„é€ å‡½æ•°å¹¶æŠŠthisæŒ‡é’ˆä¼ å‡º!!!!
+ *       å› ä¸ºæ­¤æ—¶ä¼ å‡ºçš„thisæŒ‡é’ˆåªæ˜¯åœ¨å †ä¸Šåˆ†é…çš„ä¸´æ—¶å˜é‡ï¼Œ
+ *       æž„é€ å®ŒåŽå•çº¯æŠŠå€¼æ‹·è´ç»™å…¨å±€å˜é‡ï¼Œå‡½æ•°æ‰§è¡Œå®Œä¾¿é”€æ¯äº†ã€‚
+ *       æ‰€ä»¥ç”¨äº†è¿™ç§æ–¹æ³•çš„è¯å…¨å±€å¯¹è±¡åä¸Žå‡½æ•°å†…ä¸´æ—¶çš„thisä¸æ˜¯ä¸€ä¸ªä¸œè¥¿
  *       
  */
 MotorInitConfig GM6020_test_config = {
@@ -41,14 +41,24 @@ MotorInitConfig GM6020_test_config = {
   .loop = kSpeedLoop,
 };
 DjiMotor M6020_test = DjiMotor(&GM6020_test_config);
+/**
+ * @brief è®¾å¤‡åˆå§‹åŒ–
+ * 
+ */
 void Device_Init(void) {
 //	imu_sensor.init(&imu_sensor);
 }
-
+/**
+ * @brief è®¾å¤‡å¿ƒè·³
+ * 
+ */
 void Device_HeartBeat(void) {
 	HeartBeat::TickTask();
 }
-
+/**
+ * @brief è®¾å¤‡å·¥ä½œ
+ * 
+ */
 void Device_Work(void) {
 	DjiMotor::ControlTask();
 //	imu_sensor.update(&imu_sensor);

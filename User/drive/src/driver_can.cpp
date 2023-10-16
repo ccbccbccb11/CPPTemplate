@@ -11,10 +11,6 @@
  */
 #include "driver_can.hpp"
 
-typedef struct {
-	CAN_RxHeaderTypeDef header;
-	uint8_t				data[8];
-} CAN_RxFrameTypeDef;
 CAN_RxFrameTypeDef hcanRxFrame;
 CAN_TxHeaderTypeDef CAN_TxHeadeType;
 
@@ -22,7 +18,7 @@ uint8_t CANInstance::can_ins_cnt_ = 0;
 const uint8_t CANInstance::can_ins_cnt_max_ = 12;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
 CANInstance* can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
-//½ö·¢ËÍ
+//ä»…å‘é€
 CANInstance::CANInstance(CANInstanceTxConfig* config) {
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
@@ -32,7 +28,7 @@ CANInstance::CANInstance(CANInstanceTxConfig* config) {
 	tx_config_.IDE = CAN_ID_STD;
 	tx_config_.RTR = CAN_RTR_DATA;
 }
-//¹¹Ôìº¯Êı£¬ÒÔ½á¹¹Ìå´«²Î·½Ê½
+//æ„é€ å‡½æ•°ï¼Œä»¥ç»“æ„ä½“ä¼ å‚æ–¹å¼
 CANInstance::CANInstance(CANInstanceConfig* config) { 
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
@@ -112,7 +108,7 @@ void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 
 /**
   * @Name    HAL_CAN_RxFifo0MsgPendingCallback
-  * @brief   can½ÓÊÜÖĞ¶Ï£¬ÔÚstm32f4xx_hal_can.cÄÚÈõ¶¨Òå
+  * @brief   canæ¥å—ä¸­æ–­ï¼Œåœ¨stm32f4xx_hal_can.cå†…å¼±å®šä¹‰
   * @param   
 **/
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {

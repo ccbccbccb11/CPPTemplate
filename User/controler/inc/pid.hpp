@@ -37,6 +37,9 @@ public:
   float		target_;
   float		measure_;
   float		err_;
+float GetIntegral(void) {
+  return integral_;
+}
 protected:
   float		last_err_;
   float		integral_;
@@ -172,131 +175,136 @@ public:
 };
 //PID控制类
 class PIDControler {
-	public:
-		PIDControler() { init_flag_ = kPIDEmpty; }
-		PIDControler(PIDInitConfig* config) {
-      InitMotorPIDParams(config);
-      init_flag_ = kPIDInit;
-    }
-		PIDControler(float kp,
-						float	ki, float	kd,
-						float	blind_err,
-						float	integral_max,
-						float	iout_max,
-						float	out_max) {
-			InitMotorPIDParams(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
-      init_flag_ = kPIDInit;
-		}
-			// 电机 pid 初始化 传配置结构体
-		void InitMotorPIDParams(PIDInitConfig* config)  {
-					PID_instance_ = PIDUnit(config);
-		}
-			// 电机 pid 初始化 传数
-		void InitMotorPIDParams(float kp,
-						float	ki, float	kd,
-						float	blind_err,
-						float	integral_max,
-						float	iout_max,
-						float	out_max) {
-					PID_instance_ = PIDUnit(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
-			
-		}
-			// 电机 pid 初始化 数组
-		void InitMotorPIDParams(float* pid_buffs)  {
-					PID_instance_ = PIDUnit(pid_buffs[0], 
-									pid_buffs[1], 
-									pid_buffs[2], 
-									pid_buffs[3], 
-									pid_buffs[4], 
-									pid_buffs[5], 
-									pid_buffs[6]);
-		}
-			// 电机 pid 初始化
-		void InitMotorPIDParams(PIDConfig config)  {
-					PID_instance_ = PIDUnit(config.kp_, 
-									config.ki_, 
-									config.kd_, 
-									config.blind_err_, 
-									config.integral_max_, 
-									config.iout_max_, 
-									config.out_max_);
-			
-		}
-			//创建任意数量的 pid 单元类
-		void AddPIDUnit(float kp,
-							float	ki, float	kd,
-							float	blind_err,
-							float	integral_max,
-							float	iout_max,
-							float	out_max) {
-			PIDUnit PIDUnits(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
-			PIDUnits_.push_back(PIDUnits);
-		}
-			// 获取 PID 单元的数量
-		size_t GetPIDUnitsCount() const {
-        return PIDUnits_.size();
-    }
-			// 获取指定索引的 PID 单元
-		const PIDUnit* GetPIDUnit(size_t index) const {
-        if (index < PIDUnits_.size()) {
-					return &PIDUnits_[index];
-        } else {
-					return  nullptr;
-				}
-    }
-			// 设置指定索引的 PID 单元的参数
-    void SetPIDUnitParams(size_t index, float kp, float ki, float kd) {
-        if (index < PIDUnits_.size()) {
-					PIDUnits_[index].kp_ = kp;
-					PIDUnits_[index].ki_ = ki;
-					PIDUnits_[index].kd_ = kd;
-        }
-    }
-			// 设置 posit outside loop 的 PID 单元的参数
-    void SetPositOutPIDParams(float kp, float ki, float kd) {
-			PID_instance_.kp_ = kp;
-			PID_instance_.ki_ = ki;
-			PID_instance_.kd_ = kd;
-    }
-			// 设置 posit outside loop 的 PI 单元的参数
-    void SetPositOutPIDParams(float kp, float ki) {
-			PID_instance_.kp_ = kp;
-			PID_instance_.ki_ = ki;
-    }
-			// 单环计算 err 无预处理
-		float SingleLoop(float target, float measure) {
-			return PID_instance_.CalcPIDOut(target, measure);
-		}
-			// 单环计算 err 半圈检测预处理
-		float SingleLoop(float target, float measure, float cycle) {
-      float err;
-      PID_instance_.SetPIDErr(target, measure);
-      err = PID_instance_.GetPIDErr();
-			err = HalfCycle(err, cycle);
-      PID_instance_.SetPIDErr(err);
-			return PID_instance_.CalcPIDOut();
-		}
-			// 双环串级计算
-		float DualLoopCascade(PIDUnit* pid_inloop, 
-						float measure_inloop, 
-						PIDUnit* pid_outloop, 
-						float target_outloop, 
-						float measure_outloop) {
-			float outer_output = pid_outloop->CalcPIDOut(target_outloop, measure_outloop);
-			return pid_inloop->CalcPIDOut(outer_output, measure_inloop);
-		}
-    PidInit GetInitFlag(void) {
-      return init_flag_;
-    }
-	private:
-		/* pid 实体 */
-		PIDUnit PID_instance_;
-		/* 自定义用 */
-		std::vector<PIDUnit> PIDUnits_;
-		/* 大类状态检测 */
-		PIDState state_;
-		/* 初始化标志 */
-		PidInit	 init_flag_;
+public:
+  PIDControler() { init_flag_ = kPIDEmpty; }
+  PIDControler(PIDInitConfig* config) {
+    InitMotorPIDParams(config);
+    init_flag_ = kPIDInit;
+  }
+  PIDControler(float kp,
+          float	ki, float	kd,
+          float	blind_err,
+          float	integral_max,
+          float	iout_max,
+          float	out_max) {
+    InitMotorPIDParams(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
+    init_flag_ = kPIDInit;
+  }
+    // 电机 pid 初始化 传配置结构体
+  void InitMotorPIDParams(PIDInitConfig* config)  {
+        PID_instance_ = PIDUnit(config);
+  }
+    // 电机 pid 初始化 传数
+  void InitMotorPIDParams(float kp,
+          float	ki, float	kd,
+          float	blind_err,
+          float	integral_max,
+          float	iout_max,
+          float	out_max) {
+        PID_instance_ = PIDUnit(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
+    
+  }
+    // 电机 pid 初始化 数组
+  void InitMotorPIDParams(float* pid_buffs)  {
+        PID_instance_ = PIDUnit(pid_buffs[0], 
+                pid_buffs[1], 
+                pid_buffs[2], 
+                pid_buffs[3], 
+                pid_buffs[4], 
+                pid_buffs[5], 
+                pid_buffs[6]);
+  }
+    // 电机 pid 初始化
+  void InitMotorPIDParams(PIDConfig config)  {
+        PID_instance_ = PIDUnit(config.kp_, 
+                config.ki_, 
+                config.kd_, 
+                config.blind_err_, 
+                config.integral_max_, 
+                config.iout_max_, 
+                config.out_max_);
+    
+  }
+    //创建任意数量的 pid 单元类
+  void AddPIDUnit(float kp,
+            float	ki, float	kd,
+            float	blind_err,
+            float	integral_max,
+            float	iout_max,
+            float	out_max) {
+    PIDUnit PIDUnits(kp, ki, kd, blind_err, integral_max, iout_max, out_max);
+    PIDUnits_.push_back(PIDUnits);
+  }
+    // 获取 PID 单元的数量
+  size_t GetPIDUnitsCount() const {
+      return PIDUnits_.size();
+  }
+    // 获取指定索引的 PID 单元
+  const PIDUnit* GetPIDUnit(size_t index) const {
+      if (index < PIDUnits_.size()) {
+        return &PIDUnits_[index];
+      } else {
+        return  nullptr;
+      }
+  }
+    // 设置指定索引的 PID 单元的参数
+  void SetPIDUnitParams(size_t index, float kp, float ki, float kd) {
+      if (index < PIDUnits_.size()) {
+        PIDUnits_[index].kp_ = kp;
+        PIDUnits_[index].ki_ = ki;
+        PIDUnits_[index].kd_ = kd;
+      }
+  }
+    // 单环计算 err 无预处理
+  float SingleLoop(float target, float measure) {
+    return PID_instance_.CalcPIDOut(target, measure);
+  }
+    // 单环计算 err 半圈检测预处理
+  float SingleLoop(float target, float measure, float cycle) {
+    float err;
+    PID_instance_.SetPIDErr(target, measure);
+    err = PID_instance_.GetPIDErr();
+    err = HalfCycle(err, cycle);
+    PID_instance_.SetPIDErr(err);
+    return PID_instance_.CalcPIDOut();
+  }
+    // 双环串级计算
+  float DualLoopCascade(PIDUnit* pid_inloop, 
+          float measure_inloop, 
+          PIDUnit* pid_outloop, 
+          float target_outloop, 
+          float measure_outloop) {
+    float outer_output = pid_outloop->CalcPIDOut(target_outloop, measure_outloop);
+    return pid_inloop->CalcPIDOut(outer_output, measure_inloop);
+  }
+   // 获取初始化信息
+  PidInit GetInitFlag(void) {
+    return init_flag_;
+  }
+  void SetKp(float kp) {
+    PID_instance_.kp_ = kp;
+  }
+  void SetKi(float ki) {
+    PID_instance_.ki_ = ki;
+  }
+  void SetKd(float kd) {
+    PID_instance_.kd_ = kd;
+  }
+  float GetIntegral(void) {
+    return PID_instance_.GetIntegral();
+  }
+  float GetIntegralMax(void) {
+    return PID_instance_.integral_max_;
+  }
+private:
+  /* pid 实体 */
+  PIDUnit PID_instance_;
+  /* 自定义用 */
+  std::vector<PIDUnit> PIDUnits_;
+  /* 大类状态检测 */
+  PIDState state_;
+  /* 初始化标志 */
+  PidInit	 init_flag_;
 };
 }
 #endif	/* PID_HPP */

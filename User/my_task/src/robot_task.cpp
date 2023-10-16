@@ -16,19 +16,18 @@
 
 /**
   * @Name    StartControlTask
-  * @brief   
+  * @brief   控制任务
   * @param   
 **/
 extern "C" void StartControlTask(void const * argument) {
   for(;;) {
-   Device_Work();
+    Device_Work();
 		osDelay(1);
   }
 }
-
 /**
   * @Name    StartRealTimeTask
-  * @brief   
+  * @brief   实时任务
   * @param   
 **/
 extern "C" void StartRealTimeTask(void const * argument) {
@@ -36,10 +35,9 @@ extern "C" void StartRealTimeTask(void const * argument) {
     osDelay(1);
   }
 }
-
 /**
   * @Name    StartHeartBeatTask
-  * @brief   
+  * @brief   心跳任务
   * @param   
 **/
 extern "C" void StartHeartBeatTask(void const * argument) {

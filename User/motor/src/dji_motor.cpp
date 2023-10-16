@@ -14,63 +14,62 @@
 
 using namespace djimtr;
 
-uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //µç»úÊµÌå¼¼Êõ
-const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //Á½Â· can ÔÊĞí×î´óµç»ú×ÜÊı
-const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //µç»úÊ§Áª¼ÆÊı×î´óÖµ
-DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //ÓÃÓÚ±éÀúËùÓĞÊµÌå
+uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //ç”µæœºå®ä½“æŠ€æœ¯
+const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //ä¸¤è·¯ can å…è®¸æœ€å¤§ç”µæœºæ€»æ•°
+const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //ç”µæœºå¤±è”è®¡æ•°æœ€å¤§å€¼
+DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //ç”¨äºéå†æ‰€æœ‰å®ä½“
 /**
-   * @brief DjiMotorÀà¹¹Ôìº¯Êı£¬Djiµç»ú³õÊ¼»¯Ê±µ÷ÓÃ
+   * @brief DjiMotorç±»åˆå§‹åŒ–å‡½æ•°ï¼ŒDjiç”µæœºåˆå§‹åŒ–æ—¶è°ƒç”¨
    * 
    */
-DjiMotor::DjiMotor(MotorInitConfig* config) {
+void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
  /**
-  *  ×¢²áµç»úÊıÁ¿´óÓÚÔÊĞíµÄ×î´óÖµ»áÔÚ´Ë´¦ÅÜËÀ
+  * @note æ³¨å†Œç”µæœºæ•°é‡å¤§äºå…è®¸çš„æœ€å¤§å€¼ä¼šåœ¨æ­¤å¤„è·‘æ­»
   */
   if (djimtr_ins_cnt_ >= djimtr_ins_cnt_max_) {
     while (1)
       continue;
   }
-  motor_type_ = config->motor_type; // µç»úÀàĞÍ
-  DivideintoGroup(config);  // ·Ö×é
-	// can ÊµÀıµ÷ÓÃ¹¹Ôìº¯Êı³õÊ¼»¯
+ /**
+  * @note id é‡å¤ä¼šåœ¨æ­¤å¤„è·‘æ­»
+  */
+  for (size_t i = 0; i < DjiMotor::djimtr_ins_cnt_; i++) {
+    if (djimtr_instance[i]->GetRxID() == config->can_config.rx_id)
+      while (1)
+        stateinfo_.work_state_ = kMotorIDErr;
+  }
+  motor_type_ = config->motor_type; // ç”µæœºç±»å‹
+  DivideintoGroup(config);  // åˆ†ç»„
+	// can å®ä¾‹è°ƒç”¨æ„é€ å‡½æ•°åˆå§‹åŒ–
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
 	config->can_config.parent_pointer = this;
   can_instance_ = new CANInstance(&config->can_config);
-  /**
-   * @todo Ö»Òª½ÓÉÏÒÔÏÂÕâ¾ä»°Ç°ÃæµÄ can ÊµÀıÀïµÄ¶«Î÷Ö±½Ó´íÂÒ
-   *        heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
-   */
-	// ĞÄÌø°üÊµÀıµ÷ÓÃ¹¹Ôìº¯Êı³õÊ¼»¯
+	// å¿ƒè·³åŒ…å®ä¾‹è°ƒç”¨æ„é€ å‡½æ•°åˆå§‹åŒ–
 	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
-	//Íâ²¿¿ØÖÆÆ÷ÅäÖÃ
-  memcpy(&external_control_, config->external_control_config, sizeof(ExternalControl)); 
-	// µç»ú pid ²ÎÊı³õÊ¼»¯
-  memset(&controler_, 0, sizeof(Control)); // ³õÊ¼»¯pid²ÎÊı½á¹¹ÌåÇ°ÏÈÇå¿Õ
+	//å¤–éƒ¨æ§åˆ¶å™¨é…ç½®
+  external_control_ = config->external_control_config;
+	// ç”µæœº pid å‚æ•°åˆå§‹åŒ–
+  memset(&controler_, 0, sizeof(Control)); // åˆå§‹åŒ–pidå‚æ•°ç»“æ„ä½“å‰å…ˆæ¸…ç©º
   controler_.loop_ = config->loop;
-  controler_.anglein_ = PIDControler(&config->PID_angle_inner_config);
-  controler_.angleout_ = PIDControler(&config->PID_angle_outer_config);
-  controler_.speed_ = PIDControler(&config->PID_speed_config);
-  controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
-  controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
-  controler_.current_ = PIDControler(&config->PID_current_config);
-	// ³õÊ¼»¯³É¹¦±êÖ¾Î»
+  PIDInit(controler_.loop_, config);
+	// åˆå§‹åŒ–æˆåŠŸæ ‡å¿—ä½
 	stateinfo_.init_flag_ = kMotorInit; 
-	// ³õÊ¼³É¹¦µÄµç»ú¼ÓÈë djimtr_instance ±£´æ¸±±¾
+	// åˆå§‹æˆåŠŸçš„ç”µæœºåŠ å…¥ djimtr_instance ä¿å­˜å‰¯æœ¬
 	djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this;
 }
 /**
- * @brief Îª´ó½®µç»ú×¢²áÁù×éÍµ¶ÉµÄÎ´¼ÇÂ¼ÔÚ°¸µÄ can ÊµÀı½öÓÃÓÚ can ·¢ËÍ
- *        µ±ÇÒ½öµ±¶ÔÓ¦µÄÈÎÒâ×éÏÂÓĞ´ó½®µç»ú×¢²á²Å»áÖ´ĞĞ·¢ËÍ¶ÔÓ¦µÄ°ü
- *        ×é±ğÓëµç»ú id ¹ØÏµÈçÏÂ£º
+ * @brief ä¸ºå¤§ç–†ç”µæœºæ³¨å†Œå…­ç»„å·æ¸¡çš„æœªè®°å½•åœ¨æ¡ˆçš„ can å®ä¾‹ä»…ç”¨äº can å‘é€
+ *        å½“ä¸”ä»…å½“å¯¹åº”çš„ä»»æ„ç»„ä¸‹æœ‰å¤§ç–†ç”µæœºæ³¨å†Œæ‰ä¼šæ‰§è¡Œå‘é€å¯¹åº”çš„åŒ…
+ *        ç»„åˆ«ä¸ç”µæœº id å…³ç³»å¦‚ä¸‹ï¼š
  *        can1: [0]:0x1FF,[1]:0x200,[2]:0x2FF
  *        can2: [3]:0x1FF,[4]:0x200,[5]:0x2FF
- *        ÔÚÃüÃû¿Õ¼ädjimtrÖĞÒ²ÓĞÃ¶¾Ù¶¨Òå¡£
- * @name  djimtr_CAN_txconfig[6] : ÓÃÓÚ×¢²áµÄÅäÖÃ²ÎÊı
- *        djimtr_CAN_txgroup[6] : ×¢²áÁù¸ö·Ö×é
+ *        åœ¨å‘½åç©ºé—´djimträ¸­ä¹Ÿæœ‰æšä¸¾å®šä¹‰ã€‚
+ * @name  djimtr_CAN_txconfig[6] : ç”¨äºæ³¨å†Œçš„é…ç½®å‚æ•°
+ *        djimtr_CAN_txgroup[6] : æ³¨å†Œå…­ä¸ªåˆ†ç»„
  * @note  C610(rm2006)/C620(rm3508):0x1ff,0x200;
  *        GM6020:0x1ff,0x2ff
- *        ·´À¡(rx_id): GM6020: 0x204+id ; C610/C620: 0x200+id
+ *        åé¦ˆ(rx_id): GM6020: 0x204+id ; C610/C620: 0x200+id
  */
 static CANInstanceTxConfig djimtr_CAN_txconfig[kGroupSum] = {
   [kCAN1_0x1FF] = {.can_handle = &hcan1, .tx_id = 0x1ff},
@@ -89,15 +88,14 @@ static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
   CANInstance(&djimtr_CAN_txconfig[kCAN2_0x2FF]),
 };
 /**
- * @brief ÉÏÊöµÄ¡°µ±ÇÒ½öµ±¶ÔÓ¦µÄÈÎÒâ×éÏÂÓĞ´ó½®µç»ú×¢²á²Å»á·¢ËÍ¡±¶ÔÓ¦±êÖ¾Î»
+ * @brief ä¸Šè¿°çš„â€œå½“ä¸”ä»…å½“å¯¹åº”çš„ä»»æ„ç»„ä¸‹æœ‰å¤§ç–†ç”µæœºæ³¨å†Œæ‰ä¼šå‘é€â€å¯¹åº”æ ‡å¿—ä½
  */
 MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
 
 /**
- * @brief ±éÀúËùÓĞÒÑ×¢²áµÄ´ó½®µç»ú£¬ÎªÆäÖ´ĞĞ¿ØÖÆ´úÂë
+ * @brief éå†æ‰€æœ‰å·²æ³¨å†Œçš„å¤§ç–†ç”µæœºï¼Œä¸ºå…¶æ‰§è¡Œæ§åˆ¶ä»£ç 
  * 
  */
-static uint8_t djimtr_txbuff[8];
 void DjiMotor::ControlTask(void) {
   float tar;
   float output;
@@ -130,47 +128,55 @@ void DjiMotor::ControlTask(void) {
       default:
         break;
     }
-    djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, (uint8_t)((int16_t)output >> 8));
-    djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, (uint8_t)((int16_t)output));
+    // æ›´æ–°å‘é€æ•°ç»„åˆ°å¯¹åº”ç»„åˆ«
+    if (djimtr_instance[i]->stateinfo_.work_state_ == kMotorStop) {
+      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, 0);
+      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, 0);
+    } else {
+      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, (uint8_t)((int16_t)output >> 8));
+      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, (uint8_t)((int16_t)output));
+    }
+    
   }
   for (size_t i = 0; i < kGroupSum; i++)
   {
+    // è¢«åˆå§‹åŒ–çš„ç»„åˆ«æ‰å¯ä»¥å‘é€
     if(group_enable_flag_[group_index] == kGroupOK) {
       djimtr_CAN_txgroup[group_index].CANSend(&djimtr_CAN_txgroup[group_index]);
     }
   }
 }
-
 /**
- * @brief ½ÓÊÕ
+ * @brief æ¥æ”¶
  * 
  */
 void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
-    DjiMotor* djimtr_ = (DjiMotor*)can_ins->GetParentPoint();
-    int16_t err;
-    if (djimtr_->can_instance_->GetRxBuff() == nullptr)
-      return;
-    if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)
-      return;
-    djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
-    djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
-    djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_->GetRxBuff());
-    djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_->GetRxBuff());
-    djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_->GetRxBuff());
-    if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
-      err = 0;
-    } else {
-      err = djimtr_->rxinfo_.angle_ - djimtr_->rxinfo_.angle_prev_;
-    }
-    if (math::Abs(err) > 4095) {
-      if (err >= 0) {
-        djimtr_->rxinfo_.angle_sum_ += -8191 + err;
-      } else {
-        djimtr_->rxinfo_.angle_sum_ += 8191 + err;
-      }
-    } else {
-      djimtr_->rxinfo_.angle_sum_ += err;
-    }
-    djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;		
-    djimtr_->heartbeat_->ResetOfflineCnt();
+  // é€šè¿‡çˆ¶æŒ‡é’ˆå¼ºè½¬è·å¾—åº•å±‚ can å®ä½“å¯¹åº”çš„çˆ¶ç±»ï¼Œå°† can æŠ¥æ–‡æ›´æ–°åˆ°å¯¹åº”ç”µæœºä¸­å»
+  DjiMotor* djimtr_ = (DjiMotor*)can_ins->GetParentPoint();
+  int16_t err;
+  if (djimtr_->can_instance_->GetRxBuff() == nullptr)// æ¥å—æŒ‡é’ˆä¸ºç©ºé€€å‡º
+    return;
+  if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)// ç”µæœºæœªåˆå§‹åŒ–é€€å‡º
+    return;
+  djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
+  djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
+  djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_->GetRxBuff());
+  djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_->GetRxBuff());
+  djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_->GetRxBuff());
+  if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
+    err = 0;
+  } else {
+    err = djimtr_->rxinfo_.angle_ - djimtr_->rxinfo_.angle_prev_;
   }
+  if (math::Abs(err) > 4095) {
+    if (err >= 0) {
+      djimtr_->rxinfo_.angle_sum_ += -8191 + err;
+    } else {
+      djimtr_->rxinfo_.angle_sum_ += 8191 + err;
+    }
+  } else {
+    djimtr_->rxinfo_.angle_sum_ += err;
+  }
+  djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;
+  djimtr_->heartbeat_->ResetOfflineCnt();// å¿ƒè·³æ›´æ–°
+}
