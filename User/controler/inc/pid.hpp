@@ -281,6 +281,7 @@ public:
   PidInit GetInitFlag(void) {
     return init_flag_;
   }
+  // 设置 PID 系数
   void SetKp(float kp) {
     PID_instance_.kp_ = kp;
   }
@@ -290,11 +291,30 @@ public:
   void SetKd(float kd) {
     PID_instance_.kd_ = kd;
   }
-  float GetIntegral(void) {
-    return PID_instance_.GetIntegral();
-  }
+  // // 获取积分值
+  // float GetIntegral(void) {
+  //   return PID_instance_.GetIntegral();
+  // }
+  // 获取积分最大值
   float GetIntegralMax(void) {
     return PID_instance_.integral_max_;
+  }
+  // 堵转检测之planB
+  uint8_t StallCheck(uint32_t time_cnt_max) {
+    uint8_t rslt;
+    uint32_t time_cnt;
+    if (Abs(PID_instance_.GetIntegral()) >= PID_instance_.integral_max_/0.95f) {
+      time_cnt ++;
+    } else {
+      time_cnt = 0;
+    }
+    if (time_cnt >= time_cnt_max) {
+      time_cnt = time_cnt_max;
+      rslt = 1;
+    } else {
+      rslt = 0;
+    }
+    return rslt;
   }
 private:
   /* pid 实体 */

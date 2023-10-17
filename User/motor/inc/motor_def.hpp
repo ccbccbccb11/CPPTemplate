@@ -37,6 +37,11 @@ typedef enum {
 	kMotorEmpty = 0,
 	kMotorInit,
 } MotorInit;
+//初始化枚举
+typedef enum {
+	kGroupEmpty = 0,
+	kGroupOK,
+} MotorGroupInit;
 // pid 环路枚举 
 typedef enum {
   kPIDClose,
@@ -67,6 +72,7 @@ typedef enum {
 	kGM6020 = 1,
 	kRM3508,
 	kRM2006,
+  kLkMtr,
 } MotorType;
 // 电机状态信息类
 class StateInfo {

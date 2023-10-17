@@ -22,11 +22,6 @@ using namespace motordef;
 using namespace heartbeat;
 
 namespace djimtr {
-//初始化枚举
-typedef enum {
-	kGroupEmpty = 0,
-	kGroupOK,
-} MotorGroupInit;
 //分组信息
 typedef enum {
 	kCAN1_0x1FF = 0,
@@ -72,8 +67,8 @@ private:
   ExternalControl* external_control_;  // 外部控制器
 public:
 	static uint8_t djimtr_ins_cnt_;			// 大疆电机实体计数
-	static const uint8_t djimtr_ins_cnt_max_;			// 大疆电机实体计数
-	static const uint8_t djimtr_offline_cnt_max_;			// 大疆电机实体计数
+	static const uint8_t djimtr_ins_cnt_max_;			// 大疆电机实体计数最大值
+	static const uint8_t djimtr_offline_cnt_max_;			// 大疆电机离线计数
   static MotorGroupInit group_enable_flag_[kGroupSum]; //分组使能标志
   Control   controler_;   // 控制器,其中数据已封装好无法直接访问，不想再重写一遍封装，故设置为 public
   /**
@@ -102,7 +97,7 @@ public:
           if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x1FF;
           else id_info_.group_ = kCAN2_0x1FF;
 				}
-        id_info_.txbuff_index_ = (id_info_.rx_id_ - 0x201U) % 4;
+        id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x201U) % 4)*2;
         break;
       case kGM6020:
 				if ((id_info_.rx_id_ - 0x205U) < 4) { 
@@ -114,7 +109,7 @@ public:
           if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x2FF;
           else id_info_.group_ = kCAN2_0x2FF;
 				}
-        id_info_.txbuff_index_ = (id_info_.rx_id_ - 0x205U) % 4;
+        id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x205U) % 4)*2;
         break;
       
       default:
@@ -182,10 +177,6 @@ public:
   // 输出温度
   uint8_t GetTempera(void) {
     return rxinfo_.temperature_;
-  }
-  // 输出速度环初始化信息
-  PidInit GetSpeedPIDInit(void) {
-    return controler_.speed_.GetInitFlag();
   }
   //读取 RM 电机 can 报文
     // planA static：已实现，通过函数指针使 canins 链接到此函数，
@@ -325,18 +316,15 @@ public:
       rslt = 0;
     return rslt;
   }
-  // todo
-  uint8_t StallCheckB(void) {
-    // uint8_t rslt;
-    // int16_t speed_ = GetSpeed();
-    // if ()
-    //   rslt = 1;
-    // else
-    //   rslt = 0;
-    // return rslt;
+  // 封装到 pid 里了
+  void StallCheckB(void) {
+    /**
+     * @brief 用的哪个环就直接在外部 djimtr.controler.loopname.StallCheck(100) 即可
+     *        100即时间最大值
+     */
   }
   // 角度环
-  uint8_t StallCheckA(int16_t tar_angle, int diff_angle, int16_t speed) {
+  uint8_t StallCheckA(int16_t tar_angle, int16_t diff_angle, int16_t speed) {
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int16_t angle = GetAngle();
@@ -347,7 +335,7 @@ public:
     return rslt;
   }
   // 位置环
-  uint8_t StallCheckP(int16_t tar_posit, int diff_posit, int16_t speed) {
+  uint8_t StallCheckP(int tar_posit, int diff_posit, int16_t speed) {
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int posit = GetPosit();
@@ -383,6 +371,10 @@ public:
           continue;
         break;
     }
+  }
+  // 输出速度环初始化信息
+  PidInit GetSpeedPIDInit(void) {
+    return controler_.speed_.GetInitFlag();
   }
   // 输出角度环初始化信息
   PidInit GetAnglePIDInit(void) {

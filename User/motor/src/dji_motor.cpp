@@ -14,7 +14,7 @@
 
 using namespace djimtr;
 
-uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体技术
+uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体计数
 const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //两路 can 允许最大电机总数
 const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //电机失联计数最大值
 DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
@@ -91,7 +91,6 @@ static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
  * @brief 上述的“当且仅当对应的任意组下有大疆电机注册才会发送”对应标志位
  */
 MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
-
 /**
  * @brief 遍历所有已注册的大疆电机，为其执行控制代码
  * 
@@ -133,8 +132,8 @@ void DjiMotor::ControlTask(void) {
       djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, 0);
       djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, 0);
     } else {
-      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, (uint8_t)((int16_t)output >> 8));
-      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, (uint8_t)((int16_t)output));
+      djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output >> 8));
+      djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
     }
     
   }

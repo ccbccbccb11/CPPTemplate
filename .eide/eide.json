@@ -325,6 +325,9 @@
             "path": "User/motor/src/dji_motor.cpp"
           },
           {
+            "path": "User/motor/src/lk_motor.cpp"
+          },
+          {
             "path": "User/motor/src/motor.cpp"
           }
         ],
