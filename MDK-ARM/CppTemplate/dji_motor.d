@@ -3,7 +3,7 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\stdint.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__config \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdint.h \
-  ..\User\motor\inc\motor_def.hpp \
+  ..\User\motor\inc\motor.hpp ..\User\motor\inc\motor_def.hpp \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal.h \
   ..\Core\Inc\stm32f4xx_hal_conf.h \
   ..\Drivers\STM32F4xx_HAL_Driver\Inc\stm32f4xx_hal_rcc.h \

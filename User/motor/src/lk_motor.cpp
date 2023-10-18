@@ -38,8 +38,13 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
       while (1)
         stateinfo_.work_state_ = kMotorIDErr;
   }
-  motor_type_ = config->motor_type; // 电机类型
-  IdInit(config);  // 分组
+  if (config->can_config.can_handle == &hcan1) {
+    if (!group_enable_flag_[0])
+      group_enable_flag_[0] = kGroupOK;
+  } else {
+    if (!group_enable_flag_[1])
+      group_enable_flag_[1] = kGroupOK;
+  }
 	// can 实例调用构造函数初始化
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = LkMotor::GetCANRxMessage;
@@ -47,14 +52,6 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
   can_instance_ = new CANInstance(&config->can_config);
 	// 心跳包实例调用构造函数初始化
 	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
-	//外部控制器配置
-  external_control_ = config->external_control_config;
-	// 电机 pid 参数初始化
-  memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
-  controler_.loop_ = config->loop;
-  PIDInit(controler_.loop_, config);
-	// 初始化成功标志位
-	stateinfo_.init_flag_ = kMotorInit; 
 	// 初始成功的电机加入 lkmtr_instance 保存副本
 	lkmtr_instance[LkMotor::lkmtr_ins_cnt_++] = this;
 }
@@ -94,6 +91,7 @@ void LkMotor::ControlTask(void) {
   uint8_t txbuff_index;
   // memset(lkmtr_txbuff, 0, sizeof(lkmtr_txbuff));
   for (size_t i = 0; i < lkmtr_ins_cnt_; i++) {
+    lkmtr_instance[i]->StateUpdate();
     tar = lkmtr_instance[i]->GetPIDTarget();
     loop = lkmtr_instance[i]->GetPIDLoop();
     group_index = lkmtr_instance[i]->can_instance_->GetCANHandle() == &hcan1 ? 0 : 1;
@@ -120,8 +118,8 @@ void LkMotor::ControlTask(void) {
     }
     // 更新发送数组到对应组别
     if (lkmtr_instance[i]->stateinfo_.work_state_ == kMotorStop) {
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, 0);
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, 0);
+      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
+      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
     } else {
       lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output >> 8));
       lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output));

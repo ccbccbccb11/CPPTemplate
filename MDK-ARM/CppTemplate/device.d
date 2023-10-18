@@ -652,6 +652,7 @@
   ..\User\controler\inc\pid.hpp ..\User\Alog\inc\utils.h \
   ..\User\protocol\inc\uart_protocol.hpp ..\User\protocol\inc\crc.hpp \
   ..\User\device\inc\imu_sensor.h ..\User\Imu\inc\bmi_t.h \
-  ..\User\motor\inc\dji_motor.hpp ..\User\motor\inc\motor_def.hpp \
-  ..\User\drive\inc\driver_can.hpp ..\User\Alog\inc\heart_beat.hpp \
-  ..\Core\Inc\main.h
+  ..\User\motor\inc\dji_motor.hpp ..\User\motor\inc\motor.hpp \
+  ..\User\motor\inc\motor_def.hpp ..\User\drive\inc\driver_can.hpp \
+  ..\User\Alog\inc\heart_beat.hpp ..\Core\Inc\main.h \
+  ..\User\motor\inc\lk_motor.hpp

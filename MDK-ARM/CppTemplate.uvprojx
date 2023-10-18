@@ -755,6 +755,16 @@
               <FileType>8</FileType>
               <FilePath>..\User\motor\src\dji_motor.cpp</FilePath>
             </File>
+            <File>
+              <FileName>lk_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\motor\src\lk_motor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\motor\src\motor.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -844,11 +854,6 @@
               <FileName>entity.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\Entity\src\entity.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>example.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\Entity\src\example.cpp</FilePath>
             </File>
           </Files>
         </Group>

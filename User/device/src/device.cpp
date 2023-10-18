@@ -13,8 +13,10 @@
 #include "device.hpp"
 #include "imu_sensor.h"
 #include "dji_motor.hpp"
+#include "lk_motor.hpp"
 
 using namespace djimtr;
+using namespace lkmtr;
 /**
  * @note 不能创建全局对象时先调用默认构造函数，然后再在函数内
  *       调用重载构造函数并把this指针传出!!!!
@@ -41,6 +43,24 @@ MotorInitConfig GM6020_test_config = {
   .loop = kSpeedLoop,
 };
 DjiMotor M6020_test = DjiMotor(&GM6020_test_config);
+MotorInitConfig LK8010_test_config = {
+  .motor_type = kLkMtr,
+	.can_config = {
+		.can_handle = &hcan1,
+		.rx_id = 0x141,
+	},
+	.PID_speed_config = {
+    .kp = 0,
+    .ki = 0,
+    .kd = 0,
+    .blind_err = 0 ,
+    .integral_max = 0,
+    .iout_max = 0,
+    .out_max = 1000,
+	},
+  .loop = kSpeedLoop,
+};
+LkMotor LK8010_test = LkMotor(&LK8010_test_config);
 /**
  * @brief 设备初始化
  * 

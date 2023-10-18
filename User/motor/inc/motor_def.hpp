@@ -17,7 +17,6 @@
 #include "driver_can.hpp"
 #include "heart_beat.hpp"
 #include "pid.hpp"
-
 using namespace pid;
 
 namespace motordef {
@@ -42,6 +41,16 @@ typedef enum {
 	kGroupEmpty = 0,
 	kGroupOK,
 } MotorGroupInit;
+//dji电机分组信息
+typedef enum {
+	kCAN1_0x1FF = 0,
+	kCAN1_0x200 = 1,
+	kCAN1_0x2FF = 2,
+	kCAN2_0x1FF = 3,
+	kCAN2_0x200 = 4,
+	kCAN2_0x2FF = 5,
+  kGroupSum = 6,
+} MtrGroup;
 // pid 环路枚举 
 typedef enum {
   kPIDClose,

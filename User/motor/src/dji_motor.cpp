@@ -39,7 +39,8 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
         stateinfo_.work_state_ = kMotorIDErr;
   }
   motor_type_ = config->motor_type; // 电机类型
-  DivideintoGroup(config);  // 分组
+  CANInfoInit(config);  // 分组
+	group_enable_flag_[id_info_.group_] = kGroupOK;
 	// can 实例调用构造函数初始化
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
@@ -103,6 +104,7 @@ void DjiMotor::ControlTask(void) {
   uint8_t txbuff_index;
   // memset(djimtr_txbuff, 0, sizeof(djimtr_txbuff));
   for (size_t i = 0; i < djimtr_ins_cnt_; i++) {
+    djimtr_instance[i]->StateUpdate();
     tar = djimtr_instance[i]->GetPIDTarget();
     loop = djimtr_instance[i]->GetPIDLoop();
     group_index = djimtr_instance[i]->GetGroupIndex();
@@ -129,8 +131,8 @@ void DjiMotor::ControlTask(void) {
     }
     // 更新发送数组到对应组别
     if (djimtr_instance[i]->stateinfo_.work_state_ == kMotorStop) {
-      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index, 0);
-      djimtr_CAN_txgroup[group_index].SetTxbuff(2*txbuff_index+1, 0);
+      djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
+      djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
     } else {
       djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output >> 8));
       djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
@@ -160,7 +162,6 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
   djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
   djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
   djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_->GetRxBuff());
-  djimtr_->rxinfo_.torque_ = djimtr_->CANGetTorque(djimtr_->can_instance_->GetRxBuff());
   djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_->GetRxBuff());
   if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
     err = 0;
