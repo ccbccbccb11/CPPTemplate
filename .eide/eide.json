@@ -544,7 +544,8 @@
           "Drivers/CMSIS/DSP/Include/dsp",
           "User/controler/inc",
           "User/Imu/inc",
-          "MDK-ARM/RTE/_CppTemplate"
+          "MDK-ARM/RTE/_CppTemplate",
+          "User/Alog/eigen3"
         ],
         "libList": [],
         "sourceDirList": [],

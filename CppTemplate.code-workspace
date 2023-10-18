@@ -64,7 +64,8 @@
           "compare": "cpp",
           "concepts": "cpp",
           "type_traits": "cpp",
-          "functional": "cpp"
+          "functional": "cpp",
+          "dense": "cpp"
         }
     },
     "extensions": {}

@@ -11,6 +11,7 @@
  */
 /* Includes -----------------------------------------------------------------*/
 #include "dji_motor.hpp"
+#include "kalman.hpp"
 
 using namespace djimtr;
 
