@@ -74,12 +74,12 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
  *        反馈(rx_id): GM6020: 0x204+id ; C610/C620: 0x200+id
  */
 static CANInstanceTxConfig djimtr_CAN_txconfig[kGroupSum] = {
-  [kCAN1_0x1FF] = {.can_handle = &hcan1, .tx_id = 0x1ff},
-  [kCAN1_0x200] = {.can_handle = &hcan1, .tx_id = 0x200},
-  [kCAN1_0x2FF] = {.can_handle = &hcan1, .tx_id = 0x2ff},
-  [kCAN2_0x1FF] = {.can_handle = &hcan2, .tx_id = 0x1ff},
-  [kCAN2_0x200] = {.can_handle = &hcan2, .tx_id = 0x200},
-  [kCAN2_0x2FF] = {.can_handle = &hcan2, .tx_id = 0x2ff},
+  {.can_handle = &hcan1, .tx_id = 0x1ff},
+  {.can_handle = &hcan1, .tx_id = 0x200},
+  {.can_handle = &hcan1, .tx_id = 0x2ff},
+  {.can_handle = &hcan2, .tx_id = 0x1ff},
+  {.can_handle = &hcan2, .tx_id = 0x200},
+  {.can_handle = &hcan2, .tx_id = 0x2ff},
 };
 static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
   CANInstance(&djimtr_CAN_txconfig[kCAN1_0x1FF]),

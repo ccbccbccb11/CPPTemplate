@@ -38,13 +38,16 @@ public:
 	VectorXd predict(MatrixXd& A_, MatrixXd &B_, VectorXd &u_);
 	void update(MatrixXd& H_,VectorXd z_meas);
 };
-KalmanFilter::KalmanFilter(int stateSize_, int measSize_, int uSize_) :stateSize(stateSize_), measSize(measSize_), uSize(uSize_)
-{
+/**
+   * @brief 构造函数，对动态矩阵确定分配的大小，并初始化为全零
+   * 
+   */
+KalmanFilter::KalmanFilter(int stateSize_, int measSize_, int uSize_) : 
+    stateSize(stateSize_), measSize(measSize_), uSize(uSize_) {
 	if (stateSize == 0 || measSize == 0) {
 		while (1)
       continue;
 	}
-
 	x.resize(stateSize);
 	x.setZero();
 
@@ -73,35 +76,45 @@ KalmanFilter::KalmanFilter(int stateSize_, int measSize_, int uSize_) :stateSize
 	R.resize(measSize, measSize);
 	R.setZero();
 }
-
-void KalmanFilter::init(VectorXd &x_, MatrixXd& P_, MatrixXd& R_, MatrixXd& Q_)
-{
+/**
+   * @brief 接受外部矩阵的初始化
+   * 
+   */
+void KalmanFilter::init(VectorXd &x_, MatrixXd& P_, MatrixXd& R_, MatrixXd& Q_) {
 	x = x_;
 	P = P_;
 	R = R_;
 	Q = Q_;
 }
-VectorXd KalmanFilter::predict(MatrixXd& A_, MatrixXd &B_, VectorXd &u_)
-{
+/**
+   * @brief 预测函数，更新观测值，接收外部参数
+   * 
+   */
+VectorXd KalmanFilter::predict(MatrixXd& A_, MatrixXd &B_, VectorXd &u_) {
 	A = A_;
 	B = B_;
 	u = u_;
-	x = A*x + B*u;
+	x = A * x + B * u;
 	MatrixXd A_T = A.transpose();
-	P = A*P*A_T + Q;
+	P = A * P * A_T + Q;
 	return x;
 }
-
+/**
+   * @brief 预测函数，使用内部参数
+   * 
+   */
 VectorXd KalmanFilter::predict(MatrixXd& A_)
 {
 	A = A_;
 	x = A*x;
 	MatrixXd A_T = A.transpose();
 	P = A*P*A_T + Q; 
-//	cout << "P-=" << P<< endl;
 	return x;
 }
-
+/**
+   * @brief 更新函数
+   * 
+   */
 void KalmanFilter::update(MatrixXd& H_,VectorXd z_meas)
 {
 	H = H_;
@@ -116,7 +129,5 @@ void KalmanFilter::update(MatrixXd& H_,VectorXd z_meas)
 	P = (I - K*H)*P;
 //	cout << "P=" << P << endl;
 }
-
-
 }
 #endif  /* KALMAN_HPP */
