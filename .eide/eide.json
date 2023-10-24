@@ -352,6 +352,9 @@
             "path": "User/protocol/src/imu_protocol.c"
           },
           {
+            "path": "User/protocol/src/pubsub.cpp"
+          },
+          {
             "path": "User/protocol/src/uart_protocol.cpp"
           }
         ],
