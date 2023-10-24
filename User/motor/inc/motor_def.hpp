@@ -14,19 +14,12 @@
 #define MOTOR_DEF_HPP
 
 #include "stm32f4xx_hal.h"
+#include "driver_can.hpp"
+#include "heart_beat.hpp"
+#include "pid.hpp"
+using namespace pid;
 
-#ifdef __cplusplus
-	extern "C" {
-#endif  /* __cplusplus */
-			/*C code*/
-#ifdef __cplusplus
-	}
-#endif  /* __cplusplus */
-	
-
-#ifdef __cplusplus
-			/*C++ code*/
-namespace motor {
+namespace motordef {
 /**
  ******************************************************************************
  * @note    
@@ -38,6 +31,36 @@ namespace motor {
 							 GMotorB_ID 0x2FF
  ******************************************************************************
  */
+// ç”µæœºåˆå§‹åŒ–æšä¸¾
+typedef enum {
+	kMotorEmpty = 0,
+	kMotorInit,
+} MotorInit;
+//åˆå§‹åŒ–æšä¸¾
+typedef enum {
+	kGroupEmpty = 0,
+	kGroupOK,
+} MotorGroupInit;
+//djiç”µæœºåˆ†ç»„ä¿¡æ¯
+typedef enum {
+	kCAN1_0x1FF = 0,
+	kCAN1_0x200 = 1,
+	kCAN1_0x2FF = 2,
+	kCAN2_0x1FF = 3,
+	kCAN2_0x200 = 4,
+	kCAN2_0x2FF = 5,
+  kGroupSum = 6,
+} MtrGroup;
+// pid ç¯è·¯æšä¸¾ 
+typedef enum {
+  kPIDClose,
+  kCurrentLoop,
+  kSpeedLoop,
+  kAngleLoop,
+  kPositLoop,
+  kOtherLoop,
+} PIDLoop;
+// ç”µæœºçŠ¶æ€æšä¸¾
 typedef enum {
 	kMotorOffline = 0,	
 	kMotorOnline,
@@ -45,67 +68,86 @@ typedef enum {
 	kMotorIDErr,
 	kMotorInitErr,	
 	kMotorDataErr,
-} MotorState;//µç»ú×´Ì¬£¬Ê§ÁªÎª×î¸ßÓÅÏÈ¼¶
-
-typedef enum {
-	kMotorEmpty = 0,
-	kMotorInit,
-} MotorInit;//³õÊ¼»¯Ã¶¾Ù
-
+  kMotorStall,
+  kMotorStop,
+} MotorState;
+// ç”µæœºé©±åŠ¨æ–¹å¼æšä¸¾
 typedef enum {
 	kMotorDriverCAN1,
 	kMotorDriverCAN2,
-} MotorDriver;//µç»úÇı¶¯Í¨ĞÅ·½Ê½
-
+} MotorDriver;
+// ç”µæœºç±»å‹æšä¸¾
 typedef enum {
 	kGM6020 = 1,
 	kRM3508,
 	kRM2006,
-} MotorType;//µç»úÀàĞÍ
-
-class RxInfo {
-	public:
-			/*±¨ÎÄ¶ÁÈ¡*/
-		uint16_t	angle_;					//0~8191 	//×ª×Ó±àÂë
-		int16_t 	speed_;					//RPM    	//×ª×Ó×ªËÙ
-		int16_t 	current_;				//mA			//µç»úµçÁ÷
-		uint8_t		temperature_;		//¡ãC    	//µç»úÎÂ¶È
-		int16_t 	torque_;					//N¡¤m			//×ªÖá×ª¾Ø
-			/*ÓÃ»§¼ÆËã*/
-		uint16_t	angle_prev_;	
-		int16_t		angle_offset_;		//Æ«Ö´
-		int32_t		angle_sum_;			//+-(2^31-1) ÉÏµç¿ªÊ¼µ½ÏÖÔÚµÄ½Ç¶ÈºÍ
-};
-
-class TxInfo {
-	public:
-		int16_t		motor_out_;
-};
-
-class PIDInfo {
-	public:
-		float		tagert_speed_;
-		float		tagert_angle_;
-		float		tagert_posit_;
-};
-
-class IDInfo {
-	public:
-		uint32_t 		tx_id_;   //·¢ËÍid
-		uint32_t 		rx_id_;   //½ÓÊÕid
-		uint32_t 		buff_p_;  //·¢ËÍ/½ÓÊÕ Êı×éÎ»ÖÃ
-		
-		MotorDriver drive_type_; //	Çı¶¯ÀàĞÍ
-		MotorType  	motor_type_; //	µç»úÀàĞÍ
-};
-
+  kLkMtr,
+} MotorType;
+// ç”µæœºçŠ¶æ€ä¿¡æ¯ç±»
 class StateInfo {
-	public:
-		MotorInit  		init_flag_;	
-		uint8_t       offline_cnt_max_;
-		uint8_t       offline_cnt_;
-		MotorState 		work_state_;	
+public:
+  MotorInit  		init_flag_;	
+  MotorState 		work_state_;	
 };
+// ç”µæœºæ§åˆ¶å™¨ç±»
+class Control {
+public:
+  PIDControler current_;
+  PIDControler speed_;
+  PIDControler anglein_;
+  PIDControler angleout_;
+  PIDControler positin_;
+  PIDControler positout_;
+  PIDLoop loop_;
+  float tar_;
+  float out_;
+};
+// ç”µæœºå¤–éƒ¨æ•°æ®ç±»
+class ExternalControl {
+public:
+  /* å‰é¦ˆæ•°æ®æŒ‡é’ˆ */
+  float* current_feedforward_;
+  float* speed_feedforward_;
+  float* angle_inner_feedforward_;
+  float* angle_outer_feedforward_;
+  float* posit_inner_feedforward_;
+  float* posit_outer_feedforward_;
+  /* å¤–éƒ¨æµ‹é‡å€¼ */
+  float* current_measure_;
+  float* speed_measure_;
+  float* angle_inner_measure_;
+  float* angle_outer_measure_;
+  float* posit_inner_measure_;
+  float* posit_outer_measure_;
+  /* å‰é¦ˆæ•°æ®ä½¿èƒ½æ ‡å¿—ä½ */
+  MotorInit current_feedforward_flag_;
+  MotorInit speed_feedforward_flag_;
+  MotorInit angle_inner_feedforward_flag_;
+  MotorInit angle_outer_feedforward_flag_;
+  MotorInit posit_inner_feedforward_flag_;
+  MotorInit posit_outer_feedforward_flag_;
+  /* å¤–éƒ¨æµ‹é‡å€¼ä½¿èƒ½æ ‡å¿—ä½ */
+  MotorInit current_measure_flag;
+  MotorInit speed_measure_flag;
+  MotorInit angle_inner_measure_flag;
+  MotorInit angle_outer_measure_flag;
+  MotorInit posit_inner_measure_flag;
+  MotorInit posit_outer_measure_flag;
+};
+// ç”µæœºåˆå§‹åŒ–é…ç½®å…¥å£å‚æ•°ç»“æ„ä½“
+typedef struct MotorInitConfig_t {
+  /* data */
+  MotorType motor_type;
+  CANInstanceConfig can_config;
+  PIDInitConfig PID_current_config;
+  PIDInitConfig PID_speed_config;
+  PIDInitConfig PID_angle_inner_config;
+  PIDInitConfig PID_angle_outer_config;
+  PIDInitConfig PID_posit_inner_config;
+  PIDInitConfig PID_posit_outer_config;
+  ExternalControl* external_control_config;
+  PIDLoop loop;
+} MotorInitConfig;
+
 }
-#endif  /* __cplusplus */
 #endif	/*MOTOR_DEF_HPP*/

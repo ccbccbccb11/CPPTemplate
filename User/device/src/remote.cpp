@@ -42,16 +42,16 @@ void RC::BaseInfoUpdate(uint8_t* rxbuf) {
   RC::base_info_->D.value = ( rxbuf[14] >> 3 ) & 0x01;
   RC::base_info_->Shift.value = ( rxbuf[14] >> 4 ) & 0x01;
   RC::base_info_->Ctrl.value = ( rxbuf[14] >> 5 ) & 0x01;
-  RC::base_info_->Q.value = ( rxbuf[14] >> 6 ) & 0x01 ;
-  RC::base_info_->E.value = ( rxbuf[14] >> 7 ) & 0x01 ;
-  RC::base_info_->R.value = ( rxbuf[15] >> 0 ) & 0x01 ;
-  RC::base_info_->F.value = ( rxbuf[15] >> 1 ) & 0x01 ;
-  RC::base_info_->G.value = ( rxbuf[15] >> 2 ) & 0x01 ;
-  RC::base_info_->Z.value = ( rxbuf[15] >> 3 ) & 0x01 ;
-  RC::base_info_->X.value = ( rxbuf[15] >> 4 ) & 0x01 ;
-  RC::base_info_->C.value = ( rxbuf[15] >> 5 ) & 0x01 ;
-  RC::base_info_->V.value = ( rxbuf[15] >> 6 ) & 0x01 ;
-  RC::base_info_->B.value = ( rxbuf[15] >> 7 ) & 0x01 ;
+  RC::base_info_->Q.value = ( rxbuf[14] >> 6 ) & 0x01;
+  RC::base_info_->E.value = ( rxbuf[14] >> 7 ) & 0x01;
+  RC::base_info_->R.value = ( rxbuf[15] >> 0 ) & 0x01;
+  RC::base_info_->F.value = ( rxbuf[15] >> 1 ) & 0x01;
+  RC::base_info_->G.value = ( rxbuf[15] >> 2 ) & 0x01;
+  RC::base_info_->Z.value = ( rxbuf[15] >> 3 ) & 0x01;
+  RC::base_info_->X.value = ( rxbuf[15] >> 4 ) & 0x01;
+  RC::base_info_->C.value = ( rxbuf[15] >> 5 ) & 0x01;
+  RC::base_info_->V.value = ( rxbuf[15] >> 6 ) & 0x01;
+  RC::base_info_->B.value = ( rxbuf[15] >> 7 ) & 0x01;
 
   RC::base_info_->thumbwheel.value = ((int16_t)rxbuf[16] | ((int16_t)rxbuf[17] << 8)) & 0x07ff;
   RC::base_info_->thumbwheel.value -= 1024;

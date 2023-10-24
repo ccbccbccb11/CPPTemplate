@@ -119,7 +119,7 @@ public:
     RC() {}
     RC(RCBaseInfo* base_info, MouseInfo* mouse_info, RCStateInfo* state_info) :
        base_info_(base_info), mouse_info_(mouse_info), state_info_(state_info),
-       interrupt_(false)  {
+       interrupt_(false) {
         StateInfoInit();
         BaseInfoInit();
     }

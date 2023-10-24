@@ -1,1 +1,5 @@
-{}
+{
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
+  "C_Cpp.errorSquiggles": "disabled"
+}

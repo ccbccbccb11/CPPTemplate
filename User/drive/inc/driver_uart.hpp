@@ -14,11 +14,6 @@
 #define DRIVER_UART_HPP
 
 #include "stm32f4xx_hal.h"
-
-#ifdef  __cplusplus
-    extern "C" {
-#endif
-			
 const uint16_t USART1_RX_BUF_LEN = 350;
 const uint16_t USART2_RX_DATA_FRAME_LEN = 18;// 串口2数据帧长度
 const uint16_t USART2_RX_BUF_LEN = USART2_RX_DATA_FRAME_LEN+6u;// 串口2接收缓冲区长度
@@ -46,7 +41,4 @@ static HAL_StatusTypeDef DMA_Start(DMA_HandleTypeDef *hdma, \
                             uint32_t SrcAddress, \
                             uint32_t DstAddress, \
                             uint32_t DataLength);
-#ifdef  __cplusplus
-}  
-#endif
 #endif

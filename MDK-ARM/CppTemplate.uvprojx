@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,__FPU_PRESENT=1,ARM_MATH_CM4,ARM_MATH_LOOPUNROLL</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../Drivers/CMSIS/DSP/Include/dsp;../User/controler/inc;..\User\Imu\inc</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../Drivers/CMSIS/DSP/Include/dsp;../User/controler/inc;../User/Imu/inc;..\User\Alog\eigen3</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -455,9 +455,65 @@
           </GroupOption>
           <Files>
             <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\mian\main.cpp</FilePath>
+            </File>
+            <File>
               <FileName>main.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/main.c</FilePath>
+              <FileOption>
+                <CommonProperty>
+                  <UseCPPCompiler>2</UseCPPCompiler>
+                  <RVCTCodeConst>0</RVCTCodeConst>
+                  <RVCTZI>0</RVCTZI>
+                  <RVCTOtherData>0</RVCTOtherData>
+                  <ModuleSelection>0</ModuleSelection>
+                  <IncludeInBuild>1</IncludeInBuild>
+                  <AlwaysBuild>2</AlwaysBuild>
+                  <GenerateAssemblyFile>2</GenerateAssemblyFile>
+                  <AssembleAssemblyFile>2</AssembleAssemblyFile>
+                  <PublicsOnly>2</PublicsOnly>
+                  <StopOnExitCode>11</StopOnExitCode>
+                  <CustomArgument></CustomArgument>
+                  <IncludeLibraryModules></IncludeLibraryModules>
+                  <ComprImg>1</ComprImg>
+                </CommonProperty>
+                <FileArmAds>
+                  <Cads>
+                    <interw>2</interw>
+                    <Optim>0</Optim>
+                    <oTime>2</oTime>
+                    <SplitLS>2</SplitLS>
+                    <OneElfS>2</OneElfS>
+                    <Strict>2</Strict>
+                    <EnumInt>2</EnumInt>
+                    <PlainCh>2</PlainCh>
+                    <Ropi>2</Ropi>
+                    <Rwpi>2</Rwpi>
+                    <wLevel>0</wLevel>
+                    <uThumb>2</uThumb>
+                    <uSurpInc>2</uSurpInc>
+                    <uC99>2</uC99>
+                    <uGnu>2</uGnu>
+                    <useXO>2</useXO>
+                    <v6Lang>0</v6Lang>
+                    <v6LangP>0</v6LangP>
+                    <vShortEn>2</vShortEn>
+                    <vShortWch>2</vShortWch>
+                    <v6Lto>2</v6Lto>
+                    <v6WtE>2</v6WtE>
+                    <v6Rtti>2</v6Rtti>
+                    <VariousControls>
+                      <MiscControls></MiscControls>
+                      <Define></Define>
+                      <Undefine></Undefine>
+                      <IncludePath></IncludePath>
+                    </VariousControls>
+                  </Cads>
+                </FileArmAds>
+              </FileOption>
             </File>
             <File>
               <FileName>gpio.c</FileName>
@@ -585,6 +641,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\Alog\src\ave_filter.cpp</FilePath>
             </File>
+            <File>
+              <FileName>heart_beat.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\Alog\src\heart_beat.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -690,6 +751,16 @@
           <GroupName>Motor</GroupName>
           <Files>
             <File>
+              <FileName>dji_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\motor\src\dji_motor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>lk_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\motor\src\lk_motor.cpp</FilePath>
+            </File>
+            <File>
               <FileName>motor.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\motor\src\motor.cpp</FilePath>
@@ -735,11 +806,6 @@
               <FilePath>..\User\device\src\device.cpp</FilePath>
             </File>
             <File>
-              <FileName>test_motor.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\device\src\test_motor.cpp</FilePath>
-            </File>
-            <File>
               <FileName>remote.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\device\src\remote.cpp</FilePath>
@@ -754,11 +820,6 @@
         <Group>
           <GroupName>protocol</GroupName>
           <Files>
-            <File>
-              <FileName>can_protocol.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\protocol\src\can_protocol.cpp</FilePath>
-            </File>
             <File>
               <FileName>uart_protocol.cpp</FileName>
               <FileType>8</FileType>
@@ -794,11 +855,6 @@
               <FileType>8</FileType>
               <FilePath>..\User\Entity\src\entity.cpp</FilePath>
             </File>
-            <File>
-              <FileName>example.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\Entity\src\example.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -808,9 +864,9 @@
           <GroupName>mytask</GroupName>
           <Files>
             <File>
-              <FileName>mytasks.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\User\my_task\src\mytasks.c</FilePath>
+              <FileName>robot_task.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\my_task\src\robot_task.cpp</FilePath>
             </File>
           </Files>
         </Group>

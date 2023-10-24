@@ -47,42 +47,56 @@ MX_UART4_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp0:
 	.loc	6 56 19 prologue_end            @ ../Core/Src/usart.c:56:19
 	movw	r0, :lower16:huart4
-	movw	r1, #19456
 	movt	r0, :upper16:huart4
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #19456
 	movt	r1, #16384
-	movs	r3, #0
-	mov.w	r12, #12
-	mov.w	r2, #115200
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	mov.w	r1, #115200
+	.loc	6 57 24                         @ ../Core/Src/usart.c:57:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 58 26                         @ ../Core/Src/usart.c:58:26
+	str	r1, [r0, #8]
 	.loc	6 59 24                         @ ../Core/Src/usart.c:59:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 60 22                         @ ../Core/Src/usart.c:60:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 61 20                         @ ../Core/Src/usart.c:61:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 62 25                         @ ../Core/Src/usart.c:62:25
+	str	r1, [r0, #24]
 	.loc	6 63 28                         @ ../Core/Src/usart.c:63:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp1:
 	.loc	6 64 7                          @ ../Core/Src/usart.c:64:7
 	bl	HAL_UART_Init
 .Ltmp2:
 	.loc	6 64 7 is_stmt 0                @ ../Core/Src/usart.c:64:7
-	cmp	r0, #0
-	.loc	6 72 1 is_stmt 1                @ ../Core/Src/usart.c:72:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB0_2
+	b	.LBB0_1
 .LBB0_1:
 .Ltmp3:
-	.loc	6 66 5                          @ ../Core/Src/usart.c:66:5
-	pop.w	{r7, lr}
+	.loc	6 66 5 is_stmt 1                @ ../Core/Src/usart.c:66:5
+	bl	Error_Handler
+	.loc	6 67 3                          @ ../Core/Src/usart.c:67:3
+	b	.LBB0_2
 .Ltmp4:
-	b	Error_Handler
+.LBB0_2:
+	.loc	6 72 1                          @ ../Core/Src/usart.c:72:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp5:
 .Lfunc_end0:
 	.size	MX_UART4_Init, .Lfunc_end0-MX_UART4_Init
 	.cfi_endproc
-	.file	7 "E:\\RP\\CppTemplate\\MDK-ARM" "../Core/Inc/main.h"
 	.cantunwind
 	.fnend
                                         @ -- End function
@@ -104,37 +118,52 @@ MX_UART5_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp6:
 	.loc	6 84 19 prologue_end            @ ../Core/Src/usart.c:84:19
 	movw	r0, :lower16:huart5
-	movw	r1, #20480
 	movt	r0, :upper16:huart5
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #20480
 	movt	r1, #16384
-	movs	r3, #0
-	mov.w	r12, #12
-	mov.w	r2, #115200
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	mov.w	r1, #115200
+	.loc	6 85 24                         @ ../Core/Src/usart.c:85:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 86 26                         @ ../Core/Src/usart.c:86:26
+	str	r1, [r0, #8]
 	.loc	6 87 24                         @ ../Core/Src/usart.c:87:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 88 22                         @ ../Core/Src/usart.c:88:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 89 20                         @ ../Core/Src/usart.c:89:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 90 25                         @ ../Core/Src/usart.c:90:25
+	str	r1, [r0, #24]
 	.loc	6 91 28                         @ ../Core/Src/usart.c:91:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp7:
 	.loc	6 92 7                          @ ../Core/Src/usart.c:92:7
 	bl	HAL_UART_Init
 .Ltmp8:
 	.loc	6 92 7 is_stmt 0                @ ../Core/Src/usart.c:92:7
-	cmp	r0, #0
-	.loc	6 100 1 is_stmt 1               @ ../Core/Src/usart.c:100:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB1_2
+	b	.LBB1_1
 .LBB1_1:
 .Ltmp9:
-	.loc	6 94 5                          @ ../Core/Src/usart.c:94:5
-	pop.w	{r7, lr}
+	.loc	6 94 5 is_stmt 1                @ ../Core/Src/usart.c:94:5
+	bl	Error_Handler
+	.loc	6 95 3                          @ ../Core/Src/usart.c:95:3
+	b	.LBB1_2
 .Ltmp10:
-	b	Error_Handler
+.LBB1_2:
+	.loc	6 100 1                         @ ../Core/Src/usart.c:100:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp11:
 .Lfunc_end1:
 	.size	MX_UART5_Init, .Lfunc_end1-MX_UART5_Init
@@ -160,37 +189,52 @@ MX_USART1_UART_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp12:
 	.loc	6 113 19 prologue_end           @ ../Core/Src/usart.c:113:19
 	movw	r0, :lower16:huart1
-	movw	r1, #4096
 	movt	r0, :upper16:huart1
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #4096
 	movt	r1, #16385
-	movs	r3, #0
-	mov.w	r12, #12
-	mov.w	r2, #115200
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	mov.w	r1, #115200
+	.loc	6 114 24                        @ ../Core/Src/usart.c:114:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 115 26                        @ ../Core/Src/usart.c:115:26
+	str	r1, [r0, #8]
 	.loc	6 116 24                        @ ../Core/Src/usart.c:116:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 117 22                        @ ../Core/Src/usart.c:117:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 118 20                        @ ../Core/Src/usart.c:118:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 119 25                        @ ../Core/Src/usart.c:119:25
+	str	r1, [r0, #24]
 	.loc	6 120 28                        @ ../Core/Src/usart.c:120:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp13:
 	.loc	6 121 7                         @ ../Core/Src/usart.c:121:7
 	bl	HAL_UART_Init
 .Ltmp14:
 	.loc	6 121 7 is_stmt 0               @ ../Core/Src/usart.c:121:7
-	cmp	r0, #0
-	.loc	6 129 1 is_stmt 1               @ ../Core/Src/usart.c:129:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB2_2
+	b	.LBB2_1
 .LBB2_1:
 .Ltmp15:
-	.loc	6 123 5                         @ ../Core/Src/usart.c:123:5
-	pop.w	{r7, lr}
+	.loc	6 123 5 is_stmt 1               @ ../Core/Src/usart.c:123:5
+	bl	Error_Handler
+	.loc	6 124 3                         @ ../Core/Src/usart.c:124:3
+	b	.LBB2_2
 .Ltmp16:
-	b	Error_Handler
+.LBB2_2:
+	.loc	6 129 1                         @ ../Core/Src/usart.c:129:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp17:
 .Lfunc_end2:
 	.size	MX_USART1_UART_Init, .Lfunc_end2-MX_USART1_UART_Init
@@ -216,38 +260,53 @@ MX_USART2_UART_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp18:
 	.loc	6 142 19 prologue_end           @ ../Core/Src/usart.c:142:19
 	movw	r0, :lower16:huart2
-	movw	r1, #17408
 	movt	r0, :upper16:huart2
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #17408
 	movt	r1, #16384
-	movw	r2, #34464
-	movs	r3, #0
-	mov.w	r12, #12
-	movt	r2, #1
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	movw	r1, #34464
+	movt	r1, #1
+	.loc	6 143 24                        @ ../Core/Src/usart.c:143:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 144 26                        @ ../Core/Src/usart.c:144:26
+	str	r1, [r0, #8]
 	.loc	6 145 24                        @ ../Core/Src/usart.c:145:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 146 22                        @ ../Core/Src/usart.c:146:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 147 20                        @ ../Core/Src/usart.c:147:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 148 25                        @ ../Core/Src/usart.c:148:25
+	str	r1, [r0, #24]
 	.loc	6 149 28                        @ ../Core/Src/usart.c:149:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp19:
 	.loc	6 150 7                         @ ../Core/Src/usart.c:150:7
 	bl	HAL_UART_Init
 .Ltmp20:
 	.loc	6 150 7 is_stmt 0               @ ../Core/Src/usart.c:150:7
-	cmp	r0, #0
-	.loc	6 158 1 is_stmt 1               @ ../Core/Src/usart.c:158:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB3_2
+	b	.LBB3_1
 .LBB3_1:
 .Ltmp21:
-	.loc	6 152 5                         @ ../Core/Src/usart.c:152:5
-	pop.w	{r7, lr}
+	.loc	6 152 5 is_stmt 1               @ ../Core/Src/usart.c:152:5
+	bl	Error_Handler
+	.loc	6 153 3                         @ ../Core/Src/usart.c:153:3
+	b	.LBB3_2
 .Ltmp22:
-	b	Error_Handler
+.LBB3_2:
+	.loc	6 158 1                         @ ../Core/Src/usart.c:158:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp23:
 .Lfunc_end3:
 	.size	MX_USART2_UART_Init, .Lfunc_end3-MX_USART2_UART_Init
@@ -273,37 +332,52 @@ MX_USART3_UART_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp24:
 	.loc	6 171 19 prologue_end           @ ../Core/Src/usart.c:171:19
 	movw	r0, :lower16:huart3
-	movw	r1, #18432
 	movt	r0, :upper16:huart3
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #18432
 	movt	r1, #16384
-	movs	r3, #0
-	mov.w	r12, #12
-	mov.w	r2, #115200
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	mov.w	r1, #115200
+	.loc	6 172 24                        @ ../Core/Src/usart.c:172:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 173 26                        @ ../Core/Src/usart.c:173:26
+	str	r1, [r0, #8]
 	.loc	6 174 24                        @ ../Core/Src/usart.c:174:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 175 22                        @ ../Core/Src/usart.c:175:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 176 20                        @ ../Core/Src/usart.c:176:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 177 25                        @ ../Core/Src/usart.c:177:25
+	str	r1, [r0, #24]
 	.loc	6 178 28                        @ ../Core/Src/usart.c:178:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp25:
 	.loc	6 179 7                         @ ../Core/Src/usart.c:179:7
 	bl	HAL_UART_Init
 .Ltmp26:
 	.loc	6 179 7 is_stmt 0               @ ../Core/Src/usart.c:179:7
-	cmp	r0, #0
-	.loc	6 187 1 is_stmt 1               @ ../Core/Src/usart.c:187:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB4_2
+	b	.LBB4_1
 .LBB4_1:
 .Ltmp27:
-	.loc	6 181 5                         @ ../Core/Src/usart.c:181:5
-	pop.w	{r7, lr}
+	.loc	6 181 5 is_stmt 1               @ ../Core/Src/usart.c:181:5
+	bl	Error_Handler
+	.loc	6 182 3                         @ ../Core/Src/usart.c:182:3
+	b	.LBB4_2
 .Ltmp28:
-	b	Error_Handler
+.LBB4_2:
+	.loc	6 187 1                         @ ../Core/Src/usart.c:187:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp29:
 .Lfunc_end4:
 	.size	MX_USART3_UART_Init, .Lfunc_end4-MX_USART3_UART_Init
@@ -329,37 +403,52 @@ MX_USART6_UART_Init:
 	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
 .Ltmp30:
 	.loc	6 200 19 prologue_end           @ ../Core/Src/usart.c:200:19
 	movw	r0, :lower16:huart6
-	movw	r1, #5120
 	movt	r0, :upper16:huart6
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #5120
 	movt	r1, #16385
-	movs	r3, #0
-	mov.w	r12, #12
-	mov.w	r2, #115200
-	stm.w	r0, {r1, r2, r3}
+	str	r1, [r0]
+	mov.w	r1, #115200
+	.loc	6 201 24                        @ ../Core/Src/usart.c:201:24
+	str	r1, [r0, #4]
+	movs	r1, #0
+	.loc	6 202 26                        @ ../Core/Src/usart.c:202:26
+	str	r1, [r0, #8]
 	.loc	6 203 24                        @ ../Core/Src/usart.c:203:24
-	strd	r3, r3, [r0, #12]
+	str	r1, [r0, #12]
+	.loc	6 204 22                        @ ../Core/Src/usart.c:204:22
+	str	r1, [r0, #16]
+	movs	r2, #12
 	.loc	6 205 20                        @ ../Core/Src/usart.c:205:20
-	strd	r12, r3, [r0, #20]
+	str	r2, [r0, #20]
+	.loc	6 206 25                        @ ../Core/Src/usart.c:206:25
+	str	r1, [r0, #24]
 	.loc	6 207 28                        @ ../Core/Src/usart.c:207:28
-	str	r3, [r0, #28]
+	str	r1, [r0, #28]
 .Ltmp31:
 	.loc	6 208 7                         @ ../Core/Src/usart.c:208:7
 	bl	HAL_UART_Init
 .Ltmp32:
 	.loc	6 208 7 is_stmt 0               @ ../Core/Src/usart.c:208:7
-	cmp	r0, #0
-	.loc	6 216 1 is_stmt 1               @ ../Core/Src/usart.c:216:1
-	it	eq
-	popeq	{r7, pc}
+	cbz	r0, .LBB5_2
+	b	.LBB5_1
 .LBB5_1:
 .Ltmp33:
-	.loc	6 210 5                         @ ../Core/Src/usart.c:210:5
-	pop.w	{r7, lr}
+	.loc	6 210 5 is_stmt 1               @ ../Core/Src/usart.c:210:5
+	bl	Error_Handler
+	.loc	6 211 3                         @ ../Core/Src/usart.c:211:3
+	b	.LBB5_2
 .Ltmp34:
-	b	Error_Handler
+.LBB5_2:
+	.loc	6 216 1                         @ ../Core/Src/usart.c:216:1
+	add	sp, #8
+	pop	{r7, pc}
 .Ltmp35:
 .Lfunc_end5:
 	.size	MX_USART6_UART_Init, .Lfunc_end5-MX_USART6_UART_Init
@@ -380,812 +469,1259 @@ HAL_UART_MspInit:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r0
-	.save	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
-	push.w	{r4, r5, r6, r7, r8, r9, r10, r11, lr}
-	.cfi_def_cfa_offset 36
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
-	.cfi_offset r11, -8
-	.cfi_offset r10, -12
-	.cfi_offset r9, -16
-	.cfi_offset r8, -20
-	.cfi_offset r7, -24
-	.cfi_offset r6, -28
-	.cfi_offset r5, -32
-	.cfi_offset r4, -36
-	.pad	#28
-	sub	sp, #28
-	.cfi_def_cfa_offset 64
-	mov	r4, r0
+	.cfi_offset r7, -8
+	.pad	#184
+	sub	sp, #184
+	.cfi_def_cfa_offset 192
+	str	r0, [sp, #180]
+	movs	r0, #0
 .Ltmp36:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 222 18 prologue_end           @ ../Core/Src/usart.c:222:18
-	ldr	r0, [r0]
-	movw	r1, #20479
-	movt	r1, #16384
+	.loc	6 221 20 prologue_end           @ ../Core/Src/usart.c:221:20
+	str	r0, [sp, #176]
+	str	r0, [sp, #172]
+	str	r0, [sp, #168]
+	str	r0, [sp, #164]
+	str	r0, [sp, #160]
 .Ltmp37:
-	.loc	6 222 6 is_stmt 0               @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	mov.w	r1, #0
-	.loc	6 221 20 is_stmt 1              @ ../Core/Src/usart.c:221:20
-	str	r1, [sp, #24]
-	strd	r1, r1, [sp, #16]
-	strd	r1, r1, [sp, #8]
 	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
-	bgt	.LBB6_5
-.Ltmp38:
-@ %bb.1:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6 is_stmt 0                 @ ../Core/Src/usart.c:0:6
-	movw	r1, #17408
-	movt	r1, #16384
-	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	beq.w	.LBB6_9
-.Ltmp39:
-@ %bb.2:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movw	r1, #18432
-	movt	r1, #16384
-	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	beq.w	.LBB6_10
-.Ltmp40:
-@ %bb.3:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
+	ldr	r0, [sp, #180]
+	.loc	6 222 18 is_stmt 0              @ ../Core/Src/usart.c:222:18
+	ldr	r0, [r0]
 	movw	r1, #19456
 	movt	r1, #16384
+.Ltmp38:
 	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
 	cmp	r0, r1
 	bne.w	.LBB6_14
-.Ltmp41:
-@ %bb.4:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp42:
+	b	.LBB6_1
+.LBB6_1:
+.Ltmp39:
 	.loc	6 228 5 is_stmt 1               @ ../Core/Src/usart.c:228:5
-	str	r6, [sp, #4]
+	b	.LBB6_2
+.LBB6_2:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp40:
+	.loc	6 228 5                         @ ../Core/Src/usart.c:228:5
+	str	r0, [sp, #156]
+	movw	r0, #14400
 	movt	r0, #16386
-	ldr	r1, [r0, #16]
-	movw	r8, #24592
+	ldr	r1, [r0]
 	orr	r1, r1, #524288
-	str	r1, [r0, #16]
-	ldr	r1, [r0, #16]
-	movt	r8, #16386
-	and	r1, r1, #524288
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp43:
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #524288
+	str	r0, [sp, #156]
+	ldr	r0, [sp, #156]
+	b	.LBB6_3
+.Ltmp41:
+.LBB6_3:
+	.loc	6 230 5 is_stmt 1               @ ../Core/Src/usart.c:230:5
+	b	.LBB6_4
+.LBB6_4:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp42:
 	.loc	6 230 5                         @ ../Core/Src/usart.c:230:5
-	str	r6, [sp, #4]
+	str	r0, [sp, #152]
+	movw	r0, #14384
+	movt	r0, #16386
 	ldr	r1, [r0]
 	orr	r1, r1, #1
 	str	r1, [r0]
 	ldr	r0, [r0]
-	movs	r1, #2
 	and	r0, r0, #1
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
+	str	r0, [sp, #152]
+	ldr	r0, [sp, #152]
+	b	.LBB6_5
+.Ltmp43:
+.LBB6_5:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
 	movs	r0, #3
-.Ltmp44:
-	.loc	6 235 25                        @ ../Core/Src/usart.c:235:25
-	str	r0, [sp, #8]
+	.loc	6 235 25 is_stmt 1              @ ../Core/Src/usart.c:235:25
+	str	r0, [sp, #160]
+	movs	r1, #2
+	.loc	6 236 26                        @ ../Core/Src/usart.c:236:26
+	str	r1, [sp, #164]
+	movs	r1, #0
+	.loc	6 237 26                        @ ../Core/Src/usart.c:237:26
+	str	r1, [sp, #100]                  @ 4-byte Spill
+	str	r1, [sp, #168]
 	.loc	6 238 27                        @ ../Core/Src/usart.c:238:27
-	str	r0, [sp, #20]
+	str	r0, [sp, #172]
 	movs	r0, #8
 	.loc	6 239 31                        @ ../Core/Src/usart.c:239:31
-	str	r0, [sp, #24]
+	str	r0, [sp, #176]
 	movs	r0, #0
-	.loc	6 236 26                        @ ../Core/Src/usart.c:236:26
-	strd	r1, r6, [sp, #12]
 	movt	r0, #16386
-	add	r1, sp, #8
+	add	r1, sp, #160
 	.loc	6 240 5                         @ ../Core/Src/usart.c:240:5
 	bl	HAL_GPIO_Init
-.Ltmp45:
+	ldr	r1, [sp, #100]                  @ 4-byte Reload
 	.loc	6 244 28                        @ ../Core/Src/usart.c:244:28
-	movw	r5, :lower16:hdma_uart4_rx
-	add.w	r0, r8, #48
-	movt	r5, :upper16:hdma_uart4_rx
-	mov.w	r7, #134217728
-	mov.w	r10, #1024
-	mov.w	r9, #256
-	strd	r0, r7, [r5]
-.Ltmp46:
-	.loc	6 254 9                         @ ../Core/Src/usart.c:254:9
-	mov	r0, r5
-.Ltmp47:
+	movw	r0, :lower16:hdma_uart4_rx
+	movt	r0, :upper16:hdma_uart4_rx
+	str	r0, [sp, #104]                  @ 4-byte Spill
+	movw	r2, #24640
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #134217728
+	.loc	6 245 32                        @ ../Core/Src/usart.c:245:32
+	str	r2, [r0, #4]
 	.loc	6 246 34                        @ ../Core/Src/usart.c:246:34
-	strd	r6, r6, [r5, #8]
+	str	r1, [r0, #8]
+	.loc	6 247 34                        @ ../Core/Src/usart.c:247:34
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
 	.loc	6 248 31                        @ ../Core/Src/usart.c:248:31
-	strd	r10, r6, [r5, #16]
+	str	r2, [r0, #16]
+	.loc	6 249 44                        @ ../Core/Src/usart.c:249:44
+	str	r1, [r0, #20]
 	.loc	6 250 41                        @ ../Core/Src/usart.c:250:41
-	strd	r6, r9, [r5, #24]
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 251 29                        @ ../Core/Src/usart.c:251:29
+	str	r2, [r0, #28]
 	.loc	6 252 33                        @ ../Core/Src/usart.c:252:33
-	strd	r6, r6, [r5, #32]
-.Ltmp48:
+	str	r1, [r0, #32]
+	.loc	6 253 33                        @ ../Core/Src/usart.c:253:33
+	str	r1, [r0, #36]
+.Ltmp44:
 	.loc	6 254 9                         @ ../Core/Src/usart.c:254:9
 	bl	HAL_DMA_Init
-.Ltmp49:
+.Ltmp45:
 	.loc	6 254 9 is_stmt 0               @ ../Core/Src/usart.c:254:9
-	cmp	r0, #0
-.Ltmp50:
+	cbz	r0, .LBB6_7
+	b	.LBB6_6
+.LBB6_6:
+.Ltmp46:
 	.loc	6 256 7 is_stmt 1               @ ../Core/Src/usart.c:256:7
-	it	ne
-	blne	Error_Handler
-.Ltmp51:
+	bl	Error_Handler
+	.loc	6 257 5                         @ ../Core/Src/usart.c:257:5
+	b	.LBB6_7
+.Ltmp47:
+.LBB6_7:
 	.loc	6 259 5                         @ ../Core/Src/usart.c:259:5
-	str	r5, [r4, #56]
-	str	r4, [r5, #56]
-.Ltmp52:
-	.loc	6 262 28                        @ ../Core/Src/usart.c:262:28
-	movw	r5, :lower16:hdma_uart4_tx
-	add.w	r0, r8, #96
-	movt	r5, :upper16:hdma_uart4_tx
-	movs	r1, #64
-	strd	r0, r7, [r5]
-	.loc	6 264 34                        @ ../Core/Src/usart.c:264:34
-	add.w	r0, r5, #8
-	stm.w	r0, {r1, r6, r10}
-.Ltmp53:
-	.loc	6 272 9                         @ ../Core/Src/usart.c:272:9
-	mov	r0, r5
-.Ltmp54:
-	.loc	6 267 44                        @ ../Core/Src/usart.c:267:44
-	strd	r6, r6, [r5, #20]
-	.loc	6 269 29                        @ ../Core/Src/usart.c:269:29
-	strd	r9, r6, [r5, #28]
-	.loc	6 271 33                        @ ../Core/Src/usart.c:271:33
-	str	r6, [r5, #36]
-.Ltmp55:
-	.loc	6 272 9                         @ ../Core/Src/usart.c:272:9
-	bl	HAL_DMA_Init
-.Ltmp56:
-	.loc	6 272 9 is_stmt 0               @ ../Core/Src/usart.c:272:9
-	cmp	r0, #0
-.Ltmp57:
-	.loc	6 274 7 is_stmt 1               @ ../Core/Src/usart.c:274:7
-	it	ne
-	blne	Error_Handler
-.Ltmp58:
-	.loc	6 277 5                         @ ../Core/Src/usart.c:277:5
-	str	r5, [r4, #52]
-	add.w	r0, r5, #56
-	movs	r5, #52
-	b	.LBB6_13
-.Ltmp59:
-.LBB6_5:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movw	r1, #20480
-	movt	r1, #16384
-	.loc	6 222 6 is_stmt 1               @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	beq.w	.LBB6_11
-.Ltmp60:
-@ %bb.6:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6 is_stmt 0                 @ ../Core/Src/usart.c:0:6
-	movw	r1, #4096
-	movt	r1, #16385
-	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	beq.w	.LBB6_12
-.Ltmp61:
-@ %bb.7:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movw	r1, #5120
-	movt	r1, #16385
-	.loc	6 222 6                         @ ../Core/Src/usart.c:222:6
-	cmp	r0, r1
-	bne.w	.LBB6_14
-.Ltmp62:
-@ %bb.8:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp63:
-	.loc	6 538 5 is_stmt 1               @ ../Core/Src/usart.c:538:5
-	str	r6, [sp, #4]
-	movt	r0, #16386
-	ldr	r1, [r0, #20]
-	movw	r8, #24592
-	orr	r1, r1, #32
-	str	r1, [r0, #20]
-	ldr	r1, [r0, #20]
-	movt	r8, #16386
-	and	r1, r1, #32
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp64:
-	.loc	6 540 5                         @ ../Core/Src/usart.c:540:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	orr	r1, r1, #4
-	str	r1, [r0]
-	ldr	r0, [r0]
-	add	r1, sp, #8
-	and	r0, r0, #4
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	movs	r0, #192
-.Ltmp65:
-	.loc	6 545 25                        @ ../Core/Src/usart.c:545:25
-	str	r0, [sp, #8]
-	movs	r0, #2
-	.loc	6 546 26                        @ ../Core/Src/usart.c:546:26
-	strd	r0, r6, [sp, #12]
-	movs	r0, #3
-	.loc	6 548 27                        @ ../Core/Src/usart.c:548:27
-	str	r0, [sp, #20]
-	movs	r0, #8
-	.loc	6 549 31                        @ ../Core/Src/usart.c:549:31
-	str	r0, [sp, #24]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 550 5                         @ ../Core/Src/usart.c:550:5
-	add.w	r0, r0, #2048
-	bl	HAL_GPIO_Init
-.Ltmp66:
-	.loc	6 554 29                        @ ../Core/Src/usart.c:554:29
-	movw	r5, :lower16:hdma_usart6_rx
-	add.w	r0, r8, #1048
-	movt	r5, :upper16:hdma_usart6_rx
-	mov.w	r7, #167772160
-	mov.w	r10, #1024
-	mov.w	r9, #256
-	strd	r0, r7, [r5]
-.Ltmp67:
-	.loc	6 564 9                         @ ../Core/Src/usart.c:564:9
-	mov	r0, r5
-.Ltmp68:
-	.loc	6 556 35                        @ ../Core/Src/usart.c:556:35
-	strd	r6, r6, [r5, #8]
-	.loc	6 558 32                        @ ../Core/Src/usart.c:558:32
-	strd	r10, r6, [r5, #16]
-	.loc	6 560 42                        @ ../Core/Src/usart.c:560:42
-	strd	r6, r9, [r5, #24]
-	.loc	6 562 34                        @ ../Core/Src/usart.c:562:34
-	strd	r6, r6, [r5, #32]
-.Ltmp69:
-	.loc	6 564 9                         @ ../Core/Src/usart.c:564:9
-	bl	HAL_DMA_Init
-.Ltmp70:
-	.loc	6 564 9 is_stmt 0               @ ../Core/Src/usart.c:564:9
-	cmp	r0, #0
-.Ltmp71:
-	.loc	6 566 7 is_stmt 1               @ ../Core/Src/usart.c:566:7
-	it	ne
-	blne	Error_Handler
-.Ltmp72:
-	.loc	6 569 5                         @ ../Core/Src/usart.c:569:5
-	str	r5, [r4, #56]
-	str	r4, [r5, #56]
-.Ltmp73:
-	.loc	6 572 29                        @ ../Core/Src/usart.c:572:29
-	movw	r5, :lower16:hdma_usart6_tx
-	add.w	r0, r8, #1168
-	movt	r5, :upper16:hdma_usart6_tx
-	movs	r1, #64
-	strd	r0, r7, [r5]
-	.loc	6 574 35                        @ ../Core/Src/usart.c:574:35
-	add.w	r0, r5, #8
-	stm.w	r0, {r1, r6, r10}
-.Ltmp74:
-	.loc	6 582 9                         @ ../Core/Src/usart.c:582:9
-	mov	r0, r5
-.Ltmp75:
-	.loc	6 577 45                        @ ../Core/Src/usart.c:577:45
-	strd	r6, r6, [r5, #20]
-	.loc	6 579 30                        @ ../Core/Src/usart.c:579:30
-	strd	r9, r6, [r5, #28]
-	.loc	6 581 34                        @ ../Core/Src/usart.c:581:34
-	str	r6, [r5, #36]
-.Ltmp76:
-	.loc	6 582 9                         @ ../Core/Src/usart.c:582:9
-	bl	HAL_DMA_Init
-.Ltmp77:
-	.loc	6 582 9 is_stmt 0               @ ../Core/Src/usart.c:582:9
-	cmp	r0, #0
-.Ltmp78:
-	.loc	6 584 7 is_stmt 1               @ ../Core/Src/usart.c:584:7
-	it	ne
-	blne	Error_Handler
-.Ltmp79:
-	.loc	6 587 5                         @ ../Core/Src/usart.c:587:5
-	str	r5, [r4, #52]
-	add.w	r0, r5, #56
-	movs	r5, #71
-	b	.LBB6_13
-.Ltmp80:
+	b	.LBB6_8
+.LBB6_8:
+.Ltmp48:
+	.loc	6 259 5 is_stmt 0               @ ../Core/Src/usart.c:259:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_uart4_rx
+	movt	r1, :upper16:hdma_uart4_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_9
+.Ltmp49:
 .LBB6_9:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp81:
-	.loc	6 428 5 is_stmt 1               @ ../Core/Src/usart.c:428:5
-	str	r6, [sp, #4]
-	movt	r0, #16386
-	ldr	r1, [r0, #16]
-	orr	r1, r1, #131072
-	str	r1, [r0, #16]
-	ldr	r1, [r0, #16]
-	and	r1, r1, #131072
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp82:
-	.loc	6 430 5                         @ ../Core/Src/usart.c:430:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	orr	r1, r1, #1
+	.loc	6 262 28 is_stmt 1              @ ../Core/Src/usart.c:262:28
+	movw	r0, :lower16:hdma_uart4_tx
+	movt	r0, :upper16:hdma_uart4_tx
+	str	r0, [sp, #96]                   @ 4-byte Spill
+	movw	r1, #24688
+	movt	r1, #16386
 	str	r1, [r0]
-	ldr	r0, [r0]
-	add	r1, sp, #8
-	and	r0, r0, #1
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	movs	r0, #12
-.Ltmp83:
-	.loc	6 435 25                        @ ../Core/Src/usart.c:435:25
-	str	r0, [sp, #8]
-	movs	r0, #2
-	.loc	6 436 26                        @ ../Core/Src/usart.c:436:26
-	strd	r0, r6, [sp, #12]
-	movs	r0, #3
-	.loc	6 438 27                        @ ../Core/Src/usart.c:438:27
-	str	r0, [sp, #20]
-	movs	r0, #7
-	.loc	6 439 31                        @ ../Core/Src/usart.c:439:31
-	str	r0, [sp, #24]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 440 5                         @ ../Core/Src/usart.c:440:5
-	bl	HAL_GPIO_Init
-.Ltmp84:
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movw	r0, #24592
-	movt	r0, #16386
-	.loc	6 444 29 is_stmt 1              @ ../Core/Src/usart.c:444:29
-	movw	r5, :lower16:hdma_usart2_rx
-	adds	r0, #120
-	movt	r5, :upper16:hdma_usart2_rx
 	mov.w	r1, #134217728
+	.loc	6 263 32                        @ ../Core/Src/usart.c:263:32
+	str	r1, [r0, #4]
+	movs	r1, #64
+	.loc	6 264 34                        @ ../Core/Src/usart.c:264:34
+	str	r1, [r0, #8]
+	movs	r1, #0
+	.loc	6 265 34                        @ ../Core/Src/usart.c:265:34
+	str	r1, [r0, #12]
 	mov.w	r2, #1024
-	mov.w	r3, #256
-	stm.w	r5, {r0, r1, r6}
-.Ltmp85:
-	.loc	6 454 9                         @ ../Core/Src/usart.c:454:9
-	mov	r0, r5
-.Ltmp86:
-	.loc	6 447 35                        @ ../Core/Src/usart.c:447:35
-	strd	r6, r2, [r5, #12]
-	.loc	6 449 45                        @ ../Core/Src/usart.c:449:45
-	strd	r6, r6, [r5, #20]
-	.loc	6 451 30                        @ ../Core/Src/usart.c:451:30
-	strd	r3, r6, [r5, #28]
-	.loc	6 453 34                        @ ../Core/Src/usart.c:453:34
-	str	r6, [r5, #36]
-.Ltmp87:
-	.loc	6 454 9                         @ ../Core/Src/usart.c:454:9
-	bl	HAL_DMA_Init
-.Ltmp88:
-	.loc	6 454 9 is_stmt 0               @ ../Core/Src/usart.c:454:9
-	cmp	r0, #0
-.Ltmp89:
-	.loc	6 456 7 is_stmt 1               @ ../Core/Src/usart.c:456:7
-	it	ne
-	blne	Error_Handler
-.Ltmp90:
-	.loc	6 459 5                         @ ../Core/Src/usart.c:459:5
-	str	r5, [r4, #56]
-	add.w	r0, r5, #56
-	movs	r5, #38
-	b	.LBB6_13
-.Ltmp91:
-.LBB6_10:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp92:
-	.loc	6 474 5 is_stmt 1               @ ../Core/Src/usart.c:474:5
-	str	r6, [sp, #4]
-	movt	r0, #16386
-	ldr	r1, [r0, #16]
-	movw	r8, #24592
-	orr	r1, r1, #262144
-	str	r1, [r0, #16]
-	ldr	r1, [r0, #16]
-	movt	r8, #16386
-	and	r1, r1, #262144
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp93:
-	.loc	6 476 5                         @ ../Core/Src/usart.c:476:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	orr	r1, r1, #8
-	str	r1, [r0]
-	ldr	r0, [r0]
-	add	r1, sp, #8
-	and	r0, r0, #8
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	mov.w	r0, #768
-.Ltmp94:
-	.loc	6 481 25                        @ ../Core/Src/usart.c:481:25
-	str	r0, [sp, #8]
-	movs	r0, #2
-	.loc	6 482 26                        @ ../Core/Src/usart.c:482:26
-	strd	r0, r6, [sp, #12]
-	movs	r0, #3
-	.loc	6 484 27                        @ ../Core/Src/usart.c:484:27
-	str	r0, [sp, #20]
-	movs	r0, #7
-	.loc	6 485 31                        @ ../Core/Src/usart.c:485:31
-	str	r0, [sp, #24]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 486 5                         @ ../Core/Src/usart.c:486:5
-	add.w	r0, r0, #3072
-	bl	HAL_GPIO_Init
-.Ltmp95:
-	.loc	6 490 29                        @ ../Core/Src/usart.c:490:29
-	movw	r5, :lower16:hdma_usart3_rx
-	add.w	r0, r8, #24
-	movt	r5, :upper16:hdma_usart3_rx
-	mov.w	r7, #134217728
-	mov.w	r10, #1024
-	mov.w	r9, #256
-	strd	r0, r7, [r5]
-.Ltmp96:
-	.loc	6 500 9                         @ ../Core/Src/usart.c:500:9
-	mov	r0, r5
-.Ltmp97:
-	.loc	6 492 35                        @ ../Core/Src/usart.c:492:35
-	strd	r6, r6, [r5, #8]
-	.loc	6 494 32                        @ ../Core/Src/usart.c:494:32
-	strd	r10, r6, [r5, #16]
-	.loc	6 496 42                        @ ../Core/Src/usart.c:496:42
-	strd	r6, r9, [r5, #24]
-	.loc	6 498 34                        @ ../Core/Src/usart.c:498:34
-	strd	r6, r6, [r5, #32]
-.Ltmp98:
-	.loc	6 500 9                         @ ../Core/Src/usart.c:500:9
-	bl	HAL_DMA_Init
-.Ltmp99:
-	.loc	6 500 9 is_stmt 0               @ ../Core/Src/usart.c:500:9
-	cmp	r0, #0
-.Ltmp100:
-	.loc	6 502 7 is_stmt 1               @ ../Core/Src/usart.c:502:7
-	it	ne
-	blne	Error_Handler
-.Ltmp101:
-	.loc	6 505 5                         @ ../Core/Src/usart.c:505:5
-	str	r5, [r4, #56]
-	str	r4, [r5, #56]
-.Ltmp102:
-	.loc	6 508 29                        @ ../Core/Src/usart.c:508:29
-	movw	r5, :lower16:hdma_usart3_tx
-	add.w	r0, r8, #72
-	movt	r5, :upper16:hdma_usart3_tx
-	movs	r1, #64
-	strd	r0, r7, [r5]
-	.loc	6 510 35                        @ ../Core/Src/usart.c:510:35
-	add.w	r0, r5, #8
-	stm.w	r0, {r1, r6, r10}
-.Ltmp103:
-	.loc	6 518 9                         @ ../Core/Src/usart.c:518:9
-	mov	r0, r5
-.Ltmp104:
-	.loc	6 513 45                        @ ../Core/Src/usart.c:513:45
-	strd	r6, r6, [r5, #20]
-	.loc	6 515 30                        @ ../Core/Src/usart.c:515:30
-	strd	r9, r6, [r5, #28]
-	.loc	6 517 34                        @ ../Core/Src/usart.c:517:34
-	str	r6, [r5, #36]
-.Ltmp105:
-	.loc	6 518 9                         @ ../Core/Src/usart.c:518:9
-	bl	HAL_DMA_Init
-.Ltmp106:
-	.loc	6 518 9 is_stmt 0               @ ../Core/Src/usart.c:518:9
-	cmp	r0, #0
-.Ltmp107:
-	.loc	6 520 7 is_stmt 1               @ ../Core/Src/usart.c:520:7
-	it	ne
-	blne	Error_Handler
-.Ltmp108:
-	.loc	6 523 5                         @ ../Core/Src/usart.c:523:5
-	str	r5, [r4, #52]
-	add.w	r0, r5, #56
-	movs	r5, #39
-	b	.LBB6_13
-.Ltmp109:
-.LBB6_11:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp110:
-	.loc	6 292 5 is_stmt 1               @ ../Core/Src/usart.c:292:5
-	str	r6, [sp, #4]
-	movt	r0, #16386
-	ldr	r1, [r0, #16]
-	movs	r7, #0
-	orr	r1, r1, #1048576
-	str	r1, [r0, #16]
-	ldr	r1, [r0, #16]
-	movt	r7, #16386
-	and	r1, r1, #1048576
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp111:
-	.loc	6 294 5                         @ ../Core/Src/usart.c:294:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	add	r5, sp, #8
-	orr	r1, r1, #4
-	str	r1, [r0]
-	ldr	r1, [r0]
-	movw	r8, #24592
-	and	r1, r1, #4
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp112:
-	.loc	6 295 5                         @ ../Core/Src/usart.c:295:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	mov.w	r9, #2
-	orr	r1, r1, #8
-	str	r1, [r0]
-	ldr	r0, [r0]
-	mov.w	r10, #3
-	and	r0, r0, #8
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	mov.w	r0, #4096
-.Ltmp113:
-	.loc	6 300 25                        @ ../Core/Src/usart.c:300:25
-	str	r0, [sp, #8]
-	mov.w	r11, #8
-	.loc	6 305 5                         @ ../Core/Src/usart.c:305:5
-	add.w	r0, r7, #2048
-	mov	r1, r5
-	movt	r8, #16386
-	.loc	6 301 26                        @ ../Core/Src/usart.c:301:26
-	strd	r9, r6, [sp, #12]
-	.loc	6 303 27                        @ ../Core/Src/usart.c:303:27
-	str.w	r10, [sp, #20]
-	.loc	6 304 31                        @ ../Core/Src/usart.c:304:31
-	str.w	r11, [sp, #24]
-	.loc	6 305 5                         @ ../Core/Src/usart.c:305:5
-	bl	HAL_GPIO_Init
-.Ltmp114:
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movs	r0, #4
-	.loc	6 307 25 is_stmt 1              @ ../Core/Src/usart.c:307:25
-	strd	r0, r9, [sp, #8]
-	.loc	6 309 26                        @ ../Core/Src/usart.c:309:26
-	add	r0, sp, #16
-	stm.w	r0, {r6, r10, r11}
-	.loc	6 312 5                         @ ../Core/Src/usart.c:312:5
-	add.w	r0, r7, #3072
-	mov	r1, r5
-	bl	HAL_GPIO_Init
-.Ltmp115:
-	.loc	6 316 28                        @ ../Core/Src/usart.c:316:28
-	movw	r5, :lower16:hdma_uart5_rx
-	movt	r5, :upper16:hdma_uart5_rx
-	mov.w	r7, #134217728
-	mov.w	r10, #1024
-	mov.w	r9, #256
-.Ltmp116:
-	.loc	6 326 9                         @ ../Core/Src/usart.c:326:9
-	mov	r0, r5
-.Ltmp117:
-	.loc	6 316 28                        @ ../Core/Src/usart.c:316:28
-	strd	r8, r7, [r5]
-	.loc	6 318 34                        @ ../Core/Src/usart.c:318:34
-	strd	r6, r6, [r5, #8]
-	.loc	6 320 31                        @ ../Core/Src/usart.c:320:31
-	strd	r10, r6, [r5, #16]
-	.loc	6 322 41                        @ ../Core/Src/usart.c:322:41
-	strd	r6, r9, [r5, #24]
-	.loc	6 324 33                        @ ../Core/Src/usart.c:324:33
-	strd	r6, r6, [r5, #32]
-.Ltmp118:
-	.loc	6 326 9                         @ ../Core/Src/usart.c:326:9
-	bl	HAL_DMA_Init
-.Ltmp119:
-	.loc	6 326 9 is_stmt 0               @ ../Core/Src/usart.c:326:9
-	cmp	r0, #0
-.Ltmp120:
-	.loc	6 328 7 is_stmt 1               @ ../Core/Src/usart.c:328:7
-	it	ne
-	blne	Error_Handler
-.Ltmp121:
-	.loc	6 331 5                         @ ../Core/Src/usart.c:331:5
-	str	r5, [r4, #56]
-	str	r4, [r5, #56]
-.Ltmp122:
-	.loc	6 334 28                        @ ../Core/Src/usart.c:334:28
-	movw	r5, :lower16:hdma_uart5_tx
-	add.w	r0, r8, #168
-	movt	r5, :upper16:hdma_uart5_tx
-	movs	r1, #64
-	strd	r0, r7, [r5]
-	.loc	6 336 34                        @ ../Core/Src/usart.c:336:34
-	add.w	r0, r5, #8
-	stm.w	r0, {r1, r6, r10}
-.Ltmp123:
-	.loc	6 344 9                         @ ../Core/Src/usart.c:344:9
-	mov	r0, r5
-.Ltmp124:
-	.loc	6 339 44                        @ ../Core/Src/usart.c:339:44
-	strd	r6, r6, [r5, #20]
-	.loc	6 341 29                        @ ../Core/Src/usart.c:341:29
-	strd	r9, r6, [r5, #28]
-	.loc	6 343 33                        @ ../Core/Src/usart.c:343:33
-	str	r6, [r5, #36]
-.Ltmp125:
-	.loc	6 344 9                         @ ../Core/Src/usart.c:344:9
-	bl	HAL_DMA_Init
-.Ltmp126:
-	.loc	6 344 9 is_stmt 0               @ ../Core/Src/usart.c:344:9
-	cmp	r0, #0
-.Ltmp127:
-	.loc	6 346 7 is_stmt 1               @ ../Core/Src/usart.c:346:7
-	it	ne
-	blne	Error_Handler
-.Ltmp128:
-	.loc	6 349 5                         @ ../Core/Src/usart.c:349:5
-	str	r5, [r4, #52]
-	add.w	r0, r5, #56
-	movs	r5, #53
-	b	.LBB6_13
-.Ltmp129:
-.LBB6_12:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
-	movs	r6, #0
-	movw	r0, #14384
-.Ltmp130:
-	.loc	6 364 5 is_stmt 1               @ ../Core/Src/usart.c:364:5
-	str	r6, [sp, #4]
-	movt	r0, #16386
-	ldr	r1, [r0, #20]
-	movw	r8, #24592
-	orr	r1, r1, #16
+	.loc	6 266 31                        @ ../Core/Src/usart.c:266:31
+	str	r2, [r0, #16]
+	.loc	6 267 44                        @ ../Core/Src/usart.c:267:44
 	str	r1, [r0, #20]
-	ldr	r1, [r0, #20]
-	movt	r8, #16386
-	and	r1, r1, #16
-	str	r1, [sp, #4]
-	ldr	r1, [sp, #4]
-.Ltmp131:
-	.loc	6 366 5                         @ ../Core/Src/usart.c:366:5
-	str	r6, [sp, #4]
-	ldr	r1, [r0]
-	orr	r1, r1, #1
-	str	r1, [r0]
-	ldr	r0, [r0]
-	add	r1, sp, #8
-	and	r0, r0, #1
-	str	r0, [sp, #4]
-	ldr	r0, [sp, #4]
-	mov.w	r0, #1536
-.Ltmp132:
-	.loc	6 371 25                        @ ../Core/Src/usart.c:371:25
-	str	r0, [sp, #8]
-	movs	r0, #2
-	.loc	6 372 26                        @ ../Core/Src/usart.c:372:26
-	strd	r0, r6, [sp, #12]
-	movs	r0, #3
-	.loc	6 374 27                        @ ../Core/Src/usart.c:374:27
-	str	r0, [sp, #20]
-	movs	r0, #7
-	.loc	6 375 31                        @ ../Core/Src/usart.c:375:31
-	str	r0, [sp, #24]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 376 5                         @ ../Core/Src/usart.c:376:5
-	bl	HAL_GPIO_Init
-.Ltmp133:
-	.loc	6 380 29                        @ ../Core/Src/usart.c:380:29
-	movw	r5, :lower16:hdma_usart1_rx
-	add.w	r0, r8, #1072
-	movt	r5, :upper16:hdma_usart1_rx
-	mov.w	r7, #134217728
-	mov.w	r10, #1024
-	mov.w	r9, #256
-	strd	r0, r7, [r5]
-.Ltmp134:
-	.loc	6 390 9                         @ ../Core/Src/usart.c:390:9
-	mov	r0, r5
-.Ltmp135:
-	.loc	6 382 35                        @ ../Core/Src/usart.c:382:35
-	strd	r6, r6, [r5, #8]
-	.loc	6 384 32                        @ ../Core/Src/usart.c:384:32
-	strd	r10, r6, [r5, #16]
-	.loc	6 386 42                        @ ../Core/Src/usart.c:386:42
-	strd	r6, r9, [r5, #24]
-	.loc	6 388 34                        @ ../Core/Src/usart.c:388:34
-	strd	r6, r6, [r5, #32]
-.Ltmp136:
-	.loc	6 390 9                         @ ../Core/Src/usart.c:390:9
+	.loc	6 268 41                        @ ../Core/Src/usart.c:268:41
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 269 29                        @ ../Core/Src/usart.c:269:29
+	str	r2, [r0, #28]
+	.loc	6 270 33                        @ ../Core/Src/usart.c:270:33
+	str	r1, [r0, #32]
+	.loc	6 271 33                        @ ../Core/Src/usart.c:271:33
+	str	r1, [r0, #36]
+.Ltmp50:
+	.loc	6 272 9                         @ ../Core/Src/usart.c:272:9
 	bl	HAL_DMA_Init
-.Ltmp137:
-	.loc	6 390 9 is_stmt 0               @ ../Core/Src/usart.c:390:9
-	cmp	r0, #0
-.Ltmp138:
-	.loc	6 392 7 is_stmt 1               @ ../Core/Src/usart.c:392:7
-	it	ne
-	blne	Error_Handler
-.Ltmp139:
-	.loc	6 395 5                         @ ../Core/Src/usart.c:395:5
-	str	r5, [r4, #56]
-	str	r4, [r5, #56]
-.Ltmp140:
-	.loc	6 398 29                        @ ../Core/Src/usart.c:398:29
-	movw	r5, :lower16:hdma_usart1_tx
-	add.w	r0, r8, #1192
-	movt	r5, :upper16:hdma_usart1_tx
-	movs	r1, #64
-	strd	r0, r7, [r5]
-	.loc	6 400 35                        @ ../Core/Src/usart.c:400:35
-	add.w	r0, r5, #8
-	stm.w	r0, {r1, r6, r10}
-.Ltmp141:
-	.loc	6 408 9                         @ ../Core/Src/usart.c:408:9
-	mov	r0, r5
-.Ltmp142:
-	.loc	6 403 45                        @ ../Core/Src/usart.c:403:45
-	strd	r6, r6, [r5, #20]
-	.loc	6 405 30                        @ ../Core/Src/usart.c:405:30
-	strd	r9, r6, [r5, #28]
-	.loc	6 407 34                        @ ../Core/Src/usart.c:407:34
-	str	r6, [r5, #36]
-.Ltmp143:
-	.loc	6 408 9                         @ ../Core/Src/usart.c:408:9
-	bl	HAL_DMA_Init
-.Ltmp144:
-	.loc	6 408 9 is_stmt 0               @ ../Core/Src/usart.c:408:9
-	cmp	r0, #0
-.Ltmp145:
-	.loc	6 410 7 is_stmt 1               @ ../Core/Src/usart.c:410:7
-	it	ne
-	blne	Error_Handler
-.Ltmp146:
-	.loc	6 413 5                         @ ../Core/Src/usart.c:413:5
-	str	r5, [r4, #52]
-	add.w	r0, r5, #56
-	movs	r5, #37
-.Ltmp147:
+.Ltmp51:
+	.loc	6 272 9 is_stmt 0               @ ../Core/Src/usart.c:272:9
+	cbz	r0, .LBB6_11
+	b	.LBB6_10
+.LBB6_10:
+.Ltmp52:
+	.loc	6 274 7 is_stmt 1               @ ../Core/Src/usart.c:274:7
+	bl	Error_Handler
+	.loc	6 275 5                         @ ../Core/Src/usart.c:275:5
+	b	.LBB6_11
+.Ltmp53:
+.LBB6_11:
+	.loc	6 277 5                         @ ../Core/Src/usart.c:277:5
+	b	.LBB6_12
+.LBB6_12:
+.Ltmp54:
+	.loc	6 277 5 is_stmt 0               @ ../Core/Src/usart.c:277:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_uart4_tx
+	movt	r1, :upper16:hdma_uart4_tx
+	str	r1, [r0, #52]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_13
+.Ltmp55:
 .LBB6_13:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
-	.loc	6 0 0 is_stmt 0                 @ ../Core/Src/usart.c:0:0
-	str	r4, [r0]
-	mov	r0, r5
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #52
+	str	r0, [sp, #92]                   @ 4-byte Spill
 	movs	r1, #5
 	movs	r2, #0
+	.loc	6 280 5 is_stmt 1               @ ../Core/Src/usart.c:280:5
 	bl	HAL_NVIC_SetPriority
-.Ltmp148:
-	mov	r0, r5
+	ldr	r0, [sp, #92]                   @ 4-byte Reload
+	.loc	6 281 5                         @ ../Core/Src/usart.c:281:5
 	bl	HAL_NVIC_EnableIRQ
-.Ltmp149:
+	.loc	6 285 3                         @ ../Core/Src/usart.c:285:3
+	b	.LBB6_87
+.Ltmp56:
 .LBB6_14:
-	@DEBUG_VALUE: HAL_UART_MspInit:uartHandle <- $r4
+	.loc	6 286 11                        @ ../Core/Src/usart.c:286:11
+	ldr	r0, [sp, #180]
+	.loc	6 286 23 is_stmt 0              @ ../Core/Src/usart.c:286:23
+	ldr	r0, [r0]
+	movw	r1, #20480
+	movt	r1, #16384
+.Ltmp57:
+	.loc	6 286 11                        @ ../Core/Src/usart.c:286:11
+	cmp	r0, r1
+	bne.w	.LBB6_30
+	b	.LBB6_15
+.LBB6_15:
+.Ltmp58:
+	.loc	6 292 5 is_stmt 1               @ ../Core/Src/usart.c:292:5
+	b	.LBB6_16
+.LBB6_16:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp59:
+	.loc	6 292 5                         @ ../Core/Src/usart.c:292:5
+	str	r0, [sp, #148]
+	movw	r0, #14400
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #1048576
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #1048576
+	str	r0, [sp, #148]
+	ldr	r0, [sp, #148]
+	b	.LBB6_17
+.Ltmp60:
+.LBB6_17:
+	.loc	6 294 5 is_stmt 1               @ ../Core/Src/usart.c:294:5
+	b	.LBB6_18
+.LBB6_18:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp61:
+	.loc	6 294 5                         @ ../Core/Src/usart.c:294:5
+	str	r0, [sp, #144]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #4
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #4
+	str	r0, [sp, #144]
+	ldr	r0, [sp, #144]
+	b	.LBB6_19
+.Ltmp62:
+.LBB6_19:
+	.loc	6 295 5 is_stmt 1               @ ../Core/Src/usart.c:295:5
+	b	.LBB6_20
+.LBB6_20:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp63:
+	.loc	6 295 5                         @ ../Core/Src/usart.c:295:5
+	str	r0, [sp, #140]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #8
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #8
+	str	r0, [sp, #140]
+	ldr	r0, [sp, #140]
+	b	.LBB6_21
+.Ltmp64:
+.LBB6_21:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	mov.w	r0, #4096
+	.loc	6 300 25 is_stmt 1              @ ../Core/Src/usart.c:300:25
+	str	r0, [sp, #160]
+	movs	r0, #2
+	.loc	6 301 26                        @ ../Core/Src/usart.c:301:26
+	str	r0, [sp, #68]                   @ 4-byte Spill
+	str	r0, [sp, #164]
+	movs	r0, #0
+	.loc	6 302 26                        @ ../Core/Src/usart.c:302:26
+	str	r0, [sp, #84]                   @ 4-byte Spill
+	str	r0, [sp, #168]
+	movs	r0, #3
+	.loc	6 303 27                        @ ../Core/Src/usart.c:303:27
+	str	r0, [sp, #72]                   @ 4-byte Spill
+	str	r0, [sp, #172]
+	movs	r0, #8
+	.loc	6 304 31                        @ ../Core/Src/usart.c:304:31
+	str	r0, [sp, #76]                   @ 4-byte Spill
+	str	r0, [sp, #176]
+	movw	r0, #2048
+	movt	r0, #16386
+	add	r1, sp, #160
+	.loc	6 305 5                         @ ../Core/Src/usart.c:305:5
+	str	r1, [sp, #80]                   @ 4-byte Spill
+	bl	HAL_GPIO_Init
+	ldr.w	r12, [sp, #68]                  @ 4-byte Reload
+	ldr	r2, [sp, #72]                   @ 4-byte Reload
+	ldr	r0, [sp, #76]                   @ 4-byte Reload
+	ldr	r1, [sp, #80]                   @ 4-byte Reload
+	ldr	r3, [sp, #84]                   @ 4-byte Reload
+	mov.w	lr, #4
+	.loc	6 307 25                        @ ../Core/Src/usart.c:307:25
+	str.w	lr, [sp, #160]
+	.loc	6 308 26                        @ ../Core/Src/usart.c:308:26
+	str.w	r12, [sp, #164]
+	.loc	6 309 26                        @ ../Core/Src/usart.c:309:26
+	str	r3, [sp, #168]
+	.loc	6 310 27                        @ ../Core/Src/usart.c:310:27
+	str	r2, [sp, #172]
+	.loc	6 311 31                        @ ../Core/Src/usart.c:311:31
+	str	r0, [sp, #176]
+	movw	r0, #3072
+	movt	r0, #16386
+	.loc	6 312 5                         @ ../Core/Src/usart.c:312:5
+	bl	HAL_GPIO_Init
+	ldr	r1, [sp, #84]                   @ 4-byte Reload
+	.loc	6 316 28                        @ ../Core/Src/usart.c:316:28
+	movw	r0, :lower16:hdma_uart5_rx
+	movt	r0, :upper16:hdma_uart5_rx
+	str	r0, [sp, #88]                   @ 4-byte Spill
+	movw	r2, #24592
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #134217728
+	.loc	6 317 32                        @ ../Core/Src/usart.c:317:32
+	str	r2, [r0, #4]
+	.loc	6 318 34                        @ ../Core/Src/usart.c:318:34
+	str	r1, [r0, #8]
+	.loc	6 319 34                        @ ../Core/Src/usart.c:319:34
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 320 31                        @ ../Core/Src/usart.c:320:31
+	str	r2, [r0, #16]
+	.loc	6 321 44                        @ ../Core/Src/usart.c:321:44
+	str	r1, [r0, #20]
+	.loc	6 322 41                        @ ../Core/Src/usart.c:322:41
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 323 29                        @ ../Core/Src/usart.c:323:29
+	str	r2, [r0, #28]
+	.loc	6 324 33                        @ ../Core/Src/usart.c:324:33
+	str	r1, [r0, #32]
+	.loc	6 325 33                        @ ../Core/Src/usart.c:325:33
+	str	r1, [r0, #36]
+.Ltmp65:
+	.loc	6 326 9                         @ ../Core/Src/usart.c:326:9
+	bl	HAL_DMA_Init
+.Ltmp66:
+	.loc	6 326 9 is_stmt 0               @ ../Core/Src/usart.c:326:9
+	cbz	r0, .LBB6_23
+	b	.LBB6_22
+.LBB6_22:
+.Ltmp67:
+	.loc	6 328 7 is_stmt 1               @ ../Core/Src/usart.c:328:7
+	bl	Error_Handler
+	.loc	6 329 5                         @ ../Core/Src/usart.c:329:5
+	b	.LBB6_23
+.Ltmp68:
+.LBB6_23:
+	.loc	6 331 5                         @ ../Core/Src/usart.c:331:5
+	b	.LBB6_24
+.LBB6_24:
+.Ltmp69:
+	.loc	6 331 5 is_stmt 0               @ ../Core/Src/usart.c:331:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_uart5_rx
+	movt	r1, :upper16:hdma_uart5_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_25
+.Ltmp70:
+.LBB6_25:
+	.loc	6 334 28 is_stmt 1              @ ../Core/Src/usart.c:334:28
+	movw	r0, :lower16:hdma_uart5_tx
+	movt	r0, :upper16:hdma_uart5_tx
+	str	r0, [sp, #64]                   @ 4-byte Spill
+	movw	r1, #24760
+	movt	r1, #16386
+	str	r1, [r0]
+	mov.w	r1, #134217728
+	.loc	6 335 32                        @ ../Core/Src/usart.c:335:32
+	str	r1, [r0, #4]
+	movs	r1, #64
+	.loc	6 336 34                        @ ../Core/Src/usart.c:336:34
+	str	r1, [r0, #8]
+	movs	r1, #0
+	.loc	6 337 34                        @ ../Core/Src/usart.c:337:34
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 338 31                        @ ../Core/Src/usart.c:338:31
+	str	r2, [r0, #16]
+	.loc	6 339 44                        @ ../Core/Src/usart.c:339:44
+	str	r1, [r0, #20]
+	.loc	6 340 41                        @ ../Core/Src/usart.c:340:41
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 341 29                        @ ../Core/Src/usart.c:341:29
+	str	r2, [r0, #28]
+	.loc	6 342 33                        @ ../Core/Src/usart.c:342:33
+	str	r1, [r0, #32]
+	.loc	6 343 33                        @ ../Core/Src/usart.c:343:33
+	str	r1, [r0, #36]
+.Ltmp71:
+	.loc	6 344 9                         @ ../Core/Src/usart.c:344:9
+	bl	HAL_DMA_Init
+.Ltmp72:
+	.loc	6 344 9 is_stmt 0               @ ../Core/Src/usart.c:344:9
+	cbz	r0, .LBB6_27
+	b	.LBB6_26
+.LBB6_26:
+.Ltmp73:
+	.loc	6 346 7 is_stmt 1               @ ../Core/Src/usart.c:346:7
+	bl	Error_Handler
+	.loc	6 347 5                         @ ../Core/Src/usart.c:347:5
+	b	.LBB6_27
+.Ltmp74:
+.LBB6_27:
+	.loc	6 349 5                         @ ../Core/Src/usart.c:349:5
+	b	.LBB6_28
+.LBB6_28:
+.Ltmp75:
+	.loc	6 349 5 is_stmt 0               @ ../Core/Src/usart.c:349:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_uart5_tx
+	movt	r1, :upper16:hdma_uart5_tx
+	str	r1, [r0, #52]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_29
+.Ltmp76:
+.LBB6_29:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #53
+	str	r0, [sp, #60]                   @ 4-byte Spill
+	movs	r1, #5
+	movs	r2, #0
+	.loc	6 352 5 is_stmt 1               @ ../Core/Src/usart.c:352:5
+	bl	HAL_NVIC_SetPriority
+	ldr	r0, [sp, #60]                   @ 4-byte Reload
+	.loc	6 353 5                         @ ../Core/Src/usart.c:353:5
+	bl	HAL_NVIC_EnableIRQ
+	.loc	6 357 3                         @ ../Core/Src/usart.c:357:3
+	b	.LBB6_86
+.Ltmp77:
+.LBB6_30:
+	.loc	6 358 11                        @ ../Core/Src/usart.c:358:11
+	ldr	r0, [sp, #180]
+	.loc	6 358 23 is_stmt 0              @ ../Core/Src/usart.c:358:23
+	ldr	r0, [r0]
+	movw	r1, #4096
+	movt	r1, #16385
+.Ltmp78:
+	.loc	6 358 11                        @ ../Core/Src/usart.c:358:11
+	cmp	r0, r1
+	bne.w	.LBB6_44
+	b	.LBB6_31
+.LBB6_31:
+.Ltmp79:
+	.loc	6 364 5 is_stmt 1               @ ../Core/Src/usart.c:364:5
+	b	.LBB6_32
+.LBB6_32:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp80:
+	.loc	6 364 5                         @ ../Core/Src/usart.c:364:5
+	str	r0, [sp, #136]
+	movw	r0, #14404
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #16
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #16
+	str	r0, [sp, #136]
+	ldr	r0, [sp, #136]
+	b	.LBB6_33
+.Ltmp81:
+.LBB6_33:
+	.loc	6 366 5 is_stmt 1               @ ../Core/Src/usart.c:366:5
+	b	.LBB6_34
+.LBB6_34:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp82:
+	.loc	6 366 5                         @ ../Core/Src/usart.c:366:5
+	str	r0, [sp, #132]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #1
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #1
+	str	r0, [sp, #132]
+	ldr	r0, [sp, #132]
+	b	.LBB6_35
+.Ltmp83:
+.LBB6_35:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	mov.w	r0, #1536
+	.loc	6 371 25 is_stmt 1              @ ../Core/Src/usart.c:371:25
+	str	r0, [sp, #160]
+	movs	r0, #2
+	.loc	6 372 26                        @ ../Core/Src/usart.c:372:26
+	str	r0, [sp, #164]
+	movs	r0, #0
+	.loc	6 373 26                        @ ../Core/Src/usart.c:373:26
+	str	r0, [sp, #52]                   @ 4-byte Spill
+	str	r0, [sp, #168]
+	movs	r0, #3
+	.loc	6 374 27                        @ ../Core/Src/usart.c:374:27
+	str	r0, [sp, #172]
+	movs	r0, #7
+	.loc	6 375 31                        @ ../Core/Src/usart.c:375:31
+	str	r0, [sp, #176]
+	movs	r0, #0
+	movt	r0, #16386
+	add	r1, sp, #160
+	.loc	6 376 5                         @ ../Core/Src/usart.c:376:5
+	bl	HAL_GPIO_Init
+	ldr	r1, [sp, #52]                   @ 4-byte Reload
+	.loc	6 380 29                        @ ../Core/Src/usart.c:380:29
+	movw	r0, :lower16:hdma_usart1_rx
+	movt	r0, :upper16:hdma_usart1_rx
+	str	r0, [sp, #56]                   @ 4-byte Spill
+	movw	r2, #25664
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #134217728
+	.loc	6 381 33                        @ ../Core/Src/usart.c:381:33
+	str	r2, [r0, #4]
+	.loc	6 382 35                        @ ../Core/Src/usart.c:382:35
+	str	r1, [r0, #8]
+	.loc	6 383 35                        @ ../Core/Src/usart.c:383:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 384 32                        @ ../Core/Src/usart.c:384:32
+	str	r2, [r0, #16]
+	.loc	6 385 45                        @ ../Core/Src/usart.c:385:45
+	str	r1, [r0, #20]
+	.loc	6 386 42                        @ ../Core/Src/usart.c:386:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 387 30                        @ ../Core/Src/usart.c:387:30
+	str	r2, [r0, #28]
+	.loc	6 388 34                        @ ../Core/Src/usart.c:388:34
+	str	r1, [r0, #32]
+	.loc	6 389 34                        @ ../Core/Src/usart.c:389:34
+	str	r1, [r0, #36]
+.Ltmp84:
+	.loc	6 390 9                         @ ../Core/Src/usart.c:390:9
+	bl	HAL_DMA_Init
+.Ltmp85:
+	.loc	6 390 9 is_stmt 0               @ ../Core/Src/usart.c:390:9
+	cbz	r0, .LBB6_37
+	b	.LBB6_36
+.LBB6_36:
+.Ltmp86:
+	.loc	6 392 7 is_stmt 1               @ ../Core/Src/usart.c:392:7
+	bl	Error_Handler
+	.loc	6 393 5                         @ ../Core/Src/usart.c:393:5
+	b	.LBB6_37
+.Ltmp87:
+.LBB6_37:
+	.loc	6 395 5                         @ ../Core/Src/usart.c:395:5
+	b	.LBB6_38
+.LBB6_38:
+.Ltmp88:
+	.loc	6 395 5 is_stmt 0               @ ../Core/Src/usart.c:395:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart1_rx
+	movt	r1, :upper16:hdma_usart1_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_39
+.Ltmp89:
+.LBB6_39:
+	.loc	6 398 29 is_stmt 1              @ ../Core/Src/usart.c:398:29
+	movw	r0, :lower16:hdma_usart1_tx
+	movt	r0, :upper16:hdma_usart1_tx
+	str	r0, [sp, #48]                   @ 4-byte Spill
+	movw	r1, #25784
+	movt	r1, #16386
+	str	r1, [r0]
+	mov.w	r1, #134217728
+	.loc	6 399 33                        @ ../Core/Src/usart.c:399:33
+	str	r1, [r0, #4]
+	movs	r1, #64
+	.loc	6 400 35                        @ ../Core/Src/usart.c:400:35
+	str	r1, [r0, #8]
+	movs	r1, #0
+	.loc	6 401 35                        @ ../Core/Src/usart.c:401:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 402 32                        @ ../Core/Src/usart.c:402:32
+	str	r2, [r0, #16]
+	.loc	6 403 45                        @ ../Core/Src/usart.c:403:45
+	str	r1, [r0, #20]
+	.loc	6 404 42                        @ ../Core/Src/usart.c:404:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 405 30                        @ ../Core/Src/usart.c:405:30
+	str	r2, [r0, #28]
+	.loc	6 406 34                        @ ../Core/Src/usart.c:406:34
+	str	r1, [r0, #32]
+	.loc	6 407 34                        @ ../Core/Src/usart.c:407:34
+	str	r1, [r0, #36]
+.Ltmp90:
+	.loc	6 408 9                         @ ../Core/Src/usart.c:408:9
+	bl	HAL_DMA_Init
+.Ltmp91:
+	.loc	6 408 9 is_stmt 0               @ ../Core/Src/usart.c:408:9
+	cbz	r0, .LBB6_41
+	b	.LBB6_40
+.LBB6_40:
+.Ltmp92:
+	.loc	6 410 7 is_stmt 1               @ ../Core/Src/usart.c:410:7
+	bl	Error_Handler
+	.loc	6 411 5                         @ ../Core/Src/usart.c:411:5
+	b	.LBB6_41
+.Ltmp93:
+.LBB6_41:
+	.loc	6 413 5                         @ ../Core/Src/usart.c:413:5
+	b	.LBB6_42
+.LBB6_42:
+.Ltmp94:
+	.loc	6 413 5 is_stmt 0               @ ../Core/Src/usart.c:413:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart1_tx
+	movt	r1, :upper16:hdma_usart1_tx
+	str	r1, [r0, #52]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_43
+.Ltmp95:
+.LBB6_43:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #37
+	str	r0, [sp, #44]                   @ 4-byte Spill
+	movs	r1, #5
+	movs	r2, #0
+	.loc	6 416 5 is_stmt 1               @ ../Core/Src/usart.c:416:5
+	bl	HAL_NVIC_SetPriority
+	ldr	r0, [sp, #44]                   @ 4-byte Reload
+	.loc	6 417 5                         @ ../Core/Src/usart.c:417:5
+	bl	HAL_NVIC_EnableIRQ
+	.loc	6 421 3                         @ ../Core/Src/usart.c:421:3
+	b	.LBB6_85
+.Ltmp96:
+.LBB6_44:
+	.loc	6 422 11                        @ ../Core/Src/usart.c:422:11
+	ldr	r0, [sp, #180]
+	.loc	6 422 23 is_stmt 0              @ ../Core/Src/usart.c:422:23
+	ldr	r0, [r0]
+	movw	r1, #17408
+	movt	r1, #16384
+.Ltmp97:
+	.loc	6 422 11                        @ ../Core/Src/usart.c:422:11
+	cmp	r0, r1
+	bne	.LBB6_54
+	b	.LBB6_45
+.LBB6_45:
+.Ltmp98:
+	.loc	6 428 5 is_stmt 1               @ ../Core/Src/usart.c:428:5
+	b	.LBB6_46
+.LBB6_46:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp99:
+	.loc	6 428 5                         @ ../Core/Src/usart.c:428:5
+	str	r0, [sp, #128]
+	movw	r0, #14400
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #131072
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #131072
+	str	r0, [sp, #128]
+	ldr	r0, [sp, #128]
+	b	.LBB6_47
+.Ltmp100:
+.LBB6_47:
+	.loc	6 430 5 is_stmt 1               @ ../Core/Src/usart.c:430:5
+	b	.LBB6_48
+.LBB6_48:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp101:
+	.loc	6 430 5                         @ ../Core/Src/usart.c:430:5
+	str	r0, [sp, #124]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #1
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #1
+	str	r0, [sp, #124]
+	ldr	r0, [sp, #124]
+	b	.LBB6_49
+.Ltmp102:
+.LBB6_49:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #12
+	.loc	6 435 25 is_stmt 1              @ ../Core/Src/usart.c:435:25
+	str	r0, [sp, #160]
+	movs	r0, #2
+	.loc	6 436 26                        @ ../Core/Src/usart.c:436:26
+	str	r0, [sp, #164]
+	movs	r0, #0
+	.loc	6 437 26                        @ ../Core/Src/usart.c:437:26
+	str	r0, [sp, #36]                   @ 4-byte Spill
+	str	r0, [sp, #168]
+	movs	r0, #3
+	.loc	6 438 27                        @ ../Core/Src/usart.c:438:27
+	str	r0, [sp, #172]
+	movs	r0, #7
+	.loc	6 439 31                        @ ../Core/Src/usart.c:439:31
+	str	r0, [sp, #176]
+	movs	r0, #0
+	movt	r0, #16386
+	add	r1, sp, #160
+	.loc	6 440 5                         @ ../Core/Src/usart.c:440:5
+	bl	HAL_GPIO_Init
+	ldr	r1, [sp, #36]                   @ 4-byte Reload
+	.loc	6 444 29                        @ ../Core/Src/usart.c:444:29
+	movw	r0, :lower16:hdma_usart2_rx
+	movt	r0, :upper16:hdma_usart2_rx
+	str	r0, [sp, #40]                   @ 4-byte Spill
+	movw	r2, #24712
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #134217728
+	.loc	6 445 33                        @ ../Core/Src/usart.c:445:33
+	str	r2, [r0, #4]
+	.loc	6 446 35                        @ ../Core/Src/usart.c:446:35
+	str	r1, [r0, #8]
+	.loc	6 447 35                        @ ../Core/Src/usart.c:447:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 448 32                        @ ../Core/Src/usart.c:448:32
+	str	r2, [r0, #16]
+	.loc	6 449 45                        @ ../Core/Src/usart.c:449:45
+	str	r1, [r0, #20]
+	.loc	6 450 42                        @ ../Core/Src/usart.c:450:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 451 30                        @ ../Core/Src/usart.c:451:30
+	str	r2, [r0, #28]
+	.loc	6 452 34                        @ ../Core/Src/usart.c:452:34
+	str	r1, [r0, #32]
+	.loc	6 453 34                        @ ../Core/Src/usart.c:453:34
+	str	r1, [r0, #36]
+.Ltmp103:
+	.loc	6 454 9                         @ ../Core/Src/usart.c:454:9
+	bl	HAL_DMA_Init
+.Ltmp104:
+	.loc	6 454 9 is_stmt 0               @ ../Core/Src/usart.c:454:9
+	cbz	r0, .LBB6_51
+	b	.LBB6_50
+.LBB6_50:
+.Ltmp105:
+	.loc	6 456 7 is_stmt 1               @ ../Core/Src/usart.c:456:7
+	bl	Error_Handler
+	.loc	6 457 5                         @ ../Core/Src/usart.c:457:5
+	b	.LBB6_51
+.Ltmp106:
+.LBB6_51:
+	.loc	6 459 5                         @ ../Core/Src/usart.c:459:5
+	b	.LBB6_52
+.LBB6_52:
+.Ltmp107:
+	.loc	6 459 5 is_stmt 0               @ ../Core/Src/usart.c:459:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart2_rx
+	movt	r1, :upper16:hdma_usart2_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_53
+.Ltmp108:
+.LBB6_53:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #38
+	str	r0, [sp, #32]                   @ 4-byte Spill
+	movs	r1, #5
+	movs	r2, #0
+	.loc	6 462 5 is_stmt 1               @ ../Core/Src/usart.c:462:5
+	bl	HAL_NVIC_SetPriority
+	ldr	r0, [sp, #32]                   @ 4-byte Reload
+	.loc	6 463 5                         @ ../Core/Src/usart.c:463:5
+	bl	HAL_NVIC_EnableIRQ
+	.loc	6 467 3                         @ ../Core/Src/usart.c:467:3
+	b	.LBB6_84
+.Ltmp109:
+.LBB6_54:
+	.loc	6 468 11                        @ ../Core/Src/usart.c:468:11
+	ldr	r0, [sp, #180]
+	.loc	6 468 23 is_stmt 0              @ ../Core/Src/usart.c:468:23
+	ldr	r0, [r0]
+	movw	r1, #18432
+	movt	r1, #16384
+.Ltmp110:
+	.loc	6 468 11                        @ ../Core/Src/usart.c:468:11
+	cmp	r0, r1
+	bne.w	.LBB6_68
+	b	.LBB6_55
+.LBB6_55:
+.Ltmp111:
+	.loc	6 474 5 is_stmt 1               @ ../Core/Src/usart.c:474:5
+	b	.LBB6_56
+.LBB6_56:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp112:
+	.loc	6 474 5                         @ ../Core/Src/usart.c:474:5
+	str	r0, [sp, #120]
+	movw	r0, #14400
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #262144
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #262144
+	str	r0, [sp, #120]
+	ldr	r0, [sp, #120]
+	b	.LBB6_57
+.Ltmp113:
+.LBB6_57:
+	.loc	6 476 5 is_stmt 1               @ ../Core/Src/usart.c:476:5
+	b	.LBB6_58
+.LBB6_58:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp114:
+	.loc	6 476 5                         @ ../Core/Src/usart.c:476:5
+	str	r0, [sp, #116]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #8
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #8
+	str	r0, [sp, #116]
+	ldr	r0, [sp, #116]
+	b	.LBB6_59
+.Ltmp115:
+.LBB6_59:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	mov.w	r0, #768
+	.loc	6 481 25 is_stmt 1              @ ../Core/Src/usart.c:481:25
+	str	r0, [sp, #160]
+	movs	r0, #2
+	.loc	6 482 26                        @ ../Core/Src/usart.c:482:26
+	str	r0, [sp, #164]
+	movs	r0, #0
+	.loc	6 483 26                        @ ../Core/Src/usart.c:483:26
+	str	r0, [sp, #24]                   @ 4-byte Spill
+	str	r0, [sp, #168]
+	movs	r0, #3
+	.loc	6 484 27                        @ ../Core/Src/usart.c:484:27
+	str	r0, [sp, #172]
+	movs	r0, #7
+	.loc	6 485 31                        @ ../Core/Src/usart.c:485:31
+	str	r0, [sp, #176]
+	movw	r0, #3072
+	movt	r0, #16386
+	add	r1, sp, #160
+	.loc	6 486 5                         @ ../Core/Src/usart.c:486:5
+	bl	HAL_GPIO_Init
+	ldr	r1, [sp, #24]                   @ 4-byte Reload
+	.loc	6 490 29                        @ ../Core/Src/usart.c:490:29
+	movw	r0, :lower16:hdma_usart3_rx
+	movt	r0, :upper16:hdma_usart3_rx
+	str	r0, [sp, #28]                   @ 4-byte Spill
+	movw	r2, #24616
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #134217728
+	.loc	6 491 33                        @ ../Core/Src/usart.c:491:33
+	str	r2, [r0, #4]
+	.loc	6 492 35                        @ ../Core/Src/usart.c:492:35
+	str	r1, [r0, #8]
+	.loc	6 493 35                        @ ../Core/Src/usart.c:493:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 494 32                        @ ../Core/Src/usart.c:494:32
+	str	r2, [r0, #16]
+	.loc	6 495 45                        @ ../Core/Src/usart.c:495:45
+	str	r1, [r0, #20]
+	.loc	6 496 42                        @ ../Core/Src/usart.c:496:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 497 30                        @ ../Core/Src/usart.c:497:30
+	str	r2, [r0, #28]
+	.loc	6 498 34                        @ ../Core/Src/usart.c:498:34
+	str	r1, [r0, #32]
+	.loc	6 499 34                        @ ../Core/Src/usart.c:499:34
+	str	r1, [r0, #36]
+.Ltmp116:
+	.loc	6 500 9                         @ ../Core/Src/usart.c:500:9
+	bl	HAL_DMA_Init
+.Ltmp117:
+	.loc	6 500 9 is_stmt 0               @ ../Core/Src/usart.c:500:9
+	cbz	r0, .LBB6_61
+	b	.LBB6_60
+.LBB6_60:
+.Ltmp118:
+	.loc	6 502 7 is_stmt 1               @ ../Core/Src/usart.c:502:7
+	bl	Error_Handler
+	.loc	6 503 5                         @ ../Core/Src/usart.c:503:5
+	b	.LBB6_61
+.Ltmp119:
+.LBB6_61:
+	.loc	6 505 5                         @ ../Core/Src/usart.c:505:5
+	b	.LBB6_62
+.LBB6_62:
+.Ltmp120:
+	.loc	6 505 5 is_stmt 0               @ ../Core/Src/usart.c:505:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart3_rx
+	movt	r1, :upper16:hdma_usart3_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_63
+.Ltmp121:
+.LBB6_63:
+	.loc	6 508 29 is_stmt 1              @ ../Core/Src/usart.c:508:29
+	movw	r0, :lower16:hdma_usart3_tx
+	movt	r0, :upper16:hdma_usart3_tx
+	str	r0, [sp, #20]                   @ 4-byte Spill
+	movw	r1, #24664
+	movt	r1, #16386
+	str	r1, [r0]
+	mov.w	r1, #134217728
+	.loc	6 509 33                        @ ../Core/Src/usart.c:509:33
+	str	r1, [r0, #4]
+	movs	r1, #64
+	.loc	6 510 35                        @ ../Core/Src/usart.c:510:35
+	str	r1, [r0, #8]
+	movs	r1, #0
+	.loc	6 511 35                        @ ../Core/Src/usart.c:511:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 512 32                        @ ../Core/Src/usart.c:512:32
+	str	r2, [r0, #16]
+	.loc	6 513 45                        @ ../Core/Src/usart.c:513:45
+	str	r1, [r0, #20]
+	.loc	6 514 42                        @ ../Core/Src/usart.c:514:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 515 30                        @ ../Core/Src/usart.c:515:30
+	str	r2, [r0, #28]
+	.loc	6 516 34                        @ ../Core/Src/usart.c:516:34
+	str	r1, [r0, #32]
+	.loc	6 517 34                        @ ../Core/Src/usart.c:517:34
+	str	r1, [r0, #36]
+.Ltmp122:
+	.loc	6 518 9                         @ ../Core/Src/usart.c:518:9
+	bl	HAL_DMA_Init
+.Ltmp123:
+	.loc	6 518 9 is_stmt 0               @ ../Core/Src/usart.c:518:9
+	cbz	r0, .LBB6_65
+	b	.LBB6_64
+.LBB6_64:
+.Ltmp124:
+	.loc	6 520 7 is_stmt 1               @ ../Core/Src/usart.c:520:7
+	bl	Error_Handler
+	.loc	6 521 5                         @ ../Core/Src/usart.c:521:5
+	b	.LBB6_65
+.Ltmp125:
+.LBB6_65:
+	.loc	6 523 5                         @ ../Core/Src/usart.c:523:5
+	b	.LBB6_66
+.LBB6_66:
+.Ltmp126:
+	.loc	6 523 5 is_stmt 0               @ ../Core/Src/usart.c:523:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart3_tx
+	movt	r1, :upper16:hdma_usart3_tx
+	str	r1, [r0, #52]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_67
+.Ltmp127:
+.LBB6_67:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #39
+	str	r0, [sp, #16]                   @ 4-byte Spill
+	movs	r1, #5
+	movs	r2, #0
+	.loc	6 526 5 is_stmt 1               @ ../Core/Src/usart.c:526:5
+	bl	HAL_NVIC_SetPriority
+	ldr	r0, [sp, #16]                   @ 4-byte Reload
+	.loc	6 527 5                         @ ../Core/Src/usart.c:527:5
+	bl	HAL_NVIC_EnableIRQ
+	.loc	6 531 3                         @ ../Core/Src/usart.c:531:3
+	b	.LBB6_83
+.Ltmp128:
+.LBB6_68:
+	.loc	6 532 11                        @ ../Core/Src/usart.c:532:11
+	ldr	r0, [sp, #180]
+	.loc	6 532 23 is_stmt 0              @ ../Core/Src/usart.c:532:23
+	ldr	r0, [r0]
+	movw	r1, #5120
+	movt	r1, #16385
+.Ltmp129:
+	.loc	6 532 11                        @ ../Core/Src/usart.c:532:11
+	cmp	r0, r1
+	bne.w	.LBB6_82
+	b	.LBB6_69
+.LBB6_69:
+.Ltmp130:
+	.loc	6 538 5 is_stmt 1               @ ../Core/Src/usart.c:538:5
+	b	.LBB6_70
+.LBB6_70:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp131:
+	.loc	6 538 5                         @ ../Core/Src/usart.c:538:5
+	str	r0, [sp, #112]
+	movw	r0, #14404
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #32
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #32
+	str	r0, [sp, #112]
+	ldr	r0, [sp, #112]
+	b	.LBB6_71
+.Ltmp132:
+.LBB6_71:
+	.loc	6 540 5 is_stmt 1               @ ../Core/Src/usart.c:540:5
+	b	.LBB6_72
+.LBB6_72:
+	.loc	6 0 5 is_stmt 0                 @ ../Core/Src/usart.c:0:5
+	movs	r0, #0
+.Ltmp133:
+	.loc	6 540 5                         @ ../Core/Src/usart.c:540:5
+	str	r0, [sp, #108]
+	movw	r0, #14384
+	movt	r0, #16386
+	ldr	r1, [r0]
+	orr	r1, r1, #4
+	str	r1, [r0]
+	ldr	r0, [r0]
+	and	r0, r0, #4
+	str	r0, [sp, #108]
+	ldr	r0, [sp, #108]
+	b	.LBB6_73
+.Ltmp134:
+.LBB6_73:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #192
+	.loc	6 545 25 is_stmt 1              @ ../Core/Src/usart.c:545:25
+	str	r0, [sp, #160]
+	movs	r0, #2
+	.loc	6 546 26                        @ ../Core/Src/usart.c:546:26
+	str	r0, [sp, #164]
+	movs	r0, #0
+	.loc	6 547 26                        @ ../Core/Src/usart.c:547:26
+	str	r0, [sp, #8]                    @ 4-byte Spill
+	str	r0, [sp, #168]
+	movs	r0, #3
+	.loc	6 548 27                        @ ../Core/Src/usart.c:548:27
+	str	r0, [sp, #172]
+	movs	r0, #8
+	.loc	6 549 31                        @ ../Core/Src/usart.c:549:31
+	str	r0, [sp, #176]
+	movw	r0, #2048
+	movt	r0, #16386
+	add	r1, sp, #160
+	.loc	6 550 5                         @ ../Core/Src/usart.c:550:5
+	bl	HAL_GPIO_Init
+	ldr	r1, [sp, #8]                    @ 4-byte Reload
+	.loc	6 554 29                        @ ../Core/Src/usart.c:554:29
+	movw	r0, :lower16:hdma_usart6_rx
+	movt	r0, :upper16:hdma_usart6_rx
+	str	r0, [sp, #12]                   @ 4-byte Spill
+	movw	r2, #25640
+	movt	r2, #16386
+	str	r2, [r0]
+	mov.w	r2, #167772160
+	.loc	6 555 33                        @ ../Core/Src/usart.c:555:33
+	str	r2, [r0, #4]
+	.loc	6 556 35                        @ ../Core/Src/usart.c:556:35
+	str	r1, [r0, #8]
+	.loc	6 557 35                        @ ../Core/Src/usart.c:557:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 558 32                        @ ../Core/Src/usart.c:558:32
+	str	r2, [r0, #16]
+	.loc	6 559 45                        @ ../Core/Src/usart.c:559:45
+	str	r1, [r0, #20]
+	.loc	6 560 42                        @ ../Core/Src/usart.c:560:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 561 30                        @ ../Core/Src/usart.c:561:30
+	str	r2, [r0, #28]
+	.loc	6 562 34                        @ ../Core/Src/usart.c:562:34
+	str	r1, [r0, #32]
+	.loc	6 563 34                        @ ../Core/Src/usart.c:563:34
+	str	r1, [r0, #36]
+.Ltmp135:
+	.loc	6 564 9                         @ ../Core/Src/usart.c:564:9
+	bl	HAL_DMA_Init
+.Ltmp136:
+	.loc	6 564 9 is_stmt 0               @ ../Core/Src/usart.c:564:9
+	cbz	r0, .LBB6_75
+	b	.LBB6_74
+.LBB6_74:
+.Ltmp137:
+	.loc	6 566 7 is_stmt 1               @ ../Core/Src/usart.c:566:7
+	bl	Error_Handler
+	.loc	6 567 5                         @ ../Core/Src/usart.c:567:5
+	b	.LBB6_75
+.Ltmp138:
+.LBB6_75:
+	.loc	6 569 5                         @ ../Core/Src/usart.c:569:5
+	b	.LBB6_76
+.LBB6_76:
+.Ltmp139:
+	.loc	6 569 5 is_stmt 0               @ ../Core/Src/usart.c:569:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart6_rx
+	movt	r1, :upper16:hdma_usart6_rx
+	str	r1, [r0, #56]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_77
+.Ltmp140:
+.LBB6_77:
+	.loc	6 572 29 is_stmt 1              @ ../Core/Src/usart.c:572:29
+	movw	r0, :lower16:hdma_usart6_tx
+	movt	r0, :upper16:hdma_usart6_tx
+	str	r0, [sp, #4]                    @ 4-byte Spill
+	movw	r1, #25760
+	movt	r1, #16386
+	str	r1, [r0]
+	mov.w	r1, #167772160
+	.loc	6 573 33                        @ ../Core/Src/usart.c:573:33
+	str	r1, [r0, #4]
+	movs	r1, #64
+	.loc	6 574 35                        @ ../Core/Src/usart.c:574:35
+	str	r1, [r0, #8]
+	movs	r1, #0
+	.loc	6 575 35                        @ ../Core/Src/usart.c:575:35
+	str	r1, [r0, #12]
+	mov.w	r2, #1024
+	.loc	6 576 32                        @ ../Core/Src/usart.c:576:32
+	str	r2, [r0, #16]
+	.loc	6 577 45                        @ ../Core/Src/usart.c:577:45
+	str	r1, [r0, #20]
+	.loc	6 578 42                        @ ../Core/Src/usart.c:578:42
+	str	r1, [r0, #24]
+	mov.w	r2, #256
+	.loc	6 579 30                        @ ../Core/Src/usart.c:579:30
+	str	r2, [r0, #28]
+	.loc	6 580 34                        @ ../Core/Src/usart.c:580:34
+	str	r1, [r0, #32]
+	.loc	6 581 34                        @ ../Core/Src/usart.c:581:34
+	str	r1, [r0, #36]
+.Ltmp141:
+	.loc	6 582 9                         @ ../Core/Src/usart.c:582:9
+	bl	HAL_DMA_Init
+.Ltmp142:
+	.loc	6 582 9 is_stmt 0               @ ../Core/Src/usart.c:582:9
+	cbz	r0, .LBB6_79
+	b	.LBB6_78
+.LBB6_78:
+.Ltmp143:
+	.loc	6 584 7 is_stmt 1               @ ../Core/Src/usart.c:584:7
+	bl	Error_Handler
+	.loc	6 585 5                         @ ../Core/Src/usart.c:585:5
+	b	.LBB6_79
+.Ltmp144:
+.LBB6_79:
+	.loc	6 587 5                         @ ../Core/Src/usart.c:587:5
+	b	.LBB6_80
+.LBB6_80:
+.Ltmp145:
+	.loc	6 587 5 is_stmt 0               @ ../Core/Src/usart.c:587:5
+	ldr	r0, [sp, #180]
+	movw	r1, :lower16:hdma_usart6_tx
+	movt	r1, :upper16:hdma_usart6_tx
+	str	r1, [r0, #52]
+	ldr	r0, [sp, #180]
+	str	r0, [r1, #56]
+	b	.LBB6_81
+.Ltmp146:
+.LBB6_81:
+	.loc	6 0 5                           @ ../Core/Src/usart.c:0:5
+	movs	r0, #71
+	str	r0, [sp]                        @ 4-byte Spill
+	movs	r1, #5
+	movs	r2, #0
+	.loc	6 590 5 is_stmt 1               @ ../Core/Src/usart.c:590:5
+	bl	HAL_NVIC_SetPriority
+	ldr	r0, [sp]                        @ 4-byte Reload
+	.loc	6 591 5                         @ ../Core/Src/usart.c:591:5
+	bl	HAL_NVIC_EnableIRQ
+	.loc	6 595 3                         @ ../Core/Src/usart.c:595:3
+	b	.LBB6_82
+.Ltmp147:
+.LBB6_82:
+	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
+	b	.LBB6_83
+.LBB6_83:
+	b	.LBB6_84
+.LBB6_84:
+	b	.LBB6_85
+.LBB6_85:
+	b	.LBB6_86
+.LBB6_86:
+	b	.LBB6_87
+.LBB6_87:
 	.loc	6 596 1 is_stmt 1               @ ../Core/Src/usart.c:596:1
-	add	sp, #28
-	pop.w	{r4, r5, r6, r7, r8, r9, r10, r11, pc}
-.Ltmp150:
+	add	sp, #184
+	pop	{r7, pc}
+.Ltmp148:
 .Lfunc_end6:
 	.size	HAL_UART_MspInit, .Lfunc_end6-HAL_UART_MspInit
 	.cfi_endproc
@@ -1205,270 +1741,297 @@ HAL_UART_MspDeInit:
 	.fnstart
 	.cfi_startproc
 @ %bb.0:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r0
-	.save	{r4, r5, r7, lr}
-	push	{r4, r5, r7, lr}
-	.cfi_def_cfa_offset 16
+	.save	{r7, lr}
+	push	{r7, lr}
+	.cfi_def_cfa_offset 8
 	.cfi_offset lr, -4
 	.cfi_offset r7, -8
-	.cfi_offset r5, -12
-	.cfi_offset r4, -16
-	mov	r4, r0
-.Ltmp151:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 601 18 prologue_end           @ ../Core/Src/usart.c:601:18
+	.pad	#8
+	sub	sp, #8
+	.cfi_def_cfa_offset 16
+	str	r0, [sp, #4]
+.Ltmp149:
+	.loc	6 601 6 prologue_end            @ ../Core/Src/usart.c:601:6
+	ldr	r0, [sp, #4]
+	.loc	6 601 18 is_stmt 0              @ ../Core/Src/usart.c:601:18
 	ldr	r0, [r0]
-	movw	r1, #20479
-	movt	r1, #16384
-.Ltmp152:
-	.loc	6 601 6 is_stmt 0               @ ../Core/Src/usart.c:601:6
-	cmp	r0, r1
-	bgt	.LBB7_5
-.Ltmp153:
-@ %bb.1:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movw	r1, #17408
-	movt	r1, #16384
-	.loc	6 601 6                         @ ../Core/Src/usart.c:601:6
-	cmp	r0, r1
-	beq	.LBB7_9
-.Ltmp154:
-@ %bb.2:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movw	r1, #18432
-	movt	r1, #16384
-	.loc	6 601 6                         @ ../Core/Src/usart.c:601:6
-	cmp	r0, r1
-	beq	.LBB7_11
-.Ltmp155:
-@ %bb.3:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
 	movw	r1, #19456
 	movt	r1, #16384
+.Ltmp150:
 	.loc	6 601 6                         @ ../Core/Src/usart.c:601:6
 	cmp	r0, r1
-	bne.w	.LBB7_14
-.Ltmp156:
-@ %bb.4:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
+	bne	.LBB7_2
+	b	.LBB7_1
+.LBB7_1:
 	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
-	movw	r0, #14400
-	movt	r0, #16386
-.Ltmp157:
+	movw	r1, #14400
+	movt	r1, #16386
+.Ltmp151:
 	.loc	6 607 5 is_stmt 1               @ ../Core/Src/usart.c:607:5
-	ldr	r1, [r0]
-	bic	r1, r1, #524288
-	str	r1, [r0]
+	ldr	r0, [r1]
+	bic	r0, r0, #524288
+	str	r0, [r1]
 	movs	r0, #0
 	movt	r0, #16386
-	.loc	6 613 5                         @ ../Core/Src/usart.c:613:5
 	movs	r1, #3
+	.loc	6 613 5                         @ ../Core/Src/usart.c:613:5
 	bl	HAL_GPIO_DeInit
-.Ltmp158:
-	.loc	6 616 32                        @ ../Core/Src/usart.c:616:32
-	ldr	r0, [r4, #56]
-	.loc	6 616 5 is_stmt 0               @ ../Core/Src/usart.c:616:5
+	.loc	6 616 20                        @ ../Core/Src/usart.c:616:20
+	ldr	r0, [sp, #4]
+	.loc	6 616 32 is_stmt 0              @ ../Core/Src/usart.c:616:32
+	ldr	r0, [r0, #56]
+	.loc	6 616 5                         @ ../Core/Src/usart.c:616:5
 	bl	HAL_DMA_DeInit
-.Ltmp159:
-	.loc	6 617 32 is_stmt 1              @ ../Core/Src/usart.c:617:32
-	add.w	r0, r4, #52
-	movs	r4, #52
-.Ltmp160:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	6 617 20 is_stmt 1              @ ../Core/Src/usart.c:617:20
+	ldr	r0, [sp, #4]
+	.loc	6 617 32 is_stmt 0              @ ../Core/Src/usart.c:617:32
+	ldr	r0, [r0, #52]
+	.loc	6 617 5                         @ ../Core/Src/usart.c:617:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #52
+	.loc	6 620 5 is_stmt 1               @ ../Core/Src/usart.c:620:5
+	bl	HAL_NVIC_DisableIRQ
 	.loc	6 624 3                         @ ../Core/Src/usart.c:624:3
-	b	.LBB7_13
-.Ltmp161:
-.LBB7_5:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
+	b	.LBB7_17
+.Ltmp152:
+.LBB7_2:
+	.loc	6 625 11                        @ ../Core/Src/usart.c:625:11
+	ldr	r0, [sp, #4]
+	.loc	6 625 23 is_stmt 0              @ ../Core/Src/usart.c:625:23
+	ldr	r0, [r0]
 	movw	r1, #20480
 	movt	r1, #16384
-	.loc	6 601 6 is_stmt 1               @ ../Core/Src/usart.c:601:6
+.Ltmp153:
+	.loc	6 625 11                        @ ../Core/Src/usart.c:625:11
 	cmp	r0, r1
-	beq	.LBB7_10
-.Ltmp162:
-@ %bb.6:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 6 is_stmt 0                 @ ../Core/Src/usart.c:0:6
+	bne	.LBB7_4
+	b	.LBB7_3
+.LBB7_3:
+	.loc	6 0 11                          @ ../Core/Src/usart.c:0:11
+	movw	r1, #14400
+	movt	r1, #16386
+.Ltmp154:
+	.loc	6 631 5 is_stmt 1               @ ../Core/Src/usart.c:631:5
+	ldr	r0, [r1]
+	bic	r0, r0, #1048576
+	str	r0, [r1]
+	movw	r0, #2048
+	movt	r0, #16386
+	mov.w	r1, #4096
+	.loc	6 637 5                         @ ../Core/Src/usart.c:637:5
+	bl	HAL_GPIO_DeInit
+	movw	r0, #3072
+	movt	r0, #16386
+	movs	r1, #4
+	.loc	6 639 5                         @ ../Core/Src/usart.c:639:5
+	bl	HAL_GPIO_DeInit
+	.loc	6 642 20                        @ ../Core/Src/usart.c:642:20
+	ldr	r0, [sp, #4]
+	.loc	6 642 32 is_stmt 0              @ ../Core/Src/usart.c:642:32
+	ldr	r0, [r0, #56]
+	.loc	6 642 5                         @ ../Core/Src/usart.c:642:5
+	bl	HAL_DMA_DeInit
+	.loc	6 643 20 is_stmt 1              @ ../Core/Src/usart.c:643:20
+	ldr	r0, [sp, #4]
+	.loc	6 643 32 is_stmt 0              @ ../Core/Src/usart.c:643:32
+	ldr	r0, [r0, #52]
+	.loc	6 643 5                         @ ../Core/Src/usart.c:643:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #53
+	.loc	6 646 5 is_stmt 1               @ ../Core/Src/usart.c:646:5
+	bl	HAL_NVIC_DisableIRQ
+	.loc	6 650 3                         @ ../Core/Src/usart.c:650:3
+	b	.LBB7_16
+.Ltmp155:
+.LBB7_4:
+	.loc	6 651 11                        @ ../Core/Src/usart.c:651:11
+	ldr	r0, [sp, #4]
+	.loc	6 651 23 is_stmt 0              @ ../Core/Src/usart.c:651:23
+	ldr	r0, [r0]
 	movw	r1, #4096
 	movt	r1, #16385
-	.loc	6 601 6                         @ ../Core/Src/usart.c:601:6
+.Ltmp156:
+	.loc	6 651 11                        @ ../Core/Src/usart.c:651:11
 	cmp	r0, r1
-	beq	.LBB7_12
+	bne	.LBB7_6
+	b	.LBB7_5
+.LBB7_5:
+	.loc	6 0 11                          @ ../Core/Src/usart.c:0:11
+	movw	r1, #14404
+	movt	r1, #16386
+.Ltmp157:
+	.loc	6 657 5 is_stmt 1               @ ../Core/Src/usart.c:657:5
+	ldr	r0, [r1]
+	bic	r0, r0, #16
+	str	r0, [r1]
+	movs	r0, #0
+	movt	r0, #16386
+	mov.w	r1, #1536
+	.loc	6 663 5                         @ ../Core/Src/usart.c:663:5
+	bl	HAL_GPIO_DeInit
+	.loc	6 666 20                        @ ../Core/Src/usart.c:666:20
+	ldr	r0, [sp, #4]
+	.loc	6 666 32 is_stmt 0              @ ../Core/Src/usart.c:666:32
+	ldr	r0, [r0, #56]
+	.loc	6 666 5                         @ ../Core/Src/usart.c:666:5
+	bl	HAL_DMA_DeInit
+	.loc	6 667 20 is_stmt 1              @ ../Core/Src/usart.c:667:20
+	ldr	r0, [sp, #4]
+	.loc	6 667 32 is_stmt 0              @ ../Core/Src/usart.c:667:32
+	ldr	r0, [r0, #52]
+	.loc	6 667 5                         @ ../Core/Src/usart.c:667:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #37
+	.loc	6 670 5 is_stmt 1               @ ../Core/Src/usart.c:670:5
+	bl	HAL_NVIC_DisableIRQ
+	.loc	6 674 3                         @ ../Core/Src/usart.c:674:3
+	b	.LBB7_15
+.Ltmp158:
+.LBB7_6:
+	.loc	6 675 11                        @ ../Core/Src/usart.c:675:11
+	ldr	r0, [sp, #4]
+	.loc	6 675 23 is_stmt 0              @ ../Core/Src/usart.c:675:23
+	ldr	r0, [r0]
+	movw	r1, #17408
+	movt	r1, #16384
+.Ltmp159:
+	.loc	6 675 11                        @ ../Core/Src/usart.c:675:11
+	cmp	r0, r1
+	bne	.LBB7_8
+	b	.LBB7_7
+.LBB7_7:
+	.loc	6 0 11                          @ ../Core/Src/usart.c:0:11
+	movw	r1, #14400
+	movt	r1, #16386
+.Ltmp160:
+	.loc	6 681 5 is_stmt 1               @ ../Core/Src/usart.c:681:5
+	ldr	r0, [r1]
+	bic	r0, r0, #131072
+	str	r0, [r1]
+	movs	r0, #0
+	movt	r0, #16386
+	movs	r1, #12
+	.loc	6 687 5                         @ ../Core/Src/usart.c:687:5
+	bl	HAL_GPIO_DeInit
+	.loc	6 690 20                        @ ../Core/Src/usart.c:690:20
+	ldr	r0, [sp, #4]
+	.loc	6 690 32 is_stmt 0              @ ../Core/Src/usart.c:690:32
+	ldr	r0, [r0, #56]
+	.loc	6 690 5                         @ ../Core/Src/usart.c:690:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #38
+	.loc	6 693 5 is_stmt 1               @ ../Core/Src/usart.c:693:5
+	bl	HAL_NVIC_DisableIRQ
+	.loc	6 697 3                         @ ../Core/Src/usart.c:697:3
+	b	.LBB7_14
+.Ltmp161:
+.LBB7_8:
+	.loc	6 698 11                        @ ../Core/Src/usart.c:698:11
+	ldr	r0, [sp, #4]
+	.loc	6 698 23 is_stmt 0              @ ../Core/Src/usart.c:698:23
+	ldr	r0, [r0]
+	movw	r1, #18432
+	movt	r1, #16384
+.Ltmp162:
+	.loc	6 698 11                        @ ../Core/Src/usart.c:698:11
+	cmp	r0, r1
+	bne	.LBB7_10
+	b	.LBB7_9
+.LBB7_9:
+	.loc	6 0 11                          @ ../Core/Src/usart.c:0:11
+	movw	r1, #14400
+	movt	r1, #16386
 .Ltmp163:
-@ %bb.7:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 6                           @ ../Core/Src/usart.c:0:6
+	.loc	6 704 5 is_stmt 1               @ ../Core/Src/usart.c:704:5
+	ldr	r0, [r1]
+	bic	r0, r0, #262144
+	str	r0, [r1]
+	movw	r0, #3072
+	movt	r0, #16386
+	mov.w	r1, #768
+	.loc	6 710 5                         @ ../Core/Src/usart.c:710:5
+	bl	HAL_GPIO_DeInit
+	.loc	6 713 20                        @ ../Core/Src/usart.c:713:20
+	ldr	r0, [sp, #4]
+	.loc	6 713 32 is_stmt 0              @ ../Core/Src/usart.c:713:32
+	ldr	r0, [r0, #56]
+	.loc	6 713 5                         @ ../Core/Src/usart.c:713:5
+	bl	HAL_DMA_DeInit
+	.loc	6 714 20 is_stmt 1              @ ../Core/Src/usart.c:714:20
+	ldr	r0, [sp, #4]
+	.loc	6 714 32 is_stmt 0              @ ../Core/Src/usart.c:714:32
+	ldr	r0, [r0, #52]
+	.loc	6 714 5                         @ ../Core/Src/usart.c:714:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #39
+	.loc	6 717 5 is_stmt 1               @ ../Core/Src/usart.c:717:5
+	bl	HAL_NVIC_DisableIRQ
+	.loc	6 721 3                         @ ../Core/Src/usart.c:721:3
+	b	.LBB7_13
+.Ltmp164:
+.LBB7_10:
+	.loc	6 722 11                        @ ../Core/Src/usart.c:722:11
+	ldr	r0, [sp, #4]
+	.loc	6 722 23 is_stmt 0              @ ../Core/Src/usart.c:722:23
+	ldr	r0, [r0]
 	movw	r1, #5120
 	movt	r1, #16385
-	.loc	6 601 6                         @ ../Core/Src/usart.c:601:6
-	cmp	r0, r1
-	.loc	6 746 1 is_stmt 1               @ ../Core/Src/usart.c:746:1
-	it	ne
-	popne	{r4, r5, r7, pc}
-.Ltmp164:
-.LBB7_8:
-	.loc	6 0 1 is_stmt 0                 @ ../Core/Src/usart.c:0:1
-	movw	r0, #14400
-	movt	r0, #16386
 .Ltmp165:
-	.loc	6 728 5 is_stmt 1               @ ../Core/Src/usart.c:728:5
-	ldr	r1, [r0, #4]
-	bic	r1, r1, #32
-	str	r1, [r0, #4]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 734 5                         @ ../Core/Src/usart.c:734:5
-	add.w	r0, r0, #2048
-	movs	r1, #192
-	bl	HAL_GPIO_DeInit
-.Ltmp166:
-	.loc	6 737 32                        @ ../Core/Src/usart.c:737:32
-	ldr	r0, [r4, #56]
-	.loc	6 737 5 is_stmt 0               @ ../Core/Src/usart.c:737:5
-	bl	HAL_DMA_DeInit
-.Ltmp167:
-	.loc	6 738 32 is_stmt 1              @ ../Core/Src/usart.c:738:32
-	add.w	r0, r4, #52
-	movs	r4, #71
-	b	.LBB7_13
-.Ltmp168:
-.LBB7_9:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 32 is_stmt 0                @ ../Core/Src/usart.c:0:32
-	movw	r0, #14400
-	movt	r0, #16386
-.Ltmp169:
-	.loc	6 681 5 is_stmt 1               @ ../Core/Src/usart.c:681:5
-	ldr	r1, [r0]
-	bic	r1, r1, #131072
-	str	r1, [r0]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 687 5                         @ ../Core/Src/usart.c:687:5
-	movs	r1, #12
-	bl	HAL_GPIO_DeInit
-.Ltmp170:
-	.loc	6 690 32                        @ ../Core/Src/usart.c:690:32
-	add.w	r0, r4, #56
-	movs	r4, #38
-.Ltmp171:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- [DW_OP_LLVM_entry_value 1] $r0
-	.loc	6 697 3                         @ ../Core/Src/usart.c:697:3
-	b	.LBB7_13
-.Ltmp172:
-.LBB7_10:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
-	movw	r0, #14400
-	movt	r0, #16386
-.Ltmp173:
-	.loc	6 631 5 is_stmt 1               @ ../Core/Src/usart.c:631:5
-	ldr	r1, [r0]
-	movs	r5, #0
-	bic	r1, r1, #1048576
-	movt	r5, #16386
-	str	r1, [r0]
-	.loc	6 637 5                         @ ../Core/Src/usart.c:637:5
-	add.w	r0, r5, #2048
-	mov.w	r1, #4096
-	bl	HAL_GPIO_DeInit
-.Ltmp174:
-	.loc	6 639 5                         @ ../Core/Src/usart.c:639:5
-	add.w	r0, r5, #3072
-	movs	r1, #4
-	bl	HAL_GPIO_DeInit
-.Ltmp175:
-	.loc	6 642 32                        @ ../Core/Src/usart.c:642:32
-	ldr	r0, [r4, #56]
-	.loc	6 642 5 is_stmt 0               @ ../Core/Src/usart.c:642:5
-	bl	HAL_DMA_DeInit
-.Ltmp176:
-	.loc	6 643 32 is_stmt 1              @ ../Core/Src/usart.c:643:32
-	add.w	r0, r4, #52
-	movs	r4, #53
-.Ltmp177:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- [DW_OP_LLVM_entry_value 1] $r0
-	.loc	6 650 3                         @ ../Core/Src/usart.c:650:3
-	b	.LBB7_13
-.Ltmp178:
+	.loc	6 722 11                        @ ../Core/Src/usart.c:722:11
+	cmp	r0, r1
+	bne	.LBB7_12
+	b	.LBB7_11
 .LBB7_11:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
-	movw	r0, #14400
+	.loc	6 0 11                          @ ../Core/Src/usart.c:0:11
+	movw	r1, #14404
+	movt	r1, #16386
+.Ltmp166:
+	.loc	6 728 5 is_stmt 1               @ ../Core/Src/usart.c:728:5
+	ldr	r0, [r1]
+	bic	r0, r0, #32
+	str	r0, [r1]
+	movw	r0, #2048
 	movt	r0, #16386
-.Ltmp179:
-	.loc	6 704 5 is_stmt 1               @ ../Core/Src/usart.c:704:5
-	ldr	r1, [r0]
-	bic	r1, r1, #262144
-	str	r1, [r0]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 710 5                         @ ../Core/Src/usart.c:710:5
-	add.w	r0, r0, #3072
-	mov.w	r1, #768
+	movs	r1, #192
+	.loc	6 734 5                         @ ../Core/Src/usart.c:734:5
 	bl	HAL_GPIO_DeInit
-.Ltmp180:
-	.loc	6 713 32                        @ ../Core/Src/usart.c:713:32
-	ldr	r0, [r4, #56]
-	.loc	6 713 5 is_stmt 0               @ ../Core/Src/usart.c:713:5
+	.loc	6 737 20                        @ ../Core/Src/usart.c:737:20
+	ldr	r0, [sp, #4]
+	.loc	6 737 32 is_stmt 0              @ ../Core/Src/usart.c:737:32
+	ldr	r0, [r0, #56]
+	.loc	6 737 5                         @ ../Core/Src/usart.c:737:5
 	bl	HAL_DMA_DeInit
-.Ltmp181:
-	.loc	6 714 32 is_stmt 1              @ ../Core/Src/usart.c:714:32
-	add.w	r0, r4, #52
-	movs	r4, #39
-.Ltmp182:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- [DW_OP_LLVM_entry_value 1] $r0
-	.loc	6 0 32 is_stmt 0                @ ../Core/Src/usart.c:0:32
-	b	.LBB7_13
-.Ltmp183:
+	.loc	6 738 20 is_stmt 1              @ ../Core/Src/usart.c:738:20
+	ldr	r0, [sp, #4]
+	.loc	6 738 32 is_stmt 0              @ ../Core/Src/usart.c:738:32
+	ldr	r0, [r0, #52]
+	.loc	6 738 5                         @ ../Core/Src/usart.c:738:5
+	bl	HAL_DMA_DeInit
+	movs	r0, #71
+	.loc	6 741 5 is_stmt 1               @ ../Core/Src/usart.c:741:5
+	bl	HAL_NVIC_DisableIRQ
+	.loc	6 745 3                         @ ../Core/Src/usart.c:745:3
+	b	.LBB7_12
+.Ltmp167:
 .LBB7_12:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
-	movw	r0, #14400
-	movt	r0, #16386
-.Ltmp184:
-	.loc	6 657 5 is_stmt 1               @ ../Core/Src/usart.c:657:5
-	ldr	r1, [r0, #4]
-	bic	r1, r1, #16
-	str	r1, [r0, #4]
-	movs	r0, #0
-	movt	r0, #16386
-	.loc	6 663 5                         @ ../Core/Src/usart.c:663:5
-	mov.w	r1, #1536
-	bl	HAL_GPIO_DeInit
-.Ltmp185:
-	.loc	6 666 32                        @ ../Core/Src/usart.c:666:32
-	ldr	r0, [r4, #56]
-	.loc	6 666 5 is_stmt 0               @ ../Core/Src/usart.c:666:5
-	bl	HAL_DMA_DeInit
-.Ltmp186:
-	.loc	6 667 32 is_stmt 1              @ ../Core/Src/usart.c:667:32
-	add.w	r0, r4, #52
-	movs	r4, #37
-.Ltmp187:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- [DW_OP_LLVM_entry_value 1] $r0
+	.loc	6 0 3 is_stmt 0                 @ ../Core/Src/usart.c:0:3
+	b	.LBB7_13
 .LBB7_13:
-	.loc	6 0 0 is_stmt 0                 @ ../Core/Src/usart.c:0:0
-	ldr	r0, [r0]
-	bl	HAL_DMA_DeInit
-.Ltmp188:
-	mov	r0, r4
-	pop.w	{r4, r5, r7, lr}
-.Ltmp189:
-	b	HAL_NVIC_DisableIRQ
-.Ltmp190:
+	b	.LBB7_14
 .LBB7_14:
-	@DEBUG_VALUE: HAL_UART_MspDeInit:uartHandle <- $r4
+	b	.LBB7_15
+.LBB7_15:
+	b	.LBB7_16
+.LBB7_16:
+	b	.LBB7_17
+.LBB7_17:
 	.loc	6 746 1 is_stmt 1               @ ../Core/Src/usart.c:746:1
-	pop	{r4, r5, r7, pc}
-.Ltmp191:
+	add	sp, #8
+	pop	{r7, pc}
+.Ltmp168:
 .Lfunc_end7:
 	.size	HAL_UART_MspDeInit, .Lfunc_end7-HAL_UART_MspDeInit
 	.cfi_endproc
-	.file	8 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_cortex.h"
 	.cantunwind
 	.fnend
                                         @ -- End function
@@ -1625,86 +2188,7 @@ hdma_usart6_tx:
 	.zero	96
 	.size	hdma_usart6_tx, 96
 
-	.file	9 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_gpio.h"
-	.section	.debug_loc,"",%progbits
-.Ldebug_loc0:
-	.long	-1
-	.long	.Lfunc_begin6                   @   base address
-	.long	.Lfunc_begin6-.Lfunc_begin6
-	.long	.Ltmp36-.Lfunc_begin6
-	.short	1                               @ Loc expr size
-	.byte	80                              @ DW_OP_reg0
-	.long	.Ltmp36-.Lfunc_begin6
-	.long	.Ltmp150-.Lfunc_begin6
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	0
-	.long	0
-.Ldebug_loc1:
-	.long	-1
-	.long	.Lfunc_begin7                   @   base address
-	.long	.Lfunc_begin7-.Lfunc_begin7
-	.long	.Ltmp151-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	80                              @ DW_OP_reg0
-	.long	.Ltmp151-.Lfunc_begin7
-	.long	.Ltmp160-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp160-.Lfunc_begin7
-	.long	.Ltmp161-.Lfunc_begin7
-	.short	4                               @ Loc expr size
-	.byte	243                             @ DW_OP_GNU_entry_value
-	.byte	1                               @ 1
-	.byte	80                              @ DW_OP_reg0
-	.byte	159                             @ DW_OP_stack_value
-	.long	.Ltmp161-.Lfunc_begin7
-	.long	.Ltmp164-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp168-.Lfunc_begin7
-	.long	.Ltmp171-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp171-.Lfunc_begin7
-	.long	.Ltmp172-.Lfunc_begin7
-	.short	4                               @ Loc expr size
-	.byte	243                             @ DW_OP_GNU_entry_value
-	.byte	1                               @ 1
-	.byte	80                              @ DW_OP_reg0
-	.byte	159                             @ DW_OP_stack_value
-	.long	.Ltmp172-.Lfunc_begin7
-	.long	.Ltmp177-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp177-.Lfunc_begin7
-	.long	.Ltmp178-.Lfunc_begin7
-	.short	4                               @ Loc expr size
-	.byte	243                             @ DW_OP_GNU_entry_value
-	.byte	1                               @ 1
-	.byte	80                              @ DW_OP_reg0
-	.byte	159                             @ DW_OP_stack_value
-	.long	.Ltmp178-.Lfunc_begin7
-	.long	.Ltmp182-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp182-.Lfunc_begin7
-	.long	.Ltmp183-.Lfunc_begin7
-	.short	4                               @ Loc expr size
-	.byte	243                             @ DW_OP_GNU_entry_value
-	.byte	1                               @ 1
-	.byte	80                              @ DW_OP_reg0
-	.byte	159                             @ DW_OP_stack_value
-	.long	.Ltmp183-.Lfunc_begin7
-	.long	.Ltmp187-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	.Ltmp190-.Lfunc_begin7
-	.long	.Ltmp191-.Lfunc_begin7
-	.short	1                               @ Loc expr size
-	.byte	84                              @ DW_OP_reg4
-	.long	0
-	.long	0
+	.file	7 "E:\\RP\\CppTemplate\\MDK-ARM" "../Drivers/STM32F4xx_HAL_Driver/Inc\\stm32f4xx_hal_gpio.h"
 	.section	.debug_abbrev,"",%progbits
 	.byte	1                               @ Abbreviation Code
 	.byte	17                              @ DW_TAG_compile_unit
@@ -1944,15 +2428,13 @@ hdma_usart6_tx:
 	.byte	0                               @ EOM(2)
 	.byte	23                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
-	.byte	1                               @ DW_CHILDREN_yes
+	.byte	0                               @ DW_CHILDREN_no
 	.byte	17                              @ DW_AT_low_pc
 	.byte	1                               @ DW_FORM_addr
 	.byte	18                              @ DW_AT_high_pc
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
-	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
-	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1966,19 +2448,14 @@ hdma_usart6_tx:
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	24                              @ Abbreviation Code
-	.ascii	"\211\202\001"                  @ DW_TAG_GNU_call_site
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	49                              @ DW_AT_abstract_origin
-	.byte	19                              @ DW_FORM_ref4
-	.ascii	"\225B"                         @ DW_AT_GNU_tail_call
-	.byte	25                              @ DW_FORM_flag_present
+	.byte	46                              @ DW_TAG_subprogram
+	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
 	.byte	1                               @ DW_FORM_addr
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	25                              @ Abbreviation Code
-	.byte	46                              @ DW_TAG_subprogram
-	.byte	0                               @ DW_CHILDREN_no
+	.byte	18                              @ DW_AT_high_pc
+	.byte	6                               @ DW_FORM_data4
+	.byte	64                              @ DW_AT_frame_base
+	.byte	24                              @ DW_FORM_exprloc
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -1987,17 +2464,30 @@ hdma_usart6_tx:
 	.byte	11                              @ DW_FORM_data1
 	.byte	39                              @ DW_AT_prototyped
 	.byte	25                              @ DW_FORM_flag_present
-	.byte	60                              @ DW_AT_declaration
-	.byte	25                              @ DW_FORM_flag_present
 	.byte	63                              @ DW_AT_external
 	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	26                              @ Abbreviation Code
+	.byte	25                              @ Abbreviation Code
 	.byte	5                               @ DW_TAG_formal_parameter
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	23                              @ DW_FORM_sec_offset
+	.byte	24                              @ DW_FORM_exprloc
+	.byte	3                               @ DW_AT_name
+	.byte	14                              @ DW_FORM_strp
+	.byte	58                              @ DW_AT_decl_file
+	.byte	11                              @ DW_FORM_data1
+	.byte	59                              @ DW_AT_decl_line
+	.byte	11                              @ DW_FORM_data1
+	.byte	73                              @ DW_AT_type
+	.byte	19                              @ DW_FORM_ref4
+	.byte	0                               @ EOM(1)
+	.byte	0                               @ EOM(2)
+	.byte	26                              @ Abbreviation Code
+	.byte	52                              @ DW_TAG_variable
+	.byte	0                               @ DW_CHILDREN_no
+	.byte	2                               @ DW_AT_location
+	.byte	24                              @ DW_FORM_exprloc
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -2009,21 +2499,6 @@ hdma_usart6_tx:
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	27                              @ Abbreviation Code
-	.byte	52                              @ DW_TAG_variable
-	.byte	0                               @ DW_CHILDREN_no
-	.byte	2                               @ DW_AT_location
-	.byte	24                              @ DW_FORM_exprloc
-	.byte	3                               @ DW_AT_name
-	.byte	14                              @ DW_FORM_strp
-	.byte	58                              @ DW_AT_decl_file
-	.byte	11                              @ DW_FORM_data1
-	.byte	59                              @ DW_AT_decl_line
-	.byte	11                              @ DW_FORM_data1
-	.byte	73                              @ DW_AT_type
-	.byte	19                              @ DW_FORM_ref4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	28                              @ Abbreviation Code
 	.byte	11                              @ DW_TAG_lexical_block
 	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
@@ -2032,7 +2507,7 @@ hdma_usart6_tx:
 	.byte	6                               @ DW_FORM_data4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	29                              @ Abbreviation Code
+	.byte	28                              @ Abbreviation Code
 	.byte	52                              @ DW_TAG_variable
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
@@ -2047,7 +2522,7 @@ hdma_usart6_tx:
 	.byte	19                              @ DW_FORM_ref4
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	30                              @ Abbreviation Code
+	.byte	29                              @ Abbreviation Code
 	.byte	46                              @ DW_TAG_subprogram
 	.byte	1                               @ DW_CHILDREN_yes
 	.byte	17                              @ DW_AT_low_pc
@@ -2056,8 +2531,6 @@ hdma_usart6_tx:
 	.byte	6                               @ DW_FORM_data4
 	.byte	64                              @ DW_AT_frame_base
 	.byte	24                              @ DW_FORM_exprloc
-	.ascii	"\227B"                         @ DW_AT_GNU_all_call_sites
-	.byte	25                              @ DW_FORM_flag_present
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -2070,11 +2543,11 @@ hdma_usart6_tx:
 	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
-	.byte	31                              @ Abbreviation Code
+	.byte	30                              @ Abbreviation Code
 	.byte	5                               @ DW_TAG_formal_parameter
 	.byte	0                               @ DW_CHILDREN_no
 	.byte	2                               @ DW_AT_location
-	.byte	23                              @ DW_FORM_sec_offset
+	.byte	24                              @ DW_FORM_exprloc
 	.byte	3                               @ DW_AT_name
 	.byte	14                              @ DW_FORM_strp
 	.byte	58                              @ DW_AT_decl_file
@@ -2083,23 +2556,6 @@ hdma_usart6_tx:
 	.byte	5                               @ DW_FORM_data2
 	.byte	73                              @ DW_AT_type
 	.byte	19                              @ DW_FORM_ref4
-	.byte	0                               @ EOM(1)
-	.byte	0                               @ EOM(2)
-	.byte	32                              @ Abbreviation Code
-	.byte	46                              @ DW_TAG_subprogram
-	.byte	1                               @ DW_CHILDREN_yes
-	.byte	3                               @ DW_AT_name
-	.byte	14                              @ DW_FORM_strp
-	.byte	58                              @ DW_AT_decl_file
-	.byte	11                              @ DW_FORM_data1
-	.byte	59                              @ DW_AT_decl_line
-	.byte	5                               @ DW_FORM_data2
-	.byte	39                              @ DW_AT_prototyped
-	.byte	25                              @ DW_FORM_flag_present
-	.byte	60                              @ DW_AT_declaration
-	.byte	25                              @ DW_FORM_flag_present
-	.byte	63                              @ DW_AT_external
-	.byte	25                              @ DW_FORM_flag_present
 	.byte	0                               @ EOM(1)
 	.byte	0                               @ EOM(2)
 	.byte	0                               @ EOM(3)
@@ -2110,7 +2566,7 @@ hdma_usart6_tx:
 	.short	4                               @ DWARF version number
 	.long	.debug_abbrev                   @ Offset Into Abbrev. Section
 	.byte	4                               @ Address Size (in bytes)
-	.byte	1                               @ Abbrev [1] 0xb:0xd0b DW_TAG_compile_unit
+	.byte	1                               @ Abbrev [1] 0xb:0xcb3 DW_TAG_compile_unit
 	.long	.Linfo_string0                  @ DW_AT_producer
 	.short	12                              @ DW_AT_language
 	.long	.Linfo_string1                  @ DW_AT_name
@@ -3413,370 +3869,310 @@ hdma_usart6_tx:
 	.long	2501                            @ DW_AT_type
 	.byte	2                               @ DW_AT_count
 	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xa64:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xa64:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin0                   @ DW_AT_low_pc
 	.long	.Lfunc_end0-.Lfunc_begin0       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string248                @ DW_AT_name
+	.long	.Linfo_string245                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	46                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xa75:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp5                          @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	25                              @ Abbrev [25] 0xa7f:0x7 DW_TAG_subprogram
-	.long	.Linfo_string245                @ DW_AT_name
-	.byte	7                               @ DW_AT_decl_file
-	.byte	53                              @ DW_AT_decl_line
-                                        @ DW_AT_prototyped
-                                        @ DW_AT_declaration
-                                        @ DW_AT_external
-	.byte	23                              @ Abbrev [23] 0xa86:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xa75:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin1                   @ DW_AT_low_pc
 	.long	.Lfunc_end1-.Lfunc_begin1       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string249                @ DW_AT_name
+	.long	.Linfo_string246                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	74                              @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xa97:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp11                         @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xaa1:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xa86:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin2                   @ DW_AT_low_pc
 	.long	.Lfunc_end2-.Lfunc_begin2       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string250                @ DW_AT_name
+	.long	.Linfo_string247                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	103                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xab2:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp17                         @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xabc:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xa97:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin3                   @ DW_AT_low_pc
 	.long	.Lfunc_end3-.Lfunc_begin3       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string251                @ DW_AT_name
+	.long	.Linfo_string248                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	132                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xacd:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp23                         @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xad7:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xaa8:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin4                   @ DW_AT_low_pc
 	.long	.Lfunc_end4-.Lfunc_begin4       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string252                @ DW_AT_name
+	.long	.Linfo_string249                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	161                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xae8:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp29                         @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xaf2:0x1b DW_TAG_subprogram
+	.byte	23                              @ Abbrev [23] 0xab9:0x11 DW_TAG_subprogram
 	.long	.Lfunc_begin5                   @ DW_AT_low_pc
 	.long	.Lfunc_end5-.Lfunc_begin5       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string253                @ DW_AT_name
+	.long	.Linfo_string250                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	190                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	24                              @ Abbrev [24] 0xb03:0x9 DW_TAG_GNU_call_site
-	.long	2687                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp35                         @ DW_AT_low_pc
-	.byte	0                               @ End Of Children Mark
-	.byte	23                              @ Abbrev [23] 0xb0d:0x172 DW_TAG_subprogram
+	.byte	24                              @ Abbrev [24] 0xaca:0x180 DW_TAG_subprogram
 	.long	.Lfunc_begin6                   @ DW_AT_low_pc
 	.long	.Lfunc_end6-.Lfunc_begin6       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string254                @ DW_AT_name
+	.long	.Linfo_string251                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	218                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	26                              @ Abbrev [26] 0xb1e:0xf DW_TAG_formal_parameter
-	.long	.Ldebug_loc0                    @ DW_AT_location
-	.long	.Linfo_string263                @ DW_AT_name
+	.byte	25                              @ Abbrev [25] 0xadb:0xf DW_TAG_formal_parameter
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.ascii	"\264\001"
+	.long	.Linfo_string253                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	218                             @ DW_AT_decl_line
-	.long	3344                            @ DW_AT_type
-	.byte	27                              @ Abbrev [27] 0xb2d:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.long	3180                            @ DW_AT_type
+	.byte	26                              @ Abbrev [26] 0xaea:0xf DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	8
-	.long	.Linfo_string256                @ DW_AT_name
+	.ascii	"\240\001"
+	.long	.Linfo_string254                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	221                             @ DW_AT_decl_line
-	.long	3268                            @ DW_AT_type
-	.byte	28                              @ Abbrev [28] 0xb3b:0x18 DW_TAG_lexical_block
-	.long	.Ltmp42                         @ DW_AT_low_pc
-	.long	.Ltmp43-.Ltmp42                 @ DW_AT_high_pc
-	.byte	27                              @ Abbrev [27] 0xb44:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.long	3185                            @ DW_AT_type
+	.byte	27                              @ Abbrev [27] 0xaf9:0x19 DW_TAG_lexical_block
+	.long	.Ltmp40                         @ DW_AT_low_pc
+	.long	.Ltmp41-.Ltmp40                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0xb02:0xf DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
+	.ascii	"\234\001"
+	.long	.Linfo_string260                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	228                             @ DW_AT_decl_line
 	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xb53:0x18 DW_TAG_lexical_block
-	.long	.Ltmp43                         @ DW_AT_low_pc
-	.long	.Ltmp44-.Ltmp43                 @ DW_AT_high_pc
-	.byte	27                              @ Abbrev [27] 0xb5c:0xe DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.byte	27                              @ Abbrev [27] 0xb12:0x19 DW_TAG_lexical_block
+	.long	.Ltmp42                         @ DW_AT_low_pc
+	.long	.Ltmp43-.Ltmp42                 @ DW_AT_high_pc
+	.byte	26                              @ Abbrev [26] 0xb1b:0xf DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
+	.ascii	"\230\001"
+	.long	.Linfo_string260                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.byte	230                             @ DW_AT_decl_line
 	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xb6b:0x19 DW_TAG_lexical_block
-	.long	.Ltmp63                         @ DW_AT_low_pc
-	.long	.Ltmp64-.Ltmp63                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xb74:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.byte	27                              @ Abbrev [27] 0xb2b:0x1a DW_TAG_lexical_block
+	.long	.Ltmp59                         @ DW_AT_low_pc
+	.long	.Ltmp60-.Ltmp59                 @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xb34:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	538                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xb84:0x19 DW_TAG_lexical_block
-	.long	.Ltmp64                         @ DW_AT_low_pc
-	.long	.Ltmp65-.Ltmp64                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xb8d:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	540                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xb9d:0x19 DW_TAG_lexical_block
-	.long	.Ltmp92                         @ DW_AT_low_pc
-	.long	.Ltmp93-.Ltmp92                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xba6:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	474                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xbb6:0x19 DW_TAG_lexical_block
-	.long	.Ltmp93                         @ DW_AT_low_pc
-	.long	.Ltmp94-.Ltmp93                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xbbf:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	476                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xbcf:0x19 DW_TAG_lexical_block
-	.long	.Ltmp81                         @ DW_AT_low_pc
-	.long	.Ltmp82-.Ltmp81                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xbd8:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	428                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xbe8:0x19 DW_TAG_lexical_block
-	.long	.Ltmp82                         @ DW_AT_low_pc
-	.long	.Ltmp83-.Ltmp82                 @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xbf1:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	430                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xc01:0x19 DW_TAG_lexical_block
-	.long	.Ltmp130                        @ DW_AT_low_pc
-	.long	.Ltmp131-.Ltmp130               @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xc0a:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	364                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xc1a:0x19 DW_TAG_lexical_block
-	.long	.Ltmp131                        @ DW_AT_low_pc
-	.long	.Ltmp132-.Ltmp131               @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xc23:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
-	.byte	6                               @ DW_AT_decl_file
-	.short	366                             @ DW_AT_decl_line
-	.long	369                             @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xc33:0x19 DW_TAG_lexical_block
-	.long	.Ltmp110                        @ DW_AT_low_pc
-	.long	.Ltmp111-.Ltmp110               @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xc3c:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
-	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
+	.ascii	"\224\001"
+	.long	.Linfo_string260                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	292                             @ DW_AT_decl_line
 	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xc4c:0x19 DW_TAG_lexical_block
-	.long	.Ltmp111                        @ DW_AT_low_pc
-	.long	.Ltmp112-.Ltmp111               @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xc55:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.byte	27                              @ Abbrev [27] 0xb45:0x1a DW_TAG_lexical_block
+	.long	.Ltmp61                         @ DW_AT_low_pc
+	.long	.Ltmp62-.Ltmp61                 @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xb4e:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
+	.ascii	"\220\001"
+	.long	.Linfo_string260                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	294                             @ DW_AT_decl_line
 	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	28                              @ Abbrev [28] 0xc65:0x19 DW_TAG_lexical_block
-	.long	.Ltmp112                        @ DW_AT_low_pc
-	.long	.Ltmp113-.Ltmp112               @ DW_AT_high_pc
-	.byte	29                              @ Abbrev [29] 0xc6e:0xf DW_TAG_variable
-	.byte	2                               @ DW_AT_location
+	.byte	27                              @ Abbrev [27] 0xb5f:0x1a DW_TAG_lexical_block
+	.long	.Ltmp63                         @ DW_AT_low_pc
+	.long	.Ltmp64-.Ltmp63                 @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xb68:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
 	.byte	145
-	.byte	4
-	.long	.Linfo_string262                @ DW_AT_name
+	.ascii	"\214\001"
+	.long	.Linfo_string260                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	295                             @ DW_AT_decl_line
 	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xb79:0x1a DW_TAG_lexical_block
+	.long	.Ltmp80                         @ DW_AT_low_pc
+	.long	.Ltmp81-.Ltmp80                 @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xb82:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.ascii	"\210\001"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	364                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	30                              @ Abbrev [30] 0xc7f:0x2c DW_TAG_subprogram
+	.byte	27                              @ Abbrev [27] 0xb93:0x1a DW_TAG_lexical_block
+	.long	.Ltmp82                         @ DW_AT_low_pc
+	.long	.Ltmp83-.Ltmp82                 @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xb9c:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.ascii	"\204\001"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	366                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xbad:0x1a DW_TAG_lexical_block
+	.long	.Ltmp99                         @ DW_AT_low_pc
+	.long	.Ltmp100-.Ltmp99                @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xbb6:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.ascii	"\200\001"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	428                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xbc7:0x1a DW_TAG_lexical_block
+	.long	.Ltmp101                        @ DW_AT_low_pc
+	.long	.Ltmp102-.Ltmp101               @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xbd0:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.asciz	"\374"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	430                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xbe1:0x1a DW_TAG_lexical_block
+	.long	.Ltmp112                        @ DW_AT_low_pc
+	.long	.Ltmp113-.Ltmp112               @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xbea:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.asciz	"\370"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	474                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xbfb:0x1a DW_TAG_lexical_block
+	.long	.Ltmp114                        @ DW_AT_low_pc
+	.long	.Ltmp115-.Ltmp114               @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xc04:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.asciz	"\364"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	476                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xc15:0x1a DW_TAG_lexical_block
+	.long	.Ltmp131                        @ DW_AT_low_pc
+	.long	.Ltmp132-.Ltmp131               @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xc1e:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.asciz	"\360"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	538                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	27                              @ Abbrev [27] 0xc2f:0x1a DW_TAG_lexical_block
+	.long	.Ltmp133                        @ DW_AT_low_pc
+	.long	.Ltmp134-.Ltmp133               @ DW_AT_high_pc
+	.byte	28                              @ Abbrev [28] 0xc38:0x10 DW_TAG_variable
+	.byte	3                               @ DW_AT_location
+	.byte	145
+	.asciz	"\354"
+	.long	.Linfo_string260                @ DW_AT_name
+	.byte	6                               @ DW_AT_decl_file
+	.short	540                             @ DW_AT_decl_line
+	.long	369                             @ DW_AT_type
+	.byte	0                               @ End Of Children Mark
+	.byte	0                               @ End Of Children Mark
+	.byte	29                              @ Abbrev [29] 0xc4a:0x22 DW_TAG_subprogram
 	.long	.Lfunc_begin7                   @ DW_AT_low_pc
 	.long	.Lfunc_end7-.Lfunc_begin7       @ DW_AT_high_pc
 	.byte	1                               @ DW_AT_frame_base
 	.byte	93
-                                        @ DW_AT_GNU_all_call_sites
-	.long	.Linfo_string255                @ DW_AT_name
+	.long	.Linfo_string252                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	598                             @ DW_AT_decl_line
                                         @ DW_AT_prototyped
                                         @ DW_AT_external
-	.byte	31                              @ Abbrev [31] 0xc91:0x10 DW_TAG_formal_parameter
-	.long	.Ldebug_loc1                    @ DW_AT_location
-	.long	.Linfo_string263                @ DW_AT_name
+	.byte	30                              @ Abbrev [30] 0xc5c:0xf DW_TAG_formal_parameter
+	.byte	2                               @ DW_AT_location
+	.byte	145
+	.byte	4
+	.long	.Linfo_string253                @ DW_AT_name
 	.byte	6                               @ DW_AT_decl_file
 	.short	598                             @ DW_AT_decl_line
-	.long	3344                            @ DW_AT_type
-	.byte	24                              @ Abbrev [24] 0xca1:0x9 DW_TAG_GNU_call_site
-	.long	3243                            @ DW_AT_abstract_origin
-                                        @ DW_AT_GNU_tail_call
-	.long	.Ltmp190                        @ DW_AT_low_pc
+	.long	3180                            @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
-	.byte	32                              @ Abbrev [32] 0xcab:0xe DW_TAG_subprogram
-	.long	.Linfo_string246                @ DW_AT_name
-	.byte	8                               @ DW_AT_decl_file
-	.short	263                             @ DW_AT_decl_line
-                                        @ DW_AT_prototyped
-                                        @ DW_AT_declaration
-                                        @ DW_AT_external
-	.byte	18                              @ Abbrev [18] 0xcb3:0x5 DW_TAG_formal_parameter
-	.long	3257                            @ DW_AT_type
-	.byte	0                               @ End Of Children Mark
-	.byte	3                               @ Abbrev [3] 0xcb9:0xb DW_TAG_typedef
-	.long	1509                            @ DW_AT_type
-	.long	.Linfo_string247                @ DW_AT_name
-	.byte	2                               @ DW_AT_decl_file
-	.byte	158                             @ DW_AT_decl_line
-	.byte	3                               @ Abbrev [3] 0xcc4:0xb DW_TAG_typedef
-	.long	3279                            @ DW_AT_type
-	.long	.Linfo_string261                @ DW_AT_name
-	.byte	9                               @ DW_AT_decl_file
+	.byte	6                               @ Abbrev [6] 0xc6c:0x5 DW_TAG_pointer_type
+	.long	55                              @ DW_AT_type
+	.byte	3                               @ Abbrev [3] 0xc71:0xb DW_TAG_typedef
+	.long	3196                            @ DW_AT_type
+	.long	.Linfo_string259                @ DW_AT_name
+	.byte	7                               @ DW_AT_decl_file
 	.byte	62                              @ DW_AT_decl_line
-	.byte	12                              @ Abbrev [12] 0xccf:0x41 DW_TAG_structure_type
+	.byte	12                              @ Abbrev [12] 0xc7c:0x41 DW_TAG_structure_type
 	.byte	20                              @ DW_AT_byte_size
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	46                              @ DW_AT_decl_line
-	.byte	5                               @ Abbrev [5] 0xcd3:0xc DW_TAG_member
-	.long	.Linfo_string257                @ DW_AT_name
+	.byte	5                               @ Abbrev [5] 0xc80:0xc DW_TAG_member
+	.long	.Linfo_string255                @ DW_AT_name
 	.long	374                             @ DW_AT_type
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	48                              @ DW_AT_decl_line
 	.byte	0                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0xcdf:0xc DW_TAG_member
+	.byte	5                               @ Abbrev [5] 0xc8c:0xc DW_TAG_member
 	.long	.Linfo_string20                 @ DW_AT_name
 	.long	374                             @ DW_AT_type
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	51                              @ DW_AT_decl_line
 	.byte	4                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0xceb:0xc DW_TAG_member
-	.long	.Linfo_string258                @ DW_AT_name
+	.byte	5                               @ Abbrev [5] 0xc98:0xc DW_TAG_member
+	.long	.Linfo_string256                @ DW_AT_name
 	.long	374                             @ DW_AT_type
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	54                              @ DW_AT_decl_line
 	.byte	8                               @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0xcf7:0xc DW_TAG_member
-	.long	.Linfo_string259                @ DW_AT_name
+	.byte	5                               @ Abbrev [5] 0xca4:0xc DW_TAG_member
+	.long	.Linfo_string257                @ DW_AT_name
 	.long	374                             @ DW_AT_type
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	57                              @ DW_AT_decl_line
 	.byte	12                              @ DW_AT_data_member_location
-	.byte	5                               @ Abbrev [5] 0xd03:0xc DW_TAG_member
-	.long	.Linfo_string260                @ DW_AT_name
+	.byte	5                               @ Abbrev [5] 0xcb0:0xc DW_TAG_member
+	.long	.Linfo_string258                @ DW_AT_name
 	.long	374                             @ DW_AT_type
-	.byte	9                               @ DW_AT_decl_file
+	.byte	7                               @ DW_AT_decl_file
 	.byte	60                              @ DW_AT_decl_line
 	.byte	16                              @ DW_AT_data_member_location
 	.byte	0                               @ End Of Children Mark
-	.byte	6                               @ Abbrev [6] 0xd10:0x5 DW_TAG_pointer_type
-	.long	55                              @ DW_AT_type
 	.byte	0                               @ End Of Children Mark
 .Ldebug_info_end0:
 	.section	.debug_ranges,"",%progbits
@@ -4291,46 +4687,40 @@ hdma_usart6_tx:
 .Linfo_string244:
 	.asciz	"GPIO_TypeDef"                  @ string offset=3116
 .Linfo_string245:
-	.asciz	"Error_Handler"                 @ string offset=3129
+	.asciz	"MX_UART4_Init"                 @ string offset=3129
 .Linfo_string246:
-	.asciz	"HAL_NVIC_DisableIRQ"           @ string offset=3143
+	.asciz	"MX_UART5_Init"                 @ string offset=3143
 .Linfo_string247:
-	.asciz	"IRQn_Type"                     @ string offset=3163
+	.asciz	"MX_USART1_UART_Init"           @ string offset=3157
 .Linfo_string248:
-	.asciz	"MX_UART4_Init"                 @ string offset=3173
+	.asciz	"MX_USART2_UART_Init"           @ string offset=3177
 .Linfo_string249:
-	.asciz	"MX_UART5_Init"                 @ string offset=3187
+	.asciz	"MX_USART3_UART_Init"           @ string offset=3197
 .Linfo_string250:
-	.asciz	"MX_USART1_UART_Init"           @ string offset=3201
+	.asciz	"MX_USART6_UART_Init"           @ string offset=3217
 .Linfo_string251:
-	.asciz	"MX_USART2_UART_Init"           @ string offset=3221
+	.asciz	"HAL_UART_MspInit"              @ string offset=3237
 .Linfo_string252:
-	.asciz	"MX_USART3_UART_Init"           @ string offset=3241
+	.asciz	"HAL_UART_MspDeInit"            @ string offset=3254
 .Linfo_string253:
-	.asciz	"MX_USART6_UART_Init"           @ string offset=3261
+	.asciz	"uartHandle"                    @ string offset=3273
 .Linfo_string254:
-	.asciz	"HAL_UART_MspInit"              @ string offset=3281
+	.asciz	"GPIO_InitStruct"               @ string offset=3284
 .Linfo_string255:
-	.asciz	"HAL_UART_MspDeInit"            @ string offset=3298
+	.asciz	"Pin"                           @ string offset=3300
 .Linfo_string256:
-	.asciz	"GPIO_InitStruct"               @ string offset=3317
+	.asciz	"Pull"                          @ string offset=3304
 .Linfo_string257:
-	.asciz	"Pin"                           @ string offset=3333
+	.asciz	"Speed"                         @ string offset=3309
 .Linfo_string258:
-	.asciz	"Pull"                          @ string offset=3337
+	.asciz	"Alternate"                     @ string offset=3315
 .Linfo_string259:
-	.asciz	"Speed"                         @ string offset=3342
+	.asciz	"GPIO_InitTypeDef"              @ string offset=3325
 .Linfo_string260:
-	.asciz	"Alternate"                     @ string offset=3348
-.Linfo_string261:
-	.asciz	"GPIO_InitTypeDef"              @ string offset=3358
-.Linfo_string262:
-	.asciz	"tmpreg"                        @ string offset=3375
-.Linfo_string263:
-	.asciz	"uartHandle"                    @ string offset=3382
+	.asciz	"tmpreg"                        @ string offset=3342
 	.ident	"Component: Arm Compiler for Embedded 6.19 Tool: armclang [5e73cb00]"
 	.section	".note.GNU-stack","",%progbits
-	.eabi_attribute	30, 1	@ Tag_ABI_optimization_goals
+	.eabi_attribute	30, 6	@ Tag_ABI_optimization_goals
 	.ARM_attribute	16, 1	@ Tag_AV_eba
 	.section	.debug_line,"",%progbits
 .Lline_table_start0:
