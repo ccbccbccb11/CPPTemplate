@@ -66,7 +66,21 @@
           "type_traits": "cpp",
           "functional": "cpp",
           "dense": "cpp",
-          "queue": "cpp"
+          "queue": "cpp",
+          "__tree": "cpp",
+          "complex": "cpp",
+          "deque": "cpp",
+          "fstream": "cpp",
+          "future": "cpp",
+          "iomanip": "cpp",
+          "list": "cpp",
+          "map": "cpp",
+          "semaphore": "cpp",
+          "set": "cpp",
+          "sstream": "cpp",
+          "thread": "cpp",
+          "unordered_set": "cpp",
+          "valarray": "cpp"
         }
     },
     "extensions": {}

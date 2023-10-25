@@ -6,7 +6,8 @@
     ".eide/deps",
     "User/Entity",
     "User/Imu",
-    "User/mian"
+    "User/mian",
+    "User/Alog/eigen3/Eigen"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
