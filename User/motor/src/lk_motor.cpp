@@ -34,7 +34,8 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
   * @note id 重复会在此处跑死
   */
   for (size_t i = 0; i < LkMotor::lkmtr_ins_cnt_; i++) {
-    if (lkmtr_instance[i]->GetRxID() == config->can_config.rx_id)
+    if (lkmtr_instance[i]->GetRxID() == config->can_config.rx_id && 
+        lkmtr_instance[i]->can_instance_->GetCANHandle() == config->can_config.can_handle)
       while (1)
         stateinfo_.work_state_ = kMotorIDErr;
   }
