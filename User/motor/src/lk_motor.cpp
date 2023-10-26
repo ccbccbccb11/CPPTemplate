@@ -93,7 +93,6 @@ void LkMotor::ControlTask(void) {
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
-  // memset(lkmtr_txbuff, 0, sizeof(lkmtr_txbuff));
   for (size_t i = 0; i < lkmtr_ins_cnt_; i++) {
     lkmtr_instance[i]->StateUpdate();
     tar = lkmtr_instance[i]->GetPIDTarget();
