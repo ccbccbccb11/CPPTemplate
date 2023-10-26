@@ -40,13 +40,21 @@ class IDInfo {
 public:
   uint32_t  tx_id_;   //发送id
   uint32_t  rx_id_;   //接收id
-  uint8_t   txbuff_index_;  //发送数组位置
+  uint8_t   txbuff_index_;  //发送数组索引
   MtrGroup  group_;  //发送组别
 };
+/* CAN 节点 */
+class CANNode {
+private:
+  /* data */
+public:
+  CANNode(/* args */) {}
+};
+/* 电机父类 */
 class Motor {
 protected:
   /* data */
-  RxInfo rxinfo_;                     // can 报文
+  RxInfo rxinfo_;                     // 电机数据
   IDInfo id_info_;                    // id 信息
   StateInfo stateinfo_;               // 状态信息
   MotorType motor_type_;              // 电机类型

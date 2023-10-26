@@ -34,6 +34,7 @@
 ".\cpptemplate\uart_protocol.o"
 ".\cpptemplate\crc.o"
 ".\cpptemplate\imu_protocol.o"
+".\cpptemplate\pubsub.o"
 ".\cpptemplate\pid.o"
 ".\cpptemplate\entity.o"
 ".\cpptemplate\robot_task.o"

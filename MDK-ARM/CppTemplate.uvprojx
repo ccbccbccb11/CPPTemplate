@@ -835,6 +835,11 @@
               <FileType>1</FileType>
               <FilePath>..\User\protocol\src\imu_protocol.c</FilePath>
             </File>
+            <File>
+              <FileName>pubsub.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\protocol\src\pubsub.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

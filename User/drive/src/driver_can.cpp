@@ -34,7 +34,6 @@ CANInstance::CANInstance(CANInstanceConfig* config) {
   tx_id_ = config->tx_id;
   rx_id_ = config->rx_id;
   CANInstanceRxCallback_ = config->CANInstanceRxCallback;
-	parent_pointer_ = config->parent_pointer;
 	if (CANInstance::can_ins_cnt_ > CANInstance::can_ins_cnt_max_) {
 		while (1)
 			continue;
@@ -65,12 +64,9 @@ extern CAN_HandleTypeDef hcan2;
   */
 void CAN1_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
-	// CAN
 	CAN_FilterParamsInit(&sFilterConfig);
 	HAL_CAN_ConfigFilter(&hcan1, &sFilterConfig);
-	// 
 	HAL_CAN_ActivateNotification(&hcan1, CAN_IT_RX_FIFO0_MSG_PENDING);
-	// CAN1
 	HAL_CAN_Start(&hcan1);
 }
 
@@ -80,12 +76,9 @@ void CAN1_Init(void) {
   */
 void CAN2_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
-	// CAN
 	CAN_FilterParamsInit(&sFilterConfig);
 	HAL_CAN_ConfigFilter(&hcan2, &sFilterConfig);
-	// 
 	HAL_CAN_ActivateNotification(&hcan2, CAN_IT_RX_FIFO0_MSG_PENDING);
-	// CAN2
 	HAL_CAN_Start(&hcan2);
 }
 
@@ -94,15 +87,16 @@ void CAN2_Init(void) {
   * @param  
   */
 void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
-	sFilterConfig->FilterIdHigh = 0;						
-	sFilterConfig->FilterIdLow = 0;							
-	sFilterConfig->FilterMaskIdHigh = 0;											
-	sFilterConfig->FilterMaskIdLow = 0;												
-	sFilterConfig->FilterFIFOAssignment = CAN_FILTER_FIFO0;		
-	sFilterConfig->FilterBank = 0;													
-	sFilterConfig->FilterMode = CAN_FILTERMODE_IDMASK;				
-	sFilterConfig->FilterScale = CAN_FILTERSCALE_32BIT;				
-	sFilterConfig->FilterActivation = ENABLE;									
+	// Init filter configuration structure
+	sFilterConfig->FilterIdHigh = 0;
+	sFilterConfig->FilterIdLow = 0;
+	sFilterConfig->FilterMaskIdHigh = 0;
+	sFilterConfig->FilterMaskIdLow = 0;
+	sFilterConfig->FilterFIFOAssignment = CAN_FILTER_FIFO0;
+	sFilterConfig->FilterBank = 0;
+	sFilterConfig->FilterMode = CAN_FILTERMODE_IDMASK;
+	sFilterConfig->FilterScale = CAN_FILTERSCALE_32BIT;
+	sFilterConfig->FilterActivation = ENABLE;
 	sFilterConfig->SlaveStartFilterBank = 0;
 }
 
@@ -113,13 +107,19 @@ void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 **/
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcanRxFrame.header, hcanRxFrame.data);
+	
+	// Loop through all CAN instances
 	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
-		can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
+		// If the CAN instance matches the CAN handle and Rx ID
 		if (can_instance[i]->GetCANHandle() == hcan && 
 			  can_instance[i]->GetRxId() == hcanRxFrame.header.StdId) {
+			// If the CAN Rx callback is not NULL
 			if (can_instance[i]->CANInstanceRxCallback_ != NULL) {
+				// Update the CAN Rx data length
 				can_instance[i]->SetRxDataLength(hcanRxFrame.header.DLC);
+				// Update the CAN Rx buffer
 				can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
+				// Call the CAN Rx callback
 				can_instance[i]->CANInstanceRxCallback_(can_instance[i]);
 			}
 			return;

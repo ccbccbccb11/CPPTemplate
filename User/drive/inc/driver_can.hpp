@@ -44,7 +44,6 @@ typedef struct CANInstanceConfig_t
   uint32_t tx_id;                 // 发送id
   uint32_t rx_id;                 // 接收id
   void (*CANInstanceRxCallback)(CANInstance* ins);
-  void* parent_pointer;
 } CANInstanceConfig;
 /* can 实例*/
 class CANInstance {
@@ -57,7 +56,6 @@ private:
   uint32_t rx_id_;                 // 接收id
   size_t  rx_len_;                // 接收长度,可能为0-8
   uint8_t  rx_buff_[8];            // 接收缓存,最大消息长度为8
-  void* parent_pointer_;            // 父指针，保存包含can实例的父类的地址
 public:
 	static uint8_t can_ins_cnt_;			// 实体计数
 	static const uint32_t can_tx_timecnt_max_;			// 实体计数
@@ -130,9 +128,6 @@ public:
   // void SetCANInstanceRxCallback(std::function<void()> callback) {
   //     CANInstanceRxCallback_ = callback;
   // }
-  void* GetParentPoint(void) {
-    return parent_pointer_;
-  }
   /**
    * @brief 发送
    * 

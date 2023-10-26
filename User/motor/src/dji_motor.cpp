@@ -9,9 +9,13 @@
  * All rights reserved.
  ******************************************************************************
  */
+/**
+ * @todo 节点式收取 can 消息
+*/
 /* Includes -----------------------------------------------------------------*/
 #include "dji_motor.hpp"
 #include "kalman.hpp"
+#include <map>
 
 using namespace djimtr;
 
@@ -19,6 +23,8 @@ uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体计数
 const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 12;   //两路 can 允许最大电机总数
 const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //电机失联计数最大值
 DjiMotor* djimtr_instance[DjiMotor::djimtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
+std::map<uint32_t, DjiMotor*> djimtr_can1_node_list;  // use a map to store the motor nodes of CAN1
+std::map<uint32_t, DjiMotor*> djimtr_can2_node_list;  // use a map to store the motor nodes of CAN2
 /**
    * @brief DjiMotor类初始化函数，Dji电机初始化时调用
    * 
@@ -46,7 +52,6 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
 	// can 实例调用构造函数初始化
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
-	config->can_config.parent_pointer = this;
   can_instance_ = new CANInstance(&config->can_config);
 	// 心跳包实例调用构造函数初始化
 	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
@@ -60,19 +65,27 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
 	stateinfo_.init_flag_ = kMotorInit; 
 	// 初始成功的电机加入 djimtr_instance 保存副本
 	djimtr_instance[DjiMotor::djimtr_ins_cnt_++] = this;
+
+  /**
+   * @test 
+   */
+  if (can_instance_->GetCANHandle() == &hcan1)
+    djimtr_can1_node_list.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
+  else
+    djimtr_can2_node_list.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
 }
 /**
- * @brief 为大疆电机注册六组偷渡的未记录在案的 can 实例仅用于 can 发送
- *        当且仅当对应的任意组下有大疆电机注册才会执行发送对应的包
- *        组别与电机 id 关系如下：
+ * @brief Register six sets of can instances for DJI Electric only for can sending
+ *        If and only if there is a DJI motor registration in the corresponding group, the corresponding package will be sent
+ *        The relationship between group and motor id is as follows:
  *        can1: [0]:0x1FF,[1]:0x200,[2]:0x2FF
  *        can2: [3]:0x1FF,[4]:0x200,[5]:0x2FF
- *        在命名空间djimtr中也有枚举定义。
- * @name  djimtr_CAN_txconfig[6] : 用于注册的配置参数
- *        djimtr_CAN_txgroup[6] : 注册六个分组
+ *        There are also enumeration definitions in the namespace djimtr.
+ * @name  djimtr_CAN_txconfig[6] : Configuration parameters for registration
+ * @name  djimtr_CAN_txgroup[6] : Register six groups
  * @note  C610(rm2006)/C620(rm3508):0x1ff,0x200;
  *        GM6020:0x1ff,0x2ff
- *        反馈(rx_id): GM6020: 0x204+id ; C610/C620: 0x200+id
+ *        rx_id: GM6020: 0x204+id ; C610/C620: 0x200+id
  */
 static CANInstanceTxConfig djimtr_CAN_txconfig[kGroupSum] = {
   {.can_handle = &hcan1, .tx_id = 0x1ff},
@@ -82,6 +95,7 @@ static CANInstanceTxConfig djimtr_CAN_txconfig[kGroupSum] = {
   {.can_handle = &hcan2, .tx_id = 0x200},
   {.can_handle = &hcan2, .tx_id = 0x2ff},
 };
+
 static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
   CANInstance(&djimtr_CAN_txconfig[kCAN1_0x1FF]),
   CANInstance(&djimtr_CAN_txconfig[kCAN1_0x200]),
@@ -94,10 +108,7 @@ static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
  * @brief 上述的“当且仅当对应的任意组下有大疆电机注册才会发送”对应标志位
  */
 MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
-/**
- * @brief 遍历所有已注册的大疆电机，为其执行控制代码
- * 
- */
+
 void DjiMotor::ControlTask(void) {
   float tar;
   float output;
@@ -131,7 +142,7 @@ void DjiMotor::ControlTask(void) {
       default:
         break;
     }
-    // 更新发送数组到对应组别
+    // Update send array to corresponding group
     if (djimtr_instance[i]->stateinfo_.work_state_ == kMotorStop) {
       djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
       djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
@@ -141,9 +152,8 @@ void DjiMotor::ControlTask(void) {
     }
     
   }
-  for (size_t i = 0; i < kGroupSum; i++)
-  {
-    // 被初始化的组别才可以发送
+  for (size_t i = 0; i < kGroupSum; i++) {
+    // Only initialized groups can be sent
     if(group_enable_flag_[group_index] == kGroupOK) {
       djimtr_CAN_txgroup[group_index].CANSend(&djimtr_CAN_txgroup[group_index]);
     }
@@ -154,8 +164,12 @@ void DjiMotor::ControlTask(void) {
  * 
  */
 void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
-  // 通过父指针强转获得底层 can 实体对应的父类，将 can 报文更新到对应电机中去
-  DjiMotor* djimtr_ = (DjiMotor*)can_ins->GetParentPoint();
+  DjiMotor* djimtr_ ;
+  if (can_ins->GetCANHandle() == &hcan1)
+    djimtr_ = djimtr_can1_node_list[can_ins->GetRxId()];
+  else
+    djimtr_ = djimtr_can2_node_list[can_ins->GetRxId()];
+
   int16_t err;
   if (djimtr_->can_instance_->GetRxBuff() == nullptr)// 接受指针为空退出
     return;

@@ -11,6 +11,7 @@
  */
 /* Includes -----------------------------------------------------------------*/
 #include "lk_motor.hpp"
+#include <map>
 
 using namespace lkmtr;
 
@@ -18,6 +19,9 @@ uint8_t LkMotor::lkmtr_ins_cnt_ = 0;              //电机实体计数
 const uint8_t LkMotor::lkmtr_ins_cnt_max_ = 4;   //允许最大电机总数
 const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;   //电机失联计数最大值
 LkMotor* lkmtr_instance[LkMotor::lkmtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
+std::map<uint32_t, LkMotor*>  lkmtr_can1_node_list;  // use a map to store the motor nodes of CAN1
+std::map<uint32_t, LkMotor*> lkmtr_can2_node_list;  // use a map to store the motor nodes of CAN2
+
 /**
    * @brief LkMotor类初始化函数，Lk电机初始化时调用
    * 
@@ -49,7 +53,6 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
 	// can 实例调用构造函数初始化
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = LkMotor::GetCANRxMessage;
-	config->can_config.parent_pointer = this;
   can_instance_ = new CANInstance(&config->can_config);
 	// 心跳包实例调用构造函数初始化
 	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
@@ -140,8 +143,12 @@ void LkMotor::ControlTask(void) {
  * 
  */
 void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
-  // 通过父指针强转获得底层 can 实体对应的父类，将 can 报文更新到对应电机中去
-  LkMotor* lkmtr_ = (LkMotor*)can_ins->GetParentPoint();
+  LkMotor* lkmtr_;
+  if (can_ins->GetCANHandle() == &hcan1)
+    lkmtr_ = lkmtr_can1_node_list[can_ins->GetRxId()];
+  else
+    lkmtr_ = lkmtr_can2_node_list[can_ins->GetRxId()];
+
   int16_t err;
   if (lkmtr_->can_instance_->GetRxBuff() == nullptr)// 接受指针为空退出
     return;
