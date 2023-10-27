@@ -75,6 +75,7 @@ public:
    */
   // 大疆电机总控，包括 pid 计算和 can 发送
   static void ControlTask(void);
+  static void PIDCal(LkMotor* lk);
 };
 }
 #endif /* LK_MOTOR_HPP */

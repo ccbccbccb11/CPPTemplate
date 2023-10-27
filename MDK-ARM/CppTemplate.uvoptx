@@ -205,6 +205,11 @@
           <WinNumber>1</WinNumber>
           <ItemText>txbuff_index</ItemText>
         </Ww>
+        <Ww>
+          <count>10</count>
+          <WinNumber>1</WinNumber>
+          <ItemText>aa</ItemText>
+        </Ww>
       </WatchWindow1>
       <WatchWindow2>
         <Ww>

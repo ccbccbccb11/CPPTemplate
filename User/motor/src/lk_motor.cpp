@@ -18,9 +18,8 @@ using namespace lkmtr;
 uint8_t LkMotor::lkmtr_ins_cnt_ = 0;              //电机实体计数
 const uint8_t LkMotor::lkmtr_ins_cnt_max_ = 4;   //允许最大电机总数
 const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;   //电机失联计数最大值
-LkMotor* lkmtr_instance[LkMotor::lkmtr_ins_cnt_max_] = {NULL};   //用于遍历所有实体
-std::map<uint32_t, LkMotor*>  lkmtr_can1_node_list;  // use a map to store the motor nodes of CAN1
-std::map<uint32_t, LkMotor*> lkmtr_can2_node_list;  // use a map to store the motor nodes of CAN2
+std::map<uint32_t, LkMotor*>  lkmtr_can1_node_map;  // use a map to store the motor nodes of CAN1
+std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;  // use a map to store the motor nodes of CAN2
 
 /**
    * @brief LkMotor类初始化函数，Lk电机初始化时调用
@@ -36,13 +35,8 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
   }
  /**
   * @note id 重复会在此处跑死
+  * @todo id 重复检测
   */
-  for (size_t i = 0; i < LkMotor::lkmtr_ins_cnt_; i++) {
-    if (lkmtr_instance[i]->GetRxID() == config->can_config.rx_id && 
-        lkmtr_instance[i]->can_instance_->GetCANHandle() == config->can_config.can_handle)
-      while (1)
-        stateinfo_.work_state_ = kMotorIDErr;
-  }
   if (config->can_config.can_handle == &hcan1) {
     if (!group_enable_flag_[0])
       group_enable_flag_[0] = kGroupOK;
@@ -56,8 +50,15 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
   can_instance_ = new CANInstance(&config->can_config);
 	// 心跳包实例调用构造函数初始化
 	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
-	// 初始成功的电机加入 lkmtr_instance 保存副本
-	lkmtr_instance[LkMotor::lkmtr_ins_cnt_++] = this;
+	// 初始成功的电机加入 map 保存副本
+  if (can_instance_->GetCANHandle() == &hcan1)
+    lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
+  else
+    lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
+  
+  if (lkmtr_can1_node_map.size() > LkMotor::lkmtr_ins_cnt_max_ || lkmtr_can2_node_map.size() > LkMotor::lkmtr_ins_cnt_max_)
+    while (true)
+      continue;
 }
 
 /**
@@ -83,57 +84,64 @@ static CANInstance lkmtr_CAN_txgroup[2] = {
  */
 MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };
 
-/**
- * @brief 遍历所有已注册的大疆电机，为其执行控制代码
- * 
- */
-void LkMotor::ControlTask(void) {
+void LkMotor::PIDCal(LkMotor* lkmtr) {
   float tar;
   float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
-  for (size_t i = 0; i < lkmtr_ins_cnt_; i++) {
-    lkmtr_instance[i]->StateUpdate();
-    tar = lkmtr_instance[i]->GetPIDTarget();
-    loop = lkmtr_instance[i]->GetPIDLoop();
-    group_index = lkmtr_instance[i]->can_instance_->GetCANHandle() == &hcan1 ? 0 : 1;
-    txbuff_index = lkmtr_instance[i]->GetTxBuffIndex();
-    switch (loop) {
-      case kPIDClose:
+  lkmtr->StateUpdate();
+  tar = lkmtr->GetPIDTarget();
+  loop = lkmtr->GetPIDLoop();
+  group_index = lkmtr->GetGroupIndex();
+  txbuff_index = lkmtr->GetTxBuffIndex();
+  switch (loop) {
+    case kPIDClose:
       output = 0.f;
-        break;
-      case kPositLoop:
-        output = lkmtr_instance[i]->PositLoop();
-        break;
-      case kSpeedLoop:
-        output = lkmtr_instance[i]->SpeedLoop();
-        break;
-      case kAngleLoop:
-        output = lkmtr_instance[i]->AngleLoop();
-        break;
-      case kCurrentLoop:
-        output = lkmtr_instance[i]->CurrentLoop();
-        break;
-      
-      default:
-        break;
-    }
-    // 更新发送数组到对应组别
-    if (lkmtr_instance[i]->stateinfo_.work_state_ == kMotorStop) {
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
-    } else {
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output >> 8));
-      lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output));
-    }
+      break;
+    case kPositLoop:
+      output = lkmtr->PositLoop();
+      break;
+    case kSpeedLoop:
+      output = lkmtr->SpeedLoop();
+      break;
+    case kAngleLoop:
+      output = lkmtr->AngleLoop();
+      break;
+    case kCurrentLoop:
+      output = lkmtr->CurrentLoop();
+      break;
     
+    default:
+      break;
   }
-  for (size_t i = 0; i < 2; i++)
-  {
+    
+  // Update send array to corresponding group
+  if (lkmtr->stateinfo_.work_state_ == kMotorStop) {
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
+  } else {
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output >> 8));
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
+  }
+}
+
+void LkMotor::ControlTask(void) {
+  LkMotor* lkmtr_;
+  for (auto it=lkmtr_can1_node_map.begin(); it!=lkmtr_can1_node_map.end(); it++) {
+    lkmtr_ = it->second;
+    LkMotor::PIDCal(lkmtr_);
+  }
+  for (auto it=lkmtr_can2_node_map.begin(); it!=lkmtr_can2_node_map.end(); it++) {
+    lkmtr_ = it->second;
+    LkMotor::PIDCal(lkmtr_);
+  }
+
+  // Transmit two sets of data in sequence 
+  for (size_t i = 0; i < 2; i++) {
     // 被初始化的组别才可以发送
-    if(group_enable_flag_[group_index] == kGroupOK) {
-      lkmtr_CAN_txgroup[group_index].CANSend(&lkmtr_CAN_txgroup[group_index]);
+    if(group_enable_flag_[i] == kGroupOK) {
+      lkmtr_CAN_txgroup[i].CANSend(&lkmtr_CAN_txgroup[i]);
     }
   }
 }
@@ -144,9 +152,9 @@ void LkMotor::ControlTask(void) {
 void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   LkMotor* lkmtr_;
   if (can_ins->GetCANHandle() == &hcan1)
-    lkmtr_ = lkmtr_can1_node_list[can_ins->GetRxId()];
+    lkmtr_ = lkmtr_can1_node_map[can_ins->GetRxId()];
   else
-    lkmtr_ = lkmtr_can2_node_list[can_ins->GetRxId()];
+    lkmtr_ = lkmtr_can2_node_map[can_ins->GetRxId()];
 
   int16_t err;
   if (lkmtr_->can_instance_->GetRxBuff() == nullptr)// 接受指针为空退出
