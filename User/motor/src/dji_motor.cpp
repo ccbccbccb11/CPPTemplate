@@ -19,46 +19,46 @@
 
 using namespace djimtr;
 
-uint8_t DjiMotor::djimtr_ins_cnt_ = 0;              //电机实体计数
-const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 6;    //一路 can 允许最大电机总数
-const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;   //电机失联计数最大值
-std::map<uint32_t, DjiMotor*> djimtr_can1_node_map;  // use a map to store the motor nodes of CAN1
-std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;  // use a map to store the motor nodes of CAN2
+const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 6;          // The maximum number of motors allowed
+const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
+std::map<uint32_t, DjiMotor*> djimtr_can1_node_map;       // use a map to store the motor nodes of CAN1
+std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;       // use a map to store the motor nodes of CAN2
 /**
-   * @brief DjiMotor 类初始化函数， Dji 电机初始化时调用
+   * @brief DjiMotor class initialization function, called when the Dji motor is initialized
    * 
    */
 void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
  /**
-  * @note 注册电机数量大于允许的最大值会在此处跑死
+  * @note Duplicate id will run dead here
   */
-  if (djimtr_ins_cnt_ >= djimtr_ins_cnt_max_) {
-    while (1)
-      continue;
+  if (config->can_config.can_handle == &hcan1) { 
+    auto it = djimtr_can1_node_map.find(config->can_config.rx_id); 
+    while (it == djimtr_can1_node_map.end())
+      stateinfo_.work_state_ = kMotorIDErr;
+  } else { 
+    auto it = djimtr_can2_node_map.find(config->can_config.rx_id); 
+    while (it == djimtr_can2_node_map.end())
+      stateinfo_.work_state_ = kMotorIDErr;
   }
- /**
-  * @note id 重复会在此处跑死
-  * @todo map 的重复检测    stateinfo_.work_state_ = kMotorIDErr;
-  */
 
   motor_type_ = config->motor_type; // 电机类型
   CANInfoInit(config);  // 分组
 	group_enable_flag_[id_info_.group_] = kGroupOK;
-	// can 实例调用构造函数初始化
+	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
   can_instance_ = new CANInstance(&config->can_config);
-	// 心跳包实例调用构造函数初始化
+	// HeartBeat instance call constructor initialization
 	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
-	//外部控制器配置
+	// External controller configuration
   external_control_ = config->external_control_config;
-	// 电机 pid 参数初始化
-  memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
+	// Motor pid parameter initialization
+  memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
   controler_.loop_ = config->loop;
   PIDInit(controler_.loop_, config);
-	// 初始化成功标志位
+	// Initialization success flag
 	stateinfo_.init_flag_ = kMotorInit; 
-	// 初始成功的电机加入 mpa 保存副本
+	// The initial successful motor is added to map to save a copy
   if (can_instance_->GetCANHandle() == &hcan1)
     djimtr_can1_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
   else
@@ -98,19 +98,20 @@ static CANInstance djimtr_CAN_txgroup[kGroupSum] = {
   CANInstance(&djimtr_CAN_txconfig[kCAN2_0x200]),
   CANInstance(&djimtr_CAN_txconfig[kCAN2_0x2FF]),
 };
-/**
- * @brief 上述的“当且仅当对应的任意组下有大疆电机注册才会发送”对应标志位
- */
-MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };
 
+MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };  // Send enable flag
+
+/**
+ * @brief DjiMotor PID calculate
+ * 
+ * @param djimtr controlled object
+ */
 void DjiMotor::PIDCal(DjiMotor* djimtr) {
-  float tar;
   float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
   djimtr->StateUpdate();
-  tar = djimtr->GetPIDTarget();
   loop = djimtr->GetPIDLoop();
   group_index = djimtr->GetGroupIndex();
   txbuff_index = djimtr->GetTxBuffIndex();
@@ -165,7 +166,7 @@ void DjiMotor::ControlTask(void) {
   }
 }
 /**
- * @brief 接收
+ * @brief Receive messages
  * 
  */
 void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
@@ -176,9 +177,9 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     djimtr_ = djimtr_can2_node_map[can_ins->GetRxId()];
 
   int16_t err;
-  if (djimtr_->can_instance_->GetRxBuff() == nullptr)// 接受指针为空退出
+  if (djimtr_->can_instance_->GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
-  if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)// 电机未初始化退出
+  if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)// Motor does not initialize exit
     return;
   djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
   djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
@@ -199,5 +200,5 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     djimtr_->rxinfo_.angle_sum_ += err;
   }
   djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;
-  djimtr_->heartbeat_->ResetOfflineCnt();// 心跳更新
+  djimtr_->heartbeat_->ResetOfflineCnt();// Heartbeat update
 }

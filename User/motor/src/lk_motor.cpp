@@ -15,28 +15,29 @@
 
 using namespace lkmtr;
 
-uint8_t LkMotor::lkmtr_ins_cnt_ = 0;              //电机实体计数
-const uint8_t LkMotor::lkmtr_ins_cnt_max_ = 4;   //允许最大电机总数
-const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;   //电机失联计数最大值
-std::map<uint32_t, LkMotor*>  lkmtr_can1_node_map;  // use a map to store the motor nodes of CAN1
-std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;  // use a map to store the motor nodes of CAN2
+const uint8_t LkMotor::lkmtr_ins_cnt_max_ = 4;          // The maximum number of motors allowed
+const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
+std::map<uint32_t, LkMotor*>  lkmtr_can1_node_map;      // use a map to store the motor nodes of CAN1
+std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;       // use a map to store the motor nodes of CAN2
 
 /**
-   * @brief LkMotor类初始化函数，Lk电机初始化时调用
+   * @brief LkMotor class initialization function, called when the Lk motor is initialized
    * 
    */
 void LkMotor::LkMotorInit(MotorInitConfig* config) {
  /**
-  * @note 注册电机数量大于允许的最大值会在此处跑死
+  * @note Duplicate id will run dead here
   */
-  if (lkmtr_ins_cnt_ >= lkmtr_ins_cnt_max_) {
-    while (1)
-      continue;
+  if (config->can_config.can_handle == &hcan1) { 
+    auto it = lkmtr_can1_node_map.find(config->can_config.rx_id); 
+    while (it == lkmtr_can1_node_map.end())
+      stateinfo_.work_state_ = kMotorIDErr;
+  } else { 
+    auto it = lkmtr_can2_node_map.find(config->can_config.rx_id); 
+    while (it == lkmtr_can2_node_map.end())
+      stateinfo_.work_state_ = kMotorIDErr;
   }
- /**
-  * @note id 重复会在此处跑死
-  * @todo id 重复检测
-  */
+
   if (config->can_config.can_handle == &hcan1) {
     if (!group_enable_flag_[0])
       group_enable_flag_[0] = kGroupOK;
@@ -44,13 +45,22 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
     if (!group_enable_flag_[1])
       group_enable_flag_[1] = kGroupOK;
   }
-	// can 实例调用构造函数初始化
+
+	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = LkMotor::GetCANRxMessage;
   can_instance_ = new CANInstance(&config->can_config);
-	// 心跳包实例调用构造函数初始化
+	// HeartBeat instance call constructor initialization
 	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
-	// 初始成功的电机加入 map 保存副本
+	// External controller configuration
+  external_control_ = config->external_control_config;
+	// Motor pid parameter initialization
+  memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
+  controler_.loop_ = config->loop;
+  PIDInit(controler_.loop_, config);
+	// Initialization success flag
+	stateinfo_.init_flag_ = kMotorInit; 
+	// The initial successful motor is added to map to save a copy
   if (can_instance_->GetCANHandle() == &hcan1)
     lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
   else
@@ -62,8 +72,8 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
 }
 
 /**
- * @brief 为翎控电机注册六组偷渡的未记录在案的 can 实例仅用于 can 发送
- *        当且仅当对应的任意组下有翎控电机注册才会执行发送对应的包
+ * @brief The corresponding packet will be sent if and only if 
+ *        the corresponding motor is registered under any corresponding group
  * @note  rx_id: 0x280
  *        rx_id: 0x140 + x
  */
@@ -71,27 +81,30 @@ static CANInstanceTxConfig lkmtr_CAN1_txconfig = {
   .can_handle = &hcan1, 
   .tx_id = 0x280,
 };
+
 static CANInstanceTxConfig lkmtr_CAN2_txconfig = {
   .can_handle = &hcan2, 
   .tx_id = 0x280,
 };
+
 static CANInstance lkmtr_CAN_txgroup[2] = {
   CANInstance(&lkmtr_CAN1_txconfig),
   CANInstance(&lkmtr_CAN2_txconfig),
 };
-/**
- * @brief 发送标志位
- */
-MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };
 
+MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };  // Send enable flag
+
+/**
+ * @brief LkMotor PID calculate
+ * 
+ * @param lkmtr controlled object
+ */
 void LkMotor::PIDCal(LkMotor* lkmtr) {
-  float tar;
   float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
   lkmtr->StateUpdate();
-  tar = lkmtr->GetPIDTarget();
   loop = lkmtr->GetPIDLoop();
   group_index = lkmtr->GetGroupIndex();
   txbuff_index = lkmtr->GetTxBuffIndex();
@@ -139,14 +152,14 @@ void LkMotor::ControlTask(void) {
 
   // Transmit two sets of data in sequence 
   for (size_t i = 0; i < 2; i++) {
-    // 被初始化的组别才可以发送
+    // Only initialized groups can be sent
     if(group_enable_flag_[i] == kGroupOK) {
       lkmtr_CAN_txgroup[i].CANSend(&lkmtr_CAN_txgroup[i]);
     }
   }
 }
 /**
- * @brief 接收
+ * @brief Receive messages
  * 
  */
 void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
@@ -157,9 +170,9 @@ void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
     lkmtr_ = lkmtr_can2_node_map[can_ins->GetRxId()];
 
   int16_t err;
-  if (lkmtr_->can_instance_->GetRxBuff() == nullptr)// 接受指针为空退出
+  if (lkmtr_->can_instance_->GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
-  if (lkmtr_->stateinfo_.init_flag_ == kMotorEmpty)// 电机未初始化退出
+  if (lkmtr_->stateinfo_.init_flag_ == kMotorEmpty)// Motor does not initialize exit
     return;
   lkmtr_->rxinfo_.angle_ = lkmtr_->CANGetAngle(lkmtr_->can_instance_->GetRxBuff());
   lkmtr_->rxinfo_.speed_ = lkmtr_->CANGetSpeed(lkmtr_->can_instance_->GetRxBuff());
@@ -180,5 +193,5 @@ void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
     lkmtr_->rxinfo_.angle_sum_ += err;
   }
   lkmtr_->rxinfo_.angle_prev_ = lkmtr_->rxinfo_.angle_;
-  lkmtr_->heartbeat_->ResetOfflineCnt();// 心跳更新
+  lkmtr_->heartbeat_->ResetOfflineCnt();// Heartbeat update
 }
