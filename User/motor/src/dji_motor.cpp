@@ -19,7 +19,6 @@
 
 using namespace djimtr;
 
-const uint8_t DjiMotor::djimtr_ins_cnt_max_ = 6;          // The maximum number of motors allowed
 const uint8_t DjiMotor::djimtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
 std::map<uint32_t, DjiMotor*> djimtr_can1_node_map;       // use a map to store the motor nodes of CAN1
 std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;       // use a map to store the motor nodes of CAN2
@@ -28,19 +27,6 @@ std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;       // use a map to store 
    * 
    */
 void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
- /**
-  * @note Duplicate id will run dead here
-  */
-  if (config->can_config.can_handle == &hcan1) { 
-    auto it = djimtr_can1_node_map.find(config->can_config.rx_id); 
-    while (it == djimtr_can1_node_map.end())
-      stateinfo_.work_state_ = kMotorIDErr;
-  } else { 
-    auto it = djimtr_can2_node_map.find(config->can_config.rx_id); 
-    while (it == djimtr_can2_node_map.end())
-      stateinfo_.work_state_ = kMotorIDErr;
-  }
-
   motor_type_ = config->motor_type; // 电机类型
   CANInfoInit(config);  // 分组
 	group_enable_flag_[id_info_.group_] = kGroupOK;
@@ -64,9 +50,6 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
   else
     djimtr_can2_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
   
-  if (djimtr_can1_node_map.size() > DjiMotor::djimtr_ins_cnt_max_ || djimtr_can2_node_map.size() > DjiMotor::djimtr_ins_cnt_max_)
-    while (true)
-      continue;
 }
 /**
  * @brief Register six sets of can instances for DJI Electric only for can sending

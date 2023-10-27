@@ -10,15 +10,21 @@
  ******************************************************************************
  */
 #include "driver_can.hpp"
+#include <map>
 
 CAN_RxFrameTypeDef hcanRxFrame;
 CAN_TxHeaderTypeDef CAN_TxHeadeType;
 
-uint8_t CANInstance::can_ins_cnt_ = 0;
-const uint8_t CANInstance::can_ins_cnt_max_ = 12;
+const uint8_t CANInstance::can_ins_cnt_max_ = 6;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
-CANInstance* can_instance[CANInstance::can_ins_cnt_max_] = {NULL};
-//仅发送
+std::map<uint32_t, CANInstance*> can1_node_map;       // use a map to store the can nodes
+std::map<uint32_t, CANInstance*> can2_node_map;       // use a map to store the can nodes
+
+/**
+ * @brief Construct a new CANInstance::CANInstance object
+ * 
+ * @param config 
+ */
 CANInstance::CANInstance(CANInstanceTxConfig* config) {
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
@@ -28,40 +34,54 @@ CANInstance::CANInstance(CANInstanceTxConfig* config) {
 	tx_config_.IDE = CAN_ID_STD;
 	tx_config_.RTR = CAN_RTR_DATA;
 }
-//构造函数，以结构体传参方式
+/**
+ * @brief Construct a new CANInstance::CANInstance object
+ * 
+ * @param config 
+ */
 CANInstance::CANInstance(CANInstanceConfig* config) { 
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
   rx_id_ = config->rx_id;
   CANInstanceRxCallback_ = config->CANInstanceRxCallback;
-	if (CANInstance::can_ins_cnt_ > CANInstance::can_ins_cnt_max_) {
-		while (1)
-			continue;
-	}
-	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
-		if (can_instance[i]->rx_id_ == config->rx_id && 
-			can_instance[i]->can_handle_ == config->can_handle) {
-			while (1)
-				continue;
-		}
-	}
+
+  if (can1_node_map.size() > CANInstance::can_ins_cnt_max_ || 
+      can2_node_map.size() > CANInstance::can_ins_cnt_max_)
+    while (true)
+      continue;
+  
+  if (can_handle_ == &hcan1) { 
+    auto it = can1_node_map.find(rx_id_); 
+    while (it == can1_node_map.end())
+      continue;
+  } else { 
+    auto it = can2_node_map.find(rx_id_); 
+    while (it == can2_node_map.end())
+      continue;
+  }
+
 	tx_config_.StdId = tx_id_;
 	tx_config_.ExtId = 0x0000;
 	tx_config_.DLC = 0x08;
 	tx_config_.IDE = CAN_ID_STD;
 	tx_config_.RTR = CAN_RTR_DATA;
-	can_instance[CANInstance::can_ins_cnt_++] = this;
+  
+	// The initial successful can instance is added to map to save a copy
+  if (can_handle_ == &hcan1)
+    can1_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
+  else
+    can2_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
+  
 }
-/*
-	can1 can2
-*/
+/**
+ * @brief can1 can2
+ */
 extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
-
 /**
-  * @brief  CAN1
-  * @param  
-  */
+ * @brief CAN1_Init
+ * 
+ */
 void CAN1_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
 	CAN_FilterParamsInit(&sFilterConfig);
@@ -71,8 +91,8 @@ void CAN1_Init(void) {
 }
 
 /**
-  * @brief  CAN2
-  * @param  
+  * @brief  CAN2_Init
+  * 
   */
 void CAN2_Init(void) {
 	CAN_FilterTypeDef sFilterConfig;
@@ -107,23 +127,34 @@ void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 **/
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
 	HAL_CAN_GetRxMessage(hcan, CAN_RX_FIFO0, &hcanRxFrame.header, hcanRxFrame.data);
-	
+	uint32_t key = hcanRxFrame.header.StdId;
 	// Loop through all CAN instances
-	for (size_t i = 0; i < CANInstance::can_ins_cnt_; i++) {
+  if (hcan == &hcan1) {
 		// If the CAN instance matches the CAN handle and Rx ID
-		if (can_instance[i]->GetCANHandle() == hcan && 
-			  can_instance[i]->GetRxId() == hcanRxFrame.header.StdId) {
+    if (can1_node_map.find(key) != can1_node_map.end()) {
 			// If the CAN Rx callback is not NULL
-			if (can_instance[i]->CANInstanceRxCallback_ != NULL) {
+      if (can1_node_map[key]->CANInstanceRxCallback_ != NULL) {
 				// Update the CAN Rx data length
-				can_instance[i]->SetRxDataLength(hcanRxFrame.header.DLC);
+				can1_node_map[key]->SetRxDataLength(hcanRxFrame.header.DLC);
 				// Update the CAN Rx buffer
-				can_instance[i]->RxBuffUpdate(hcanRxFrame.data);
+				can1_node_map[key]->RxBuffUpdate(hcanRxFrame.data);
 				// Call the CAN Rx callback
-				can_instance[i]->CANInstanceRxCallback_(can_instance[i]);
-			}
-			return;
-		}
-	}
+				can1_node_map[key]->CANInstanceRxCallback_(can1_node_map[key]);
+      }
+    }
+  } else if (hcan == &hcan2) {
+		// If the CAN instance matches the CAN handle and Rx ID
+    if (can2_node_map.find(hcanRxFrame.header.StdId) != can2_node_map.end()) {
+			// If the CAN Rx callback is not NULL
+      if (can2_node_map[key]->CANInstanceRxCallback_ != NULL) {
+				// Update the CAN Rx data length
+				can2_node_map[key]->SetRxDataLength(hcanRxFrame.header.DLC);
+				// Update the CAN Rx buffer
+				can2_node_map[key]->RxBuffUpdate(hcanRxFrame.data);
+				// Call the CAN Rx callback
+				can2_node_map[key]->CANInstanceRxCallback_(can2_node_map[key]);
+      }
+    }
+  }
 }
 

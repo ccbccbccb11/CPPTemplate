@@ -15,7 +15,6 @@
 
 using namespace lkmtr;
 
-const uint8_t LkMotor::lkmtr_ins_cnt_max_ = 4;          // The maximum number of motors allowed
 const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
 std::map<uint32_t, LkMotor*>  lkmtr_can1_node_map;      // use a map to store the motor nodes of CAN1
 std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;       // use a map to store the motor nodes of CAN2
@@ -25,19 +24,6 @@ std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;       // use a map to store th
    * 
    */
 void LkMotor::LkMotorInit(MotorInitConfig* config) {
- /**
-  * @note Duplicate id will run dead here
-  */
-  if (config->can_config.can_handle == &hcan1) { 
-    auto it = lkmtr_can1_node_map.find(config->can_config.rx_id); 
-    while (it == lkmtr_can1_node_map.end())
-      stateinfo_.work_state_ = kMotorIDErr;
-  } else { 
-    auto it = lkmtr_can2_node_map.find(config->can_config.rx_id); 
-    while (it == lkmtr_can2_node_map.end())
-      stateinfo_.work_state_ = kMotorIDErr;
-  }
-
   if (config->can_config.can_handle == &hcan1) {
     if (!group_enable_flag_[0])
       group_enable_flag_[0] = kGroupOK;
@@ -65,10 +51,6 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
     lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
   else
     lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
-  
-  if (lkmtr_can1_node_map.size() > LkMotor::lkmtr_ins_cnt_max_ || lkmtr_can2_node_map.size() > LkMotor::lkmtr_ins_cnt_max_)
-    while (true)
-      continue;
 }
 
 /**

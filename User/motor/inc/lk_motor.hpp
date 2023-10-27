@@ -28,8 +28,6 @@ class LkMotor : public Motor {
 private:
   /* data */
 public:
-	static uint8_t lkmtr_ins_cnt_;			// 翎控电机实体计数
-	static const uint8_t lkmtr_ins_cnt_max_;			// 翎控电机实体计数最大值
 	static const uint8_t lkmtr_offline_cnt_max_;			// 翎控电机离线计数
   static MotorGroupInit group_enable_flag_[2]; //分组使能标志
   /**

@@ -20,17 +20,6 @@
 using namespace pid;
 
 namespace motordef {
-/**
- ******************************************************************************
- * @note    
-	//RM2006 & RM3508:
-							 RMotorF_ID 0x200
-							 RMotorB_ID 0x1FF
-	//GM6020:
-							 GMotorF_ID 0x1FF
-							 GMotorB_ID 0x2FF
- ******************************************************************************
- */
 // 电机初始化枚举
 typedef enum {
 	kMotorEmpty = 0,
