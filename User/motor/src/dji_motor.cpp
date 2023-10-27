@@ -106,6 +106,8 @@ void DjiMotor::PIDCal(void) {
     case kCurrentLoop:
       output = CurrentLoop();
       break;
+    case kOuterLoop:
+      output = GetDirectOut();
     
     default:
       break;

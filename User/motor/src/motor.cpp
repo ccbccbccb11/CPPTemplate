@@ -14,16 +14,16 @@
 
 using namespace motor;
 /**
-   * @brief LkMotor类初始化函数，Lk电机初始化时调用
+   * @brief Motor class initialization function, called when the motor is initialized
    * 
    */
 void Motor::MotorInit(MotorInitConfig* config) {
-  motor_type_ = config->motor_type; // 电机类型
-  CANInfoInit(config);  // 分组
-	//外部控制器配置
+  motor_type_ = config->motor_type;
+  CANInfoInit(config);  // divide into groups
+	// External controller configuration
   external_control_ = config->external_control_config;
-	// 电机 pid 参数初始化
-  memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
+	// Motor pid parameter initialization
+  memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
   controler_.loop_ = config->loop;
   PIDInit(controler_.loop_, config);
 }
