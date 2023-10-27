@@ -27,8 +27,6 @@ std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;       // use a map to store 
    * 
    */
 void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
-  motor_type_ = config->motor_type; // 电机类型
-  CANInfoInit(config);  // 分组
 	group_enable_flag_[id_info_.group_] = kGroupOK;
 	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
@@ -36,20 +34,14 @@ void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
   can_instance_ = new CANInstance(&config->can_config);
 	// HeartBeat instance call constructor initialization
 	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
-	// External controller configuration
-  external_control_ = config->external_control_config;
-	// Motor pid parameter initialization
-  memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
-  controler_.loop_ = config->loop;
-  PIDInit(controler_.loop_, config);
-	// Initialization success flag
-	stateinfo_.init_flag_ = kMotorInit; 
 	// The initial successful motor is added to map to save a copy
   if (can_instance_->GetCANHandle() == &hcan1)
     djimtr_can1_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
   else
     djimtr_can2_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
   
+	// Initialization success flag
+	stateinfo_.init_flag_ = kMotorInit; 
 }
 /**
  * @brief Register six sets of can instances for DJI Electric only for can sending
@@ -87,32 +79,32 @@ MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };  // Se
 /**
  * @brief DjiMotor PID calculate
  * 
- * @param djimtr controlled object
+ * @param 
  */
-void DjiMotor::PIDCal(DjiMotor* djimtr) {
+void DjiMotor::PIDCal(void) {
   float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
-  djimtr->StateUpdate();
-  loop = djimtr->GetPIDLoop();
-  group_index = djimtr->GetGroupIndex();
-  txbuff_index = djimtr->GetTxBuffIndex();
+  StateUpdate();
+  loop = GetPIDLoop();
+  group_index = GetGroupIndex();
+  txbuff_index = GetTxBuffIndex();
   switch (loop) {
     case kPIDClose:
       output = 0.f;
       break;
     case kPositLoop:
-      output = djimtr->PositLoop();
+      output = PositLoop();
       break;
     case kSpeedLoop:
-      output = djimtr->SpeedLoop();
+      output = SpeedLoop();
       break;
     case kAngleLoop:
-      output = djimtr->AngleLoop();
+      output = AngleLoop();
       break;
     case kCurrentLoop:
-      output = djimtr->CurrentLoop();
+      output = CurrentLoop();
       break;
     
     default:
@@ -120,7 +112,7 @@ void DjiMotor::PIDCal(DjiMotor* djimtr) {
   }
     
   // Update send array to corresponding group
-  if (djimtr->stateinfo_.work_state_ == kMotorStop) {
+  if (stateinfo_.work_state_ == kMotorStop) {
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
   } else {
@@ -128,16 +120,19 @@ void DjiMotor::PIDCal(DjiMotor* djimtr) {
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
   }
 }
-
+/**
+ * @brief 
+ * 
+ */
 void DjiMotor::ControlTask(void) {
   DjiMotor* djimtr_;
   for (auto it=djimtr_can1_node_map.begin(); it!=djimtr_can1_node_map.end(); it++) {
     djimtr_ = it->second;
-    DjiMotor::PIDCal(djimtr_);
+    djimtr_->PIDCal();
   }
   for (auto it=djimtr_can2_node_map.begin(); it!=djimtr_can2_node_map.end(); it++) {
     djimtr_ = it->second;
-    DjiMotor::PIDCal(djimtr_);
+    djimtr_->PIDCal();
   }
 
   // Transmit six sets of data in sequence
@@ -177,7 +172,7 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     if (err >= 0) {
       djimtr_->rxinfo_.angle_sum_ += -8191 + err;
     } else {
-      djimtr_->rxinfo_.angle_sum_ += 8191 + err;
+      djimtr_->rxinfo_.angle_sum_ +=  8191 + err;
     }
   } else {
     djimtr_->rxinfo_.angle_sum_ += err;

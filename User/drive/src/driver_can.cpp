@@ -52,11 +52,11 @@ CANInstance::CANInstance(CANInstanceConfig* config) {
   
   if (can_handle_ == &hcan1) { 
     auto it = can1_node_map.find(rx_id_); 
-    while (it == can1_node_map.end())
+    while (it != can1_node_map.end())
       continue;
   } else { 
     auto it = can2_node_map.find(rx_id_); 
-    while (it == can2_node_map.end())
+    while (it != can2_node_map.end())
       continue;
   }
 
@@ -122,7 +122,7 @@ void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig) {
 
 /**
   * @Name    HAL_CAN_RxFifo0MsgPendingCallback
-  * @brief   can接受中断，在stm32f4xx_hal_can.c内弱定义
+  * @brief   weak defined in stm32f4xx_hal_can.c
   * @param   
 **/
 void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {

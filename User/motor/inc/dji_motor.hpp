@@ -72,7 +72,7 @@ public:
   }
   //读取 RM 电机 can 报文
     // planA static：已实现，通过函数指针使 canins 链接到此函数，
-    //               再通过父指针找到 djimtr
+    //               再通过map找到 djimtr
   static void GetCANRxMessage(CANInstance* can_ins);
     // planB 成员函数：未实现。函数指针不可用，因为成员函数有一隐藏
     //                入口参数 this ，底层不包含此头文件无法发现 this
@@ -80,13 +80,13 @@ public:
     // planC 中间文件it.c：未尝试。即创建一中间文件 it.c ，将底层和顶层
     //                    都包进去。类似于现在的 uart_protocol
     // planD 纯虚函数：下一步考虑，在 can 声明一纯虚函数，要求所有子类都必须予以实现
-    //                这样基类也可以调用子类的函数
+    //                这样基类也可以调用子类的函数 // 但是偷渡时如何实现？
   /**
    * @brief *************** 控制函数 ******************************
    */
   // 大疆电机总控，包括 pid 计算和 can 发送
   static void ControlTask(void);
-  static void PIDCal(DjiMotor* dji);
+  void PIDCal(void);
 };
 };
 #endif // DJI_MOTOR_HPP

@@ -26,6 +26,4 @@ void Motor::MotorInit(MotorInitConfig* config) {
   memset(&controler_, 0, sizeof(Control)); // 初始化pid参数结构体前先清空
   controler_.loop_ = config->loop;
   PIDInit(controler_.loop_, config);
-	// 初始化成功标志位
-	stateinfo_.init_flag_ = kMotorInit; 
 }

@@ -38,19 +38,13 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
   can_instance_ = new CANInstance(&config->can_config);
 	// HeartBeat instance call constructor initialization
 	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
-	// External controller configuration
-  external_control_ = config->external_control_config;
-	// Motor pid parameter initialization
-  memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
-  controler_.loop_ = config->loop;
-  PIDInit(controler_.loop_, config);
-	// Initialization success flag
-	stateinfo_.init_flag_ = kMotorInit; 
 	// The initial successful motor is added to map to save a copy
   if (can_instance_->GetCANHandle() == &hcan1)
     lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
   else
     lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
+	// Initialization success flag
+	stateinfo_.init_flag_ = kMotorInit; 
 }
 
 /**
@@ -79,32 +73,32 @@ MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };  // Send enable
 /**
  * @brief LkMotor PID calculate
  * 
- * @param lkmtr controlled object
+ * @param 
  */
-void LkMotor::PIDCal(LkMotor* lkmtr) {
+void LkMotor::PIDCal(void) {
   float output;
   PIDLoop loop;
   uint8_t group_index;
   uint8_t txbuff_index;
-  lkmtr->StateUpdate();
-  loop = lkmtr->GetPIDLoop();
-  group_index = lkmtr->GetGroupIndex();
-  txbuff_index = lkmtr->GetTxBuffIndex();
+  StateUpdate();
+  loop = GetPIDLoop();
+  group_index = GetGroupIndex();
+  txbuff_index = GetTxBuffIndex();
   switch (loop) {
     case kPIDClose:
       output = 0.f;
       break;
     case kPositLoop:
-      output = lkmtr->PositLoop();
+      output = PositLoop();
       break;
     case kSpeedLoop:
-      output = lkmtr->SpeedLoop();
+      output = SpeedLoop();
       break;
     case kAngleLoop:
-      output = lkmtr->AngleLoop();
+      output = AngleLoop();
       break;
     case kCurrentLoop:
-      output = lkmtr->CurrentLoop();
+      output = CurrentLoop();
       break;
     
     default:
@@ -112,7 +106,7 @@ void LkMotor::PIDCal(LkMotor* lkmtr) {
   }
     
   // Update send array to corresponding group
-  if (lkmtr->stateinfo_.work_state_ == kMotorStop) {
+  if (stateinfo_.work_state_ == kMotorStop) {
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
   } else {
@@ -125,11 +119,11 @@ void LkMotor::ControlTask(void) {
   LkMotor* lkmtr_;
   for (auto it=lkmtr_can1_node_map.begin(); it!=lkmtr_can1_node_map.end(); it++) {
     lkmtr_ = it->second;
-    LkMotor::PIDCal(lkmtr_);
+    lkmtr_->PIDCal();
   }
   for (auto it=lkmtr_can2_node_map.begin(); it!=lkmtr_can2_node_map.end(); it++) {
     lkmtr_ = it->second;
-    LkMotor::PIDCal(lkmtr_);
+    lkmtr_->PIDCal();
   }
 
   // Transmit two sets of data in sequence 
