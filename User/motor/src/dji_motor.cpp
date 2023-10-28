@@ -15,7 +15,6 @@
 /* Includes -----------------------------------------------------------------*/
 #include "dji_motor.hpp"
 #include "kalman.hpp"
-#include <map>
 
 using namespace djimtr;
 
@@ -108,6 +107,7 @@ void DjiMotor::PIDCal(void) {
       break;
     case kOuterLoop:
       output = GetDirectOut();
+      break;
     
     default:
       break;

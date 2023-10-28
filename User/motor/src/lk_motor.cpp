@@ -11,7 +11,6 @@
  */
 /* Includes -----------------------------------------------------------------*/
 #include "lk_motor.hpp"
-#include <map>
 
 using namespace lkmtr;
 
@@ -99,6 +98,9 @@ void LkMotor::PIDCal(void) {
       break;
     case kCurrentLoop:
       output = CurrentLoop();
+      break;
+    case kOuterLoop:
+      output = GetDirectOut();
       break;
     
     default:

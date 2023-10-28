@@ -62,9 +62,9 @@ protected:
   MotorType         motor_type_;              
   CANInstance*      can_instance_;         
   HeartBeat*        heartbeat_;              
-  ExternalControl*  external_control_; // peripheral control unit, including feedforward algorithm
 public:
-  Control   controler_;
+  Control           controler_;            
+  ExternalInfo      external_info_;   // peripheral control unit, including feedforward algorithm
 
   /**
    * @brief *************** constructor ******************************
@@ -176,13 +176,16 @@ public:
     float tar = controler_.tar_;
     float speed;
     float output;
-    if (external_control_->speed_measure_flag == kMotorInit)
-      speed = *external_control_->speed_measure_;
+
+    if (external_info_.GetMsrFlag(kExSpeed))
+      speed = external_info_.GetMsrValue(kExSpeed);
     else
       speed = GetSpeed();
+
     output = controler_.speed_.SingleLoop(tar, speed);
-    if (external_control_->speed_feedforward_flag_ == kMotorInit)
-      output += *external_control_->speed_feedforward_;
+
+    if (external_info_.GetFFdFlag(kExSpeed))
+      output += external_info_.GetFFdValue(kExSpeed);
     return output;
   }
 
@@ -194,20 +197,25 @@ public:
     float angle;
     float speed;
     float output;
-    if (external_control_->angle_outer_measure_flag == kMotorInit)
-      angle = *external_control_->angle_outer_measure_;
+
+    if (external_info_.GetMsrFlag(kExAngleout))
+      angle = external_info_.GetMsrValue(kExAngleout);
     else
       angle = GetAngle();
-    if (external_control_->angle_inner_measure_flag == kMotorInit)
-      speed = *external_control_->speed_measure_;
+    if (external_info_.GetMsrFlag(kExAnglein))
+      speed = external_info_.GetMsrValue(kExAnglein);
     else
       speed = GetSpeed();
+
     output = controler_.angleout_.SingleLoop(tar, angle, 8192);
-    if (external_control_->angle_outer_feedforward_flag_ == kMotorInit)
-      output += *external_control_->angle_outer_feedforward_;
+
+    if (external_info_.GetFFdFlag(kExAngleout))
+      output += external_info_.GetFFdValue(kExAngleout);
+
     output = controler_.anglein_.SingleLoop(output, speed);
-    if (external_control_->angle_inner_feedforward_flag_ == kMotorInit)
-      output += *external_control_->angle_inner_feedforward_;
+
+    if (external_info_.GetFFdFlag(kExAnglein))
+      output += external_info_.GetFFdValue(kExAnglein);
     return output;
   }
 
@@ -219,20 +227,25 @@ public:
     float posit;
     float speed;
     float output;
-    if (external_control_->posit_outer_measure_flag == kMotorInit)
-      posit = *external_control_->posit_outer_measure_;
+
+    if (external_info_.GetMsrFlag(kExPositout))
+      posit = external_info_.GetMsrValue(kExPositout);
     else
       posit = GetPosit();
-    if (external_control_->posit_inner_measure_flag == kMotorInit)
-      speed = *external_control_->posit_inner_measure_;
+    if (external_info_.GetMsrFlag(kExPositin))
+      speed = external_info_.GetMsrValue(kExPositin);
     else
       speed = GetSpeed();
+
     output = controler_.positout_.SingleLoop(tar, posit);
-    if (external_control_->posit_outer_feedforward_flag_ == kMotorInit)
-      output += *external_control_->posit_outer_feedforward_;
+
+    if (external_info_.GetFFdFlag(kExPositout))
+      output += external_info_.GetFFdValue(kExPositout);
+
     output = controler_.positin_.SingleLoop(output, speed);
-    if (external_control_->posit_inner_feedforward_flag_ == kMotorInit)
-      output += *external_control_->posit_inner_feedforward_;
+
+    if (external_info_.GetFFdFlag(kExPositin))
+      output += external_info_.GetFFdValue(kExPositin);
     return output;
   }
 
@@ -243,13 +256,16 @@ public:
     float tar = controler_.tar_;
     float current;
     float output;
-    if (external_control_->current_measure_flag == kMotorInit)
-      current = *external_control_->current_measure_;
+
+    if (external_info_.GetMsrFlag(kExCurrent))
+      current = external_info_.GetMsrValue(kExCurrent);
     else
       current = GetCurrent();
+
     output = controler_.current_.SingleLoop(tar, current);
-    if (external_control_->current_feedforward_flag_ == kMotorInit)
-      output += *external_control_->current_feedforward_;
+    
+    if (external_info_.GetFFdFlag(kExCurrent))
+      output += external_info_.GetFFdValue(kExCurrent);
     return output;
   }
 

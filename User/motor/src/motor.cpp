@@ -21,7 +21,7 @@ void Motor::MotorInit(MotorInitConfig* config) {
   motor_type_ = config->motor_type;
   CANInfoInit(config);  // divide into groups
 	// External controller configuration
-  external_control_ = config->external_control_config;
+  // external_info_ = config->external_control_config;
 	// Motor pid parameter initialization
   memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
   controler_.loop_ = config->loop;

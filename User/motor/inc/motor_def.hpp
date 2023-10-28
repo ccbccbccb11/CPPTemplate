@@ -17,6 +17,8 @@
 #include "driver_can.hpp"
 #include "heart_beat.hpp"
 #include "pid.hpp"
+#include <map>
+
 using namespace pid;
 
 namespace motordef {
@@ -52,6 +54,16 @@ typedef enum {
   kPositLoop,
   kOuterLoop,
 } PIDLoop;
+
+// pid ex enum
+typedef enum {
+  kExCurrent,
+  kExSpeed,
+  kExAnglein,
+  kExAngleout,
+  kExPositin,
+  kExPositout,
+} MtrExFlag;
 
 // Motor state enum
 typedef enum {
@@ -102,37 +114,37 @@ public:
 };
 
 // Motor external controller class
-class ExternalControl {
+class ExternalInfo {
+private:
+  /* Key of feedforward data pointer map */
+  MtrExFlag feedforward_;
+  /* Key of external measure map */
+  MtrExFlag measure_;
+  /* Feedforward data pointer map */
+  std::map<MtrExFlag, float*> ffd_map_;
+  /* External measure map */
+  std::map<MtrExFlag, float*> msr_map_;
+
 public:
-  /* Feed forward data pointer */
-  float* current_feedforward_;
-  float* speed_feedforward_;
-  float* angle_inner_feedforward_;
-  float* angle_outer_feedforward_;
-  float* posit_inner_feedforward_;
-  float* posit_outer_feedforward_;
-  /* External measurement */
-  float* current_measure_;
-  float* speed_measure_;
-  float* angle_inner_measure_;
-  float* angle_outer_measure_;
-  float* posit_inner_measure_;
-  float* posit_outer_measure_;
-  /* Feedforward data enable flag bit */
-  MotorInit current_feedforward_flag_;
-  MotorInit speed_feedforward_flag_;
-  MotorInit angle_inner_feedforward_flag_;
-  MotorInit angle_outer_feedforward_flag_;
-  MotorInit posit_inner_feedforward_flag_;
-  MotorInit posit_outer_feedforward_flag_;
-  /* External measurement enabled flag */
-  MotorInit current_measure_flag;
-  MotorInit speed_measure_flag;
-  MotorInit angle_inner_measure_flag;
-  MotorInit angle_outer_measure_flag;
-  MotorInit posit_inner_measure_flag;
-  MotorInit posit_outer_measure_flag;
+  /* Set feedforard data ptr and enable ffd control */
+  void SetFeedforward(MtrExFlag flag, float* data_ptr) { ffd_map_.insert(std::pair<MtrExFlag, float*>(flag, data_ptr)); }
+  
+  /* Set external measure data ptr and enable ffd control */
+  void SetExtlMeasure(MtrExFlag flag, float* data_ptr) { msr_map_.insert(std::pair<MtrExFlag, float*>(flag, data_ptr)); }
+  
+  /* Return feedforard data ptr and enable ffd control */
+  bool GetFFdFlag(MtrExFlag flag) { return ffd_map_.find(flag) != ffd_map_.end(); }
+  
+  /* Return external measure data ptr and enable ffd control */
+  bool GetMsrFlag(MtrExFlag flag) { return msr_map_.find(flag) != msr_map_.end(); }
+  
+  /* Return feedforard data ptr and enable ffd control */
+  float GetFFdValue(MtrExFlag flag) { return *ffd_map_[flag]; }
+  
+  /* Return external measure data ptr and enable ffd control */
+  float GetMsrValue(MtrExFlag flag) { return *msr_map_[flag]; }
 };
+
 // The input parameter structure is configured for motor initialization
 typedef struct MotorInitConfig_t {
   /* data */
@@ -144,7 +156,7 @@ typedef struct MotorInitConfig_t {
   PIDInitConfig PID_angle_outer_config;
   PIDInitConfig PID_posit_inner_config;
   PIDInitConfig PID_posit_outer_config;
-  ExternalControl* external_control_config;
+  ExternalInfo* external_control_config;
   PIDLoop loop;
 } MotorInitConfig;
 

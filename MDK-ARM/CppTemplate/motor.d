@@ -652,4 +652,6 @@
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\cstdarg \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\stdarg.h \
   C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\streambuf \
-  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__bsd_locale_fallbacks.h \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\map \
+  C:\Keil_v5\ARM\ARMCLANG\Bin\..\include\libcxx\__tree
