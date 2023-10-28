@@ -4,10 +4,10 @@
   "dependenceList": [],
   "srcDirs": [
     ".eide/deps",
-    "User/Entity",
     "User/Imu",
     "User/mian",
-    "User/Alog/eigen3/Eigen"
+    "User/Alog/eigen3/Eigen",
+    "User/module"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
@@ -264,18 +264,6 @@
             "folders": []
           }
         ]
-      },
-      {
-        "name": "entity",
-        "files": [
-          {
-            "path": "User/Entity/src/entity.cpp"
-          },
-          {
-            "path": "User/Entity/src/example.cpp"
-          }
-        ],
-        "folders": []
       },
       {
         "name": "Middlewares",
@@ -539,7 +527,6 @@
           "User/config/inc",
           "User/device/inc",
           "User/drive/inc",
-          "User/Entity/inc",
           "User/Matrix_Robotics/src",
           "User/motor/inc",
           "User/my_task/inc",
@@ -549,7 +536,8 @@
           "User/controler/inc",
           "User/Imu/inc",
           "MDK-ARM/RTE/_CppTemplate",
-          "User/Alog/eigen3"
+          "User/Alog/eigen3",
+          "User/module/inc"
         ],
         "libList": [],
         "sourceDirList": [],

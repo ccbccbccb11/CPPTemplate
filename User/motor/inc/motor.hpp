@@ -15,7 +15,6 @@
 #ifndef MOTOR_HPP
 #define MOTOR_HPP
 /* Includes -----------------------------------------------------------------*/
-#include "utils.h"
 #include "motor_def.hpp"
 
 using namespace motordef;
