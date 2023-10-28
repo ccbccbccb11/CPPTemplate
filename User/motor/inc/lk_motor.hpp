@@ -25,56 +25,53 @@ using namespace heartbeat;
 
 namespace lkmtr {
 class LkMotor : public Motor {
-private:
-  /* data */
 public:
-	static uint8_t lkmtr_ins_cnt_;			// 翎控电机实体计数
-	static const uint8_t lkmtr_ins_cnt_max_;			// 翎控电机实体计数最大值
-	static const uint8_t lkmtr_offline_cnt_max_;			// 翎控电机离线计数
-  static MotorGroupInit group_enable_flag_[2]; //分组使能标志
+	static const uint8_t lkmtr_offline_cnt_max_;			// Lkmtr control motor off-line counting
+  static MotorGroupInit group_enable_flag_[2];      // Group enable flag
   /**
-   * @brief *************** 构造函数 ******************************
+   * @brief *************** constructor ******************************
    */
   LkMotor() {}
   LkMotor(MotorInitConfig* config) : Motor(config){
     LkMotorInit(config);
   }
-  // 初始化函数
+  // initialization function
   void LkMotorInit(MotorInitConfig* config);
   /**
-   * @brief *************** 报文读取 ******************************
+   * @brief *************** CAN message reading ******************************
    */
-	// can 中读取角度
+	// Reading Angle
   uint16_t CANGetAngle(uint8_t* rxbuff) {
     uint16_t angle;
     angle = (uint16_t)(rxbuff[7] << 8| rxbuff[6]);
     return angle;
   }
-  // can 中读取速度
+  // Reading Speed
   int16_t CANGetSpeed(uint8_t* rxbuff) {
     int16_t speed;
     speed = (int16_t)(rxbuff[5] << 8| rxbuff[4]);
     return speed;
   }
-  // can 中读取电流
+  // Reading Current
   int16_t CANGetCurrent(uint8_t* rxbuff) {
     int16_t current;
     current = (int16_t)(rxbuff[3] << 8 | rxbuff[2]);
     return current;
   }
-  // can 中读取温度
+  // Reading Temperature
   uint8_t CANGetTemperature(uint8_t* rxbuff) {
     uint8_t temperature;
     temperature = rxbuff[1];
     return temperature;
   }
-  //读取 LK 电机 can 报文
+  // read CAN message
   static void GetCANRxMessage(CANInstance* can_ins);
   /**
-   * @brief *************** 控制函数 ******************************
+   * @brief *************** Control function ******************************
    */
-  // 大疆电机总控，包括 pid 计算和 can 发送
+  // LKmtr general control
   static void ControlTask(void);
+  void PIDCal(void);
 };
 }
 #endif /* LK_MOTOR_HPP */
