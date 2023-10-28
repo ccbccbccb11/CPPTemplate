@@ -6,8 +6,8 @@
     ".eide/deps",
     "User/Imu",
     "User/mian",
-    "User/Alog/eigen3/Eigen",
-    "User/module"
+    "User/module",
+    "User/Alog/eigen3/Eigen"
   ],
   "virtualFolder": {
     "name": "<virtual_root>",
@@ -536,8 +536,8 @@
           "User/controler/inc",
           "User/Imu/inc",
           "MDK-ARM/RTE/_CppTemplate",
-          "User/Alog/eigen3",
-          "User/module/inc"
+          "User/module/inc",
+          "User/Alog/eigen3"
         ],
         "libList": [],
         "sourceDirList": [],

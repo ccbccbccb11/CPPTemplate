@@ -24,87 +24,80 @@ extern CAN_HandleTypeDef hcan1;
 extern CAN_HandleTypeDef hcan2;
 class CANInstance;
 
-void CAN1_Init(void); // CAN1初始化
-void CAN2_Init(void); // CAN2初始化
-void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig); // 配置CAN标识符滤波器
+void CAN1_Init(void); // CAN1 initialize
+void CAN2_Init(void); // CAN2 initialize
+void CAN_FilterParamsInit(CAN_FilterTypeDef *sFilterConfig); //Configure the CAN identifier filter
 
 typedef struct {
 	CAN_RxHeaderTypeDef header;
 	uint8_t				data[8];
 } CAN_RxFrameTypeDef;
-/* CANInstance 只发送初始化用*/
+/* CANInstance Used during initialization which send only */
 typedef struct CANInstanceTxConfig_t
 {
-  CAN_HandleTypeDef* can_handle;  // can句柄
-  uint32_t tx_id;                 // 发送id
+  CAN_HandleTypeDef* can_handle;  
+  uint32_t tx_id;                 
 } CANInstanceTxConfig;
-/* CANInstance 初始化用*/
+/* CANInstance Used during initialization*/
 typedef struct CANInstanceConfig_t
 {
-  CAN_HandleTypeDef* can_handle;  // can句柄
-  uint32_t tx_id;                 // 发送id
-  uint32_t rx_id;                 // 接收id
+  CAN_HandleTypeDef* can_handle;  
+  uint32_t tx_id;                 
+  uint32_t rx_id;                 
   void (*CANInstanceRxCallback)(CANInstance* ins);
 } CANInstanceConfig;
 /* can instance*/
 class CANInstance {
 private:
-  CAN_HandleTypeDef* can_handle_;               // CAN句柄
-  CAN_TxHeaderTypeDef tx_config_;               // CAN报文发送配置
-  uint32_t tx_id_;                              // 发送id
-  uint32_t tx_mailbox_;                         // CAN消息填入的邮箱号
-  uint8_t  tx_buff_[8];                         // 发送缓存
-  uint32_t rx_id_;                              // 接收id
-  size_t  rx_len_;                              // 接收长度,可能为0-8
-  uint8_t  rx_buff_[8];                         // 接收缓存,最大消息长度为8
+  CAN_HandleTypeDef* can_handle_;               
+  CAN_TxHeaderTypeDef tx_config_;               // CAN packet sending configuration
+  uint32_t tx_id_;                              
+  uint32_t tx_mailbox_;                         // The mailbox number entered in the CAN message
+  uint8_t  tx_buff_[8];                         // Send buffer
+  uint32_t rx_id_;                              
+  size_t  rx_len_;                              // The receive length ranges from 0 to 8
+  uint8_t  rx_buff_[8];                         // Receive cache with a maximum message length of 8
 public:
-	static uint8_t can_ins_cnt_;			            // 实体计数
-	static const uint32_t can_tx_timecnt_max_;		// 实体计数
-	static const uint8_t can_ins_cnt_max_;	      // 允许最大实体数
+	static const uint32_t can_tx_timecnt_max_;		// Send lost contact count
+	static const uint8_t can_ins_cnt_max_;	      // The maximum number of entities allowed
   void (*CANInstanceRxCallback_)(CANInstance* ins);
-	/**
-	 * @brief 默认构造函数
-	 * 
-	 */
-	CANInstance() {}
-	/**
-	 * @brief 构造函数，以结构体传参方式
-	 */
+
+  // Constructor, in struct body parameter mode
 	CANInstance(CANInstanceConfig* config);
-	/**
-	 * @brief 构造函数，仅发送
-	 */
+
+  // Constructor, send only
 	CANInstance(CANInstanceTxConfig* config);
 
-	// 设置发送数据包的长度
+	// Set the length of the packet to be sent
 	void SetTxConfigDLC(uint8_t length) { tx_config_.DLC = math::Constrain<uint8_t>(length,0,8); }
 
-	// 设置接受长度
+	// Set rx data length
 	void SetRxDataLength(uint32_t length) { rx_len_ = math::Constrain<uint32_t>(length,0,8); }
 
-	// 返回 can 句柄
+	// Return can handle
 	CAN_HandleTypeDef* GetCANHandle(void) { return can_handle_; }
 
-	// 实例 CAN Tx message header 配置地址
+	// Return CAN Tx message header Configuration address
 	CAN_TxHeaderTypeDef* GetTxConfig(void) { return &tx_config_; }
 
-	// 实例发送数组指针
+	// Return tx buff 
 	uint8_t* GetTxBuff(void) { return tx_buff_; }
 
-  // 设置发送数组整体
+  // Set tx buff
   void SetTxbuff(uint8_t* tx_buff) { memcpy(tx_buff_, tx_buff, sizeof(tx_buff_)); }
 
-  // 设置发送数组按字节
+  // Configure address Settings to send arrays in bytes
   void SetTxbuff(uint8_t index, uint8_t val) { tx_buff_[index] = val; }
 
-	// 实例发送数组指针
+	// rx buff ptr
 	uint8_t* GetRxBuff(void) { return rx_buff_; }
 
-	// 实例接收 id
+	// Instance rx id
 	uint32_t GetRxId(void) { return rx_id_; }
 
-	// 更新 can 接收数组
+	// Update the can receive array
 	void RxBuffUpdate(uint8_t* rx_buff) { memcpy(rx_buff_, rx_buff, rx_len_); }
+
    /**
    * @brief 接收回调指针，链接父子
    * 
@@ -115,31 +108,12 @@ public:
   // void SetCANInstanceRxCallback(std::function<void()> callback) {
   //     CANInstanceRxCallback_ = callback;
   // }
+
   /**
-   * @brief 发送
+   * @brief Transmit
    * 
    */
-	static void CANSend(CANInstance* instance) {
-    /* Status of api are returned to this variable. */
-    int8_t rslt;
-		static uint32_t starting_time;
-		while (HAL_CAN_GetTxMailboxesFreeLevel(instance->GetCANHandle()) == 0) {
-			starting_time++;
-			if (starting_time > CANInstance::can_tx_timecnt_max_) {
-				starting_time = 0;
-				return;
-			}
-		}
-		starting_time = 0;
-		if (instance->GetCANHandle() == &hcan1) {
-			rslt = HAL_CAN_AddTxMessage(&hcan1, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX0);
-		} else if (instance->GetCANHandle() == &hcan2) {
-			rslt = HAL_CAN_AddTxMessage(&hcan2, instance->GetTxConfig(), instance->GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX1);
-		} else {
-			return;
-		}
-//    memset(instance->tx_buff_, 0, sizeof(instance->tx_buff_));
-	}
+	HAL_StatusTypeDef Transmit(void);
 };
 
 

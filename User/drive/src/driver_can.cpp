@@ -158,3 +158,29 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   }
 }
 
+/**
+  * @brief  CANInstance::Transmit
+  * @param  
+  */
+HAL_StatusTypeDef CANInstance::Transmit(void) {
+  /* Status of api are returned to this variable. */
+  HAL_StatusTypeDef rslt;
+  static uint32_t starting_time;
+  while (HAL_CAN_GetTxMailboxesFreeLevel(GetCANHandle()) == 0) {
+    starting_time++;
+    if (starting_time > CANInstance::can_tx_timecnt_max_) {
+      starting_time = 0;
+      return HAL_TIMEOUT;
+    }
+  }
+  starting_time = 0;
+  if (GetCANHandle() == &hcan1) {
+    rslt = HAL_CAN_AddTxMessage(&hcan1, GetTxConfig(), GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX0);
+  } else if (GetCANHandle() == &hcan2) {
+    rslt = HAL_CAN_AddTxMessage(&hcan2, GetTxConfig(), GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX1);
+  } else {
+    return HAL_ERROR;
+  }
+  return HAL_OK;
+//    memset(tx_buff_, 0, sizeof(tx_buff_));
+}

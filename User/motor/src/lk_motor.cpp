@@ -132,7 +132,7 @@ void LkMotor::ControlTask(void) {
   for (size_t i = 0; i < 2; i++) {
     // Only initialized groups can be sent
     if(group_enable_flag_[i] == kGroupOK) {
-      lkmtr_CAN_txgroup[i].CANSend(&lkmtr_CAN_txgroup[i]);
+      lkmtr_CAN_txgroup[i].Transmit();
     }
   }
 }

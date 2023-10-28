@@ -122,6 +122,8 @@ void DjiMotor::PIDCal(void) {
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
   }
 }
+
+
 /**
  * @brief 
  * 
@@ -141,10 +143,11 @@ void DjiMotor::ControlTask(void) {
   for (size_t i = 0; i < kGroupSum; i++) {
     // Only initialized groups can be sent
     if(group_enable_flag_[i] == kGroupOK) {
-      djimtr_CAN_txgroup[i].CANSend(&djimtr_CAN_txgroup[i]);
+      djimtr_CAN_txgroup[i].Transmit();
     }
   }
 }
+
 /**
  * @brief Receive messages
  * 
