@@ -21,8 +21,6 @@ using namespace motor;
 void Motor::MotorInit(MotorInitConfig* config) {
   motor_type_ = config->motor_type;
   CANInfoInit(config);  // divide into groups
-	// External controller configuration
-  // external_info_ = config->external_control_config;
 	// Motor pid parameter initialization
   memset(&controler_, 0, sizeof(Control)); // Clear the pid parameter structure before initializing it
   controler_.loop_ = config->loop;
@@ -77,11 +75,13 @@ void Motor::CANInfoInit(MotorInitConfig* config) {
    * @brief Motor PID parameter initialization function
    * 
    */
-void Motor::PIDInit(PIDLoop loop, MotorInitConfig* config) {
+void Motor::PIDInit(PIDCtrlMode loop, MotorInitConfig* config) {
   switch (loop) {
     case kPositLoop:
       controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
       controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
+      // PIDControler* positin = new PIDControler(&config->PID_posit_inner_config);
+      // PIDControler* positout = new PIDControler(&config->PID_posit_outer_config);
       break;
     case kSpeedLoop:
       controler_.speed_ = PIDControler(&config->PID_speed_config);
@@ -112,15 +112,15 @@ float Motor::SpeedLoop(void) {
   float speed;
   float output;
 
-  if (external_info_.GetMsrFlag(kExSpeed))
-    speed = external_info_.GetMsrValue(kExSpeed);
+  if (external_info_.GetMsrFlag(kSpeed))
+    speed = external_info_.GetMsrValue(kSpeed);
   else
     speed = GetSpeed();
 
   output = controler_.speed_.SingleLoop(tar, speed);
 
-  if (external_info_.GetFFdFlag(kExSpeed))
-    output += external_info_.GetFFdValue(kExSpeed);
+  if (external_info_.GetFFdFlag(kSpeed))
+    output += external_info_.GetFFdValue(kSpeed);
   return output;
 }
 
@@ -137,24 +137,24 @@ float Motor::AngleLoop(void) {
   float speed;
   float output;
 
-  if (external_info_.GetMsrFlag(kExAngleout))
-    angle = external_info_.GetMsrValue(kExAngleout);
+  if (external_info_.GetMsrFlag(kAngleout))
+    angle = external_info_.GetMsrValue(kAngleout);
   else
     angle = GetAngle();
-  if (external_info_.GetMsrFlag(kExAnglein))
-    speed = external_info_.GetMsrValue(kExAnglein);
+  if (external_info_.GetMsrFlag(kAnglein))
+    speed = external_info_.GetMsrValue(kAnglein);
   else
     speed = GetSpeed();
 
   output = controler_.angleout_.SingleLoop(tar, angle, 8192);
 
-  if (external_info_.GetFFdFlag(kExAngleout))
-    output += external_info_.GetFFdValue(kExAngleout);
+  if (external_info_.GetFFdFlag(kAngleout))
+    output += external_info_.GetFFdValue(kAngleout);
 
   output = controler_.anglein_.SingleLoop(output, speed);
 
-  if (external_info_.GetFFdFlag(kExAnglein))
-    output += external_info_.GetFFdValue(kExAnglein);
+  if (external_info_.GetFFdFlag(kAnglein))
+    output += external_info_.GetFFdValue(kAnglein);
   return output;
 }
 
@@ -171,24 +171,24 @@ float Motor::PositLoop(void) {
   float speed;
   float output;
 
-  if (external_info_.GetMsrFlag(kExPositout))
-    posit = external_info_.GetMsrValue(kExPositout);
+  if (external_info_.GetMsrFlag(kPositout))
+    posit = external_info_.GetMsrValue(kPositout);
   else
     posit = GetPosit();
-  if (external_info_.GetMsrFlag(kExPositin))
-    speed = external_info_.GetMsrValue(kExPositin);
+  if (external_info_.GetMsrFlag(kPositin))
+    speed = external_info_.GetMsrValue(kPositin);
   else
     speed = GetSpeed();
 
   output = controler_.positout_.SingleLoop(tar, posit);
 
-  if (external_info_.GetFFdFlag(kExPositout))
-    output += external_info_.GetFFdValue(kExPositout);
+  if (external_info_.GetFFdFlag(kPositout))
+    output += external_info_.GetFFdValue(kPositout);
 
   output = controler_.positin_.SingleLoop(output, speed);
 
-  if (external_info_.GetFFdFlag(kExPositin))
-    output += external_info_.GetFFdValue(kExPositin);
+  if (external_info_.GetFFdFlag(kPositin))
+    output += external_info_.GetFFdValue(kPositin);
   return output;
 }
 
@@ -204,14 +204,14 @@ float Motor::CurrentLoop(void) {
   float current;
   float output;
 
-  if (external_info_.GetMsrFlag(kExCurrent))
-    current = external_info_.GetMsrValue(kExCurrent);
+  if (external_info_.GetMsrFlag(kCurrent))
+    current = external_info_.GetMsrValue(kCurrent);
   else
     current = GetCurrent();
 
   output = controler_.current_.SingleLoop(tar, current);
   
-  if (external_info_.GetFFdFlag(kExCurrent))
-    output += external_info_.GetFFdValue(kExCurrent);
+  if (external_info_.GetFFdFlag(kCurrent))
+    output += external_info_.GetFFdValue(kCurrent);
   return output;
 }

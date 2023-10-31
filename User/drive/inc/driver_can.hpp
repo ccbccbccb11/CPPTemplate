@@ -61,12 +61,20 @@ public:
 	static const uint32_t can_tx_timecnt_max_;		// Send lost contact count
 	static const uint8_t can_ins_cnt_max_;	      // The maximum number of entities allowed
   void (*CANInstanceRxCallback_)(CANInstance* ins);
-
+	
+	// 
+	CANInstance() {}
+		
   // Constructor, in struct body parameter mode
-	CANInstance(CANInstanceConfig* config);
+	CANInstance(CANInstanceConfig* config) {
+		CANInsInit(config);
+	}
 
   // Constructor, send only
 	CANInstance(CANInstanceTxConfig* config);
+
+	// 
+	void CANInsInit(CANInstanceConfig* config);
 
 	// Set the length of the packet to be sent
 	void SetTxConfigDLC(uint8_t length) { tx_config_.DLC = math::Constrain<uint8_t>(length,0,8); }

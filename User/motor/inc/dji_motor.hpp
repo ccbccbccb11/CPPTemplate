@@ -12,9 +12,7 @@
 #ifndef DJI_MOTOR_HPP
 #define DJI_MOTOR_HPP
 /* Includes -----------------------------------------------------------------*/
-#include "utils.h"
 #include "motor.hpp"
-#include "motor_def.hpp"
 
 using namespace motor;
 using namespace motordef;
@@ -32,8 +30,14 @@ public:
   DjiMotor(MotorInitConfig* config) : Motor(config) {
     DjiMotorInit(config);
   }
+  /**
+   * @brief *************** public functions **********************
+   */
   // initialization function
   void DjiMotorInit(MotorInitConfig* config);
+
+  // Return object handle itself
+  DjiMotor* GetObjectHandle(void) { return this; }
   
   /**
    * @brief *************** CAN message reading ******************************

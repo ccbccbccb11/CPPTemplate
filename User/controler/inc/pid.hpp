@@ -181,6 +181,10 @@ public:
     InitMotorPIDParams(config);
     init_flag_ = kPIDInit;
   }
+  void PIDInsInit(PIDInitConfig* config) {
+    InitMotorPIDParams(config);
+    init_flag_ = kPIDInit;
+  }
   PIDControler(float kp,
           float	ki, float	kd,
           float	blind_err,

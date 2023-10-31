@@ -23,6 +23,7 @@ std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;       // use a map to store th
    * 
    */
 void LkMotor::LkMotorInit(MotorInitConfig* config) {
+  this->MotorInit(config);
   if (config->can_config.can_handle == &hcan1) {
     if (!group_enable_flag_[0])
       group_enable_flag_[0] = kGroupOK;
@@ -34,14 +35,14 @@ void LkMotor::LkMotorInit(MotorInitConfig* config) {
 	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = LkMotor::GetCANRxMessage;
-  can_instance_ = new CANInstance(&config->can_config);
+  can_instance_.CANInsInit(&config->can_config);
 	// HeartBeat instance call constructor initialization
-	heartbeat_ = new HeartBeat(lkmtr_offline_cnt_max_);
+	heartbeat_.HeartBeatInsInit(LkMotor::lkmtr_offline_cnt_max_);
 	// The initial successful motor is added to map to save a copy
-  if (can_instance_->GetCANHandle() == &hcan1)
-    lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
+  if (can_instance_.GetCANHandle() == &hcan1)
+    lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_.GetRxId(), this));
   else
-    lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_->GetRxId(), this));
+    lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_.GetRxId(), this));
 	// Initialization success flag
 	stateinfo_.init_flag_ = kMotorInit; 
 }
@@ -76,7 +77,7 @@ MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };  // Send enable
  */
 void LkMotor::PIDCal(void) {
   float output;
-  PIDLoop loop;
+  PIDCtrlMode loop;
   uint8_t group_index;
   uint8_t txbuff_index;
   StateUpdate();
@@ -148,14 +149,14 @@ void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
     lkmtr_ = lkmtr_can2_node_map[can_ins->GetRxId()];
 
   int16_t err;
-  if (lkmtr_->can_instance_->GetRxBuff() == nullptr)// Accepts a null pointer to exit
+  if (lkmtr_->can_instance_.GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
   if (lkmtr_->stateinfo_.init_flag_ == kMotorEmpty)// Motor does not initialize exit
     return;
-  lkmtr_->rxinfo_.angle_ = lkmtr_->CANGetAngle(lkmtr_->can_instance_->GetRxBuff());
-  lkmtr_->rxinfo_.speed_ = lkmtr_->CANGetSpeed(lkmtr_->can_instance_->GetRxBuff());
-  lkmtr_->rxinfo_.current_ = lkmtr_->CANGetCurrent(lkmtr_->can_instance_->GetRxBuff());
-  lkmtr_->rxinfo_.temperature_ = lkmtr_->CANGetTemperature(lkmtr_->can_instance_->GetRxBuff());
+  lkmtr_->rxinfo_.angle_ = lkmtr_->CANGetAngle(lkmtr_->can_instance_.GetRxBuff());
+  lkmtr_->rxinfo_.speed_ = lkmtr_->CANGetSpeed(lkmtr_->can_instance_.GetRxBuff());
+  lkmtr_->rxinfo_.current_ = lkmtr_->CANGetCurrent(lkmtr_->can_instance_.GetRxBuff());
+  lkmtr_->rxinfo_.temperature_ = lkmtr_->CANGetTemperature(lkmtr_->can_instance_.GetRxBuff());
   if (!lkmtr_->rxinfo_.angle_prev_ && !lkmtr_->rxinfo_.angle_sum_) {
     err = 0;
   } else {
@@ -171,5 +172,5 @@ void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
     lkmtr_->rxinfo_.angle_sum_ += err;
   }
   lkmtr_->rxinfo_.angle_prev_ = lkmtr_->rxinfo_.angle_;
-  lkmtr_->heartbeat_->ResetOfflineCnt();// Heartbeat update
+  lkmtr_->heartbeat_.ResetOfflineCnt();// Heartbeat update
 }

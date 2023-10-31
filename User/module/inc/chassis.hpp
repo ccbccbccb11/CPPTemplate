@@ -22,15 +22,41 @@
  * @brief *************** namespace *******************************
  */
 namespace chassis {
+/**
+ * @brief *************** macro definition ************************
+ */
+typedef enum {
+  kLeftFront = 0x201,
+  kRightFront = 0x202,
+  kLeftBack = 0x203,
+  kRightBack = 0x204,
+} ChassisMotor;
+/**
+ * @brief *************** class declaration ***********************
+ */
 class Chassis {
 private:
+  /**
+   * @brief *************** private variables **********************
+   */
+  // Map from motor enum to motor object
+  std::map<ChassisMotor, djimtr::DjiMotor*> motor_map_;
+  /**
+   * @brief *************** private functions **********************
+   */
 public:
+  /**
+   * @brief *************** public variables ***********************
+   */
   /**
    * @brief *************** constructor ******************************
    */
-  Chassis() {}
-
-  void Register() {}
+  Chassis() { Register(); }
+  
+  /**
+   * @brief *************** public functions **********************
+   */
+  void Register();
 
   void GetFrontSpeed(void) {}
 

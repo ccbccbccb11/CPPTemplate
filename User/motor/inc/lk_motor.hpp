@@ -15,9 +15,7 @@
 #ifndef LK_MOTOR_HPP
 #define LK_MOTOR_HPP
 /* Includes -----------------------------------------------------------------*/
-#include "utils.h"
 #include "motor.hpp"
-#include "motor_def.hpp"
 
 using namespace motor;
 using namespace motordef;

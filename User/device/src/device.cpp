@@ -14,6 +14,7 @@
 #include "imu_sensor.h"
 #include "dji_motor.hpp"
 #include "lk_motor.hpp"
+#include "chassis.hpp"
 
 using namespace djimtr;
 using namespace lkmtr;
@@ -25,61 +26,83 @@ using namespace lkmtr;
  *       所以用了这种方法的话全局对象名与函数内临时的this不是一个东西
  *       
  */
-// MotorInitConfig GM6020_test_config = {
-//   .motor_type = kGM6020,
-// 	.can_config = {
-// 		.can_handle = &hcan1,
-// 		.rx_id = 0x206,
-// 	},
-// 	// .PID_speed_config = {
-//   //   .kp = 1,
-//   //   .ki = 0,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 2000,
-//   //   .iout_max = 20000,
-//   //   .out_max = 20000,
-// 	// },
-// 	// .PID_angle_inner_config = {
-//   //   .kp = 1,
-//   //   .ki = 1,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 10000,
-//   //   .iout_max = 10000,
-//   //   .out_max = 20000,
-// 	// },
-// 	// .PID_angle_outer_config = {
-//   //   .kp = 1,
-//   //   .ki = 0,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 100,
-//   //   .iout_max = 100,
-//   //   .out_max = 200,
-// 	// },
-// 	.PID_posit_inner_config = {
-//     .kp = 1,
-//     .ki = 1,
-//     .kd = 0,
-//     .blind_err = 0 ,
-//     .integral_max = 10000,
-//     .iout_max = 10000,
-//     .out_max = 20000,
-// 	},
-// 	.PID_posit_outer_config = {
-//     .kp = 1,
-//     .ki = 0,
-//     .kd = 0,
-//     .blind_err = 0 ,
-//     .integral_max = 100,
-//     .iout_max = 100,
-//     .out_max = 200,
-// 	},
-//   .loop = kPositLoop,
-// };
-// DjiMotor M6020_test = DjiMotor(&GM6020_test_config);
 
+// chassis::Chassis chassis_test;
+
+MotorInitConfig GM6020_test_config = {
+  .motor_type = kGM6020,
+	.can_config = {
+		.can_handle = &hcan1,
+		.rx_id = 0x206,
+	},
+	// .PID_speed_config = {
+  //   .kp = 1,
+  //   .ki = 0,
+  //   .kd = 0,
+  //   .blind_err = 0 ,
+  //   .integral_max = 2000,
+  //   .iout_max = 20000,
+  //   .out_max = 20000,
+	// },
+	// .PID_angle_inner_config = {
+  //   .kp = 1,
+  //   .ki = 1,
+  //   .kd = 0,
+  //   .blind_err = 0 ,
+  //   .integral_max = 10000,
+  //   .iout_max = 10000,
+  //   .out_max = 20000,
+	// },
+	// .PID_angle_outer_config = {
+  //   .kp = 1,
+  //   .ki = 0,
+  //   .kd = 0,
+  //   .blind_err = 0 ,
+  //   .integral_max = 100,
+  //   .iout_max = 100,
+  //   .out_max = 200,
+	// },
+	.PID_posit_inner_config = {
+    .kp = 1,
+    .ki = 1,
+    .kd = 0,
+    .blind_err = 0 ,
+    .integral_max = 10000,
+    .iout_max = 10000,
+    .out_max = 20000,
+	},
+	.PID_posit_outer_config = {
+    .kp = 1,
+    .ki = 0,
+    .kd = 0,
+    .blind_err = 0 ,
+    .integral_max = 100,
+    .iout_max = 100,
+    .out_max = 200,
+	},
+  .loop = kPositLoop,
+};
+
+MotorInitConfig RM3508_test_config = {
+  .motor_type = kRM3508,
+	.can_config = {
+		.can_handle = &hcan1,
+		.rx_id = 0x201,
+	},
+	.PID_speed_config = {
+    .kp = 10,
+    .ki = 0.1,
+    .kd = 0,
+    .blind_err = 0 ,
+    .integral_max = 100000,
+    .iout_max = 10000,
+    .out_max = 10000,
+	},
+  .loop = kSpeedLoop,
+};
+DjiMotor M3508_test;
+DjiMotor M6020_test;
+size_t rm3508classzize;
 // MotorInitConfig LK8010_test_config = {
 //   .motor_type = kLkMtr,
 // 	.can_config = {
@@ -103,6 +126,8 @@ using namespace lkmtr;
  * 
  */
 void Device_Init(void) {
+  M3508_test.DjiMotorInit(&RM3508_test_config);
+  M6020_test.DjiMotorInit(&GM6020_test_config);
 //	imu_sensor.init(&imu_sensor);
 }
 /**
@@ -110,6 +135,7 @@ void Device_Init(void) {
  * 
  */
 void Device_HeartBeat(void) {
+	rm3508classzize = sizeof(M3508_test);
 	HeartBeat::TickTask();
 }
 /**

@@ -341,7 +341,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32F407xx,__FPU_PRESENT=1,ARM_MATH_CM4,ARM_MATH_LOOPUNROLL</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../Drivers/CMSIS/DSP/Include/dsp;../User/controler/inc;../User/Imu/inc;..\User\Alog\eigen3</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc;../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy;../Middlewares/Third_Party/FreeRTOS/Source/include;../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS;../Middlewares/Third_Party/FreeRTOS/Source/portable/RVDS/ARM_CM4F;../Drivers/CMSIS/Device/ST/STM32F4xx/Include;../Drivers/CMSIS/Include;../User/Alog/inc;../User/cmsis;../User/control/inc;../User/config/inc;../User/device/inc;../User/drive/inc;../User/Entity/inc;../User/Matrix_Robotics/src;../User/motor/inc;../User/my_task/inc;../User/protocol/inc;../Drivers/CMSIS/DSP/Include;../Drivers/CMSIS/DSP/Include/dsp;../User/controler/inc;../User/Imu/inc;../User/Alog/eigen3;../User/module/inc</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -843,22 +843,22 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>module</GroupName>
+          <Files>
+            <File>
+              <FileName>chassis.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\module\src\chassis.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>controler</GroupName>
           <Files>
             <File>
               <FileName>pid.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\User\controler\src\pid.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>entity</GroupName>
-          <Files>
-            <File>
-              <FileName>entity.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\Entity\src\entity.cpp</FilePath>
             </File>
           </Files>
         </Group>

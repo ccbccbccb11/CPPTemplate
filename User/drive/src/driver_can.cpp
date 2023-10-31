@@ -39,25 +39,29 @@ CANInstance::CANInstance(CANInstanceTxConfig* config) {
  * 
  * @param config 
  */
-CANInstance::CANInstance(CANInstanceConfig* config) { 
+void CANInstance::CANInsInit(CANInstanceConfig* config) { 
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
   rx_id_ = config->rx_id;
   CANInstanceRxCallback_ = config->CANInstanceRxCallback;
 
+	// Instance too more
   if (can1_node_map.size() > CANInstance::can_ins_cnt_max_ || 
       can2_node_map.size() > CANInstance::can_ins_cnt_max_)
     while (true)
       continue;
   
+	// ID Redefine
   if (can_handle_ == &hcan1) { 
     auto it = can1_node_map.find(rx_id_); 
-    while (it != can1_node_map.end())
-      continue;
+    if (it != can1_node_map.end())
+			while(true)
+				continue;
   } else { 
     auto it = can2_node_map.find(rx_id_); 
-    while (it != can2_node_map.end())
-      continue;
+    if (it != can2_node_map.end())
+			while(true)
+				continue;
   }
 
 	tx_config_.StdId = tx_id_;
@@ -69,8 +73,12 @@ CANInstance::CANInstance(CANInstanceConfig* config) {
 	// The initial successful can instance is added to map to save a copy
   if (can_handle_ == &hcan1)
     can1_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
-  else
+  else if (can_handle_ == &hcan2)
     can2_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
+	else 
+		// error handle
+		while(true)
+			continue;
   
 }
 /**

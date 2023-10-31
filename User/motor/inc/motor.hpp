@@ -59,8 +59,8 @@ protected:
   IDInfo            id_info_;                    
   StateInfo         stateinfo_;               
   MotorType         motor_type_;              
-  CANInstance*      can_instance_;         
-  HeartBeat*        heartbeat_;              
+  CANInstance       can_instance_;         
+  HeartBeat         heartbeat_;              
 public:
   Control           controler_;            
   ExternalInfo      external_info_;   // peripheral control unit, including feedforward algorithm
@@ -104,10 +104,10 @@ public:
    * @brief *************** control function ******************************
    */
   // Change control loop
-  void SetPIDLoop(PIDLoop loop) { controler_.loop_ = loop; }
+  void SetPIDLoop(PIDCtrlMode loop) { controler_.loop_ = loop; }
 
   // Get the current control loop
-  PIDLoop GetPIDLoop(void) { return controler_.loop_; }
+  PIDCtrlMode GetPIDLoop(void) { return controler_.loop_; }
 
   // Set the pid target value, and only this one target value and modify the channel
   void SetPIDTarget(float tar) { controler_.tar_ = tar; }
@@ -209,7 +209,7 @@ public:
   }
   
   // pid instance initialization
-  void PIDInit(PIDLoop loop, MotorInitConfig* config);
+  void PIDInit(PIDCtrlMode loop, MotorInitConfig* config);
 
   // Return speed loop initialization information
   PidInit GetSpeedPIDInit(void) { return controler_.speed_.GetInitFlag(); }
@@ -238,7 +238,7 @@ public:
   // Heartbeat update
   void StateUpdate(void) {
     stateinfo_.work_state_ = kMotorOnline;
-    if (heartbeat_->GetState() == kOffline)
+    if (heartbeat_.GetState() == kOffline)
       stateinfo_.work_state_ = kMotorOffline;
   }
 };

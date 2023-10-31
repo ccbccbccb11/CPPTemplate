@@ -26,18 +26,19 @@ std::map<uint32_t, DjiMotor*> djimtr_can2_node_map;       // use a map to store 
    * 
    */
 void DjiMotor::DjiMotorInit(MotorInitConfig* config) {
+  this->MotorInit(config);
 	group_enable_flag_[id_info_.group_] = kGroupOK;
 	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
   config->can_config.CANInstanceRxCallback = DjiMotor::GetCANRxMessage;
-  can_instance_ = new CANInstance(&config->can_config);
+  can_instance_.CANInsInit(&config->can_config);
 	// HeartBeat instance call constructor initialization
-	heartbeat_ = new HeartBeat(djimtr_offline_cnt_max_);
+	heartbeat_.HeartBeatInsInit(DjiMotor::djimtr_offline_cnt_max_);
 	// The initial successful motor is added to map to save a copy
-  if (can_instance_->GetCANHandle() == &hcan1)
-    djimtr_can1_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
+  if (can_instance_.GetCANHandle() == &hcan1)
+    djimtr_can1_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_.GetRxId(), this));
   else
-    djimtr_can2_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_->GetRxId(), this));
+    djimtr_can2_node_map.insert(std::pair<uint32_t, DjiMotor *>(can_instance_.GetRxId(), this));
   
 	// Initialization success flag
 	stateinfo_.init_flag_ = kMotorInit; 
@@ -82,7 +83,7 @@ MotorGroupInit DjiMotor::group_enable_flag_[kGroupSum] = { kGroupEmpty };  // Se
  */
 void DjiMotor::PIDCal(void) {
   float output;
-  PIDLoop loop;
+  PIDCtrlMode loop;
   uint8_t group_index;
   uint8_t txbuff_index;
   StateUpdate();
@@ -160,14 +161,14 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     djimtr_ = djimtr_can2_node_map[can_ins->GetRxId()];
 
   int16_t err;
-  if (djimtr_->can_instance_->GetRxBuff() == nullptr)// Accepts a null pointer to exit
+  if (djimtr_->can_instance_.GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
   if (djimtr_->stateinfo_.init_flag_ == kMotorEmpty)// Motor does not initialize exit
     return;
-  djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_->GetRxBuff());
-  djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_->GetRxBuff());
-  djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_->GetRxBuff());
-  djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_->GetRxBuff());
+  djimtr_->rxinfo_.angle_ = djimtr_->CANGetAngle(djimtr_->can_instance_.GetRxBuff());
+  djimtr_->rxinfo_.speed_ = djimtr_->CANGetSpeed(djimtr_->can_instance_.GetRxBuff());
+  djimtr_->rxinfo_.current_ = djimtr_->CANGetCurrent(djimtr_->can_instance_.GetRxBuff());
+  djimtr_->rxinfo_.temperature_ = djimtr_->CANGetTemperature(djimtr_->can_instance_.GetRxBuff());
   if (!djimtr_->rxinfo_.angle_prev_ && !djimtr_->rxinfo_.angle_sum_) {
     err = 0;
   } else {
@@ -183,5 +184,5 @@ void DjiMotor::GetCANRxMessage(CANInstance* can_ins) {
     djimtr_->rxinfo_.angle_sum_ += err;
   }
   djimtr_->rxinfo_.angle_prev_ = djimtr_->rxinfo_.angle_;
-  djimtr_->heartbeat_->ResetOfflineCnt();// Heartbeat update
+  djimtr_->heartbeat_.ResetOfflineCnt();// Heartbeat update
 }
