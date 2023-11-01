@@ -212,12 +212,12 @@ public:
   void PIDInit(PIDCtrlMode loop, MotorInitConfig* config);
 
   // Return speed loop initialization information
-  PidInit GetSpeedPIDInit(void) { return controler_.speed_.GetInitFlag(); }
+  PidInit GetSpeedPIDInit(void) { return controler_.PID_map_[kSpeed]->GetInitFlag(); }
 
   // Return Angle ring initialization information
   PidInit GetAnglePIDInit(void) {
-    if (controler_.anglein_.GetInitFlag() == kPIDInit && 
-        controler_.angleout_.GetInitFlag() == kPIDInit)
+    if (controler_.PID_map_[kAnglein]->GetInitFlag() == kPIDInit && 
+        controler_.PID_map_[kAngleout]->GetInitFlag() == kPIDInit)
       return kPIDInit;
     else 
       return kPIDEmpty;
@@ -225,15 +225,15 @@ public:
 
   // Return position ring initialization information
   PidInit GetPositPIDInit(void) {
-    if (controler_.positin_.GetInitFlag() == kPIDInit && 
-        controler_.positout_.GetInitFlag() == kPIDInit)
+    if (controler_.PID_map_[kPositin]->GetInitFlag() == kPIDInit && 
+        controler_.PID_map_[kPositout]->GetInitFlag() == kPIDInit)
       return kPIDInit;
     else 
       return kPIDEmpty;
   }
 
   // Output current loop initialization information
-  PidInit GetCurrentPIDInit(void) { return controler_.current_.GetInitFlag(); }
+  PidInit GetCurrentPIDInit(void) { return controler_.PID_map_[kCurrent]->GetInitFlag(); }
   
   // Heartbeat update
   void StateUpdate(void) {

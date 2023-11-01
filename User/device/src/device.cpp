@@ -18,14 +18,6 @@
 
 using namespace djimtr;
 using namespace lkmtr;
-/**
- * @note 不能创建全局对象时先调用默认构造函数，然后再在函数内
- *       调用重载构造函数并把this指针传出!!!!
- *       因为此时传出的this指针只是在堆上分配的临时变量，
- *       构造完后单纯把值拷贝给全局变量，函数执行完便销毁了。
- *       所以用了这种方法的话全局对象名与函数内临时的this不是一个东西
- *       
- */
 
 // chassis::Chassis chassis_test;
 
@@ -103,6 +95,7 @@ MotorInitConfig RM3508_test_config = {
 DjiMotor M3508_test;
 DjiMotor M6020_test;
 size_t rm3508classzize;
+size_t aaaaaaaaapidsize;
 // MotorInitConfig LK8010_test_config = {
 //   .motor_type = kLkMtr,
 // 	.can_config = {
@@ -136,6 +129,7 @@ void Device_Init(void) {
  */
 void Device_HeartBeat(void) {
 	rm3508classzize = sizeof(M3508_test);
+	aaaaaaaaapidsize = sizeof(M3508_test.controler_);
 	HeartBeat::TickTask();
 }
 /**

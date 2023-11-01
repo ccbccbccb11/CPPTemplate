@@ -101,13 +101,8 @@ public:
 // Motor controller class
 class Control {
 public:
-  PIDControler current_;
-  PIDControler speed_;
-  PIDControler anglein_;
-  PIDControler angleout_;
-  PIDControler positin_;
-  PIDControler positout_;
-  std::map<PIDLoop, PIDControler*> PID_map_;
+  Control() {}
+  std::map<uint8_t, std::shared_ptr<PIDControler>> PID_map_;
   PIDCtrlMode loop_;
   float tar_;
   float dct_out_;
@@ -137,7 +132,7 @@ public:
   bool GetFFdFlag(PIDLoop flag) { return ffd_map_.find(flag) != ffd_map_.end(); }
   
   /* Return external measure data ptr and enable ffd control */
-  bool GetMsrFlag(PIDLoop flag) { return msr_map_.find(flag) != msr_map_.end(); }
+  bool GetMsrFlagBool(PIDLoop flag) { return msr_map_.find(flag) != msr_map_.end(); }
   
   /* Return feedforard data ptr and enable ffd control */
   float GetFFdValue(PIDLoop flag) { return *ffd_map_[flag]; }
