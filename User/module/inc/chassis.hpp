@@ -40,7 +40,7 @@ private:
    * @brief *************** private variables **********************
    */
   // Map from motor enum to motor object
-  std::map<ChassisMotor, djimtr::DjiMotor*> motor_map_;
+  std::map<ChassisMotor, motor::DjiMotor*> motor_map_;
   /**
    * @brief *************** private functions **********************
    */

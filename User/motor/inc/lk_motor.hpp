@@ -17,24 +17,20 @@
 /* Includes -----------------------------------------------------------------*/
 #include "motor.hpp"
 
-using namespace motor;
-using namespace motordef;
-using namespace heartbeat;
-
-namespace lkmtr {
+namespace motor {
 class LkMotor : public Motor {
 public:
 	static const uint8_t lkmtr_offline_cnt_max_;			// Lkmtr control motor off-line counting
-  static MotorGroupInit group_enable_flag_[2];      // Group enable flag
+  static motordef::MotorGroupInit group_enable_flag_[2];      // Group enable flag
   /**
    * @brief *************** constructor ******************************
    */
   LkMotor() {}
-  LkMotor(MotorInitConfig* config) : Motor(config){
+  LkMotor(motordef::MotorInitConfig* config) : Motor(config){
     LkMotorInit(config);
   }
   // initialization function
-  void LkMotorInit(MotorInitConfig* config);
+  void LkMotorInit(motordef::MotorInitConfig* config);
   /**
    * @brief *************** CAN message reading ******************************
    */

@@ -12,39 +12,37 @@
 /* Includes -----------------------------------------------------------------*/
 #include "lk_motor.hpp"
 
-using namespace lkmtr;
-
-const uint8_t LkMotor::lkmtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
-std::map<uint32_t, LkMotor*>  lkmtr_can1_node_map;      // use a map to store the motor nodes of CAN1
-std::map<uint32_t, LkMotor*> lkmtr_can2_node_map;       // use a map to store the motor nodes of CAN2
+const uint8_t motor::LkMotor::lkmtr_offline_cnt_max_ = 100;    // The maximum number of lost connections(ms)
+std::map<uint32_t, motor::LkMotor*>  lkmtr_can1_node_map;      // use a map to store the motor nodes of CAN1
+std::map<uint32_t, motor::LkMotor*> lkmtr_can2_node_map;       // use a map to store the motor nodes of CAN2
 
 /**
    * @brief LkMotor class initialization function, called when the Lk motor is initialized
    * 
    */
-void LkMotor::LkMotorInit(MotorInitConfig* config) {
+void motor::LkMotor::LkMotorInit(motordef::MotorInitConfig* config) {
   this->MotorInit(config);
   if (config->can_config.can_handle == &hcan1) {
     if (!group_enable_flag_[0])
-      group_enable_flag_[0] = kGroupOK;
+      group_enable_flag_[0] = motordef::kGroupOK;
   } else {
     if (!group_enable_flag_[1])
-      group_enable_flag_[1] = kGroupOK;
+      group_enable_flag_[1] = motordef::kGroupOK;
   }
 
 	// can Instance call constructor initialization
   config->can_config.tx_id = this->id_info_.tx_id_;
-  config->can_config.CANInstanceRxCallback = LkMotor::GetCANRxMessage;
+  config->can_config.CANInstanceRxCallback = motor::LkMotor::GetCANRxMessage;
   can_instance_.CANInsInit(&config->can_config);
 	// HeartBeat instance call constructor initialization
-	heartbeat_.HeartBeatInsInit(LkMotor::lkmtr_offline_cnt_max_);
+	heartbeat_.HeartBeatInsInit(motor::LkMotor::lkmtr_offline_cnt_max_);
 	// The initial successful motor is added to map to save a copy
   if (can_instance_.GetCANHandle() == &hcan1)
-    lkmtr_can1_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_.GetRxId(), this));
+    lkmtr_can1_node_map.insert(std::pair<uint32_t, motor::LkMotor*>(can_instance_.GetRxId(), this));
   else
-    lkmtr_can2_node_map.insert(std::pair<uint32_t, LkMotor *>(can_instance_.GetRxId(), this));
+    lkmtr_can2_node_map.insert(std::pair<uint32_t, motor::LkMotor*>(can_instance_.GetRxId(), this));
 	// Initialization success flag
-	stateinfo_.init_flag_ = kMotorInit; 
+	stateinfo_.init_flag_ = motordef::kMotorInit; 
 }
 
 /**
@@ -68,16 +66,16 @@ static CANInstance lkmtr_CAN_txgroup[2] = {
   CANInstance(&lkmtr_CAN2_txconfig),
 };
 
-MotorGroupInit LkMotor::group_enable_flag_[2] = { kGroupEmpty };  // Send enable flag
+motordef::MotorGroupInit motor::LkMotor::group_enable_flag_[2] = { motordef::kGroupEmpty };  // Send enable flag
 
 /**
  * @brief LkMotor PID calculate
  * 
  * @param 
  */
-void LkMotor::PIDCal(void) {
+void motor::LkMotor::PIDCal(void) {
   float output;
-  PIDCtrlMode loop;
+  motordef::PIDCtrlMode loop;
   uint8_t group_index;
   uint8_t txbuff_index;
   StateUpdate();
@@ -85,22 +83,22 @@ void LkMotor::PIDCal(void) {
   group_index = GetGroupIndex();
   txbuff_index = GetTxBuffIndex();
   switch (loop) {
-    case kPIDClose:
+    case motordef::kPIDClose:
       output = 0.f;
       break;
-    case kPositLoop:
+    case motordef::kPositLoop:
       output = PositLoop();
       break;
-    case kSpeedLoop:
+    case motordef::kSpeedLoop:
       output = SpeedLoop();
       break;
-    case kAngleLoop:
+    case motordef::kAngleLoop:
       output = AngleLoop();
       break;
-    case kCurrentLoop:
+    case motordef::kCurrentLoop:
       output = CurrentLoop();
       break;
-    case kOuterLoop:
+    case motordef::kOuterLoop:
       output = GetDirectOut();
       break;
     
@@ -109,7 +107,7 @@ void LkMotor::PIDCal(void) {
   }
     
   // Update send array to corresponding group
-  if (stateinfo_.work_state_ == kMotorStop) {
+  if (stateinfo_.work_state_ == motordef::kMotorStop) {
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
   } else {
@@ -118,8 +116,8 @@ void LkMotor::PIDCal(void) {
   }
 }
 
-void LkMotor::ControlTask(void) {
-  LkMotor* lkmtr_;
+void motor::LkMotor::ControlTask(void) {
+  motor::LkMotor* lkmtr_;
   for (auto it=lkmtr_can1_node_map.begin(); it!=lkmtr_can1_node_map.end(); it++) {
     lkmtr_ = it->second;
     lkmtr_->PIDCal();
@@ -132,7 +130,7 @@ void LkMotor::ControlTask(void) {
   // Transmit two sets of data in sequence 
   for (size_t i = 0; i < 2; i++) {
     // Only initialized groups can be sent
-    if(group_enable_flag_[i] == kGroupOK) {
+    if(group_enable_flag_[i] == motordef::kGroupOK) {
       lkmtr_CAN_txgroup[i].Transmit();
     }
   }
@@ -141,8 +139,8 @@ void LkMotor::ControlTask(void) {
  * @brief Receive messages
  * 
  */
-void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
-  LkMotor* lkmtr_;
+void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
+  motor::LkMotor* lkmtr_;
   if (can_ins->GetCANHandle() == &hcan1)
     lkmtr_ = lkmtr_can1_node_map[can_ins->GetRxId()];
   else
@@ -151,7 +149,7 @@ void LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   int16_t err;
   if (lkmtr_->can_instance_.GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
-  if (lkmtr_->stateinfo_.init_flag_ == kMotorEmpty)// Motor does not initialize exit
+  if (lkmtr_->stateinfo_.init_flag_ == motordef::kMotorEmpty)// Motor does not initialize exit
     return;
   lkmtr_->rxinfo_.angle_ = lkmtr_->CANGetAngle(lkmtr_->can_instance_.GetRxBuff());
   lkmtr_->rxinfo_.speed_ = lkmtr_->CANGetSpeed(lkmtr_->can_instance_.GetRxBuff());

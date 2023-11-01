@@ -10,8 +10,8 @@
  */
 #include "chassis.hpp"
 
-MotorInitConfig lf_config = {
-  .motor_type = kRM3508,
+motordef::MotorInitConfig lf_config = {
+  .motor_type = motordef::kRM3508,
   .can_config = {
     .can_handle = &hcan1,
     .rx_id = 0x201,
@@ -25,10 +25,10 @@ MotorInitConfig lf_config = {
     .iout_max =10000,
     .out_max = 10000,
   },
-  .loop = kSpeedLoop,
+  .loop = motordef::kSpeedLoop,
 };
-MotorInitConfig rf_config = {
-  .motor_type = kRM3508,
+motordef::MotorInitConfig rf_config = {
+  .motor_type = motordef::kRM3508,
   .can_config = {
     .can_handle = &hcan1,
     .rx_id = 0x202,
@@ -42,10 +42,10 @@ MotorInitConfig rf_config = {
     .iout_max =10000,
     .out_max = 10000,
   },
-  .loop = kSpeedLoop,
+  .loop = motordef::kSpeedLoop,
 };
-MotorInitConfig lb_config = {
-  .motor_type = kRM3508,
+motordef::MotorInitConfig lb_config = {
+  .motor_type = motordef::kRM3508,
   .can_config = {
     .can_handle = &hcan1,
     .rx_id = 0x203,
@@ -59,10 +59,10 @@ MotorInitConfig lb_config = {
     .iout_max =10000,
     .out_max = 10000,
   },
-  .loop = kSpeedLoop,
+  .loop = motordef::kSpeedLoop,
 };
-MotorInitConfig rb_config = {
-  .motor_type = kRM3508,
+motordef::MotorInitConfig rb_config = {
+  .motor_type = motordef::kRM3508,
   .can_config = {
     .can_handle = &hcan1,
     .rx_id = 0x204,
@@ -76,7 +76,7 @@ MotorInitConfig rb_config = {
     .iout_max =10000,
     .out_max = 10000,
   },
-  .loop = kSpeedLoop,
+  .loop = motordef::kSpeedLoop,
 };
 //djimtr::DjiMotor lf = djimtr::DjiMotor(&lf_config);
 //djimtr::DjiMotor rf = djimtr::DjiMotor(&rf_config);

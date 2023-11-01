@@ -19,8 +19,6 @@
 #include "pid.hpp"
 #include <map>
 
-using namespace pid;
-
 namespace motordef {
 // Motor initialization enum
 typedef enum {
@@ -102,7 +100,7 @@ public:
 class Control {
 public:
   Control() {}
-  std::map<uint8_t, std::shared_ptr<PIDControler>> PID_map_;
+  std::map<uint8_t, std::shared_ptr<pid::PIDControler>> PID_map_;
   PIDCtrlMode loop_;
   float tar_;
   float dct_out_;
@@ -146,12 +144,12 @@ typedef struct MotorInitConfig_t {
   /* data */
   MotorType motor_type;
   CANInstanceConfig can_config;
-  PIDInitConfig PID_current_config;
-  PIDInitConfig PID_speed_config;
-  PIDInitConfig PID_angle_inner_config;
-  PIDInitConfig PID_angle_outer_config;
-  PIDInitConfig PID_posit_inner_config;
-  PIDInitConfig PID_posit_outer_config;
+  pid::PIDInitConfig PID_current_config;
+  pid::PIDInitConfig PID_speed_config;
+  pid::PIDInitConfig PID_angle_inner_config;
+  pid::PIDInitConfig PID_angle_outer_config;
+  pid::PIDInitConfig PID_posit_inner_config;
+  pid::PIDInitConfig PID_posit_outer_config;
   PIDCtrlMode loop;
 } MotorInitConfig;
 

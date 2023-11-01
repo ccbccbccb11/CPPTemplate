@@ -14,27 +14,23 @@
 /* Includes -----------------------------------------------------------------*/
 #include "motor.hpp"
 
-using namespace motor;
-using namespace motordef;
-using namespace heartbeat;
-
-namespace djimtr {
+namespace motor {
 class DjiMotor : public Motor {
 public:
 	static const uint8_t djimtr_offline_cnt_max_;			    // Djimtr control motor off-line counting
-  static MotorGroupInit group_enable_flag_[kGroupSum];  // Group enable flag
+  static motordef::MotorGroupInit group_enable_flag_[motordef::kGroupSum];  // Group enable flag
   /**
    * @brief *************** constructor ******************************
    */
   DjiMotor() {}
-  DjiMotor(MotorInitConfig* config) : Motor(config) {
+  DjiMotor(motordef::MotorInitConfig* config) : Motor(config) {
     DjiMotorInit(config);
   }
   /**
    * @brief *************** public functions **********************
    */
   // initialization function
-  void DjiMotorInit(MotorInitConfig* config);
+  void DjiMotorInit(motordef::MotorInitConfig* config);
 
   // Return object handle itself
   DjiMotor* GetObjectHandle(void) { return this; }

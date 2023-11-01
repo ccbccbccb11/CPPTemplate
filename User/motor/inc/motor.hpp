@@ -17,8 +17,8 @@
 /* Includes -----------------------------------------------------------------*/
 #include "motor_def.hpp"
 
-using namespace motordef;
-using namespace heartbeat;
+// using namespace motordef::;
+// using namespace heartbeat;
 
 namespace motor {
 /* Motor message class */
@@ -40,7 +40,7 @@ public:
   uint32_t  tx_id_;         
   uint32_t  rx_id_;         
   uint8_t   txbuff_index_;  // Send array index
-  MtrGroup  group_;         // Sending group
+  motordef::MtrGroup  group_;         // Sending group
 };
 /** CAN node
  *  @todo 
@@ -55,29 +55,29 @@ public:
 class Motor {
 protected:
   /* data */
-  RxInfo            rxinfo_;           // CAN rx data
-  IDInfo            id_info_;                    
-  StateInfo         stateinfo_;               
-  MotorType         motor_type_;              
-  CANInstance       can_instance_;         
-  HeartBeat         heartbeat_;              
+  RxInfo                  rxinfo_;           // CAN rx data
+  IDInfo                  id_info_;                    
+  motordef::StateInfo     stateinfo_;               
+  motordef::MotorType     motor_type_;              
+  CANInstance             can_instance_;         
+  heartbeat::HeartBeat    heartbeat_;              
 public:
-  Control           controler_;            
-  ExternalInfo      external_info_;   // peripheral control unit, including feedforward algorithm
+  motordef::Control       controler_;            
+  motordef::ExternalInfo  external_info_;   // peripheral control unit, including feedforward algorithm
 
   /**
    * @brief *************** constructor ******************************
    */
   Motor() {}
-  Motor(MotorInitConfig* config) {
+  Motor(motordef::MotorInitConfig* config) {
     MotorInit(config);
   }
 
   // initialization function
-  void MotorInit(MotorInitConfig* config);
+  void MotorInit(motordef::MotorInitConfig* config);
   
   // ID init
-  void CANInfoInit(MotorInitConfig* config);
+  void CANInfoInit(motordef::MotorInitConfig* config);
 
 	// Return motor CAN receive id
   uint32_t GetRxID(void) { return id_info_.rx_id_; }
@@ -104,10 +104,10 @@ public:
    * @brief *************** control function ******************************
    */
   // Change control loop
-  void SetPIDLoop(PIDCtrlMode loop) { controler_.loop_ = loop; }
+  void SetPIDLoop(motordef::PIDCtrlMode loop) { controler_.loop_ = loop; }
 
   // Get the current control loop
-  PIDCtrlMode GetPIDLoop(void) { return controler_.loop_; }
+  motordef::PIDCtrlMode GetPIDLoop(void) { return controler_.loop_; }
 
   // Set the pid target value, and only this one target value and modify the channel
   void SetPIDTarget(float tar) { controler_.tar_ = tar; }
@@ -125,7 +125,7 @@ public:
   float GetPIDTarget(void) { return controler_.tar_; }
 
   // Return group 
-  MtrGroup GetGroupIndex(void) { return id_info_.group_; }
+  motordef::MtrGroup GetGroupIndex(void) { return id_info_.group_; }
 
   // Return txbuff index 
   uint8_t GetTxBuffIndex(void) { return id_info_.txbuff_index_; }
@@ -209,37 +209,37 @@ public:
   }
   
   // pid instance initialization
-  void PIDInit(PIDCtrlMode loop, MotorInitConfig* config);
+  void PIDInit(motordef::PIDCtrlMode loop, motordef::MotorInitConfig* config);
 
   // Return speed loop initialization information
-  PidInit GetSpeedPIDInit(void) { return controler_.PID_map_[kSpeed]->GetInitFlag(); }
+  pid::PidInit GetSpeedPIDInit(void) { return controler_.PID_map_[motordef::kSpeed]->GetInitFlag(); }
 
   // Return Angle ring initialization information
-  PidInit GetAnglePIDInit(void) {
-    if (controler_.PID_map_[kAnglein]->GetInitFlag() == kPIDInit && 
-        controler_.PID_map_[kAngleout]->GetInitFlag() == kPIDInit)
-      return kPIDInit;
+  pid::PidInit GetAnglePIDInit(void) {
+    if (controler_.PID_map_[motordef::kAnglein]->GetInitFlag() == pid::kPIDInit && 
+        controler_.PID_map_[motordef::kAngleout]->GetInitFlag() == pid::kPIDInit)
+      return pid::kPIDInit;
     else 
-      return kPIDEmpty;
+      return pid::kPIDEmpty;
   }
 
   // Return position ring initialization information
-  PidInit GetPositPIDInit(void) {
-    if (controler_.PID_map_[kPositin]->GetInitFlag() == kPIDInit && 
-        controler_.PID_map_[kPositout]->GetInitFlag() == kPIDInit)
-      return kPIDInit;
+  pid::PidInit GetPositPIDInit(void) {
+    if (controler_.PID_map_[motordef::kPositin]->GetInitFlag() == pid::kPIDInit && 
+        controler_.PID_map_[motordef::kPositout]->GetInitFlag() == pid::kPIDInit)
+      return pid::kPIDInit;
     else 
-      return kPIDEmpty;
+      return pid::kPIDEmpty;
   }
 
   // Output current loop initialization information
-  PidInit GetCurrentPIDInit(void) { return controler_.PID_map_[kCurrent]->GetInitFlag(); }
+  pid::PidInit GetCurrentPIDInit(void) { return controler_.PID_map_[motordef::kCurrent]->GetInitFlag(); }
   
   // Heartbeat update
   void StateUpdate(void) {
-    stateinfo_.work_state_ = kMotorOnline;
-    if (heartbeat_.GetState() == kOffline)
-      stateinfo_.work_state_ = kMotorOffline;
+    stateinfo_.work_state_ = motordef::kMotorOnline;
+    if (heartbeat_.GetState() == heartbeat::kOffline)
+      stateinfo_.work_state_ = motordef::kMotorOffline;
   }
 };
 };
