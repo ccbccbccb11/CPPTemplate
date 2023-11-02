@@ -17,9 +17,6 @@
 /* Includes -----------------------------------------------------------------*/
 #include "motor_def.hpp"
 
-// using namespace motordef::;
-// using namespace heartbeat;
-
 namespace motor {
 /* Motor message class */
 class RxInfo {

@@ -17,7 +17,7 @@
 #include "chassis.hpp"
 
 
-// chassis::Chassis chassis_test;
+chassis::Chassis chassis_test;
 /**
  * @brief 设备初始化
  * 

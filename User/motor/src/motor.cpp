@@ -77,27 +77,26 @@ void motor::Motor::PIDInit(motordef::PIDCtrlMode loop, motordef::MotorInitConfig
   int ittt = loop;
   switch (ittt) {
     case motordef::kPositLoop: {
-			std::shared_ptr<pid::PIDControler> positin = std::make_shared<pid::PIDControler>(&config->PID_posit_inner_config);
-      std::shared_ptr<pid::PIDControler> positout = std::make_shared<pid::PIDControler>(&config->PID_posit_outer_config);
+			auto positin = std::make_shared<pid::PIDControler>(&config->PID_posit_inner_config);
+      auto positout = std::make_shared<pid::PIDControler>(&config->PID_posit_outer_config);
       controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kPositin, positin));
       controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kPositout, positout));
       break;
     }
     case motordef::kSpeedLoop: {
-      std::shared_ptr<pid::PIDControler> speed = std::make_shared<pid::PIDControler>(&config->PID_speed_config);
-      auto it = controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kSpeed, speed));
-      bool state = it.second;
+      auto speed = std::make_shared<pid::PIDControler>(&config->PID_speed_config);
+      controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kSpeed, speed));
       break;
     }
     case motordef::kAngleLoop: {
-      std::shared_ptr<pid::PIDControler> anglein = std::make_shared<pid::PIDControler>(&config->PID_angle_inner_config);
-      std::shared_ptr<pid::PIDControler> angleout = std::make_shared<pid::PIDControler>(&config->PID_angle_outer_config);
+      auto anglein = std::make_shared<pid::PIDControler>(&config->PID_angle_inner_config);
+      auto angleout = std::make_shared<pid::PIDControler>(&config->PID_angle_outer_config);
       controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kAnglein, anglein));
       controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kAngleout, angleout));
       break;
     }
     case motordef::kCurrentLoop: {
-      std::shared_ptr<pid::PIDControler> current = std::make_shared<pid::PIDControler>(&config->PID_current_config);
+      auto current = std::make_shared<pid::PIDControler>(&config->PID_current_config);
       controler_.PID_map_.insert(std::pair<uint8_t, std::shared_ptr<pid::PIDControler>>(motordef::kCurrent, current));
       break;
     }
