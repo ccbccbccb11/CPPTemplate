@@ -111,15 +111,22 @@ void motor::DjiMotor::PIDCal(void) {
     default:
       break;
   }
+  controler_.out_ = output;
     
   // Update send array to corresponding group
-  if (stateinfo_.work_state_ == motordef::kMotorStop) {
+  if (stateinfo_.work_state_ == motordef::kMotorOffline) {
+    controler_.dct_out_ = 0;
+    controler_.out_ = 0;
+    controler_.tar_ = 0;
+    return;
+  } else if (stateinfo_.work_state_ == motordef::kMotorStop) {
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
     djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
-  } else {
-    djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output >> 8));
-    djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
+  } else if (stateinfo_.work_state_ == motordef::kMotorOnline) {
+    djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)controler_.out_ >> 8));
+    djimtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)controler_.out_));
   }
+  
 }
 
 

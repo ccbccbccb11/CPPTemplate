@@ -18,8 +18,6 @@
 #include <iostream>
 #include <vector>
 
-using namespace math;
-
 namespace pid {
 // pid ≥ı ºªØ–≈∫≈
 typedef enum {
@@ -139,13 +137,13 @@ public:
     if (math::Abs(err_) <= blind_err_)
       err_ = 0;
     integral_ += err_;
-    integral_ = Constrain(integral_, -integral_max_, integral_max_);
+    integral_ = math::Constrain(integral_, -integral_max_, integral_max_);
     pout_ = kp_ * err_;
     iout_ = ki_ * integral_;
     dout_ = kd_ * (err_ - last_err_);
-    iout_ = Constrain(iout_, -iout_max_, iout_max_);
+    iout_ = math::Constrain(iout_, -iout_max_, iout_max_);
     out_ = pout_ + iout_ + dout_;
-    out_ = Constrain(out_, -out_max_, out_max_);
+    out_ = math::Constrain(out_, -out_max_, out_max_);
     last_err_ = err_;
     return out_;
   }
@@ -154,13 +152,13 @@ public:
     if (math::Abs(err_) <= blind_err_)
       err_ = 0;
     integral_ += err_;
-    integral_ = Constrain(integral_, -integral_max_, integral_max_);
+    integral_ = math::Constrain(integral_, -integral_max_, integral_max_);
     pout_ = kp_ * err_;
     iout_ = ki_ * integral_;
     dout_ = kd_ * (err_ - last_err_);
-    iout_ = Constrain(iout_, -iout_max_, iout_max_);
+    iout_ = math::Constrain(iout_, -iout_max_, iout_max_);
     out_ = pout_ + iout_ + dout_;
-    out_ = Constrain(out_, -out_max_, out_max_);
+    out_ = math::Constrain(out_, -out_max_, out_max_);
     last_err_ = err_;
     return out_;
   }
@@ -268,7 +266,7 @@ public:
     float err;
     PID_instance_.SetPIDErr(target, measure);
     err = PID_instance_.GetPIDErr();
-    err = HalfCycle(err, cycle);
+    err = math::HalfCycle(err, cycle);
     PID_instance_.SetPIDErr(err);
     return PID_instance_.CalcPIDOut();
   }
@@ -307,7 +305,7 @@ public:
   uint8_t StallCheck(uint32_t time_cnt_max) {
     uint8_t rslt;
     uint32_t time_cnt;
-    if (Abs(PID_instance_.GetIntegral()) >= PID_instance_.integral_max_/0.95f) {
+    if (math::Abs(PID_instance_.GetIntegral()) >= PID_instance_.integral_max_/0.95f) {
       time_cnt ++;
     } else {
       time_cnt = 0;

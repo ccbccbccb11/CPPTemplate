@@ -115,16 +115,16 @@ private:
   /* Key of external measure map */
   PIDLoop measure_;
   /* Feedforward data pointer map */
-  std::map<PIDLoop, float*> ffd_map_;
+  std::map<uint8_t, float*> ffd_map_;
   /* External measure map */
-  std::map<PIDLoop, float*> msr_map_;
+  std::map<uint8_t, float*> msr_map_;
 
 public:
   /* Set feedforard data ptr and enable ffd control */
-  void SetFeedforward(PIDLoop flag, float* data_ptr) { ffd_map_.insert(std::pair<PIDLoop, float*>(flag, data_ptr)); }
+  void SetFeedforward(PIDLoop flag, float* data_ptr) { ffd_map_.insert(std::pair<uint8_t, float*>(flag, data_ptr)); }
   
   /* Set external measure data ptr and enable ffd control */
-  void SetExtlMeasure(PIDLoop flag, float* data_ptr) { msr_map_.insert(std::pair<PIDLoop, float*>(flag, data_ptr)); }
+  void SetExtlMeasure(PIDLoop flag, float* data_ptr) { msr_map_.insert(std::pair<uint8_t, float*>(flag, data_ptr)); }
   
   /* Return feedforard data ptr and enable ffd control */
   bool GetFFdFlag(PIDLoop flag) { return ffd_map_.find(flag) != ffd_map_.end(); }

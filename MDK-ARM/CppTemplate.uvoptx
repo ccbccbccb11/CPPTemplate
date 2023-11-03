@@ -173,7 +173,7 @@
         <Ww>
           <count>3</count>
           <WinNumber>1</WinNumber>
-          <ItemText>chassis_test</ItemText>
+          <ItemText>chassis_test,0x0A</ItemText>
         </Ww>
       </WatchWindow1>
       <MemoryWindow1>

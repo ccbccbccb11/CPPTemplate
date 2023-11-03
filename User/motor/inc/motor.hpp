@@ -150,7 +150,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int16_t current_ = GetCurrent();
-    if (Abs(speed_) < speed && Abs(current_) > current)
+    if (math::Abs(speed_) < speed && math::Abs(current_) > current)
       rslt = 1;
     else
       rslt = 0;
@@ -179,7 +179,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int16_t angle = GetAngle();
-    if (Abs(speed_) < speed && DistanceBool(angle, tar_angle, diff_angle))
+    if (math::Abs(speed_) < speed && math::DistanceBool(angle, tar_angle, diff_angle))
       rslt = 1;
     else
       rslt = 0;
@@ -198,7 +198,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int posit = GetPosit();
-    if (Abs(speed_) < speed && DistanceBool(posit, tar_posit, diff_posit))
+    if (math::Abs(speed_) < speed && math::DistanceBool(posit, tar_posit, diff_posit))
       rslt = 1;
     else
       rslt = 0;

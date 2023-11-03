@@ -37,6 +37,7 @@ void Device_HeartBeat(void) {
  * 
  */
 void Device_Work(void) {
+	chassis_test.ControlTask();
 	motor::DjiMotor::ControlTask();
 //	imu_sensor.update(&imu_sensor);
 }
