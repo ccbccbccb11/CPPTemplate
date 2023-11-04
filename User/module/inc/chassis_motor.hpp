@@ -51,20 +51,20 @@ typedef struct {
   int16_t right;
   int16_t cycle;
 } ChassisCurrentSpeed;
-// Chassis measure speed
+// Motor measure speed
 typedef struct {
   int16_t left_front;
   int16_t right_front;
   int16_t left_back;
   int16_t right_back;
-} ChassisMeasureSpeed;
-// Chassis feedforward
+} MotorMeasureSpeed;
+// Motor feedforward
 typedef struct {
   float left_front;
   float right_front;
   float left_back;
   float right_back;
-} ChassisSpeedFeedforward;
+} MotorSpeedFeedforward;
 // Chassis init configuration
 typedef struct {
   float output_max;
@@ -87,9 +87,9 @@ private:
   // Chassis current speed
   ChassisCurrentSpeed current_speed_;
   // Chassis measure speed
-  ChassisMeasureSpeed measure_speed_;
+  MotorMeasureSpeed measure_speed_;
   // Chassis speed feedforward
-  ChassisSpeedFeedforward speed_feedforward_;
+  MotorSpeedFeedforward speed_feedforward_;
   // Chassis linear correct kp
   float linear_correct_kp_;
   /**
@@ -112,10 +112,10 @@ public:
   void Register();
   void Register(ChassisInitConfig* config);
 
-  // Chassis update
+  // Chassis all info update
   void InfoUpdate(void) { BaseInfoUpdate(); }
 
-  // Chassis speed update
+  // Chassis base info update
   void BaseInfoUpdate(void) {
     measure_speed_.left_front = motor_map_[kLeftFront]->GetSpeed();
     measure_speed_.right_front = motor_map_[kRightFront]->GetSpeed();

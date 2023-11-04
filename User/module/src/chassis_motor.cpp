@@ -131,11 +131,11 @@ void Chassis::Register(ChassisInitConfig* config) {
   auto right_back_it = motor_map_.insert(std::pair<uint32_t, std::shared_ptr<motor::DjiMotor>>(kRightBack, right_back));
 
   // Check if the insertion is successful
-  if (left_front_it.second == false || right_front_it.second == false || left_back_it.second == false || right_back_it.second == false) {
+  if (left_front_it.second == false || right_front_it.second == false || 
+      left_back_it.second == false || right_back_it.second == false) {
     // Insertion failed
-    while (1) {
-      // Error
-    }
+    while (true)
+      continue; // Error
   } else {
     // Insertion succeeded
     kInitFlag = 1;
@@ -156,8 +156,15 @@ void Chassis::Register(ChassisInitConfig* config) {
  * 
  */
 void Chassis::ControlTask(void) {
-  // Chassis speed update
-  BaseInfoUpdate();
+  // Chassis initialization flag
+  if (kInitFlag == 0) {
+    // Chassis not initialized!!!
+    while (true)
+      continue;
+  }
+
+  // Chassis info update
+  InfoUpdate();
   // Chassis speed constraint
 //  SpeedConstraint();
 
