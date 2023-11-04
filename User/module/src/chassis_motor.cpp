@@ -21,6 +21,10 @@ namespace chassis {
 static uint8_t kInitFlag = 0;  // Chassis initialization flag
 CAN_HandleTypeDef* can_handle = &hcan1;  // CAN handle
 static const uint8_t kSpeedConstraint = 10;  // Chassis speed constraint, enable when it isn't 0
+/**
+ * @brief *************** public functions **********************
+ * 
+ */
 // Chassis register
 void Chassis::Register() {
   // Chassis initialization flag

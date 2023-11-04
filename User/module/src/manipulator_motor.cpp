@@ -19,7 +19,10 @@ namespace manipulator {
  * 
  */
 static uint8_t kInitFlag = 0;  // Manipulator initialization flag
-
+/**
+ * @brief *************** public functions **********************
+ * 
+ */
 // Manipulator register
 void Manipulator::Register() {
   // Manipulator initialization flag
