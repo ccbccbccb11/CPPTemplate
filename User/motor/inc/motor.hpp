@@ -57,9 +57,9 @@ protected:
   motordef::StateInfo     stateinfo_;               
   motordef::MotorType     motor_type_;              
   CANInstance             can_instance_;         
-  heartbeat::HeartBeat    heartbeat_;              
-public:
-  motordef::Control       controler_;            
+  heartbeat::HeartBeat    heartbeat_;  
+  motordef::Control       controler_;              
+public:          
   motordef::ExternalInfo  external_info_;   // peripheral control unit, including feedforward algorithm
 
   /**
@@ -74,7 +74,7 @@ public:
   void MotorInit(motordef::MotorInitConfig* config);
   
   // ID init
-  void CANInfoInit(motordef::MotorInitConfig* config);
+  void BaseInfoInit(motordef::MotorInitConfig* config);
 
 	// Return motor CAN receive id
   uint32_t GetRxID(void) { return id_info_.rx_id_; }

@@ -77,10 +77,10 @@ public:
 	void CANInsInit(CANInstanceConfig* config);
 
 	// Set the length of the packet to be sent
-	void SetTxConfigDLC(uint8_t length) { tx_config_.DLC = math::Constrain<uint8_t>(length,0,8); }
+	void SetTxConfigDLC(uint8_t length) { tx_config_.DLC = math::Limit<uint8_t>(length,0,8); }
 
 	// Set rx data length
-	void SetRxDataLength(uint32_t length) { rx_len_ = math::Constrain<uint32_t>(length,0,8); }
+	void SetRxDataLength(uint32_t length) { rx_len_ = math::Limit<uint32_t>(length,0,8); }
 
 	// Return can handle
 	CAN_HandleTypeDef* GetCANHandle(void) { return can_handle_; }

@@ -116,3 +116,6 @@ MDK-ARM/CppTemplate.uvoptx
 MDK-ARM/CppTemplate.uvprojx
 MDK-ARM/startup_stm32f407xx.s
 MDK-ARM/CppTemplate/CppTemplate.sct
+MDK-ARM/CppTemplate.uvprojx
+CppTemplate.uvprojx
+MDK-ARM/CppTemplate.uvoptx

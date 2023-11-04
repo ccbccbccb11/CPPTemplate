@@ -111,6 +111,7 @@ void motor::DjiMotor::PIDCal(void) {
     default:
       break;
   }
+  output = math::Limit(output, -controler_.output_max_, controler_.output_max_);
   controler_.out_ = output;
     
   // Update send array to corresponding group

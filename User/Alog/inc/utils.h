@@ -14,16 +14,16 @@
 #include <stdint.h>
 
 namespace math {
-// x > max || x < min --> x = max || min 
-template <typename T> T Constrain(T x, T min, T max) {
-	if (x > max) {
-		return max;
-	}
-	if (x < min) {
-		return min;
-	}
-	return x;
-}
+// // x > max || x < min --> x = max || min 
+// template <typename T> T Constrain(T x, T min, T max) {
+// 	if (x > max) {
+// 		return max;
+// 	}
+// 	if (x < min) {
+// 		return min;
+// 	}
+// 	return x;
+// }
 template <typename T> bool Contain(T x, T min, T max) {
 	// If x is in the range min to max, return true, otherwise return false.
 	if (x < max && x > min) {

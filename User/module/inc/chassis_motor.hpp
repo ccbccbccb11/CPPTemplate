@@ -12,8 +12,8 @@
  /**
   * @todo 
  */
-#ifndef CHASSIS_HPP
-#define CHASSIS_HPP
+#ifndef CHASSIS_MOTOR_HPP
+#define CHASSIS_MOTOR_HPP
 /**
  * @brief *************** include files ***************************
  */
@@ -164,4 +164,4 @@ public:
   void ProportionalCorrect(void);
 };
 }
-#endif /* CHASSIS_HPP */
+#endif /* CHASSIS_MOTOR_HPP */

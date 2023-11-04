@@ -19,7 +19,7 @@
 void motor::Motor::MotorInit(motordef::MotorInitConfig* config) {
   motor_type_ = config->motor_type;
   // divide into groups
-  CANInfoInit(config);  
+  BaseInfoInit(config);  
 	// Motor pid parameter initialization
   controler_.loop_ = config->loop;
   PIDInit(controler_.loop_, config);
@@ -29,7 +29,7 @@ void motor::Motor::MotorInit(motordef::MotorInitConfig* config) {
    * @brief Motor CAN information initialization function
    * 
    */
-void motor::Motor::CANInfoInit(motordef::MotorInitConfig* config) {
+void motor::Motor::BaseInfoInit(motordef::MotorInitConfig* config) {
   id_info_.rx_id_ = config->can_config.rx_id;
   switch (config->motor_type) {
     case motordef::kRM2006:
@@ -44,6 +44,7 @@ void motor::Motor::CANInfoInit(motordef::MotorInitConfig* config) {
         else id_info_.group_ = motordef::kCAN2_0x1FF;
       }
       id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x201U) % 4)*2;
+      controler_.output_max_ = config->motor_type==motordef::kRM3508? 16384: 10000;
       break;
     case motordef::kGM6020:
       if ((id_info_.rx_id_ - 0x205U) < 4) { 
@@ -56,6 +57,7 @@ void motor::Motor::CANInfoInit(motordef::MotorInitConfig* config) {
         else id_info_.group_ = motordef::kCAN2_0x2FF;
       }
       id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x205U) % 4)*2;
+      controler_.output_max_ = 30000;
       break;
     case motordef::kLkMtr:
       id_info_.rx_id_ = config->can_config.rx_id;

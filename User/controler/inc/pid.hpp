@@ -137,13 +137,13 @@ public:
     if (math::Abs(err_) <= blind_err_)
       err_ = 0;
     integral_ += err_;
-    integral_ = math::Constrain(integral_, -integral_max_, integral_max_);
+    integral_ = math::Limit(integral_, -integral_max_, integral_max_);
     pout_ = kp_ * err_;
     iout_ = ki_ * integral_;
     dout_ = kd_ * (err_ - last_err_);
-    iout_ = math::Constrain(iout_, -iout_max_, iout_max_);
+    iout_ = math::Limit(iout_, -iout_max_, iout_max_);
     out_ = pout_ + iout_ + dout_;
-    out_ = math::Constrain(out_, -out_max_, out_max_);
+    out_ = math::Limit(out_, -out_max_, out_max_);
     last_err_ = err_;
     return out_;
   }
@@ -152,13 +152,13 @@ public:
     if (math::Abs(err_) <= blind_err_)
       err_ = 0;
     integral_ += err_;
-    integral_ = math::Constrain(integral_, -integral_max_, integral_max_);
+    integral_ = math::Limit(integral_, -integral_max_, integral_max_);
     pout_ = kp_ * err_;
     iout_ = ki_ * integral_;
     dout_ = kd_ * (err_ - last_err_);
-    iout_ = math::Constrain(iout_, -iout_max_, iout_max_);
+    iout_ = math::Limit(iout_, -iout_max_, iout_max_);
     out_ = pout_ + iout_ + dout_;
-    out_ = math::Constrain(out_, -out_max_, out_max_);
+    out_ = math::Limit(out_, -out_max_, out_max_);
     last_err_ = err_;
     return out_;
   }

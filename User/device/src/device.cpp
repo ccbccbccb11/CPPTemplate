@@ -14,7 +14,7 @@
 #include "imu_sensor.h"
 #include "dji_motor.hpp"
 #include "lk_motor.hpp"
-#include "chassis.hpp"
+#include "chassis_motor.hpp"
 
 
 chassis::Chassis chassis_test;

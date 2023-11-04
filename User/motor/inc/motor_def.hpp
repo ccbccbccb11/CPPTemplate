@@ -99,12 +99,12 @@ public:
 // Motor controller class
 class Control {
 public:
-  Control() {}
   std::map<uint8_t, std::shared_ptr<pid::PIDControler>> PID_map_;
   PIDCtrlMode loop_;
   float tar_;
   float dct_out_;
   float out_;
+  float output_max_;
 };
 
 // Motor external controller class

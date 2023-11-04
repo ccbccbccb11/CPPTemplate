@@ -846,9 +846,14 @@
           <GroupName>module</GroupName>
           <Files>
             <File>
-              <FileName>chassis.cpp</FileName>
+              <FileName>chassis_motor.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\User\module\src\chassis.cpp</FilePath>
+              <FilePath>..\User\module\src\chassis_motor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>manipulator_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\module\src\manipulator_motor.cpp</FilePath>
             </File>
           </Files>
         </Group>
