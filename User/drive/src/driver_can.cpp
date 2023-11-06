@@ -9,14 +9,22 @@
  * All rights reserved.
  ******************************************************************************
  */
+/**
+ * @todo bug : caninstance could be larger than 6
+*/
+/**
+ * @brief *************** include files ***************************
+*/
 #include "driver_can.hpp"
 #include <map>
 
 CAN_RxFrameTypeDef hcanRxFrame;
 CAN_TxHeaderTypeDef CAN_TxHeadeType;
-
+static size_t const kcan_ins_cnt_max_ = 6;
+static uint32_t const kcan_tx_timecnt_max_ = 1;
 const uint8_t CANInstance::can_ins_cnt_max_ = 6;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
+
 std::map<uint32_t, CANInstance*> can1_node_map;       // use a map to store the can nodes
 std::map<uint32_t, CANInstance*> can2_node_map;       // use a map to store the can nodes
 
@@ -46,10 +54,12 @@ void CANInstance::CANInsInit(CANInstanceConfig* config) {
   CANInstanceRxCallback_ = config->CANInstanceRxCallback;
 
 	// Instance too more
-  if (can1_node_map.size() > CANInstance::can_ins_cnt_max_ || 
-      can2_node_map.size() > CANInstance::can_ins_cnt_max_)
-    while (true)
-      continue;
+//	size_t node1_size = can1_node_map.size();
+//  if (can1_node_map.size() >= kcan_ins_cnt_max_ || //CANInstance::can_ins_cnt_max_
+//      can2_node_map.size() >= kcan_ins_cnt_max_) {
+//    while (true)
+//      continue;
+//	}
   
 	// ID Redefine
   if (can_handle_ == &hcan1) { 
@@ -176,7 +186,7 @@ HAL_StatusTypeDef CANInstance::Transmit(void) {
   static uint32_t starting_time;
   while (HAL_CAN_GetTxMailboxesFreeLevel(GetCANHandle()) == 0) {
     starting_time++;
-    if (starting_time > CANInstance::can_tx_timecnt_max_) {
+    if (starting_time > kcan_tx_timecnt_max_) {
       starting_time = 0;
       return HAL_TIMEOUT;
     }

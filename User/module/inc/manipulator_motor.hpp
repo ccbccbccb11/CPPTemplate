@@ -10,10 +10,16 @@
  */
 #ifndef MANIPULATOR_MOTOR_HPP
 #define MANIPULATOR_MOTOR_HPP
-
+/**
+ * @brief include files
+ * 
+ */
 #include "lk_motor.hpp"
 #include "dji_motor.hpp"
-
+/**
+ * @brief *************** namespace manipulator *********************
+ * 
+ */
 namespace manipulator {
 /**
  * @brief *************** macro definition ************************
@@ -90,7 +96,7 @@ public:
   /**
    * @brief *************** constructor ******************************
    */
-  Manipulator() {}
+  Manipulator() { Register(); }
   /**
    * @brief *************** public functions *************************
    */

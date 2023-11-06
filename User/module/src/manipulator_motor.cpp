@@ -36,7 +36,7 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor1_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan1,
+      .can_handle = &hcan2,
       .rx_id = kMotor1,
     },
     .PID_angle_outer_config = {
@@ -62,7 +62,7 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor2_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan1,
+      .can_handle = &hcan2,
       .rx_id = kMotor2,
     },
     .PID_angle_outer_config = {
@@ -88,7 +88,7 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor3_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan1,
+      .can_handle = &hcan2,
       .rx_id = kMotor3,
     },
     .PID_angle_outer_config = {
@@ -115,7 +115,7 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor5_config = {
     .motor_type = motordef::kRM2006,
     .can_config = {
-      .can_handle = &hcan1,
+      .can_handle = &hcan2,
       .rx_id = kMotor5,
     },
     .PID_posit_inner_config = {
@@ -141,7 +141,7 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor6_config = {
     .motor_type = motordef::kRM2006,
     .can_config = {
-      .can_handle = &hcan1,
+      .can_handle = &hcan2,
       .rx_id = kMotor6,
     },
     .PID_posit_inner_config = {

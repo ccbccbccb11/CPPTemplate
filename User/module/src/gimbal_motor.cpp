@@ -40,7 +40,7 @@ void Gimbal::Register() {
       .can_handle = can_handle,
       .rx_id = kYaw,
     },
-    .PID_angle_outer_config = {
+    .PID_angle_inner_config = {
       .kp = 0,
       .ki = 0,
       .kd = 0,
@@ -49,7 +49,7 @@ void Gimbal::Register() {
       .iout_max =0,
       .out_max = 0,
     },
-    .PID_angle_inner_config = {
+    .PID_angle_outer_config = {
       .kp = 0,
       .ki = 0,
       .kd = 0,

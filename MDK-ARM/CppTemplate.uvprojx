@@ -315,7 +315,7 @@
           </ArmAdsMisc>
           <Cads>
             <interw>1</interw>
-            <Optim>2</Optim>
+            <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
             <OneElfS>1</OneElfS>
@@ -855,6 +855,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\module\src\manipulator_motor.cpp</FilePath>
             </File>
+            <File>
+              <FileName>gimbal_motor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\module\src\gimbal_motor.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -869,6 +874,13 @@
         </Group>
         <Group>
           <GroupName>control</GroupName>
+          <Files>
+            <File>
+              <FileName>robot.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\control\src\robot.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>mytask</GroupName>

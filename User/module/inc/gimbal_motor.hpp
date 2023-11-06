@@ -65,7 +65,23 @@ public:
   // Gimbal initialization
   void Register();
 
+  // Gimbal Info update
+  void BaseInfoUpdate(void) {
+    // Gimbal motor info update
+    current_angle_.yaw = motor_map_[kYaw]->GetAngle();
+  }
+
   // Gimbal set target angle
+  void SetTargetYaw(float yaw) { target_angle_.yaw = yaw; }
+
+  // Gimbal control task
+  void ControlTask(void) {
+    // Gimbal info update
+    BaseInfoUpdate();
+
+    // Set target angle
+    motor_map_[kYaw]->SetPIDTarget(target_angle_.yaw);
+  }
 
 };
 

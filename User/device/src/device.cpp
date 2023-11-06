@@ -15,9 +15,11 @@
 #include "dji_motor.hpp"
 #include "lk_motor.hpp"
 #include "chassis_motor.hpp"
+#include "robot.hpp"
 
 
-chassis::Chassis chassis_test;
+//chassis::Chassis chassis_test;
+robot::Robot robot_test;
 /**
  * @brief 设备初始化
  * 
@@ -37,7 +39,7 @@ void Device_HeartBeat(void) {
  * 
  */
 void Device_Work(void) {
-	chassis_test.ControlTask();
+//	chassis_test.ControlTask();
 	motor::DjiMotor::ControlTask();
 //	imu_sensor.update(&imu_sensor);
 }
