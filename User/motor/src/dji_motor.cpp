@@ -129,8 +129,6 @@ void motor::DjiMotor::PIDCal(void) {
   }
   
 }
-
-
 /**
  * @brief 
  * 

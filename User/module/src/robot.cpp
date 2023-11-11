@@ -49,4 +49,13 @@ void Robot::Register() {
       continue;
   }
 }
+// Robot control task
+void Robot::ControlTask() {
+  // Manipulator control task
+  manipulator_->ControlTask();
+  // Chassis control task
+  chassis_->ControlTask();
+  // Gimbal control task
+  gimbal_->ControlTask();
+}
 }  // namespace robot

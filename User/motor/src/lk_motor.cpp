@@ -107,15 +107,23 @@ void motor::LkMotor::PIDCal(void) {
   }
     
   // Update send array to corresponding group
-  if (stateinfo_.work_state_ == motordef::kMotorStop) {
-    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
+  if (stateinfo_.work_state_ == motordef::kMotorOffline) {
+    controler_.dct_out_ = 0;
+    controler_.out_ = 0;
+    controler_.tar_ = 0;
+    return;
+  } else if (stateinfo_.work_state_ == motordef::kMotorStop) {
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
-  } else {
-    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output >> 8));
-    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output));
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
+  } else if (stateinfo_.work_state_ == motordef::kMotorOnline) {
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, (uint8_t)((int16_t)output >> 8));
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, (uint8_t)((int16_t)output));
   }
 }
-
+/**
+ * @brief 
+ * 
+ */
 void motor::LkMotor::ControlTask(void) {
   motor::LkMotor* lkmtr_;
   for (auto it=lkmtr_can1_node_map.begin(); it!=lkmtr_can1_node_map.end(); it++) {
@@ -146,7 +154,7 @@ void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   else
     lkmtr_ = lkmtr_can2_node_map[can_ins->GetRxId()];
 
-  int16_t err;
+  int err;
   if (lkmtr_->can_instance_.GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
   if (lkmtr_->stateinfo_.init_flag_ == motordef::kMotorEmpty)// Motor does not initialize exit
@@ -160,11 +168,11 @@ void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   } else {
     err = lkmtr_->rxinfo_.angle_ - lkmtr_->rxinfo_.angle_prev_;
   }
-  if (math::Abs(err) > 8191) {
+  if (math::Abs(err) > 32768) {
     if (err >= 0) {
-      lkmtr_->rxinfo_.angle_sum_ += -16383 + err;
+      lkmtr_->rxinfo_.angle_sum_ += -65536 + err;
     } else {
-      lkmtr_->rxinfo_.angle_sum_ += 16383 + err;
+      lkmtr_->rxinfo_.angle_sum_ += 65536 + err;
     }
   } else {
     lkmtr_->rxinfo_.angle_sum_ += err;

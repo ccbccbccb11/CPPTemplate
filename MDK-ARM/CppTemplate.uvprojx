@@ -860,6 +860,11 @@
               <FileType>8</FileType>
               <FilePath>..\User\module\src\gimbal_motor.cpp</FilePath>
             </File>
+            <File>
+              <FileName>robot.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\module\src\robot.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -874,13 +879,6 @@
         </Group>
         <Group>
           <GroupName>control</GroupName>
-          <Files>
-            <File>
-              <FileName>robot.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\User\control\src\robot.cpp</FilePath>
-            </File>
-          </Files>
         </Group>
         <Group>
           <GroupName>mytask</GroupName>

@@ -11,7 +11,7 @@
 #ifndef MANIPULATOR_MOTOR_HPP
 #define MANIPULATOR_MOTOR_HPP
 /**
- * @brief include files
+ * @brief *************** include files *********************
  * 
  */
 #include "lk_motor.hpp"

@@ -14,6 +14,7 @@
  * @brief *************** include files ***************************
  */
 #include "lk_motor.hpp"
+#include "dji_motor.hpp"
 /**
  * @brief *************** namespace *******************************
  */
@@ -23,7 +24,7 @@ namespace gimbal {
  */
 // Gimbal motor CAN ID
 typedef enum {
-  kYaw = 0x141,
+  kYaw = 0x205,
 } GimbalMotorCANID;
 // Motor target angle
 typedef struct {
@@ -43,7 +44,7 @@ private:
    * @brief *************** private variables **********************
    */
   // Map of gimbal motors
-  std::map<uint32_t, std::shared_ptr<motor::LkMotor>> motor_map_;
+  std::map<uint32_t, std::shared_ptr<motor::DjiMotor>> motor_map_;
   // Gimbal target angle
   MotorTargetAngle target_angle_;
   // Gimbal current angle

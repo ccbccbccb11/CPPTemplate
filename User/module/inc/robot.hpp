@@ -53,6 +53,9 @@ public:
    */
   // Robot register
   void Register();
+
+  // Control task
+  void ControlTask();
 };
 
 }  // namespace robot

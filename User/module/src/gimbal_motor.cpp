@@ -35,36 +35,36 @@ void Gimbal::Register() {
   
   // Motor initialization configuration
   motordef::MotorInitConfig gimbal_config = {
-    .motor_type = motordef::kLkMtr,
+    .motor_type = motordef::kGM6020,
     .can_config = {
       .can_handle = can_handle,
       .rx_id = kYaw,
     },
     .PID_angle_inner_config = {
-      .kp = 0,
+      .kp = 50,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
-      .integral_max = 0,
-      .iout_max =0,
-      .out_max = 0,
+      .integral_max = 10000,
+      .iout_max = 10000,
+      .out_max = 28000,
     },
     .PID_angle_outer_config = {
-      .kp = 0,
+      .kp = 1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 0,
-      .iout_max =0,
-      .out_max = 0,
+      .iout_max = 0,
+      .out_max = 100,
     },
     .loop = motordef::kAngleLoop,
   };
 
   // Initialize yaw motor
-  auto yaw = std::make_shared<motor::LkMotor>(&gimbal_config);
+  auto yaw = std::make_shared<motor::DjiMotor>(&gimbal_config);
   // Add to map
-  auto yaw_it = motor_map_.insert(std::pair<uint32_t, std::shared_ptr<motor::LkMotor>>(kYaw, yaw));
+  auto yaw_it = motor_map_.insert(std::pair<uint32_t, std::shared_ptr<motor::DjiMotor>>(kYaw, yaw));
 
   // Gimbal initialization flag
   kInitFlag = 1;

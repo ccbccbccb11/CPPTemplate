@@ -179,7 +179,7 @@ float motor::Motor::AngleLoop(void) {
   else
     speed = GetSpeed();
 
-  output = controler_.PID_map_[motordef::kAngleout]->SingleLoop(tar, angle, 8192);
+  output = controler_.PID_map_[motordef::kAngleout]->SingleLoop(tar, angle, 65536);
   // If the feed forward is enabled, add the feed forward value to the output.
   if (external_info_.GetFFdFlag(motordef::kAngleout))
     output += external_info_.GetFFdValue(motordef::kAngleout);
