@@ -125,7 +125,11 @@
       },
       {
         "name": "control",
-        "files": [],
+        "files": [
+          {
+            "path": "User/control/src/robot.cpp"
+          }
+        ],
         "folders": []
       },
       {
