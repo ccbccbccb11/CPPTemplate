@@ -14,109 +14,62 @@
 #include "imu_sensor.h"
 #include "dji_motor.hpp"
 #include "lk_motor.hpp"
+#include "chassis_motor.hpp"
+#include "robot.hpp"
 
-using namespace djimtr;
-using namespace lkmtr;
-/**
- * @note 不能创建全局对象时先调用默认构造函数，然后再在函数内
- *       调用重载构造函数并把this指针传出!!!!
- *       因为此时传出的this指针只是在堆上分配的临时变量，
- *       构造完后单纯把值拷贝给全局变量，函数执行完便销毁了。
- *       所以用了这种方法的话全局对象名与函数内临时的this不是一个东西
- *       
- */
-// MotorInitConfig GM6020_test_config = {
-//   .motor_type = kGM6020,
-// 	.can_config = {
-// 		.can_handle = &hcan1,
-// 		.rx_id = 0x206,
-// 	},
-// 	// .PID_speed_config = {
-//   //   .kp = 1,
-//   //   .ki = 0,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 2000,
-//   //   .iout_max = 20000,
-//   //   .out_max = 20000,
-// 	// },
-// 	// .PID_angle_inner_config = {
-//   //   .kp = 1,
-//   //   .ki = 1,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 10000,
-//   //   .iout_max = 10000,
-//   //   .out_max = 20000,
-// 	// },
-// 	// .PID_angle_outer_config = {
-//   //   .kp = 1,
-//   //   .ki = 0,
-//   //   .kd = 0,
-//   //   .blind_err = 0 ,
-//   //   .integral_max = 100,
-//   //   .iout_max = 100,
-//   //   .out_max = 200,
-// 	// },
-// 	.PID_posit_inner_config = {
-//     .kp = 1,
-//     .ki = 1,
-//     .kd = 0,
-//     .blind_err = 0 ,
-//     .integral_max = 10000,
-//     .iout_max = 10000,
-//     .out_max = 20000,
-// 	},
-// 	.PID_posit_outer_config = {
-//     .kp = 1,
-//     .ki = 0,
-//     .kd = 0,
-//     .blind_err = 0 ,
-//     .integral_max = 100,
-//     .iout_max = 100,
-//     .out_max = 200,
-// 	},
-//   .loop = kPositLoop,
-// };
-// DjiMotor M6020_test = DjiMotor(&GM6020_test_config);
-
-// MotorInitConfig LK8010_test_config = {
-//   .motor_type = kLkMtr,
-// 	.can_config = {
-// 		.can_handle = &hcan1,
-// 		.rx_id = 0x141,
-// 	},
-// 	.PID_speed_config = {
-//     .kp = 0,
-//     .ki = 0,
-//     .kd = 0,
-//     .blind_err = 0 ,
-//     .integral_max = 0,
-//     .iout_max = 0,
-//     .out_max = 1000,
-// 	},
-//   .loop = kSpeedLoop,
-// };
-// LkMotor LK8010_test = LkMotor(&LK8010_test_config);
+//robot::Robot robot_test;
+// motor::LkMotor lk_motor_test1, lk_motor_test2, lk_motor_test3, lk_motor_test4;
+// float tar;
 /**
  * @brief 设备初始化
  * 
  */
 void Device_Init(void) {
 //	imu_sensor.init(&imu_sensor);
+  // motordef::MotorInitConfig motor_init_config = {
+  //   .motor_type = motordef::kLkMtr,
+  //   .can_config = {
+  //     .can_handle = &hcan1,
+  //   },
+  //   .PID_speed_config = {
+  //     .kp = 0.1,
+  //     .ki = 0,
+  //     .kd = 0,
+  //     .blind_err = 0 ,
+  //     .integral_max = 0,
+  //     .iout_max =0,
+  //     .out_max = 1000,
+  //   },
+  //   .loop = motordef::kSpeedLoop,
+  // };
+  // motor_init_config.can_config.rx_id = 0x141;
+  // lk_motor_test1.LkMotorInit(&motor_init_config);
+  // motor_init_config.can_config.rx_id = 0x142;
+  // lk_motor_test2.LkMotorInit(&motor_init_config);
+  // motor_init_config.can_config.rx_id = 0x143;
+  // lk_motor_test3.LkMotorInit(&motor_init_config);
+  // motor_init_config.can_config.rx_id = 0x144;
+  // lk_motor_test4.LkMotorInit(&motor_init_config);
 }
 /**
  * @brief 设备心跳
  * 
  */
 void Device_HeartBeat(void) {
-	HeartBeat::TickTask();
+	heartbeat::HeartBeat::TickTask();
 }
 /**
  * @brief 设备工作
  * 
  */
 void Device_Work(void) {
-	DjiMotor::ControlTask();
+//	robot_test.ControlTask();
+//	chassis_test.ControlTask();
+  // lk_motor_test1.SetPIDTarget(tar);
+  // lk_motor_test2.SetPIDTarget(tar);
+  // lk_motor_test3.SetPIDTarget(tar);
+  // lk_motor_test4.SetPIDTarget(tar);
+	motor::DjiMotor::ControlTask();
+	motor::LkMotor::ControlTask();
 //	imu_sensor.update(&imu_sensor);
 }

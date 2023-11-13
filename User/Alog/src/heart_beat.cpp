@@ -10,31 +10,23 @@
  */
 
 #include "heart_beat.hpp"
-// #include <iostream>
-// #include <vector>
+#include <map>
 
 using namespace heartbeat;
 
-uint8_t HeartBeat::heartbeat_ins_cnt_ = 0;
-/**
- * @brief 显然用 vector 等可以创建不定长数组的方式比这样指定默认最大值的方法好
- * 
- */
-const uint8_t HeartBeat::default_offline_cntmax_ = 25;
-HeartBeat* heartbeat_ins[HeartBeat::default_offline_cntmax_];
-// 构造函数
-HeartBeat::HeartBeat(uint8_t offline_cnt_max) : offline_cnt_max_(offline_cnt_max) {
-  if (HeartBeat::heartbeat_ins_cnt_ >= HeartBeat::default_offline_cntmax_)
-    while (1)
-      continue;// 进入此死循环时请将 const uint8_t HeartBeat::default_offline_cntmax_ 调大
-  
-  offline_cnt_ = offline_cnt_max;
+uint8_t HeartBeat::heartbeat_ins_key_ = 0;
+const uint8_t HeartBeat::default_offline_cntmax_ = 50;
+std::map<uint8_t, HeartBeat*> heart_beat_map;
+// Init
+void HeartBeat::HeartBeatInsInit(uint8_t offline_cnt_max){
+  offline_cnt_max_ = offline_cnt_max;
+  offline_cnt_ = offline_cnt_max_;
   state_ = kOffline;
-	heartbeat_ins[HeartBeat::heartbeat_ins_cnt_++] = this;
+  heart_beat_map.insert(std::pair<uint8_t, HeartBeat*>(HeartBeat::heartbeat_ins_key_++, this));
 }
-// 心跳任务
+// Tick Task
 void HeartBeat::TickTask(void) {
-  for (size_t i = 0; i < HeartBeat::heartbeat_ins_cnt_; i++) {
-    heartbeat_ins[i]->tick();
+  for (auto it=heart_beat_map.begin(); it!=heart_beat_map.end(); it++) {
+    it->second->tick();
   }
 }

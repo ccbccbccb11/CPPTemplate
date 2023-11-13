@@ -29,9 +29,11 @@ private:
   uint8_t offline_cnt_max_;
   HeartBeatState state_;
 public:
-  static uint8_t heartbeat_ins_cnt_;
+  static uint8_t heartbeat_ins_key_;
   static const uint8_t default_offline_cntmax_;
-  HeartBeat(uint8_t offline_cnt_max=default_offline_cntmax_);
+  HeartBeat() { offline_cnt_max_ = default_offline_cntmax_; }
+  HeartBeat(uint8_t offline_cnt_max) { HeartBeatInsInit(offline_cnt_max); }
+  void HeartBeatInsInit(uint8_t offline_cnt_max=default_offline_cntmax_);
   HeartBeatState GetState(void) {
     return state_;
   }

@@ -80,7 +80,13 @@
           "sstream": "cpp",
           "thread": "cpp",
           "unordered_set": "cpp",
-          "valarray": "cpp"
+          "valarray": "cpp",
+          "lu": "cpp",
+          "cholesky": "cpp",
+          "qr": "cpp",
+          "svd": "cpp",
+          "geometry": "cpp",
+          "eigenvalues": "cpp"
         }
     },
     "extensions": {}

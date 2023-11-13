@@ -19,8 +19,6 @@
 #include "pid.hpp"
 #include <map>
 
-using namespace pid;
-
 namespace motordef {
 // Motor initialization enum
 typedef enum {
@@ -53,17 +51,17 @@ typedef enum {
   kAngleLoop,
   kPositLoop,
   kOuterLoop,
-} PIDLoop;
+} PIDCtrlMode;
 
 // pid ex enum
 typedef enum {
-  kExCurrent,
-  kExSpeed,
-  kExAnglein,
-  kExAngleout,
-  kExPositin,
-  kExPositout,
-} MtrExFlag;
+  kCurrent,
+  kSpeed,
+  kAnglein,
+  kAngleout,
+  kPositin,
+  kPositout,
+} PIDLoop;
 
 // Motor state enum
 typedef enum {
@@ -101,48 +99,44 @@ public:
 // Motor controller class
 class Control {
 public:
-  PIDControler current_;
-  PIDControler speed_;
-  PIDControler anglein_;
-  PIDControler angleout_;
-  PIDControler positin_;
-  PIDControler positout_;
-  PIDLoop loop_;
+  std::map<uint8_t, std::shared_ptr<pid::PIDControler>> PID_map_;
+  PIDCtrlMode loop_;
   float tar_;
   float dct_out_;
   float out_;
+  float output_max_;
 };
 
 // Motor external controller class
 class ExternalInfo {
 private:
   /* Key of feedforward data pointer map */
-  MtrExFlag feedforward_;
+  PIDLoop feedforward_;
   /* Key of external measure map */
-  MtrExFlag measure_;
+  PIDLoop measure_;
   /* Feedforward data pointer map */
-  std::map<MtrExFlag, float*> ffd_map_;
+  std::map<uint8_t, float*> ffd_map_;
   /* External measure map */
-  std::map<MtrExFlag, float*> msr_map_;
+  std::map<uint8_t, float*> msr_map_;
 
 public:
   /* Set feedforard data ptr and enable ffd control */
-  void SetFeedforward(MtrExFlag flag, float* data_ptr) { ffd_map_.insert(std::pair<MtrExFlag, float*>(flag, data_ptr)); }
+  void SetFeedforward(PIDLoop flag, float* data_ptr) { ffd_map_.insert(std::pair<uint8_t, float*>(flag, data_ptr)); }
   
   /* Set external measure data ptr and enable ffd control */
-  void SetExtlMeasure(MtrExFlag flag, float* data_ptr) { msr_map_.insert(std::pair<MtrExFlag, float*>(flag, data_ptr)); }
+  void SetExtlMeasure(PIDLoop flag, float* data_ptr) { msr_map_.insert(std::pair<uint8_t, float*>(flag, data_ptr)); }
   
   /* Return feedforard data ptr and enable ffd control */
-  bool GetFFdFlag(MtrExFlag flag) { return ffd_map_.find(flag) != ffd_map_.end(); }
+  bool GetFFdFlag(PIDLoop flag) { return ffd_map_.find(flag) != ffd_map_.end(); }
   
   /* Return external measure data ptr and enable ffd control */
-  bool GetMsrFlag(MtrExFlag flag) { return msr_map_.find(flag) != msr_map_.end(); }
+  bool GetMsrFlagBool(PIDLoop flag) { return msr_map_.find(flag) != msr_map_.end(); }
   
   /* Return feedforard data ptr and enable ffd control */
-  float GetFFdValue(MtrExFlag flag) { return *ffd_map_[flag]; }
+  float GetFFdValue(PIDLoop flag) { return *ffd_map_[flag]; }
   
   /* Return external measure data ptr and enable ffd control */
-  float GetMsrValue(MtrExFlag flag) { return *msr_map_[flag]; }
+  float GetMsrValue(PIDLoop flag) { return *msr_map_[flag]; }
 };
 
 // The input parameter structure is configured for motor initialization
@@ -150,14 +144,13 @@ typedef struct MotorInitConfig_t {
   /* data */
   MotorType motor_type;
   CANInstanceConfig can_config;
-  PIDInitConfig PID_current_config;
-  PIDInitConfig PID_speed_config;
-  PIDInitConfig PID_angle_inner_config;
-  PIDInitConfig PID_angle_outer_config;
-  PIDInitConfig PID_posit_inner_config;
-  PIDInitConfig PID_posit_outer_config;
-  ExternalInfo* external_control_config;
-  PIDLoop loop;
+  pid::PIDInitConfig PID_current_config;
+  pid::PIDInitConfig PID_speed_config;
+  pid::PIDInitConfig PID_angle_inner_config;
+  pid::PIDInitConfig PID_angle_outer_config;
+  pid::PIDInitConfig PID_posit_inner_config;
+  pid::PIDInitConfig PID_posit_outer_config;
+  PIDCtrlMode loop;
 } MotorInitConfig;
 
 }

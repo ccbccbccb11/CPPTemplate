@@ -9,14 +9,22 @@
  * All rights reserved.
  ******************************************************************************
  */
+/**
+ * @todo bug : caninstance could be larger than 6
+*/
+/**
+ * @brief *************** include files ***************************
+*/
 #include "driver_can.hpp"
 #include <map>
 
 CAN_RxFrameTypeDef hcanRxFrame;
 CAN_TxHeaderTypeDef CAN_TxHeadeType;
-
+static size_t const kcan_ins_cnt_max_ = 6;
+static uint32_t const kcan_tx_timecnt_max_ = 1;
 const uint8_t CANInstance::can_ins_cnt_max_ = 6;
 const uint32_t CANInstance::can_tx_timecnt_max_ = 1;
+
 std::map<uint32_t, CANInstance*> can1_node_map;       // use a map to store the can nodes
 std::map<uint32_t, CANInstance*> can2_node_map;       // use a map to store the can nodes
 
@@ -39,25 +47,31 @@ CANInstance::CANInstance(CANInstanceTxConfig* config) {
  * 
  * @param config 
  */
-CANInstance::CANInstance(CANInstanceConfig* config) { 
+void CANInstance::CANInsInit(CANInstanceConfig* config) { 
   can_handle_ = config->can_handle;
   tx_id_ = config->tx_id;
   rx_id_ = config->rx_id;
   CANInstanceRxCallback_ = config->CANInstanceRxCallback;
 
-  if (can1_node_map.size() > CANInstance::can_ins_cnt_max_ || 
-      can2_node_map.size() > CANInstance::can_ins_cnt_max_)
-    while (true)
-      continue;
+	// Instance too more
+//	size_t node1_size = can1_node_map.size();
+//  if (can1_node_map.size() >= kcan_ins_cnt_max_ || //CANInstance::can_ins_cnt_max_
+//      can2_node_map.size() >= kcan_ins_cnt_max_) {
+//    while (true)
+//      continue;
+//	}
   
+	// ID Redefine
   if (can_handle_ == &hcan1) { 
     auto it = can1_node_map.find(rx_id_); 
-    while (it != can1_node_map.end())
-      continue;
+    if (it != can1_node_map.end())
+			while(true)
+				continue;
   } else { 
     auto it = can2_node_map.find(rx_id_); 
-    while (it != can2_node_map.end())
-      continue;
+    if (it != can2_node_map.end())
+			while(true)
+				continue;
   }
 
 	tx_config_.StdId = tx_id_;
@@ -69,8 +83,12 @@ CANInstance::CANInstance(CANInstanceConfig* config) {
 	// The initial successful can instance is added to map to save a copy
   if (can_handle_ == &hcan1)
     can1_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
-  else
+  else if (can_handle_ == &hcan2)
     can2_node_map.insert(std::pair<uint32_t, CANInstance *>(rx_id_, this));
+	else 
+		// error handle
+		while(true)
+			continue;
   
 }
 /**
@@ -158,3 +176,29 @@ void HAL_CAN_RxFifo0MsgPendingCallback(CAN_HandleTypeDef *hcan) {
   }
 }
 
+/**
+  * @brief  CANInstance::Transmit
+  * @param  
+  */
+HAL_StatusTypeDef CANInstance::Transmit(void) {
+  /* Status of api are returned to this variable. */
+  HAL_StatusTypeDef rslt;
+  static uint32_t starting_time;
+  while (HAL_CAN_GetTxMailboxesFreeLevel(GetCANHandle()) == 0) {
+    starting_time++;
+    if (starting_time > kcan_tx_timecnt_max_) {
+      starting_time = 0;
+      return HAL_TIMEOUT;
+    }
+  }
+  starting_time = 0;
+  if (GetCANHandle() == &hcan1) {
+    rslt = HAL_CAN_AddTxMessage(&hcan1, GetTxConfig(), GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX0);
+  } else if (GetCANHandle() == &hcan2) {
+    rslt = HAL_CAN_AddTxMessage(&hcan2, GetTxConfig(), GetTxBuff(), (uint32_t *)CAN_TX_MAILBOX1);
+  } else {
+    return HAL_ERROR;
+  }
+  return HAL_OK;
+//    memset(tx_buff_, 0, sizeof(tx_buff_));
+}

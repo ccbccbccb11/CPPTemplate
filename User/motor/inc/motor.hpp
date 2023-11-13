@@ -17,9 +17,6 @@
 /* Includes -----------------------------------------------------------------*/
 #include "motor_def.hpp"
 
-using namespace motordef;
-using namespace heartbeat;
-
 namespace motor {
 /* Motor message class */
 class RxInfo {
@@ -40,7 +37,7 @@ public:
   uint32_t  tx_id_;         
   uint32_t  rx_id_;         
   uint8_t   txbuff_index_;  // Send array index
-  MtrGroup  group_;         // Sending group
+  motordef::MtrGroup  group_;         // Sending group
 };
 /** CAN node
  *  @todo 
@@ -55,67 +52,29 @@ public:
 class Motor {
 protected:
   /* data */
-  RxInfo            rxinfo_;           // CAN rx data
-  IDInfo            id_info_;                    
-  StateInfo         stateinfo_;               
-  MotorType         motor_type_;              
-  CANInstance*      can_instance_;         
-  HeartBeat*        heartbeat_;              
-public:
-  Control           controler_;            
-  ExternalInfo      external_info_;   // peripheral control unit, including feedforward algorithm
+  RxInfo                  rxinfo_;           // CAN rx data
+  IDInfo                  id_info_;                    
+  motordef::StateInfo     stateinfo_;               
+  motordef::MotorType     motor_type_;              
+  CANInstance             can_instance_;         
+  heartbeat::HeartBeat    heartbeat_;  
+  motordef::Control       controler_;              
+public:          
+  motordef::ExternalInfo  external_info_;   // peripheral control unit, including feedforward algorithm
 
   /**
    * @brief *************** constructor ******************************
    */
   Motor() {}
-  Motor(MotorInitConfig* config) {
+  Motor(motordef::MotorInitConfig* config) {
     MotorInit(config);
   }
 
   // initialization function
-  void MotorInit(MotorInitConfig* config);
+  void MotorInit(motordef::MotorInitConfig* config);
   
   // ID init
-  void CANInfoInit(MotorInitConfig* config) {
-    id_info_.rx_id_ = config->can_config.rx_id;
-    switch (config->motor_type) {
-      case kRM2006:
-      case kRM3508:
-				if ((id_info_.rx_id_ - 0x201U) < 4) { 
-					id_info_.tx_id_ = 0x200; 
-          if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x200;
-          else id_info_.group_ = kCAN2_0x200;
-				} else { 
-					id_info_.tx_id_ = 0x1FF; 
-          if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x1FF;
-          else id_info_.group_ = kCAN2_0x1FF;
-				}
-        id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x201U) % 4)*2;
-        break;
-      case kGM6020:
-				if ((id_info_.rx_id_ - 0x205U) < 4) { 
-					id_info_.tx_id_ = 0x1FF; 
-          if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x1FF;
-          else id_info_.group_ = kCAN2_0x1FF;
-				} else { 
-					id_info_.tx_id_ = 0x2FF; 
-          if (config->can_config.can_handle == &hcan1) id_info_.group_ = kCAN1_0x2FF;
-          else id_info_.group_ = kCAN2_0x2FF;
-				}
-        id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x205U) % 4)*2;
-        break;
-      case kLkMtr:
-        id_info_.rx_id_ = config->can_config.rx_id;
-        id_info_.tx_id_ = 0x280;
-        id_info_.txbuff_index_ = ((id_info_.rx_id_ - 0x141U) % 4)*2;
-        break;
-      
-      default:
-        while (1)
-          stateinfo_.work_state_ = kMotorTypeErr;
-    }
-  }
+  void BaseInfoInit(motordef::MotorInitConfig* config);
 
 	// Return motor CAN receive id
   uint32_t GetRxID(void) { return id_info_.rx_id_; }
@@ -142,10 +101,10 @@ public:
    * @brief *************** control function ******************************
    */
   // Change control loop
-  void SetPIDLoop(PIDLoop loop) { controler_.loop_ = loop; }
+  void SetPIDLoop(motordef::PIDCtrlMode loop) { controler_.loop_ = loop; }
 
   // Get the current control loop
-  PIDLoop GetPIDLoop(void) { return controler_.loop_; }
+  motordef::PIDCtrlMode GetPIDLoop(void) { return controler_.loop_; }
 
   // Set the pid target value, and only this one target value and modify the channel
   void SetPIDTarget(float tar) { controler_.tar_ = tar; }
@@ -163,110 +122,22 @@ public:
   float GetPIDTarget(void) { return controler_.tar_; }
 
   // Return group 
-  MtrGroup GetGroupIndex(void) { return id_info_.group_; }
+  motordef::MtrGroup GetGroupIndex(void) { return id_info_.group_; }
 
   // Return txbuff index 
   uint8_t GetTxBuffIndex(void) { return id_info_.txbuff_index_; }
 
   // Speed loop
-  float SpeedLoop(void) {
-    if (controler_.speed_.GetInitFlag() == kPIDEmpty)
-      return 0.f;
-    float tar = controler_.tar_;
-    float speed;
-    float output;
-
-    if (external_info_.GetMsrFlag(kExSpeed))
-      speed = external_info_.GetMsrValue(kExSpeed);
-    else
-      speed = GetSpeed();
-
-    output = controler_.speed_.SingleLoop(tar, speed);
-
-    if (external_info_.GetFFdFlag(kExSpeed))
-      output += external_info_.GetFFdValue(kExSpeed);
-    return output;
-  }
+  float SpeedLoop(void);
 
   // Angle Loop
-  float AngleLoop(void) {
-    if (controler_.angleout_.GetInitFlag() == kPIDEmpty || controler_.anglein_.GetInitFlag() == kPIDEmpty)
-      return 0.f;
-    float tar = controler_.tar_;
-    float angle;
-    float speed;
-    float output;
-
-    if (external_info_.GetMsrFlag(kExAngleout))
-      angle = external_info_.GetMsrValue(kExAngleout);
-    else
-      angle = GetAngle();
-    if (external_info_.GetMsrFlag(kExAnglein))
-      speed = external_info_.GetMsrValue(kExAnglein);
-    else
-      speed = GetSpeed();
-
-    output = controler_.angleout_.SingleLoop(tar, angle, 8192);
-
-    if (external_info_.GetFFdFlag(kExAngleout))
-      output += external_info_.GetFFdValue(kExAngleout);
-
-    output = controler_.anglein_.SingleLoop(output, speed);
-
-    if (external_info_.GetFFdFlag(kExAnglein))
-      output += external_info_.GetFFdValue(kExAnglein);
-    return output;
-  }
+  float AngleLoop(void);
 
   // Posit Loop
-  float PositLoop(void) {
-    if (controler_.positout_.GetInitFlag() == kPIDEmpty || controler_.positin_.GetInitFlag() == kPIDEmpty)
-      return 0.f;
-    float tar = controler_.tar_;
-    float posit;
-    float speed;
-    float output;
-
-    if (external_info_.GetMsrFlag(kExPositout))
-      posit = external_info_.GetMsrValue(kExPositout);
-    else
-      posit = GetPosit();
-    if (external_info_.GetMsrFlag(kExPositin))
-      speed = external_info_.GetMsrValue(kExPositin);
-    else
-      speed = GetSpeed();
-
-    output = controler_.positout_.SingleLoop(tar, posit);
-
-    if (external_info_.GetFFdFlag(kExPositout))
-      output += external_info_.GetFFdValue(kExPositout);
-
-    output = controler_.positin_.SingleLoop(output, speed);
-
-    if (external_info_.GetFFdFlag(kExPositin))
-      output += external_info_.GetFFdValue(kExPositin);
-    return output;
-  }
+  float PositLoop(void);
 
   // Current Loop
-  float CurrentLoop(void) {
-    if (controler_.current_.GetInitFlag() == kPIDEmpty)
-      return 0.f;
-    float tar = controler_.tar_;
-    float current;
-    float output;
-
-    if (external_info_.GetMsrFlag(kExCurrent))
-      current = external_info_.GetMsrValue(kExCurrent);
-    else
-      current = GetCurrent();
-
-    output = controler_.current_.SingleLoop(tar, current);
-    
-    if (external_info_.GetFFdFlag(kExCurrent))
-      output += external_info_.GetFFdValue(kExCurrent);
-    return output;
-  }
+  float CurrentLoop(void);
 
   /**
    * @brief According to the speed and current to determine the stall
@@ -279,7 +150,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int16_t current_ = GetCurrent();
-    if (Abs(speed_) < speed && Abs(current_) > current)
+    if (math::Abs(speed_) < speed && math::Abs(current_) > current)
       rslt = 1;
     else
       rslt = 0;
@@ -292,6 +163,7 @@ public:
    * @note  The method of the loop that needs to be detected is called :
    *        djimtr.controler.loop.StallCheck(100)
    * @param 
+   * @todo This function is not implemented
    */
   void StallCheckIntegra(void) {}
 
@@ -307,7 +179,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int16_t angle = GetAngle();
-    if (Abs(speed_) < speed && DistanceBool(angle, tar_angle, diff_angle))
+    if (math::Abs(speed_) < speed && math::DistanceBool(angle, tar_angle, diff_angle))
       rslt = 1;
     else
       rslt = 0;
@@ -326,7 +198,7 @@ public:
     uint8_t rslt;
     int16_t speed_ = GetSpeed();
     int posit = GetPosit();
-    if (Abs(speed_) < speed && DistanceBool(posit, tar_posit, diff_posit))
+    if (math::Abs(speed_) < speed && math::DistanceBool(posit, tar_posit, diff_posit))
       rslt = 1;
     else
       rslt = 0;
@@ -334,58 +206,37 @@ public:
   }
   
   // pid instance initialization
-  void PIDInit(PIDLoop loop, MotorInitConfig* config) {
-    switch (loop) {
-      case kPositLoop:
-        controler_.positin_ = PIDControler(&config->PID_posit_inner_config);
-        controler_.positout_ = PIDControler(&config->PID_posit_outer_config);
-        break;
-      case kSpeedLoop:
-        controler_.speed_ = PIDControler(&config->PID_speed_config);
-        break;
-      case kAngleLoop:
-        controler_.anglein_ = PIDControler(&config->PID_angle_inner_config);
-        controler_.angleout_ = PIDControler(&config->PID_angle_outer_config);
-        break;
-      case kCurrentLoop:
-        controler_.current_ = PIDControler(&config->PID_current_config);
-        break;
-      default:
-        while (1)
-          continue;
-        break;
-    }
-  }
+  void PIDInit(motordef::PIDCtrlMode loop, motordef::MotorInitConfig* config);
 
   // Return speed loop initialization information
-  PidInit GetSpeedPIDInit(void) { return controler_.speed_.GetInitFlag(); }
+  pid::PidInit GetSpeedPIDInit(void) { return controler_.PID_map_[motordef::kSpeed]->GetInitFlag(); }
 
   // Return Angle ring initialization information
-  PidInit GetAnglePIDInit(void) {
-    if (controler_.anglein_.GetInitFlag() == kPIDInit && 
-        controler_.angleout_.GetInitFlag() == kPIDInit)
-      return kPIDInit;
+  pid::PidInit GetAnglePIDInit(void) {
+    if (controler_.PID_map_[motordef::kAnglein]->GetInitFlag() == pid::kPIDInit && 
+        controler_.PID_map_[motordef::kAngleout]->GetInitFlag() == pid::kPIDInit)
+      return pid::kPIDInit;
     else 
-      return kPIDEmpty;
+      return pid::kPIDEmpty;
   }
 
   // Return position ring initialization information
-  PidInit GetPositPIDInit(void) {
-    if (controler_.positin_.GetInitFlag() == kPIDInit && 
-        controler_.positout_.GetInitFlag() == kPIDInit)
-      return kPIDInit;
+  pid::PidInit GetPositPIDInit(void) {
+    if (controler_.PID_map_[motordef::kPositin]->GetInitFlag() == pid::kPIDInit && 
+        controler_.PID_map_[motordef::kPositout]->GetInitFlag() == pid::kPIDInit)
+      return pid::kPIDInit;
     else 
-      return kPIDEmpty;
+      return pid::kPIDEmpty;
   }
 
   // Output current loop initialization information
-  PidInit GetCurrentPIDInit(void) { return controler_.current_.GetInitFlag(); }
+  pid::PidInit GetCurrentPIDInit(void) { return controler_.PID_map_[motordef::kCurrent]->GetInitFlag(); }
   
   // Heartbeat update
   void StateUpdate(void) {
-    stateinfo_.work_state_ = kMotorOnline;
-    if (heartbeat_->GetState() == kOffline)
-      stateinfo_.work_state_ = kMotorOffline;
+    stateinfo_.work_state_ = motordef::kMotorOnline;
+    if (heartbeat_.GetState() == heartbeat::kOffline)
+      stateinfo_.work_state_ = motordef::kMotorOffline;
   }
 };
 };
