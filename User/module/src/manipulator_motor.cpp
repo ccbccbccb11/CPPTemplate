@@ -59,7 +59,7 @@ void Manipulator::Register() {
       .out_max = 0,
     },
     .loop = motordef::kAngleLoop,
-    .encoder_bits = 16,
+    .encoder_bits = kEncoderBits,
   };
   motordef::MotorInitConfig motor2_config = {
     .motor_type = motordef::kLkMtr,

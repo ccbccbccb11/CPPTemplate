@@ -98,6 +98,21 @@ public:
 	// Return motor temperature
   uint8_t GetTemperature(void) { return rxinfo_.temperature_; }
 
+  // Return motor state
+  motordef::StateInfo GetState(void) { return stateinfo_; }
+
+  // Return motor type  
+  motordef::MotorType GetMotorType(void) { return motor_type_; }
+
+  // Return motor PID loop
+  motordef::PIDCtrlMode GetLoop(void) { return controler_.loop_; }
+
+  // Return motor encoder bits
+  uint8_t GetEncoderBits(void) { return encoder_bits_; }
+
+  // Return motor encoder max value
+  int GetEncoderMax(void) { return encoder_bits_ == 14 ? 16384 : encoder_bits_ == 16 ? 65536 : 8192; }
+
   /**
    * @brief *************** control function ******************************
    */

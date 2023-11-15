@@ -141,6 +141,19 @@ public:
   // Set joint6 target angle
   void SetJoint6TargetAngle(float angle) { target_angle_.joint6 = angle; }
 
+  // Set joint1 target angle 0~360°
+  void SetJoint1TargetAngle360(float angle) { target_angle_.joint1 = angle * (float)lkmtr_map_[kMotor1]->GetEncoderMax() / 360.0f; }
+  // Set joint2 target angle 0~360°
+  void SetJoint2TargetAngle360(float angle) { target_angle_.joint2 = angle * (float)lkmtr_map_[kMotor2]->GetEncoderMax() / 360.0f; }
+  // Set joint3 target angle 0~360°
+  void SetJoint3TargetAngle360(float angle) { target_angle_.joint3 = angle * (float)lkmtr_map_[kMotor3]->GetEncoderMax() / 360.0f; }
+  // // Set joint4 target angle 0~360°
+  // void SetJoint4TargetAngle360(float angle) { target_angle_.joint4 = angle * (float)lkmtr_map_[kMotor4]->GetEncoderMax() / 360.0f; }
+  // // Set joint5 target angle 0~360°
+  // void SetJoint5TargetAngle360(float angle) { target_angle_.joint5 = angle * (float)djimtr_map_[kMotor5]->GetEncoderMax() / 360.0f; }
+  // // Set joint6 target angle 0~360°
+  // void SetJoint6TargetAngle360(float angle) { target_angle_.joint6 = angle * (float)djimtr_map_[kMotor6]->GetEncoderMax() / 360.0f; }
+
   // Set joint1 feedforward
   void SetJoint1Feedforward(float feedforward) { feedforward_.joint1 = feedforward; }
   // Set joint2 feedforward
