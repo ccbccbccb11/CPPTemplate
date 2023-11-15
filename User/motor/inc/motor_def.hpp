@@ -151,6 +151,7 @@ typedef struct MotorInitConfig_t {
   pid::PIDInitConfig PID_posit_inner_config;
   pid::PIDInitConfig PID_posit_outer_config;
   PIDCtrlMode loop;
+  uint8_t encoder_bits;
 } MotorInitConfig;
 
 }

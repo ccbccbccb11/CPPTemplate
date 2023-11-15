@@ -19,6 +19,7 @@ namespace manipulator {
  * 
  */
 static uint8_t kInitFlag = 0;  // Manipulator initialization flag
+static uint8_t kEncoderBits = 16;  // Encoder bits
 /**
  * @brief *************** public functions **********************
  * 
@@ -58,6 +59,7 @@ void Manipulator::Register() {
       .out_max = 0,
     },
     .loop = motordef::kAngleLoop,
+    .encoder_bits = 16,
   };
   motordef::MotorInitConfig motor2_config = {
     .motor_type = motordef::kLkMtr,

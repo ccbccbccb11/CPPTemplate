@@ -155,6 +155,7 @@ void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
     lkmtr_ = lkmtr_can2_node_map[can_ins->GetRxId()];
 
   int err;
+  int angle_max = lkmtr_->encoder_bits_ == 14 ? 16384 : 65536;
   if (lkmtr_->can_instance_.GetRxBuff() == nullptr)// Accepts a null pointer to exit
     return;
   if (lkmtr_->stateinfo_.init_flag_ == motordef::kMotorEmpty)// Motor does not initialize exit
@@ -168,11 +169,11 @@ void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   } else {
     err = lkmtr_->rxinfo_.angle_ - lkmtr_->rxinfo_.angle_prev_;
   }
-  if (math::Abs(err) > 32768) {
+  if (math::Abs(err) > angle_max/2) {
     if (err >= 0) {
-      lkmtr_->rxinfo_.angle_sum_ += -65536 + err;
+      lkmtr_->rxinfo_.angle_sum_ += -angle_max + err;
     } else {
-      lkmtr_->rxinfo_.angle_sum_ += 65536 + err;
+      lkmtr_->rxinfo_.angle_sum_ += angle_max + err;
     }
   } else {
     lkmtr_->rxinfo_.angle_sum_ += err;

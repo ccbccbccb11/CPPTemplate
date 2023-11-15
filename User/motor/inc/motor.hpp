@@ -58,7 +58,8 @@ protected:
   motordef::MotorType     motor_type_;              
   CANInstance             can_instance_;         
   heartbeat::HeartBeat    heartbeat_;  
-  motordef::Control       controler_;              
+  motordef::Control       controler_;   
+  uint8_t                 encoder_bits_;      // Encoder bits           
 public:          
   motordef::ExternalInfo  external_info_;   // peripheral control unit, including feedforward algorithm
 

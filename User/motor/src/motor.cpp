@@ -31,6 +31,7 @@ void motor::Motor::MotorInit(motordef::MotorInitConfig* config) {
    */
 void motor::Motor::BaseInfoInit(motordef::MotorInitConfig* config) {
   id_info_.rx_id_ = config->can_config.rx_id;
+  encoder_bits_ = config->encoder_bits;
   switch (config->motor_type) {
     case motordef::kRM2006:
     case motordef::kRM3508:
