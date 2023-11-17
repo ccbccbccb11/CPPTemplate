@@ -34,8 +34,6 @@ private:
   /**
    * @brief *************** private variables **********************
    */
-  // Manipulator shared pointer
-  std::shared_ptr<manipulator::Manipulator> manipulator_;
   // Chassis shared pointer
   std::shared_ptr<chassis::Chassis> chassis_;
   // Gimbal shared pointer
@@ -44,6 +42,9 @@ public:
   /**
    * @brief *************** public variables ***********************
    */
+  // Manipulator shared pointer
+  std::shared_ptr<manipulator::Manipulator> manipulator_;
+  // void SetManipulatorPID_P(float target) { manipulator_->(target); }
   /**
    * @brief *************** constructor ****************************
    */

@@ -127,7 +127,10 @@
         "name": "control",
         "files": [
           {
-            "path": "User/control/src/robot.cpp"
+            "path": "User/control/src/manipulator.cpp"
+          },
+          {
+            "path": "User/control/src/robot_cmd.cpp"
           }
         ],
         "folders": []

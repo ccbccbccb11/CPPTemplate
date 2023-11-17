@@ -165,6 +165,7 @@ void motor::LkMotor::GetCANRxMessage(CANInstance* can_ins) {
   lkmtr_->rxinfo_.current_ = lkmtr_->CANGetCurrent(lkmtr_->can_instance_.GetRxBuff());
   lkmtr_->rxinfo_.temperature_ = lkmtr_->CANGetTemperature(lkmtr_->can_instance_.GetRxBuff());
   if (!lkmtr_->rxinfo_.angle_prev_ && !lkmtr_->rxinfo_.angle_sum_) {
+		lkmtr_->rxinfo_.angle_prev_ = lkmtr_->rxinfo_.angle_;
     err = 0;
   } else {
     err = lkmtr_->rxinfo_.angle_ - lkmtr_->rxinfo_.angle_prev_;

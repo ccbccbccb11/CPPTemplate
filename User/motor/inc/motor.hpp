@@ -21,6 +21,16 @@ namespace motor {
 /* Motor message class */
 class RxInfo {
 public:
+  /* Constract */
+  RxInfo() {
+    temperature_ = 0;
+    current_ = 0;
+    speed_ = 0;
+    angle_ = 0;
+    angle_prev_ = 0;
+    angle_offset_ = 0;
+    angle_sum_ = 0;
+  }
   /* Message reading */
   uint8_t		temperature_;	
   int16_t 	current_;			
@@ -34,6 +44,13 @@ public:
 /* Motor id class */
 class IDInfo {
 public:
+  /* Constract */
+  IDInfo() {
+    tx_id_ = 0;
+    rx_id_ = 0;
+    txbuff_index_ = 0;
+    group_ = motordef::kCAN1_0x1FF;
+  }
   uint32_t  tx_id_;         
   uint32_t  rx_id_;         
   uint8_t   txbuff_index_;  // Send array index
@@ -58,9 +75,9 @@ protected:
   motordef::MotorType     motor_type_;              
   CANInstance             can_instance_;         
   heartbeat::HeartBeat    heartbeat_;  
-  motordef::Control       controler_;   
   uint8_t                 encoder_bits_;      // Encoder bits           
 public:          
+  motordef::Control       controler_;   
   motordef::ExternalInfo  external_info_;   // peripheral control unit, including feedforward algorithm
 
   /**

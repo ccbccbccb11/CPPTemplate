@@ -131,6 +131,12 @@ public:
   void SetPIDErr(float err) {\
     err_ = err;
   }
+  // Set P
+  void SetKp(float kp) { kp_ = kp; }
+  // Set I
+  void SetKi(float ki) { ki_ = ki; }
+  // Set D
+  void SetKd(float kd) { kd_ = kd; }
     // 计算 pid 输出（误差内部计算无预处理）
   float CalcPIDOut(float target, float measure) {
     SetPIDErr(target, measure);

@@ -26,10 +26,10 @@ namespace manipulator {
  */
 // Manipulator motor CAN ID
 typedef enum {
-  kMotor1 = 0x141,
-  kMotor2 = 0x142,
-  kMotor3 = 0x143,
-  kMotor4 = 0x144,
+  kMotor1 = 0x144,
+  kMotor2 = 0x143,
+  kMotor3 = 0x142,
+  kMotor4 = 0x141,
   kMotor5 = 0x201,
   kMotor6 = 0x202,
 } ManipulatorMotorCANID;
@@ -166,6 +166,34 @@ public:
   void SetJoint5Feedforward(float feedforward) { feedforward_.joint5 = feedforward; }
   // Set joint6 feedforward
   void SetJoint6Feedforward(float feedforward) { feedforward_.joint6 = feedforward; }
+
+  // Set joint1 PID
+  void SetJoint1PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositout]->SetKp(kpout);
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositout]->SetKi(kiout);
+    lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
+  }
+  // Set joint2 PID
+  void SetJoint2PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositout]->SetKp(kpout);
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositout]->SetKi(kiout);
+    lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
+  }
+  // Set joint3 PID
+  void SetJoint3PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKp(kpout);
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKi(kiout);
+    lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
+  }
 
   // Control Task
   void ControlTask(void);

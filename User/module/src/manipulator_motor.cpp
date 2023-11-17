@@ -37,81 +37,83 @@ void Manipulator::Register() {
   motordef::MotorInitConfig motor1_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan2,
+      .can_handle = &hcan1,
       .rx_id = kMotor1,
     },
-    .PID_angle_outer_config = {
-      .kp = 0,
-      .ki = 0,
-      .kd = 0,
-      .blind_err = 0 ,
-      .integral_max = 0,
-      .iout_max =0,
-      .out_max = 0,
-    },
     .PID_posit_inner_config = {
-      .kp = 0,
+      .kp = 0.2,
+      .ki = 0.01,
+      .kd = 0,
+      .blind_err = 0 ,
+      .integral_max = 5000,
+      .iout_max = 500,
+      .out_max = 1800,
+    },
+    .PID_posit_outer_config = {
+      .kp = 1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 0,
+      .out_max = 500,
     },
-    .loop = motordef::kAngleLoop,
+    .loop = motordef::kPositLoop,
     .encoder_bits = kEncoderBits,
   };
   motordef::MotorInitConfig motor2_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan2,
+      .can_handle = &hcan1,
       .rx_id = kMotor2,
     },
-    .PID_angle_outer_config = {
-      .kp = 0,
-      .ki = 0,
-      .kd = 0,
-      .blind_err = 0 ,
-      .integral_max = 0,
-      .iout_max =0,
-      .out_max = 0,
-    },
     .PID_posit_inner_config = {
-      .kp = 0,
+      .kp = 0.2,
+      .ki = 0.01,
+      .kd = 0,
+      .blind_err = 0 ,
+      .integral_max = 5000,
+      .iout_max = 500,
+      .out_max = 1800,
+    },
+    .PID_posit_outer_config = {
+      .kp = 1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 0,
+      .out_max = 500,
     },
-    .loop = motordef::kAngleLoop,
+    .loop = motordef::kPositLoop,
+    .encoder_bits = kEncoderBits,
   };
   motordef::MotorInitConfig motor3_config = {
     .motor_type = motordef::kLkMtr,
     .can_config = {
-      .can_handle = &hcan2,
+      .can_handle = &hcan1,
       .rx_id = kMotor3,
     },
-    .PID_angle_outer_config = {
-      .kp = 0,
-      .ki = 0,
-      .kd = 0,
-      .blind_err = 0 ,
-      .integral_max = 0,
-      .iout_max =0,
-      .out_max = 0,
-    },
     .PID_posit_inner_config = {
-      .kp = 0,
+      .kp = 0.2,
+      .ki = 0.01,
+      .kd = 0,
+      .blind_err = 0 ,
+      .integral_max = 5000,
+      .iout_max = 500,
+      .out_max = 1800,
+    },
+    .PID_posit_outer_config = {
+      .kp = 1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 0,
+      .out_max = 500,
     },
-    .loop = motordef::kAngleLoop,
+    .loop = motordef::kPositLoop,
+    .encoder_bits = kEncoderBits,
   };
 
   motordef::MotorInitConfig motor5_config = {
@@ -228,9 +230,12 @@ void Manipulator::ControlTask() {
   InfoUpdate();
 
   // Set the target angle of each motor
+  target_angle_.joint1 = math::Limit<float>(target_angle_.joint1, 0, 393216);
+  target_angle_.joint2 = math::Limit<float>(target_angle_.joint2, 0, 210000);
+  target_angle_.joint3 = math::Limit<float>(target_angle_.joint3, 0, 210000);
   lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.joint1);
-  lkmtr_map_[kMotor2]->SetPIDTarget(target_angle_.joint2);
-  lkmtr_map_[kMotor3]->SetPIDTarget(target_angle_.joint3);
+  lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.joint2);
+  lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.joint2+target_angle_.joint3);
 
   djimtr_map_[kMotor5]->SetPIDTarget(target_angle_.joint5);
   djimtr_map_[kMotor6]->SetPIDTarget(target_angle_.joint6);

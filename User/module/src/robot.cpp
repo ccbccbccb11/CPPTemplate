@@ -35,27 +35,27 @@ void Robot::Register() {
   // Manipulator register
   manipulator_ = std::make_shared<manipulator::Manipulator>();
   // Chassis register
-  chassis_ = std::make_shared<chassis::Chassis>();
+  // chassis_ = std::make_shared<chassis::Chassis>();
   // Gimbal register
-  gimbal_ = std::make_shared<gimbal::Gimbal>();
+  // gimbal_ = std::make_shared<gimbal::Gimbal>();
   
   // Robot initialization flag
   kInitFlag = 1;
 
-  // Check initialization
-  if (manipulator_ == NULL || chassis_ == NULL || gimbal_ == NULL) {
-    // Robot initialization failed!!!
-    while (true)
-      continue;
-  }
+  // // Check initialization
+  // if (manipulator_ == NULL || chassis_ == NULL || gimbal_ == NULL) {
+  //   // Robot initialization failed!!!
+  //   while (true)
+  //     continue;
+  // }
 }
 // Robot control task
 void Robot::ControlTask() {
   // Manipulator control task
   manipulator_->ControlTask();
   // Chassis control task
-  chassis_->ControlTask();
+  // chassis_->ControlTask();
   // Gimbal control task
-  gimbal_->ControlTask();
+  // gimbal_->ControlTask();
 }
 }  // namespace robot
