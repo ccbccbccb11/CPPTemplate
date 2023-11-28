@@ -123,7 +123,7 @@ class Link {
   // dynamic parameter
   float m_;           // mass
   Matrixf<3, 1> rc_;  // centroid(link coordinate)
-  Matrixf<3, 3> I_;   // inertia tensor(3*3)
+  Matrixf<3, 3> I_;   // inertia tensor(3*3)(about centroid)
 };
 
 template <uint16_t _n = 1>
@@ -143,7 +143,7 @@ class Serial_Link {
   }
 
   // forward kinematic: T_n^0
-  // param[in] q: joint variable vector
+  // param[in] q: joint variable vector(radian)
   // param[out] T_n^0
   Matrixf<4, 4> fkine(Matrixf<_n, 1> q) {
     T_ = matrixf::eye<4, 4>();
@@ -153,7 +153,7 @@ class Serial_Link {
   }
 
   // forward kinematic: T_k^0
-  // param[in] q: joint variable vector
+  // param[in] q: joint variable vector(radian)
   // param[in] k: joint number
   // param[out] T_k^0
   Matrixf<4, 4> fkine(Matrixf<_n, 1> q, uint16_t k) {
@@ -228,25 +228,31 @@ class Serial_Link {
     float step = 1;
     for (int i = 0; i < max_iter; i++) {
       T = fkine(q);
+      // Position and orientation errors
       pe = t2p(Td) - t2p(T);
       // angvec(Td*T^-1), transform angular vector(T->Td) in world coordinate
       we = t2twist(Td * invT(T)).block<3, 1>(3, 0);
+      // Populate error vector
       for (int i = 0; i < 3; i++) {
         err[i][0] = pe[i][0];
         err[i + 3][0] = we[i][0];
       }
+      // Check for convergence
       if (err.norm() < tol)
         return q;
-      // adjust iteration step
+      // Adjust iteration step using Jacobian
       Matrixf<6, _n> J = jacob(q);
       for (int j = 0; j < 5; j++) {
+        // Calculate joint angle change
         dq = matrixf::inv(J.trans() * J) * (J.trans() * err) * step;
-        if (dq[0][0] == INFINITY)  // J'*J singular
-        {
+        // Check for singularities in J'*J
+        if (dq[0][0] == INFINITY) {
+          // Handle singularity by adding a regularization term
           dq = matrixf::inv(J.trans() * J + 0.1f * matrixf::eye<_n, _n>()) *
                J.trans() * err * step;
           // SVD<6, _n> JTJ_svd(J.trans() * J);
           // dq = JTJ_svd.solve(err) * step * 5e-2f;
+          // Update joint angles with loop limit for revolute joints
           q += dq;
           for (int i = 0; i < _n; i++) {
             if (links_[i].type() == R)
@@ -255,7 +261,7 @@ class Serial_Link {
           break;
         }
         T = fkine(q + dq);
-        pe = t2p(Td) - t2p(T);
+         pe = t2p(Td) - t2p(T);
         we = t2twist(Td * invT(T)).block<3, 1>(3, 0);
         for (int i = 0; i < 3; i++) {
           new_err[i][0] = pe[i][0];

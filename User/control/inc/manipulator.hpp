@@ -14,7 +14,7 @@
  * @brief *************** include files ***************************
  */
 #include "robotics.h"
-#include "robot.hpp"
+#include <map>
 /**
  * @brief *************** namespace robot *************************
  */
@@ -32,6 +32,7 @@ private:
    * @brief *************** private variables **********************
    */
   std::shared_ptr<robotics::Serial_Link<6>> CCBArm; // Manipulator class
+  // robotics::Serial_Link<6>* CCBArm; // Manipulator class
   /**
    * @brief *************** private functions **********************
    */
@@ -43,12 +44,14 @@ public:
    * @brief *************** constructor **********************
    */
   Manipulator() { Register(); }
+  // Robot initialization
+  void Register();
 
   /**
    * @brief *************** public functions **********************
    */
-  // Robot initialization
-  void Register();
+  void Dynamics();
+  void Kinematics();
 };
 }  // namespace robot
 

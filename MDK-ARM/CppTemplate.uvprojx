@@ -879,6 +879,18 @@
         </Group>
         <Group>
           <GroupName>control</GroupName>
+          <Files>
+            <File>
+              <FileName>manipulator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\control\src\manipulator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>robot_cmd.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\User\control\src\robot_cmd.cpp</FilePath>
+            </File>
+          </Files>
         </Group>
         <Group>
           <GroupName>mytask</GroupName>

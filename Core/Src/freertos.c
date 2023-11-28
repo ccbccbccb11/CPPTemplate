@@ -112,7 +112,7 @@ void MX_FREERTOS_Init(void) {
   defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
   /* definition and creation of ControlTask */
-  osThreadDef(ControlTask, StartControlTask, osPriorityIdle, 0, 1024);
+  osThreadDef(ControlTask, StartControlTask, osPriorityIdle, 0, 2048);
   ControlTaskHandle = osThreadCreate(osThread(ControlTask), NULL);
 
   /* definition and creation of HeartBeatTask */

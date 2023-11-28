@@ -35,39 +35,39 @@ typedef enum {
 } ManipulatorMotorCANID;
 // Motor target angle
 typedef struct {
-  float joint1;
-  float joint2;
-  float joint3;
-  float joint4;
-  float joint5;
-  float joint6;
+  float motor1;
+  float motor2;
+  float motor3;
+  float motor4;
+  float motor5;
+  float motor6;
 } MotorTargetAngle;
 // Motor measure angle
 typedef struct {
-  float joint1;
-  float joint2;
-  float joint3;
-  float joint4;
-  float joint5;
-  float joint6;
+  float motor1;
+  float motor2;
+  float motor3;
+  float motor4;
+  float motor5;
+  float motor6;
 } MotorMeasureAngle;
 // Motor measure speed
 typedef struct {
-  float joint1;
-  float joint2;
-  float joint3;
-  float joint4;
-  float joint5;
-  float joint6;
+  float motor1;
+  float motor2;
+  float motor3;
+  float motor4;
+  float motor5;
+  float motor6;
 } MotorMeasureSpeed;
 // Motor feedforward
 typedef struct {
-  float joint1;
-  float joint2;
-  float joint3;
-  float joint4;
-  float joint5;
-  float joint6;
+  float motor1;
+  float motor2;
+  float motor3;
+  float motor4;
+  float motor5;
+  float motor6;
 } MotorFeedforward;
 /**
  * @brief class Manipulator declaration
@@ -112,60 +112,57 @@ public:
   // Base info upate
   void BaseInfoUpdate(void) {
     // Update measure angle
-    measure_angle_.joint1 = lkmtr_map_[kMotor1]->GetAngle();
-    measure_angle_.joint2 = lkmtr_map_[kMotor2]->GetAngle();
-    measure_angle_.joint3 = lkmtr_map_[kMotor3]->GetAngle();
-    // measure_angle_.joint4 = 0.0f;
-    measure_angle_.joint5 = djimtr_map_[kMotor5]->GetAngle();
-    measure_angle_.joint6 = djimtr_map_[kMotor6]->GetAngle();
+    // measure_angle_.motor1 = lkmtr_map_[kMotor1]->GetAngle();
+    // measure_angle_.motor2 = lkmtr_map_[kMotor2]->GetAngle();
+    // measure_angle_.motor3 = lkmtr_map_[kMotor3]->GetAngle();
+    measure_angle_.motor1 = lkmtr_map_[kMotor1]->GetPosit();
+    measure_angle_.motor2 = lkmtr_map_[kMotor2]->GetPosit();
+    measure_angle_.motor3 = lkmtr_map_[kMotor3]->GetPosit();
+    // measure_angle_.motor4 = 0.0f;
+    measure_angle_.motor5 = djimtr_map_[kMotor5]->GetPosit();
+    measure_angle_.motor6 = djimtr_map_[kMotor6]->GetPosit();
 
     // Update measure speed
-    measure_speed_.joint1 = lkmtr_map_[kMotor1]->GetSpeed();
-    measure_speed_.joint2 = lkmtr_map_[kMotor2]->GetSpeed();
-    measure_speed_.joint3 = lkmtr_map_[kMotor3]->GetSpeed();
-    // measure_speed_.joint4 = 0.0f;
-    measure_speed_.joint5 = djimtr_map_[kMotor5]->GetSpeed();
-    measure_speed_.joint6 = djimtr_map_[kMotor6]->GetSpeed();
+    measure_speed_.motor1 = lkmtr_map_[kMotor1]->GetSpeed();
+    measure_speed_.motor2 = lkmtr_map_[kMotor2]->GetSpeed();
+    measure_speed_.motor3 = lkmtr_map_[kMotor3]->GetSpeed();
+    // measure_speed_.motor4 = 0.0f;
+    measure_speed_.motor5 = djimtr_map_[kMotor5]->GetSpeed();
+    measure_speed_.motor6 = djimtr_map_[kMotor6]->GetSpeed();
   }
-  
-  // Set joint1 target angle
-  void SetJoint1TargetAngle(float angle) { target_angle_.joint1 = angle; }
-  // Set joint2 target angle
-  void SetJoint2TargetAngle(float angle) { target_angle_.joint2 = angle; }
-  // Set joint3 target angle
-  void SetJoint3TargetAngle(float angle) { target_angle_.joint3 = angle; }
-  // Set joint4 target angle
-  void SetJoint4TargetAngle(float angle) { target_angle_.joint4 = angle; }
-  // Set joint5 target angle
-  void SetJoint5TargetAngle(float angle) { target_angle_.joint5 = angle; }
-  // Set joint6 target angle
-  void SetJoint6TargetAngle(float angle) { target_angle_.joint6 = angle; }
 
-  // Set joint1 target angle 0~360°
-  void SetJoint1TargetAngle360(float angle) { target_angle_.joint1 = angle * (float)lkmtr_map_[kMotor1]->GetEncoderMax() / 360.0f; }
-  // Set joint2 target angle 0~360°
-  void SetJoint2TargetAngle360(float angle) { target_angle_.joint2 = angle * (float)lkmtr_map_[kMotor2]->GetEncoderMax() / 360.0f; }
-  // Set joint3 target angle 0~360°
-  void SetJoint3TargetAngle360(float angle) { target_angle_.joint3 = angle * (float)lkmtr_map_[kMotor3]->GetEncoderMax() / 360.0f; }
-  // // Set joint4 target angle 0~360°
-  // void SetJoint4TargetAngle360(float angle) { target_angle_.joint4 = angle * (float)lkmtr_map_[kMotor4]->GetEncoderMax() / 360.0f; }
-  // // Set joint5 target angle 0~360°
-  // void SetJoint5TargetAngle360(float angle) { target_angle_.joint5 = angle * (float)djimtr_map_[kMotor5]->GetEncoderMax() / 360.0f; }
-  // // Set joint6 target angle 0~360°
-  // void SetJoint6TargetAngle360(float angle) { target_angle_.joint6 = angle * (float)djimtr_map_[kMotor6]->GetEncoderMax() / 360.0f; }
+  // Get joint1 measure angle(degree)
+  float GetJoint1MeasureAngleDegree() { return measure_angle_.motor1/1092.0f; }
+  // Get joint2 measure angle(degree)
+  float GetJoint2MeasureAngleDegree() { return -(measure_angle_.motor2+measure_angle_.motor2)/1092.0f; }
+  // Get joint3 measure angle(degree)
+  float GetJoint3MeasureAngleDegree() { return measure_angle_.motor2/1092.0f; }
+  
+  // Set motor1 target angle
+  void SetMotor1TargetAngle(float angle) { target_angle_.motor1 = angle; }
+  // Set motor2 target angle
+  void SetMotor2TargetAngle(float angle) { target_angle_.motor2 = angle; }
+  // Set motor3 target angle
+  void SetMotor3TargetAngle(float angle) { target_angle_.motor3 = angle; }
+  // Set motor4 target angle
+  void SetMotor4TargetAngle(float angle) { target_angle_.motor4 = angle; }
+  // Set motor5 target angle
+  void SetMotor5TargetAngle(float angle) { target_angle_.motor5 = angle; }
+  // Set motor6 target angle
+  void SetMotor6TargetAngle(float angle) { target_angle_.motor6 = angle; }
 
   // Set joint1 feedforward
-  void SetJoint1Feedforward(float feedforward) { feedforward_.joint1 = feedforward; }
-  // Set joint2 feedforward
-  void SetJoint2Feedforward(float feedforward) { feedforward_.joint2 = feedforward; }
-  // Set joint3 feedforward
-  void SetJoint3Feedforward(float feedforward) { feedforward_.joint3 = feedforward; }
-  // Set joint4 feedforward
-  void SetJoint4Feedforward(float feedforward) { feedforward_.joint4 = feedforward; }
-  // Set joint5 feedforward
-  void SetJoint5Feedforward(float feedforward) { feedforward_.joint5 = feedforward; }
-  // Set joint6 feedforward
-  void SetJoint6Feedforward(float feedforward) { feedforward_.joint6 = feedforward; }
+  void SetMotor1Feedforward(float feedforward) { feedforward_.motor1 = feedforward; }
+  // Set Motor2 feedforward
+  void SetMotor2Feedforward(float feedforward) { feedforward_.motor2 = feedforward; }
+  // Set Motor3 feedforward
+  void SetMotor3Feedforward(float feedforward) { feedforward_.motor3 = feedforward; }
+  // Set Motor4 feedforward
+  void SetMotor4Feedforward(float feedforward) { feedforward_.motor4 = feedforward; }
+  // Set Motor5 feedforward
+  void SetMotor5Feedforward(float feedforward) { feedforward_.motor5 = feedforward; }
+  // Set Motor6 feedforward
+  void SetMotor6Feedforward(float feedforward) { feedforward_.motor6 = feedforward; }
 
   // Set joint1 PID
   void SetJoint1PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {

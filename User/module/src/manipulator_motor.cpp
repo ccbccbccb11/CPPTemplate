@@ -41,8 +41,8 @@ void Manipulator::Register() {
       .rx_id = kMotor1,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
-      .ki = 0.01,
+      .kp = 0.6,
+      .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 5000,
@@ -68,8 +68,8 @@ void Manipulator::Register() {
       .rx_id = kMotor2,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
-      .ki = 0.01,
+      .kp = 0.6,
+      .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 5000,
@@ -95,8 +95,8 @@ void Manipulator::Register() {
       .rx_id = kMotor3,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
-      .ki = 0.01,
+      .kp = 0.6,
+      .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
       .integral_max = 5000,
@@ -207,12 +207,12 @@ void Manipulator::Register() {
   }
 
   // Feedforward initialization
-  lkmtr_map_[kMotor1]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.joint1);
-  lkmtr_map_[kMotor2]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.joint2);
-  lkmtr_map_[kMotor3]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.joint3);
+  lkmtr_map_[kMotor1]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor1);
+  lkmtr_map_[kMotor2]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor2);
+  lkmtr_map_[kMotor3]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor3);
 
-  djimtr_map_[kMotor5]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.joint5);
-  djimtr_map_[kMotor6]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.joint6);
+  djimtr_map_[kMotor5]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor5);
+  djimtr_map_[kMotor6]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor6);
 }
 /**
  * @brief Manipulator control task
@@ -229,15 +229,18 @@ void Manipulator::ControlTask() {
   // Manipulator info update
   InfoUpdate();
 
-  // Set the target angle of each motor
-  target_angle_.joint1 = math::Limit<float>(target_angle_.joint1, 0, 393216);
-  target_angle_.joint2 = math::Limit<float>(target_angle_.joint2, 0, 210000);
-  target_angle_.joint3 = math::Limit<float>(target_angle_.joint3, 0, 210000);
-  lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.joint1);
-  lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.joint2);
-  lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.joint2+target_angle_.joint3);
+  // Set the target angle of each motor // 1092.267f
+  target_angle_.motor1 = math::Limit<float>(target_angle_.motor1, 0, 360);
+  target_angle_.motor2 = math::Limit<float>(target_angle_.motor2, 0, 192);
+  target_angle_.motor3 = math::Limit<float>(target_angle_.motor3, 0, 192);
+  target_angle_.motor1 *= 1092.267f;
+  target_angle_.motor2 *= 1092.267f;
+  target_angle_.motor3 *= 1092.267f;
+  lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.motor1);
+  lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.motor2);
+  lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.motor2+target_angle_.motor3);
 
-  djimtr_map_[kMotor5]->SetPIDTarget(target_angle_.joint5);
-  djimtr_map_[kMotor6]->SetPIDTarget(target_angle_.joint6);
+  djimtr_map_[kMotor5]->SetPIDTarget(target_angle_.motor5);
+  djimtr_map_[kMotor6]->SetPIDTarget(target_angle_.motor6);
 }
 }  // namespace manipulator

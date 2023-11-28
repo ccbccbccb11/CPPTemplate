@@ -16,8 +16,10 @@
 #include "lk_motor.hpp"
 #include "chassis_motor.hpp"
 #include "robot.hpp"
+#include "manipulator.hpp"
 
 robot::Robot robot_test;
+robot::Manipulator manipulator_test;
 /**
  * @brief 设备初始化
  * 
@@ -53,5 +55,7 @@ void Device_Work(void) {
 //	chassis_test.ControlTask();
 	motor::DjiMotor::ControlTask();
 	motor::LkMotor::ControlTask();
+	manipulator_test.Kinematics();
 //	imu_sensor.update(&imu_sensor);
+  manipulator_test.Dynamics();
 }
