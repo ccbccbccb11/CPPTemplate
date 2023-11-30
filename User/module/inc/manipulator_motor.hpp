@@ -14,6 +14,7 @@
  * @brief *************** include files *********************
  * 
  */
+#include "matrix.h"
 #include "lk_motor.hpp"
 #include "dji_motor.hpp"
 /**
@@ -131,12 +132,15 @@ public:
     measure_speed_.motor6 = djimtr_map_[kMotor6]->GetSpeed();
   }
 
+  // 1092.267 = 65536*6/360
+  // 62582.27 = 65536*6/(2*PI)
+
   // Get joint1 measure angle(degree)
-  float GetJoint1MeasureAngleDegree() { return measure_angle_.motor1/1092.0f; }
+  float GetJoint1MeasureAngleDegree() { return measure_angle_.motor1/1092.267f; }
   // Get joint2 measure angle(degree)
-  float GetJoint2MeasureAngleDegree() { return -(measure_angle_.motor2+measure_angle_.motor2)/1092.0f; }
+  float GetJoint2MeasureAngleDegree() { return -(measure_angle_.motor2+measure_angle_.motor2)/1092.267f; }
   // Get joint3 measure angle(degree)
-  float GetJoint3MeasureAngleDegree() { return measure_angle_.motor2/1092.0f; }
+  float GetJoint3MeasureAngleDegree() { return measure_angle_.motor2/1092.267f; }
   
   // Set motor1 target angle
   void SetMotor1TargetAngle(float angle) { target_angle_.motor1 = angle; }
@@ -150,6 +154,59 @@ public:
   void SetMotor5TargetAngle(float angle) { target_angle_.motor5 = angle; }
   // Set motor6 target angle
   void SetMotor6TargetAngle(float angle) { target_angle_.motor6 = angle; }
+  // Set six motors target angle
+  void SetMotorsTargetAngle(Matrixf<6, 1> angle) {
+    target_angle_.motor1 = angle[0][0];
+    target_angle_.motor2 = angle[1][0];
+    target_angle_.motor3 = angle[2][0];
+    target_angle_.motor4 = angle[3][0];
+    target_angle_.motor5 = angle[4][0];
+    target_angle_.motor6 = angle[5][0];
+  }
+
+  // Set motor1 target angle degree 0~360
+  void SetMotor1TargetAngleDegree(float angle) { target_angle_.motor1 = angle*1092.267f; }
+  // Set motor2 target angle degree 0~360
+  void SetMotor2TargetAngleDegree(float angle) { target_angle_.motor2 = angle*1092.267f; }
+  // Set motor3 target angle degree 0~360
+  void SetMotor3TargetAngleDegree(float angle) { target_angle_.motor3 = angle*1092.267f; }
+  // Set motor4 target angle degree 0~360
+  void SetMotor4TargetAngleDegree(float angle) { target_angle_.motor4 = angle*1092.267f; }
+  // Set motor5 target angle degree 0~360
+  void SetMotor5TargetAngleDegree(float angle) { target_angle_.motor5 = angle*1092.267f; }
+  // Set motor6 target angle degree 0~360
+  void SetMotor6TargetAngleDegree(float angle) { target_angle_.motor6 = angle*1092.267f; }
+  // Set six motors target angle degree 0~360
+  void SetMotorsTargetAngleDegree(Matrixf<6, 1> angle) {
+    target_angle_.motor1 = angle[0][0]*1092.267f;
+    target_angle_.motor2 = angle[1][0]*1092.267f;
+    target_angle_.motor3 = angle[2][0]*1092.267f;
+    target_angle_.motor4 = angle[3][0]*1092.267f;
+    target_angle_.motor5 = angle[4][0]*1092.267f;
+    target_angle_.motor6 = angle[5][0]*1092.267f;
+  }
+
+  // Set motor1 target angle radian 0~2*PI
+  void SetMotor1TargetAngleRadian(float angle) { target_angle_.motor1 = angle*62582.27; }
+  // Set motor2 target angle radian 0~2*PI
+  void SetMotor2TargetAngleRadian(float angle) { target_angle_.motor2 = angle*62582.27; }
+  // Set motor3 target angle radian 0~2*PI
+  void SetMotor3TargetAngleRadian(float angle) { target_angle_.motor3 = angle*62582.27; }
+  // Set motor4 target angle radian 0~2*PI
+  void SetMotor4TargetAngleRadian(float angle) { target_angle_.motor4 = angle*62582.27; }
+  // Set motor5 target angle radian 0~2*PI
+  void SetMotor5TargetAngleRadian(float angle) { target_angle_.motor5 = angle*62582.27; }
+  // Set motor6 target angle radian 0~2*PI
+  void SetMotor6TargetAngleRadian(float angle) { target_angle_.motor6 = angle*62582.27; }
+  // Set six motors target angle radian 0~2*PI
+  void SetMotorsTargetAngleRadian(Matrixf<6, 1> angle) {
+    target_angle_.motor1 = angle[0][0]*62582.27;
+    target_angle_.motor2 = angle[1][0]*62582.27;
+    target_angle_.motor3 = angle[2][0]*62582.27;
+    target_angle_.motor4 = angle[3][0]*62582.27;
+    target_angle_.motor5 = angle[4][0]*62582.27;
+    target_angle_.motor6 = angle[5][0]*62582.27;
+  }
 
   // Set joint1 feedforward
   void SetMotor1Feedforward(float feedforward) { feedforward_.motor1 = feedforward; }
