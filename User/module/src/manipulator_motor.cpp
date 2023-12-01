@@ -230,12 +230,6 @@ void Manipulator::ControlTask() {
   InfoUpdate();
 
   // Set the target angle of each motor // 1092.267f
-  target_angle_.motor1 = math::Limit<float>(target_angle_.motor1, 0, 360);
-  target_angle_.motor2 = math::Limit<float>(target_angle_.motor2, 0, 192);
-  target_angle_.motor3 = math::Limit<float>(target_angle_.motor3, 0, 192);
-  target_angle_.motor1 *= 1092.267f;
-  target_angle_.motor2 *= 1092.267f;
-  target_angle_.motor3 *= 1092.267f;
   lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.motor1);
   lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.motor2);
   lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.motor2+target_angle_.motor3);

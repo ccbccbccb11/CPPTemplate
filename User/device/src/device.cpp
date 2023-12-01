@@ -38,24 +38,26 @@ void Device_HeartBeat(void) {
  * @brief 设备工作
  * 
  */
-float posit_in_P1 = 0.6;
-float posit_in_I1 = 0.0;
-float posit_out_P1 = 1;
-float posit_in_P2 = 0.6;
-float posit_in_I2 = 0.0;
-float posit_out_P2 = 1;
-float posit_in_P3 = 0.6;
-float posit_in_I3 = 0.0;
-float posit_out_P3 = 1;
+float posit_in_P1 = 0;//0.6 0 1
+float posit_in_I1 = 0;
+float posit_out_P1 = 0;
+float posit_in_P2 = 0;
+float posit_in_I2 = 0;
+float posit_out_P2 = 0;
+float posit_in_P3 = 0;
+float posit_in_I3 = 0;
+float posit_out_P3 = 0;
+Matrixf<6,1> target_angle;
 void Device_Work(void) {
 	robot_test.ControlTask();
   robot_test.manipulator_->SetJoint1PID(posit_in_P1, posit_in_I1, 0, posit_out_P1, 0, 0);
   robot_test.manipulator_->SetJoint2PID(posit_in_P2, posit_in_I2, 0, posit_out_P2, 0, 0);
   robot_test.manipulator_->SetJoint3PID(posit_in_P3, posit_in_I3, 0, posit_out_P3, 0, 0);
+  robot_test.manipulator_->SetMotorsTargetAngle(target_angle);
 //	chassis_test.ControlTask();
-	motor::DjiMotor::ControlTask();
-	motor::LkMotor::ControlTask();
-	manipulator_test.Kinematics();
+	// motor::DjiMotor::ControlTask();
+	// motor::LkMotor::ControlTask();
+	// manipulator_test.Kinematics();
 //	imu_sensor.update(&imu_sensor);
-  manipulator_test.Dynamics();
+  // manipulator_test.Dynamics();
 }

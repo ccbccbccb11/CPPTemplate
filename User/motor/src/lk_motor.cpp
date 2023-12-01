@@ -43,6 +43,7 @@ void motor::LkMotor::LkMotorInit(motordef::MotorInitConfig* config) {
     lkmtr_can2_node_map.insert(std::pair<uint32_t, motor::LkMotor*>(can_instance_.GetRxId(), this));
 	// Initialization success flag
 	stateinfo_.init_flag_ = motordef::kMotorInit; 
+	stateinfo_.work_state_ = motordef::kMotorOffline; 
 }
 
 /**
