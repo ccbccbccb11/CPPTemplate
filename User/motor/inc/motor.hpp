@@ -116,7 +116,7 @@ public:
   uint8_t GetTemperature(void) { return rxinfo_.temperature_; }
 
   // Return motor state
-  motordef::StateInfo GetState(void) { return stateinfo_; }
+  motordef::MotorState GetState(void) { return stateinfo_.work_state_; }
 
   // Return motor type  
   motordef::MotorType GetMotorType(void) { return motor_type_; }
@@ -267,9 +267,16 @@ public:
   
   // Heartbeat update
   void StateUpdate(void) {
-    stateinfo_.work_state_ = motordef::kMotorOnline;
-    if (heartbeat_.GetState() == heartbeat::kOffline)
+    if (heartbeat_.GetState() == heartbeat::kOffline) {
       stateinfo_.work_state_ = motordef::kMotorOffline;
+      return;
+    }
+    stateinfo_.work_state_ = motordef::kMotorOnline;
+  }
+
+  // Set Motor Stop
+  void MotorStop() {
+    stateinfo_.work_state_ = motordef::kMotorStop;
   }
 };
 };

@@ -79,10 +79,20 @@ void motor::LkMotor::PIDCal(void) {
   motordef::PIDCtrlMode loop;
   uint8_t group_index;
   uint8_t txbuff_index;
-  StateUpdate();
   loop = GetPIDLoop();
   group_index = GetGroupIndex();
   txbuff_index = GetTxBuffIndex();
+	
+  if (stateinfo_.work_state_ == motordef::kMotorOffline) {
+    controler_.dct_out_ = 0;
+    controler_.out_ = 0;
+    controler_.tar_ = 0;
+		output = 0;
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
+    lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
+    return;
+  }
+	
   switch (loop) {
     case motordef::kPIDClose:
       output = 0.f;
@@ -108,12 +118,7 @@ void motor::LkMotor::PIDCal(void) {
   }
     
   // Update send array to corresponding group
-  if (stateinfo_.work_state_ == motordef::kMotorOffline) {
-    controler_.dct_out_ = 0;
-    controler_.out_ = 0;
-    controler_.tar_ = 0;
-    return;
-  } else if (stateinfo_.work_state_ == motordef::kMotorStop) {
+	if (stateinfo_.work_state_ == motordef::kMotorStop) {
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index+1, 0);
     lkmtr_CAN_txgroup[group_index].SetTxbuff(txbuff_index, 0);
   } else if (stateinfo_.work_state_ == motordef::kMotorOnline) {
@@ -129,10 +134,12 @@ void motor::LkMotor::ControlTask(void) {
   motor::LkMotor* lkmtr_;
   for (auto it=lkmtr_can1_node_map.begin(); it!=lkmtr_can1_node_map.end(); it++) {
     lkmtr_ = it->second;
+    lkmtr_->StateUpdate();
     lkmtr_->PIDCal();
   }
   for (auto it=lkmtr_can2_node_map.begin(); it!=lkmtr_can2_node_map.end(); it++) {
     lkmtr_ = it->second;
+    lkmtr_->StateUpdate();
     lkmtr_->PIDCal();
   }
 

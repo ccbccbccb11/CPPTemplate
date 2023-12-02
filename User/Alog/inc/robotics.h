@@ -142,6 +142,9 @@ class Serial_Link {
     gravity_ = gravity;
   }
 
+  float qmin(uint8_t i) { return links_[i].qmin(); }
+  float qmax(uint8_t i) { return links_[i].qmax(); }
+
   // forward kinematic: T_n^0
   // param[in] q: joint variable vector(radian)
   // param[out] T_n^0
@@ -220,7 +223,7 @@ class Serial_Link {
   // param[out] q: joint variable vector
   Matrixf<_n, 1> ikine(Matrixf<4, 4> Td,
                        Matrixf<_n, 1> q = matrixf::zeros<_n, 1>(),
-                       float tol = 1e-4f, uint16_t max_iter = 50) {
+                       float tol = 1e-5f, uint16_t max_iter = 50) {
     Matrixf<4, 4> T;
     Matrixf<3, 1> pe, we;
     Matrixf<6, 1> err, new_err;
@@ -261,7 +264,7 @@ class Serial_Link {
           break;
         }
         T = fkine(q + dq);
-         pe = t2p(Td) - t2p(T);
+        pe = t2p(Td) - t2p(T);
         we = t2twist(Td * invT(T)).block<3, 1>(3, 0);
         for (int i = 0; i < 3; i++) {
           new_err[i][0] = pe[i][0];

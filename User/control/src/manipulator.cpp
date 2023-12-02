@@ -56,8 +56,8 @@ void Manipulator::Register() {
   
   robotics::Link links[6];  // Manipulator link class array
   links[0] = robotics::Link(0, 0,        0,        PI / 2, robotics::R, 0, -PI, PI, m[0], rc.col(0), I[0]);
-  links[1] = robotics::Link(0, 0,        250.0e-3, 0,      robotics::R, 0, -PI/4, 3*PI/4, m[1], rc.col(1), I[1]);
-  links[2] = robotics::Link(0, 0,        0,        PI / 2, robotics::R, 0, -3*PI/4, PI/4, m[2], rc.col(2), I[2]);
+  links[1] = robotics::Link(0, 0,        250.0e-3, 0,      robotics::R, 0, 0, 3*PI/4, m[1], rc.col(1), I[1]);
+  links[2] = robotics::Link(0, 0,        0,        PI / 2, robotics::R, 0, -PI/4, PI/2, m[2], rc.col(2), I[2]);
   links[3] = robotics::Link(0, 200.0e-3, 0,       -PI / 2, robotics::R, 0, 0, 0, m[3], rc.col(3), I[3]);
   links[4] = robotics::Link(0, 0,        0,        PI / 2, robotics::R, 0, 0, 0, m[4], rc.col(4), I[4]);
   links[5] = robotics::Link(0, 0,        0,        0,      robotics::R, 0, 0, 0, m[5], rc.col(5), I[5]);
@@ -78,7 +78,7 @@ Matrixf<6, 1> q;
 Matrixf<6, 1> q0 = matrixf::zeros<6, 1>();
 float abc=1.f;
 float abc1=0.57f;
-void Manipulator::Kinematics() {
+Matrixf<6, 1> Manipulator::Kinematics(Matrixf<4, 4> Td) {
   Matrixf<6, 1> q;
   q[0][0] = 0;
   q[1][0] = abc;
@@ -89,7 +89,11 @@ void Manipulator::Kinematics() {
 	float norm = q.norm();
   q0[4][0] = ccb;
   Matrixf<4, 4> TT = CCBArm->fkine(q);
-  Matrixf<6, 1> q_ = CCBArm->ikine(TT, q0);
-	
+  Matrixf<6, 1> q_ = CCBArm->ikine(Td, q0);
+  for (size_t i = 0; i < 6; i++) {
+    q_[i][0] = math::limit(q_[i][0], CCBArm->qmin(i), CCBArm->qmax(i));
+  }
+
+	return q_;
 }
 }  // namespace robot

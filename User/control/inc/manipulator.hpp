@@ -51,7 +51,7 @@ public:
    * @brief *************** public functions **********************
    */
   void Dynamics();
-  void Kinematics();
+  Matrixf<6, 1> Kinematics(Matrixf<4, 4> Td);
 };
 }  // namespace robot
 

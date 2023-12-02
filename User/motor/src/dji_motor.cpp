@@ -40,6 +40,7 @@ void motor::DjiMotor::DjiMotorInit(motordef::MotorInitConfig* config) {
   
 	// Initialization success flag
 	stateinfo_.init_flag_ = motordef::kMotorInit; 
+  stateinfo_.work_state_ = motordef::kMotorOffline;
 }
 /**
  * @brief Register six sets of can instances for DJI Electric only for can sending

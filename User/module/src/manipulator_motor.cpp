@@ -41,7 +41,7 @@ void Manipulator::Register() {
       .rx_id = kMotor1,
     },
     .PID_posit_inner_config = {
-      .kp = 0.6,
+      .kp = 0.2,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -50,7 +50,7 @@ void Manipulator::Register() {
       .out_max = 1800,
     },
     .PID_posit_outer_config = {
-      .kp = 1,
+      .kp = 0.1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
@@ -68,7 +68,7 @@ void Manipulator::Register() {
       .rx_id = kMotor2,
     },
     .PID_posit_inner_config = {
-      .kp = 0.6,
+      .kp = 0.2,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -77,7 +77,7 @@ void Manipulator::Register() {
       .out_max = 1800,
     },
     .PID_posit_outer_config = {
-      .kp = 1,
+      .kp = 0.1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
@@ -95,7 +95,7 @@ void Manipulator::Register() {
       .rx_id = kMotor3,
     },
     .PID_posit_inner_config = {
-      .kp = 0.6,
+      .kp = 0.2,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -104,7 +104,7 @@ void Manipulator::Register() {
       .out_max = 1800,
     },
     .PID_posit_outer_config = {
-      .kp = 1,
+      .kp = 0.1,
       .ki = 0,
       .kd = 0,
       .blind_err = 0 ,
@@ -207,12 +207,12 @@ void Manipulator::Register() {
   }
 
   // Feedforward initialization
-  lkmtr_map_[kMotor1]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor1);
-  lkmtr_map_[kMotor2]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor2);
-  lkmtr_map_[kMotor3]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor3);
+  // lkmtr_map_[kMotor1]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor1);
+  // lkmtr_map_[kMotor2]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor2);
+  // lkmtr_map_[kMotor3]->external_info_.SetFeedforward(motordef::kAnglein, &feedforward_.motor3);
 
-  djimtr_map_[kMotor5]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor5);
-  djimtr_map_[kMotor6]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor6);
+  // djimtr_map_[kMotor5]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor5);
+  // djimtr_map_[kMotor6]->external_info_.SetFeedforward(motordef::kPositin, &feedforward_.motor6);
 }
 /**
  * @brief Manipulator control task

@@ -46,7 +46,7 @@ public:
       offline_cnt_ = offline_cnt_max_;
       state_ = kOffline;
     } else if (state_ == kOffline) {
-        state_ = kOnline;
+      state_ = kOnline;
     }
   }
   static void TickTask(void);

@@ -70,6 +70,24 @@ typedef struct {
   float motor5;
   float motor6;
 } MotorFeedforward;
+// Motor Current
+typedef struct {
+  int16_t motor1;
+  int16_t motor2;
+  int16_t motor3;
+  int16_t motor4;
+  int16_t motor5;
+  int16_t motor6;
+} MotorCurrent;
+// Motor State
+typedef struct {
+  motordef::MotorState motor1;
+  motordef::MotorState motor2;
+  motordef::MotorState motor3;
+  motordef::MotorState motor4;
+  motordef::MotorState motor5;
+  motordef::MotorState motor6;
+} MotorState;
 /**
  * @brief class Manipulator declaration
  * 
@@ -88,8 +106,12 @@ private:
   MotorMeasureAngle measure_angle_;
   // Manipulator measure speed
   MotorMeasureSpeed measure_speed_;
+  // Manipulator current
+  MotorCurrent current_;
   // Manipulator feedforward
   MotorFeedforward feedforward_;
+  // Manipulator motor state
+  MotorState motor_state_;
 public:
   /**
    * @brief *************** public variables ***********************
@@ -130,6 +152,9 @@ public:
     // measure_speed_.motor4 = 0.0f;
     measure_speed_.motor5 = djimtr_map_[kMotor5]->GetSpeed();
     measure_speed_.motor6 = djimtr_map_[kMotor6]->GetSpeed();
+
+    GetMotorState();
+    GetMotorsCurrent();
   }
 
   // 1092.267 = 65536*6/360
@@ -141,6 +166,34 @@ public:
   float GetJoint2MeasureAngleDegree() { return -(measure_angle_.motor2+measure_angle_.motor2)/1092.267f; }
   // Get joint3 measure angle(degree)
   float GetJoint3MeasureAngleDegree() { return measure_angle_.motor2/1092.267f; }
+
+  
+  // Get joint1 measure angle(radian)
+  float GetJoint1MeasureAngleRadian() { return measure_angle_.motor1/62582.27f; }
+  // Get joint2 measure angle(radian)
+  float GetJoint2MeasureAngleRadian() { return -(measure_angle_.motor2+measure_angle_.motor2)/62582.27f; }
+  // Get joint3 measure angle(radian)
+  float GetJoint3MeasureAngleRadian() { return measure_angle_.motor2/62582.27f; }
+
+  // Get Motor State
+  void GetMotorState() {
+    motor_state_.motor1 = lkmtr_map_[kMotor1]->GetState();
+    motor_state_.motor2 = lkmtr_map_[kMotor2]->GetState();
+    motor_state_.motor3 = lkmtr_map_[kMotor3]->GetState();
+    // motor_state_.motor4 = lkmtr_map_[kMotor4]->GetState();
+    motor_state_.motor5 = djimtr_map_[kMotor5]->GetState();
+    motor_state_.motor6 = djimtr_map_[kMotor6]->GetState();
+  }
+
+  // Get Motors Current
+  void GetMotorsCurrent() {
+    current_.motor1 = lkmtr_map_[kMotor1]->GetCurrent();
+    current_.motor2 = lkmtr_map_[kMotor2]->GetCurrent();
+    current_.motor3 = lkmtr_map_[kMotor3]->GetCurrent();
+    // current.motor4 = lkmtr_map_[kMotor4]->GetCurrent();
+    current_.motor5 = djimtr_map_[kMotor5]->GetCurrent();
+    current_.motor6 = djimtr_map_[kMotor6]->GetCurrent();
+  }
   
   // Set motor1 target angle
   void SetMotor1TargetAngle(float angle) { target_angle_.motor1 = angle; }
@@ -164,6 +217,12 @@ public:
     target_angle_.motor6 = angle[5][0];
   }
 
+  // Set Motor Stop
+  void Motor23Stop() {
+    lkmtr_map_[kMotor2]->MotorStop();
+    lkmtr_map_[kMotor3]->MotorStop();
+  }
+
   // Set motor1 target angle degree 0~360
   void SetMotor1TargetAngleDegree(float angle) { target_angle_.motor1 = angle*1092.267f; }
   // Set motor2 target angle degree 0~360
@@ -181,6 +240,15 @@ public:
     target_angle_.motor1 = angle[0][0]*1092.267f;
     target_angle_.motor2 = angle[1][0]*1092.267f;
     target_angle_.motor3 = angle[2][0]*1092.267f;
+    target_angle_.motor4 = angle[3][0]*1092.267f;
+    target_angle_.motor5 = angle[4][0]*1092.267f;
+    target_angle_.motor6 = angle[5][0]*1092.267f;
+  }
+  // Set six motors target angle degree 0~360
+  void SetJointSpaceTarAngle(Matrixf<6, 1> angle) {
+    target_angle_.motor1 = angle[0][0]*1092.267f;
+    target_angle_.motor2 = (165.f - angle[1][0])*1092.267f;
+    target_angle_.motor3 = (angle[2][0] + 55.f)*1092.267f;
     target_angle_.motor4 = angle[3][0]*1092.267f;
     target_angle_.motor5 = angle[4][0]*1092.267f;
     target_angle_.motor6 = angle[5][0]*1092.267f;
@@ -222,7 +290,7 @@ public:
   void SetMotor6Feedforward(float feedforward) { feedforward_.motor6 = feedforward; }
 
   // Set joint1 PID
-  void SetJoint1PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+  void SetMotor1PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
     lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
     lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
     lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
@@ -231,7 +299,7 @@ public:
     lkmtr_map_[kMotor1]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
   }
   // Set joint2 PID
-  void SetJoint2PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+  void SetMotor2PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
     lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
     lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
     lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
@@ -240,7 +308,7 @@ public:
     lkmtr_map_[kMotor2]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
   }
   // Set joint3 PID
-  void SetJoint3PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
+  void SetMotor3PID(float kpin, float kiin, float kdin, float kpout, float kiout, float kdout) {
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKp(kpin);
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKi(kiin);
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositin]->SetKd(kdin);
