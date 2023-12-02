@@ -135,26 +135,13 @@ public:
   // Base info upate
   void BaseInfoUpdate(void) {
     // Update measure angle
-    // measure_angle_.motor1 = lkmtr_map_[kMotor1]->GetAngle();
-    // measure_angle_.motor2 = lkmtr_map_[kMotor2]->GetAngle();
-    // measure_angle_.motor3 = lkmtr_map_[kMotor3]->GetAngle();
-    measure_angle_.motor1 = lkmtr_map_[kMotor1]->GetPosit();
-    measure_angle_.motor2 = lkmtr_map_[kMotor2]->GetPosit();
-    measure_angle_.motor3 = lkmtr_map_[kMotor3]->GetPosit();
-    // measure_angle_.motor4 = 0.0f;
-    measure_angle_.motor5 = djimtr_map_[kMotor5]->GetPosit();
-    measure_angle_.motor6 = djimtr_map_[kMotor6]->GetPosit();
-
+    GetMotorsPosition();
     // Update measure speed
-    measure_speed_.motor1 = lkmtr_map_[kMotor1]->GetSpeed();
-    measure_speed_.motor2 = lkmtr_map_[kMotor2]->GetSpeed();
-    measure_speed_.motor3 = lkmtr_map_[kMotor3]->GetSpeed();
-    // measure_speed_.motor4 = 0.0f;
-    measure_speed_.motor5 = djimtr_map_[kMotor5]->GetSpeed();
-    measure_speed_.motor6 = djimtr_map_[kMotor6]->GetSpeed();
-
-    GetMotorState();
+    GetMotorsSpeed();
+    // Update measure current
     GetMotorsCurrent();
+    // Update motor state
+    GetMotorState();
   }
 
   // 1092.267 = 65536*6/360
@@ -193,6 +180,26 @@ public:
     // current.motor4 = lkmtr_map_[kMotor4]->GetCurrent();
     current_.motor5 = djimtr_map_[kMotor5]->GetCurrent();
     current_.motor6 = djimtr_map_[kMotor6]->GetCurrent();
+  }
+
+  // Get Motors Speed
+  void GetMotorsSpeed() {
+    measure_speed_.motor1 = lkmtr_map_[kMotor1]->GetSpeed();
+    measure_speed_.motor2 = lkmtr_map_[kMotor2]->GetSpeed();
+    measure_speed_.motor3 = lkmtr_map_[kMotor3]->GetSpeed();
+    // measure_speed_.motor4 = lkmtr_map_[kMotor4]->GetSpeed();
+    measure_speed_.motor5 = djimtr_map_[kMotor5]->GetSpeed();
+    measure_speed_.motor6 = djimtr_map_[kMotor6]->GetSpeed();
+  }
+
+  // Get Motors Position
+  void GetMotorsPosition() {
+    measure_angle_.motor1 = lkmtr_map_[kMotor1]->GetPosit();
+    measure_angle_.motor2 = lkmtr_map_[kMotor2]->GetPosit();
+    measure_angle_.motor3 = lkmtr_map_[kMotor3]->GetPosit();
+    // measure_angle_.motor4 = lkmtr_map_[kMotor4]->GetPosit();
+    measure_angle_.motor5 = djimtr_map_[kMotor5]->GetPosit();
+    measure_angle_.motor6 = djimtr_map_[kMotor6]->GetPosit();
   }
   
   // Set motor1 target angle
