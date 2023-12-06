@@ -28,7 +28,15 @@ void USART3_Init(void);//串口3初始化
 void USART4_Init(void);//串口4初始化
 void USART5_Init(void);//串口5初始化
 void USART6_Init(void);//串口6初始化
+
+#ifdef __cplusplus
+ extern "C" {
+#endif
 void DRV_UART_IRQHandler(UART_HandleTypeDef *huart);//串口空闲中断
+#ifdef __cplusplus
+}
+#endif
+
 static void dma_m0_rxcplt_callback(DMA_HandleTypeDef *hdma);//dma缓冲区0接收回调
 static void dma_m1_rxcplt_callback(DMA_HandleTypeDef *hdma);//dma缓冲区1接收回调
 static void uart_rx_idle_callback(UART_HandleTypeDef* huart);//空闲中断接收回调

@@ -11,6 +11,7 @@
  */
  
 #include "stm32f4xx_hal.h"
+#include "remote_control.hpp"
 #include "device.hpp"
 #include "cmsis_os.h"
 
@@ -32,6 +33,7 @@ extern "C" void StartControlTask(void const * argument) {
 **/
 extern "C" void StartRealTimeTask(void const * argument) {
 	for(;;) {
+		rc.ControlTask();
     osDelay(1);
   }
 }

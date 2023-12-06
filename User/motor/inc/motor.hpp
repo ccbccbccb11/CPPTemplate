@@ -271,11 +271,26 @@ public:
       stateinfo_.work_state_ = motordef::kMotorOffline;
       return;
     }
+    if (stateinfo_.work_state_ == motordef::kMotorStop) {
+      return;
+    }
     stateinfo_.work_state_ = motordef::kMotorOnline;
+  }
+
+  void MotorStateRestart(void) {
+    if (stateinfo_.work_state_ == motordef::kMotorOffline) {
+      return;
+    }
+    if (stateinfo_.work_state_ == motordef::kMotorStop) {
+      stateinfo_.work_state_ = motordef::kMotorOnline;
+    }
   }
 
   // Set Motor Stop
   void MotorStop() {
+    if (stateinfo_.work_state_ == motordef::kMotorOffline) {
+      return;
+    }
     stateinfo_.work_state_ = motordef::kMotorStop;
   }
 };

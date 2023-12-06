@@ -17,6 +17,8 @@
 #include "chassis_motor.hpp"
 #include "robot.hpp"
 #include "manipulator.hpp"
+#include "driver_haltick.hpp"
+#include "remote_control.hpp"
 
 robot::Robot robot_test;
 robot::Manipulator manipulator_test;
@@ -31,48 +33,96 @@ void Device_Init(void) {
  * @brief 设备心跳
  * 
  */
+uint8_t joint = 0;
+uint8_t key = 0;
+
+Matrixf<3, 3> R;
+Matrixf<4,4> Td;
+Matrixf<6,1> joint_angle;
+Matrixf<6,1> target_angle((float[6]){0,130,-40,0,0,0});
+Matrixf<3,1> target_p((float[3]){0.2,0,0});
+Matrixf<3,1> rpy((float[3]){0.01,0.01,0.01});
 void Device_HeartBeat(void) {
 	heartbeat::HeartBeat::TickTask();
+  R = robotics::rpy2r(rpy);
+	target_p[0][0] += rc.base_info_->ch3/(660000.0f);
+	target_p[0][1] += rc.base_info_->ch2/(660000.0f);
+	target_p[0][2] += -rc.base_info_->ch1/(660000.0f);
+
+  
+    float norm__ = target_p.norm();
+    if (norm__ < 0.2) {
+      target_p[0][0] *= 0.2f/norm__;
+      target_p[0][1] *= 0.2f/norm__;
+      target_p[0][2] *= 0.2f/norm__;
+    }
+    if (norm__ > 0.4) {
+      target_p[0][0] *= 0.4f/norm__;
+      target_p[0][1] *= 0.4f/norm__;
+      target_p[0][2] *= 0.4f/norm__;
+    } 
+    if (target_p[0][0] < 0.2) {
+      target_p[0][0] = 0.2;
+    }
+    if (target_p[0][0] > 0.36) {
+      target_p[0][0] = 0.36;
+    }
+    if (abs(target_p[0][1]) > 0.15) {
+      if (target_p[0][1] > 0)
+        target_p[0][1] = 0.15;
+      else
+        target_p[0][1] = -0.15;
+    }
+    if (target_p[0][2] < 0) {
+      target_p[0][2] = 0;
+    }
+    if (target_p[0][2] > 0.3) {
+      target_p[0][2] = 0.3;
+    }
+    
+  Td = robotics::rp2t(R, target_p);
+	
+	joint = 0;
+  uint32_t start = micros();
+//  joint_angle = manipulator_test.Kinematics(Td);
+	manipulator_test.Dynamics();
+  uint32_t end = micros();
+  joint_angle *= 57.3f;
+	if(rc.base_info_->s1.value == 2 && rc.base_info_->s2.value == 2)
+		joint = 1;
+
+  uint32_t err = end - start;
 }
 /**
  * @brief 设备工作
  * 
  */
-float posit_in_P1 = 0.2;//0.6 0 1
-float posit_in_I1 = 0;
-float posit_out_P1 = 0.1;
-float posit_in_P2 = 0.5;
-float posit_in_I2 = 0;
-float posit_out_P2 = 0.1;
-float posit_in_P3 = 0.5;
-float posit_in_I3 = 0;
-float posit_out_P3 = 0.1;
-Matrixf<6,1> target_angle;
-Matrixf<3,1> target_p((float[3]){0.039,0,0.192});
-Matrixf<3,1> rpy((float[3]){0.01,0.01,0.01});
-Matrixf<3, 3> R;
-Matrixf<4,4> Td;
-Matrixf<6,1> joint_angle;
-uint8_t joint = 0;
 void Device_Work(void) {
+ robot_test.ControlTask();
 
-	robot_test.ControlTask();
-  robot_test.manipulator_->SetMotor1PID(posit_in_P1, posit_in_I1, 0, posit_out_P1, 0, 0);
-  robot_test.manipulator_->SetMotor2PID(posit_in_P2, posit_in_I2, 0, posit_out_P2, 0, 0);
-  robot_test.manipulator_->SetMotor3PID(posit_in_P3, posit_in_I3, 0, posit_out_P3, 0, 0);
-
-	R = robotics::rpy2r(rpy);
-  Td = robotics::rp2t(R,target_p);
-	joint_angle = manipulator_test.Kinematics(Td);
-	joint_angle *= 57.3f;
-  if (joint) {
-    robot_test.manipulator_->SetJointSpaceTarAngle(joint_angle);
-	} else {
-    robot_test.manipulator_->SetMotorsTargetAngle(target_angle);
+	if (rc.state_info_->status == kRCOnline) {
+    robot_test.manipulator_->MotorsRestart();
+    if (joint) {
+      target_angle = joint_angle;
+    }
+    if(rc.base_info_->s1.value == 1 && rc.base_info_->s2.value == 1) {
+      target_angle[0][1] = 130;
+      target_angle[0][2] = -40;
+    }
+    robot_test.manipulator_->SetJointSpaceTarAngle(target_angle);
 	}
+  else {
+    robot_test.manipulator_->MotorsStop();
+    target_angle[0][1] = 130;
+    target_angle[0][2] = -40;
+    // target_p[0][0] = 0.2;
+    // target_p[0][1] = 0;
+    // target_p[0][2] = 0;
+  }
 //	chassis_test.ControlTask();
-	motor::DjiMotor::ControlTask();
-	motor::LkMotor::ControlTask();
+		motor::DjiMotor::ControlTask();
+		motor::LkMotor::ControlTask();
+
 //	imu_sensor.update(&imu_sensor);
   // manipulator_test.Dynamics();
 }

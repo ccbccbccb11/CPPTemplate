@@ -36,12 +36,12 @@ typedef enum {
 } ManipulatorMotorCANID;
 // Motor target angle
 typedef struct {
-  float motor1;
-  float motor2;
-  float motor3;
-  float motor4;
-  float motor5;
-  float motor6;
+  float joint1;
+  float joint2;
+  float joint3;
+  float joint4;
+  float joint5;
+  float joint6;
 } MotorTargetAngle;
 // Motor measure angle
 typedef struct {
@@ -108,10 +108,10 @@ private:
   MotorMeasureSpeed measure_speed_;
   // Manipulator current
   MotorCurrent current_;
-  // Manipulator feedforward
-  MotorFeedforward feedforward_;
   // Manipulator motor state
   MotorState motor_state_;
+  // Manipulator feedforward
+  MotorFeedforward feedforward_;
 public:
   /**
    * @brief *************** public variables ***********************
@@ -203,84 +203,78 @@ public:
   }
   
   // Set motor1 target angle
-  void SetMotor1TargetAngle(float angle) { target_angle_.motor1 = angle; }
+  void SetMotor1TargetAngle(float angle) { target_angle_.joint1 = angle; }
   // Set motor2 target angle
-  void SetMotor2TargetAngle(float angle) { target_angle_.motor2 = angle; }
+  void SetMotor2TargetAngle(float angle) { target_angle_.joint2 = angle; }
   // Set motor3 target angle
-  void SetMotor3TargetAngle(float angle) { target_angle_.motor3 = angle; }
+  void SetMotor3TargetAngle(float angle) { target_angle_.joint3 = angle; }
   // Set motor4 target angle
-  void SetMotor4TargetAngle(float angle) { target_angle_.motor4 = angle; }
+  void SetMotor4TargetAngle(float angle) { target_angle_.joint4 = angle; }
   // Set motor5 target angle
-  void SetMotor5TargetAngle(float angle) { target_angle_.motor5 = angle; }
+  void SetMotor5TargetAngle(float angle) { target_angle_.joint5 = angle; }
   // Set motor6 target angle
-  void SetMotor6TargetAngle(float angle) { target_angle_.motor6 = angle; }
+  void SetMotor6TargetAngle(float angle) { target_angle_.joint6 = angle; }
   // Set six motors target angle
   void SetMotorsTargetAngle(Matrixf<6, 1> angle) {
-    target_angle_.motor1 = angle[0][0];
-    target_angle_.motor2 = angle[1][0];
-    target_angle_.motor3 = angle[2][0];
-    target_angle_.motor4 = angle[3][0];
-    target_angle_.motor5 = angle[4][0];
-    target_angle_.motor6 = angle[5][0];
-  }
-
-  // Set Motor Stop
-  void Motor23Stop() {
-    lkmtr_map_[kMotor2]->MotorStop();
-    lkmtr_map_[kMotor3]->MotorStop();
+    target_angle_.joint1 = angle[0][0];
+    target_angle_.joint2 = angle[1][0];
+    target_angle_.joint3 = angle[2][0];
+    target_angle_.joint4 = angle[3][0];
+    target_angle_.joint5 = angle[4][0];
+    target_angle_.joint6 = angle[5][0];
   }
 
   // Set motor1 target angle degree 0~360
-  void SetMotor1TargetAngleDegree(float angle) { target_angle_.motor1 = angle*1092.267f; }
+  void SetMotor1TargetAngleDegree(float angle) { target_angle_.joint1 = angle*1092.267f; }
   // Set motor2 target angle degree 0~360
-  void SetMotor2TargetAngleDegree(float angle) { target_angle_.motor2 = angle*1092.267f; }
+  void SetMotor2TargetAngleDegree(float angle) { target_angle_.joint2 = angle*1092.267f; }
   // Set motor3 target angle degree 0~360
-  void SetMotor3TargetAngleDegree(float angle) { target_angle_.motor3 = angle*1092.267f; }
+  void SetMotor3TargetAngleDegree(float angle) { target_angle_.joint3 = angle*1092.267f; }
   // Set motor4 target angle degree 0~360
-  void SetMotor4TargetAngleDegree(float angle) { target_angle_.motor4 = angle*1092.267f; }
+  void SetMotor4TargetAngleDegree(float angle) { target_angle_.joint4 = angle*1092.267f; }
   // Set motor5 target angle degree 0~360
-  void SetMotor5TargetAngleDegree(float angle) { target_angle_.motor5 = angle*1092.267f; }
+  void SetMotor5TargetAngleDegree(float angle) { target_angle_.joint5 = angle*1092.267f; }
   // Set motor6 target angle degree 0~360
-  void SetMotor6TargetAngleDegree(float angle) { target_angle_.motor6 = angle*1092.267f; }
+  void SetMotor6TargetAngleDegree(float angle) { target_angle_.joint6 = angle*1092.267f; }
   // Set six motors target angle degree 0~360
   void SetMotorsTargetAngleDegree(Matrixf<6, 1> angle) {
-    target_angle_.motor1 = angle[0][0]*1092.267f;
-    target_angle_.motor2 = angle[1][0]*1092.267f;
-    target_angle_.motor3 = angle[2][0]*1092.267f;
-    target_angle_.motor4 = angle[3][0]*1092.267f;
-    target_angle_.motor5 = angle[4][0]*1092.267f;
-    target_angle_.motor6 = angle[5][0]*1092.267f;
+    target_angle_.joint1 = angle[0][0]*1092.267f;
+    target_angle_.joint2 = angle[1][0]*1092.267f;
+    target_angle_.joint3 = angle[2][0]*1092.267f;
+    target_angle_.joint4 = angle[3][0]*1092.267f;
+    target_angle_.joint5 = angle[4][0]*1092.267f;
+    target_angle_.joint6 = angle[5][0]*1092.267f;
   }
   // Set six motors target angle degree 0~360
   void SetJointSpaceTarAngle(Matrixf<6, 1> angle) {
-    target_angle_.motor1 = angle[0][0]*1092.267f;
-    target_angle_.motor2 = (165.f - angle[1][0])*1092.267f;
-    target_angle_.motor3 = (angle[2][0] + 55.f)*1092.267f;
-    target_angle_.motor4 = angle[3][0]*1092.267f;
-    target_angle_.motor5 = angle[4][0]*1092.267f;
-    target_angle_.motor6 = angle[5][0]*1092.267f;
+    target_angle_.joint1 = angle[0][0]*1092.267f;
+    target_angle_.joint2 = (165.f - angle[1][0])*1092.267f;
+    target_angle_.joint3 = (angle[2][0] + 55.f)*1092.267f;
+    target_angle_.joint4 = angle[3][0]*1092.267f;
+    target_angle_.joint5 = angle[4][0]*1092.267f;
+    target_angle_.joint6 = angle[5][0]*1092.267f;
   }
 
   // Set motor1 target angle radian 0~2*PI
-  void SetMotor1TargetAngleRadian(float angle) { target_angle_.motor1 = angle*62582.27; }
+  void SetMotor1TargetAngleRadian(float angle) { target_angle_.joint1 = angle*62582.27; }
   // Set motor2 target angle radian 0~2*PI
-  void SetMotor2TargetAngleRadian(float angle) { target_angle_.motor2 = angle*62582.27; }
+  void SetMotor2TargetAngleRadian(float angle) { target_angle_.joint2 = angle*62582.27; }
   // Set motor3 target angle radian 0~2*PI
-  void SetMotor3TargetAngleRadian(float angle) { target_angle_.motor3 = angle*62582.27; }
+  void SetMotor3TargetAngleRadian(float angle) { target_angle_.joint3 = angle*62582.27; }
   // Set motor4 target angle radian 0~2*PI
-  void SetMotor4TargetAngleRadian(float angle) { target_angle_.motor4 = angle*62582.27; }
+  void SetMotor4TargetAngleRadian(float angle) { target_angle_.joint4 = angle*62582.27; }
   // Set motor5 target angle radian 0~2*PI
-  void SetMotor5TargetAngleRadian(float angle) { target_angle_.motor5 = angle*62582.27; }
+  void SetMotor5TargetAngleRadian(float angle) { target_angle_.joint5 = angle*62582.27; }
   // Set motor6 target angle radian 0~2*PI
-  void SetMotor6TargetAngleRadian(float angle) { target_angle_.motor6 = angle*62582.27; }
+  void SetMotor6TargetAngleRadian(float angle) { target_angle_.joint6 = angle*62582.27; }
   // Set six motors target angle radian 0~2*PI
   void SetMotorsTargetAngleRadian(Matrixf<6, 1> angle) {
-    target_angle_.motor1 = angle[0][0]*62582.27;
-    target_angle_.motor2 = angle[1][0]*62582.27;
-    target_angle_.motor3 = angle[2][0]*62582.27;
-    target_angle_.motor4 = angle[3][0]*62582.27;
-    target_angle_.motor5 = angle[4][0]*62582.27;
-    target_angle_.motor6 = angle[5][0]*62582.27;
+    target_angle_.joint1 = angle[0][0]*62582.27;
+    target_angle_.joint2 = angle[1][0]*62582.27;
+    target_angle_.joint3 = angle[2][0]*62582.27;
+    target_angle_.joint4 = angle[3][0]*62582.27;
+    target_angle_.joint5 = angle[4][0]*62582.27;
+    target_angle_.joint6 = angle[5][0]*62582.27;
   }
 
   // Set joint1 feedforward
@@ -322,6 +316,24 @@ public:
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKp(kpout);
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKi(kiout);
     lkmtr_map_[kMotor3]->controler_.PID_map_[motordef::kPositout]->SetKd(kdout);
+  }
+
+  void MotorsStop() {
+    lkmtr_map_[kMotor1]->MotorStop();
+    lkmtr_map_[kMotor2]->MotorStop();
+    lkmtr_map_[kMotor3]->MotorStop();
+    // lkmtr_map_[kMotor4]->MotorStop();
+    djimtr_map_[kMotor5]->MotorStop();
+    djimtr_map_[kMotor6]->MotorStop();
+  }
+
+  void MotorsRestart() {
+    lkmtr_map_[kMotor1]->MotorStateRestart();
+    lkmtr_map_[kMotor2]->MotorStateRestart();
+    lkmtr_map_[kMotor3]->MotorStateRestart();
+    // lkmtr_map_[kMotor4]->MotorStateRestart();
+    djimtr_map_[kMotor5]->MotorStateRestart();
+    djimtr_map_[kMotor6]->MotorStateRestart();
   }
 
   // Control Task

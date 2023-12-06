@@ -86,4 +86,7 @@ void RC::UARTDataUpdate(uint8_t* rxbuf) {
   RC::BaseInfoChect();
   RC::MouseInfoCalc();
   RC::interrupt_ = true;
+	RC::state_info_->offline_cnt = 0;
+  RC::heartbeat_.ResetOfflineCnt();
+	RC::state_info_->status = kRCOnline;
 }

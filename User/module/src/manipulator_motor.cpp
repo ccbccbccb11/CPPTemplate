@@ -41,7 +41,7 @@ void Manipulator::Register() {
       .rx_id = kMotor1,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
+      .kp = 0.5,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -56,7 +56,7 @@ void Manipulator::Register() {
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 500,
+      .out_max = 1000,
     },
     .loop = motordef::kPositLoop,
     .encoder_bits = kEncoderBits,
@@ -68,7 +68,7 @@ void Manipulator::Register() {
       .rx_id = kMotor2,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
+      .kp = 0.5,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -83,7 +83,7 @@ void Manipulator::Register() {
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 500,
+      .out_max = 1000,
     },
     .loop = motordef::kPositLoop,
     .encoder_bits = kEncoderBits,
@@ -95,7 +95,7 @@ void Manipulator::Register() {
       .rx_id = kMotor3,
     },
     .PID_posit_inner_config = {
-      .kp = 0.2,
+      .kp = 0.5,
       .ki = 0.0,
       .kd = 0,
       .blind_err = 0 ,
@@ -110,7 +110,7 @@ void Manipulator::Register() {
       .blind_err = 0 ,
       .integral_max = 0,
       .iout_max =0,
-      .out_max = 500,
+      .out_max = 1000,
     },
     .loop = motordef::kPositLoop,
     .encoder_bits = kEncoderBits,
@@ -230,11 +230,11 @@ void Manipulator::ControlTask() {
   InfoUpdate();
 
   // Set the target angle of each motor // 1092.267f
-  lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.motor1);
-  lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.motor2);
-  lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.motor2+target_angle_.motor3);
+  lkmtr_map_[kMotor1]->SetPIDTarget(target_angle_.joint1);
+  lkmtr_map_[kMotor2]->SetPIDTarget(-target_angle_.joint2);
+  lkmtr_map_[kMotor3]->SetPIDTarget(-target_angle_.joint2+target_angle_.joint3);
 
-  djimtr_map_[kMotor5]->SetPIDTarget(target_angle_.motor5);
-  djimtr_map_[kMotor6]->SetPIDTarget(target_angle_.motor6);
+  djimtr_map_[kMotor5]->SetPIDTarget(target_angle_.joint5);
+  djimtr_map_[kMotor6]->SetPIDTarget(target_angle_.joint6);
 }
 }  // namespace manipulator
